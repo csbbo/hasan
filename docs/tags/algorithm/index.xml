@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>algorithm on Hasan</title>
-    <link>https://csbbo.github.io/hasan/tags/algorithm/</link>
+    <link>http://hasan.shaobo.fun/tags/algorithm/</link>
     <description>Recent content in algorithm on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 27 May 2019 20:02:58 +0800</lastBuildDate>
     
-	<atom:link href="https://csbbo.github.io/hasan/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://hasan.shaobo.fun/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>常用排序算法</title>
-      <link>https://csbbo.github.io/hasan/posts/20190527-sortAlgorithm/</link>
+      <link>http://hasan.shaobo.fun/posts/20190527-sortAlgorithm/</link>
       <pubDate>Mon, 27 May 2019 20:02:58 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/hasan/posts/20190527-sortAlgorithm/</guid>
+      <guid>http://hasan.shaobo.fun/posts/20190527-sortAlgorithm/</guid>
       <description>&lt;p&gt;排序算法有很多，但就其全面性而言，很难提出一种被认为是最好的方法，每一种方法都有各自的优缺点，适合在不同的环境使用。排序过程是一个逐步扩大记录的有序序列长度的过程，排序过程中可以将记录分为有序序列区和无序序列区。&lt;/p&gt;
 
 &lt;p&gt;以下算法都是经过运行成功的C++代码:&lt;/p&gt;
@@ -43,10 +43,10 @@
     
     <item>
       <title>算法笔记</title>
-      <link>https://csbbo.github.io/hasan/posts/20190523-algorithmNote/</link>
+      <link>http://hasan.shaobo.fun/posts/20190523-algorithmNote/</link>
       <pubDate>Thu, 23 May 2019 20:04:46 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/hasan/posts/20190523-algorithmNote/</guid>
+      <guid>http://hasan.shaobo.fun/posts/20190523-algorithmNote/</guid>
       <description>&lt;h3 id=&#34;huffmantree&#34;&gt;HuffmanTree&lt;/h3&gt;
 
 &lt;blockquote&gt;

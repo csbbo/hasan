@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Vim on Hasan</title>
-    <link>https://csbbo.github.io/hasan/tags/Vim/</link>
+    <link>http://hasan.shaobo.fun/tags/Vim/</link>
     <description>Recent content in Vim on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 23 Jun 2019 11:37:52 +0800</lastBuildDate>
     
-	<atom:link href="https://csbbo.github.io/hasan/tags/Vim/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://hasan.shaobo.fun/tags/Vim/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>工欲善其事,必先利其器--vim</title>
-      <link>https://csbbo.github.io/hasan/posts/20190623-beautifualVim/</link>
+      <link>http://hasan.shaobo.fun/posts/20190623-beautifualVim/</link>
       <pubDate>Sun, 23 Jun 2019 11:37:52 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/hasan/posts/20190623-beautifualVim/</guid>
+      <guid>http://hasan.shaobo.fun/posts/20190623-beautifualVim/</guid>
       <description>&lt;p&gt;作为Linux下老牌编辑器vim发展至今已有30个年头了,期间各种编辑器兴衰更替,唯独vim做到了长盛不衰.在服务器上vim绝对是一个必备的技能.vim支持纯的键盘操作,能够极大地提高编辑的效率.但是vim对待新手并不友好,操作命令多,学习曲线陡,将很多非服务器端开发者拒之门外.&lt;/p&gt;</description>
     </item>
     

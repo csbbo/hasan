@@ -2,93 +2,93 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Hasan</title>
-    <link>https://csbbo.github.io/hasan/tags/</link>
+    <link>http://hasan.shaobo.fun/tags/</link>
     <description>Recent content in Tags on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 02 Jul 2019 16:28:40 +0800</lastBuildDate>
     
-	<atom:link href="https://csbbo.github.io/hasan/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://hasan.shaobo.fun/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Linux</title>
-      <link>https://csbbo.github.io/hasan/tags/Linux/</link>
+      <link>http://hasan.shaobo.fun/tags/Linux/</link>
       <pubDate>Tue, 02 Jul 2019 16:28:40 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/hasan/tags/Linux/</guid>
+      <guid>http://hasan.shaobo.fun/tags/Linux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>thread</title>
-      <link>https://csbbo.github.io/hasan/tags/thread/</link>
+      <link>http://hasan.shaobo.fun/tags/thread/</link>
       <pubDate>Tue, 02 Jul 2019 16:28:40 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/hasan/tags/thread/</guid>
+      <guid>http://hasan.shaobo.fun/tags/thread/</guid>
       <description></description>
     </item>
     
     <item>
       <title>process</title>
-      <link>https://csbbo.github.io/hasan/tags/process/</link>
+      <link>http://hasan.shaobo.fun/tags/process/</link>
       <pubDate>Mon, 01 Jul 2019 22:34:15 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/hasan/tags/process/</guid>
+      <guid>http://hasan.shaobo.fun/tags/process/</guid>
       <description></description>
     </item>
     
     <item>
       <title>tmux</title>
-      <link>https://csbbo.github.io/hasan/tags/tmux/</link>
+      <link>http://hasan.shaobo.fun/tags/tmux/</link>
       <pubDate>Sun, 30 Jun 2019 10:56:41 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/hasan/tags/tmux/</guid>
+      <guid>http://hasan.shaobo.fun/tags/tmux/</guid>
       <description></description>
     </item>
     
     <item>
       <title>TCP/IP</title>
-      <link>https://csbbo.github.io/hasan/tags/TCP/IP/</link>
+      <link>http://hasan.shaobo.fun/tags/TCP/IP/</link>
       <pubDate>Sat, 29 Jun 2019 22:11:05 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/hasan/tags/TCP/IP/</guid>
+      <guid>http://hasan.shaobo.fun/tags/TCP/IP/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Vim</title>
-      <link>https://csbbo.github.io/hasan/tags/Vim/</link>
+      <link>http://hasan.shaobo.fun/tags/Vim/</link>
       <pubDate>Sun, 23 Jun 2019 11:37:52 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/hasan/tags/Vim/</guid>
+      <guid>http://hasan.shaobo.fun/tags/Vim/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Base64</title>
-      <link>https://csbbo.github.io/hasan/tags/Base64/</link>
+      <link>http://hasan.shaobo.fun/tags/Base64/</link>
       <pubDate>Tue, 28 May 2019 20:01:40 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/hasan/tags/Base64/</guid>
+      <guid>http://hasan.shaobo.fun/tags/Base64/</guid>
       <description></description>
     </item>
     
     <item>
       <title>algorithm</title>
-      <link>https://csbbo.github.io/hasan/tags/algorithm/</link>
+      <link>http://hasan.shaobo.fun/tags/algorithm/</link>
       <pubDate>Mon, 27 May 2019 20:02:58 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/hasan/tags/algorithm/</guid>
+      <guid>http://hasan.shaobo.fun/tags/algorithm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>sort</title>
-      <link>https://csbbo.github.io/hasan/tags/sort/</link>
+      <link>http://hasan.shaobo.fun/tags/sort/</link>
       <pubDate>Mon, 27 May 2019 20:02:58 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/hasan/tags/sort/</guid>
+      <guid>http://hasan.shaobo.fun/tags/sort/</guid>
       <description></description>
     </item>
     

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>算法 on Hasan</title>
-    <link>https://csbbo.github.io/hasan/categories/%E7%AE%97%E6%B3%95/</link>
+    <link>http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/</link>
     <description>Recent content in 算法 on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 28 May 2019 20:01:40 +0800</lastBuildDate>
     
-	<atom:link href="https://csbbo.github.io/hasan/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Base64笔记</title>
-      <link>https://csbbo.github.io/hasan/posts/20190528-base64Note/</link>
+      <link>http://hasan.shaobo.fun/posts/20190528-base64Note/</link>
       <pubDate>Tue, 28 May 2019 20:01:40 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/hasan/posts/20190528-base64Note/</guid>
+      <guid>http://hasan.shaobo.fun/posts/20190528-base64Note/</guid>
       <description>&lt;p&gt;Base64是一种基于64个可打印字符来表示二进制数据的表示方法。常用于在通常处理文本数据的场合，表示、传输、存储一些二进制数据，包括MIME的电子邮件及XML的一些复杂数据。&lt;/p&gt;
 
 &lt;blockquote&gt;
@@ -32,10 +32,10 @@
     
     <item>
       <title>算法笔记</title>
-      <link>https://csbbo.github.io/hasan/posts/20190523-algorithmNote/</link>
+      <link>http://hasan.shaobo.fun/posts/20190523-algorithmNote/</link>
       <pubDate>Thu, 23 May 2019 20:04:46 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/hasan/posts/20190523-algorithmNote/</guid>
+      <guid>http://hasan.shaobo.fun/posts/20190523-algorithmNote/</guid>
       <description>&lt;h3 id=&#34;huffmantree&#34;&gt;HuffmanTree&lt;/h3&gt;
 
 &lt;blockquote&gt;
