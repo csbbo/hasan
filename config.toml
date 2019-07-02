@@ -1,0 +1,38 @@
+baseURL = "https://csbbo.github.io"
+languageCode = "en-us"
+title = "Hasan"
+theme = "maupassant"
+
+preserveTaxonomyNames = true
+disablePathToLower = true
+
+[author]
+    name = "shaobo"
+
+[params]
+    author = "shaobo"
+    subtitle = "我欲乘风破浪，又恐黄沙海洋"
+    busuanzi = true
+
+[params.utteranc]
+    enable = true
+    repo = "csbbo/hugo-blog"
+    issueTerm = "pathname"
+    theme = "github-light"
+
+[menu]
+    [[menu.main]]
+        identifier = "archives"
+        name = "归档"
+        url = "/archives/"
+        weight = 1
+    [[menu.main]]
+        identifier = "tool"
+        name = "工具"
+        url = "/tool/"
+        weight = 2
+    [[menu.main]]
+        identifier = "about"
+        name = "关于"
+        url = "/about/"
+        weight = 3

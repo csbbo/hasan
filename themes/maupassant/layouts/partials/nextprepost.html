@@ -1,0 +1,56 @@
+<div class="nextpre">
+    {{$prev := .PrevInSection}}
+    {{$next := .NextInSection}}
+    
+    {{if or $prev $next}}
+    <div class="clearfix">
+    <ul class="prevnext">
+    {{if $next}}
+        <li class="next">
+        <a href="{{$next.Permalink}}">
+        <i class="material-icons">arrow_back</i><span>{{$next.Title}}</span>
+        </a>
+        </li>
+    {{end}}
+
+    {{if $prev}}
+        <li class="pre">
+        <a href="{{$prev.Permalink}}">
+        <span>{{$prev.Title}}</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    {{end}}
+    </ul>
+    </div>
+    {{end}}
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #5d4037;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #dd2c00;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>

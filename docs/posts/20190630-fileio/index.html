@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.55.6" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>文件I/O编程 | Hasan</title>
+    <meta property="og:title" content="文件I/O编程 - Hasan">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-06-30T20:45:43&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-06-30T20:45:43&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="文件I/O编程">
+        
+    <meta name="author" content="shaobo">
+    <meta property="og:url" content="https://csbbo.github.io/posts/20190630-fileio/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://csbbo.github.io">
+                        Hasan
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">我欲乘风破浪，又恐黄沙海洋</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://csbbo.github.io">首页</a>
+                    
+                    <a  href="https://csbbo.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://csbbo.github.io/tool/" title="工具">工具</a>
+                    
+                    <a  href="https://csbbo.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">文件I/O编程</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019-6-30
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://csbbo.github.io/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="post-content">
+                            <p>在 Linux 中,为了保护内核空间,将程序的运行空间分为内核空间和用户空间(内核态和用户态),它们运行在不同的级别上,在逻辑上是相互隔离的,因此用户进程在通常情况下不允许访问内核数据,也无法使用内核函数,它们只能在用户空间操作用户数据,调用用户空间的函数。操作系统为用户提供了两个接口:一个是用户编程接口 API,用户利用这些操作命令来组织和控制任务的执行或管理计算机系统。另一个接口是系统调用,编程人员使用系统调用来请求操作系统提供服务。</p>
+
+<p>用户程序可以通过这组接口来获得操作系统内核提供的服务。而系统调用并不是直接与程序员进行交互的,它仅仅是一个通过软中断机制向内核提交请求,以获得内核服务的接口。进行系统调用时,程序运行空间需要从用户空间进入内核空间,处理后再返回到用户空间。Linux系统调用部分是非常精简的系统调用包括进程控制、文件系统控制、系统控制、内存管理、网络管理 、socket控制、用户管理、进程间通信八个模块。</p>
+
+<p><img src="/assets/article/20190630/system_calls.png" alt="systemcalls" /></p>
+
+<p>在 Linux 中,用户编程接口(API)遵循了在 UNIX 中最流行的应用编程界面标准——
+POSIX 标准。保证应用程序可以在源代码一级上在多种操作系统上移植运行。</p>
+
+<p>Linux 中文件可以分为 4 种:普通文件、目录文件、链接文件和设备文件。对于 Linux而言,所有对设备和文件的操作都使用文件描述符来进行的。文件描述符是一个非负的整数,它是一个索引值,并指向内核中每个进程打开文件的记录表。当打开一个现存文件或创建一个新文件时,内核就向进程返回一个文件描述符;当需要读写文件时,也需要把文件描述符作为参数传递给相应的函数。通常,一个进程启动时,都会打开3个文件:标准输入、标准输出和标准出错处理。这 3
+个文件分别对应文件描述符为 0、1 和 2(也就是宏替换 STDIN_FILENO、STDOUT_FILENO和STDERR_FILENO)。</p>
+
+<h3 id="基本i-o操作">基本I/O操作</h3>
+
+<p>Linux 对于输入输出(I/O)操作,通常为五个方面:打开、读取、写入、定位、关闭,
+对应的有五个系统调用,分别是:open、read、write、lseek 和 close这5个函数,也称为不带缓冲区的I/O操作,程序员可以直接操作硬件,这样为开发驱动等底层的系统应用提供了方便。这些函数其原型为:</p>
+
+<pre><code class="language-c">#include&lt;sys/types.h&gt;
+#include&lt;sys/stat.h&gt; /* 声明 mode_t */
+#include&lt;fcntl.h&gt; /* 声明调用 open()时使用的 flag 常量 */
+#include&lt;unistd.h&gt; /*声明 ssize_t */
+int open( const char * pathname, int flags,mode_t mode);
+ssize_t read(int fd, void *buf, size_t nbytes);
+ssize_t write(int fd, const void *buf, size_t nbytes);
+off_t lseek(int fd,off_t offset ,int whence);
+int close(int fd)
+</code></pre>
+
+<p>综合实例:</p>
+
+<pre><code class="language-c">#include &lt;unistd.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;stdio.h&gt;
+int main(void)
+{
+	int fd,size;
+	char s[]=&quot;This program is used to show how to use open(),write(),read() function.\nHave fun!\n&quot;;
+	char buffer[80];
+
+	/*以可读写的方式打开一个文件,如果不存在则创建该文件*/
+	fd = open( &quot;temp.log&quot;, O_WRONLY|O_CREAT );
+	if ( -1 == fd )
+	{
+		printf(&quot;Open or create file named \&quot;temp.log\&quot; failed.\n&quot;);
+		return -1;
+	}
+	write( fd, s, sizeof(s) );/*向该文件中写入一个字符串*/
+	close( fd );
+
+	fd = open( &quot;temp.log&quot;, O_RDONLY );
+	if ( -1 == fd )
+	{
+		printf(&quot;Open file named \&quot;temp.log\&quot; failed.\n&quot;);
+		return -1;
+	}
+
+	/*读取文件内容保存到 buffer 指定的字符串数组中,返回读取的字符个数*/
+	size = read( fd, buffer, sizeof(buffer) );
+	close( fd );
+	printf( &quot;%s&quot;, buffer );
+	return 0;
+}
+</code></pre>
+
+<h3 id="标准i-o操作">标准I/O操作</h3>
+
+<p>在高层应用中,不带缓冲区的 I/O 操作效率往往较低,而由用户自行维护缓冲区不仅繁琐,且容易出错。因此 ANSI 制定了一系列基于流缓冲的标准 I/O 函数,它是符合ANSI C的标准I/O处理。如 printf()、fprintf()和 sprintf()。事实上它们代表了对三种不同类型流的相同操作,printf()针对标准流,fprintf()针对文流,sprintf()针对字符流。大部分的标准I/O函数都有针对上述三种不同类型流的版本,其实现功能完全相同。</p>
+
+<p>1.fopen()函数</p>
+
+<p>打开文件有三个标准函数,分别为:fopen,fdopen 和 freopen。它们的函数原型如下所示:</p>
+
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+FILE *fopen(const char *pathname, const char *type);
+FILE *freopen(const char *pathname, const char *type, FILE *fp;
+FILE *fdopen(int filedes, const char *type);
+</code></pre>
+
+<p>2.fclose 函数</p>
+
+<pre><code class="language-c">int fclose(FILE *fp);
+</code></pre>
+
+<p>如果只是希望将缓冲区中的数据写入文件,但因为可能后面还要用到文件指针,不希望这个时候关闭它,可以使用另外一个函数 fflush()</p>
+
+<pre><code class="language-c">int fflush(FILE *fp)
+</code></pre>
+
+<p>3.fread 和 fwrite 函数</p>
+
+<pre><code class="language-c">#include &lt;stdio.h&gt;
+size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
+size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
+</code></pre>
+
+<p>综合实例:</p>
+
+<pre><code class="language-c">/*** writerec.c****/
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct record {char name[10];int age;};
+int main()
+{
+	struct record array[2] = {{&quot;Ken&quot;, 24}, {&quot;Knuth&quot;, 28}};
+	FILE *fp = fopen(&quot;recfile&quot;, &quot;w&quot;);
+	if (fp == NULL) {
+		perror(&quot;Open file recfile&quot;);
+		exit(1);
+	}
+	fwrite(array, sizeof(struct record), 2, fp);
+	fclose(fp);
+	return 0;
+}
+</code></pre>
+
+<pre><code class="language-c">/***** readrec.c*****/
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+struct record {
+	char name[10];
+	int age;
+};
+int main(void)
+{
+	struct record array[2];
+	FILE *fp = fopen(&quot;recfile&quot;, &quot;r&quot;);
+	if (fp == NULL) {
+		perror(&quot;Open file recfile&quot;);
+		exit(1);
+	}
+	fread(array, sizeof(struct record), 2, fp);
+	printf(&quot;Name1: %s\tAge1: %d\n&quot;, array[0].name, array[0].age);
+	printf(&quot;Name2: %s\tAge2: %d\n&quot;, array[1].name, array[1].age);
+	fclose(fp);
+	return 0;
+}
+</code></pre>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://csbbo.github.io/tags/Linux">Linux</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+        <li class="next">
+        <a href="https://csbbo.github.io/posts/20190630-process-control/">
+        <i class="material-icons">arrow_back</i><span>进程控制</span>
+        </a>
+        </li>
+    
+
+    
+        <li class="pre">
+        <a href="https://csbbo.github.io/posts/20190630-tmux/">
+        <span>工欲善其事,必先利其器--tmux</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #5d4037;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #dd2c00;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+<hr>
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/20190629-tcpip/">Linux网络编程</a></li>
+        
+    </ul>
+</div>
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hugo-blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="https://www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190702-multithreaded-programming/" title="多线程编程">多线程编程</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190701-process-communication/" title="进程通信">进程通信</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190630-process-control/" title="进程控制">进程控制</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190630-fileio/" title="文件I/O编程">文件I/O编程</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190630-tmux/" title="工欲善其事,必先利其器--tmux">工欲善其事,必先利其器--tmux</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190629-tcpip/" title="Linux网络编程">Linux网络编程</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190623-beautifualVim/" title="工欲善其事,必先利其器--vim">工欲善其事,必先利其器--vim</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190528-base64Note/" title="Base64笔记">Base64笔记</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190527-sortAlgorithm/" title="常用排序算法">常用排序算法</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190523-algorithmNote/" title="算法笔记">算法笔记</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://csbbo.github.io/categories/Tool/">Tool(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/categories/%E7%AE%97%E6%B3%95/">算法(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://csbbo.github.io/tags/Base64/">Base64</a>
+    
+    <a href="https://csbbo.github.io/tags/Linux/">Linux</a>
+    
+    <a href="https://csbbo.github.io/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="https://csbbo.github.io/tags/Vim/">Vim</a>
+    
+    <a href="https://csbbo.github.io/tags/algorithm/">algorithm</a>
+    
+    <a href="https://csbbo.github.io/tags/process/">process</a>
+    
+    <a href="https://csbbo.github.io/tags/sort/">sort</a>
+    
+    <a href="https://csbbo.github.io/tags/thread/">thread</a>
+    
+    <a href="https://csbbo.github.io/tags/tmux/">tmux</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="https://csbbo.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="/friend/">友情链接</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://csbbo.github.io">Hasan By shaobo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+<style>
+.catalogue:hover .clear{
+    display: block;
+}
+.catalogue .show{
+    position: fixed;
+    top: 35px;
+    left: 0px;
+    width: 3px;
+    height: 50px;
+    background-color: #424242;
+}
+.catalogue .clear{
+    position: fixed;
+    top:30px;
+    left:0px;
+    z-index: 100;
+    background-color: #fff;
+    border: 1px solid #9e9e9e;
+    border-radius: 5px;
+    display: none;
+}
+.catalogue .clear li a{
+    color: #424242;
+}
+.catalogue .clear li a:hover{
+    border-bottom: 1px solid #424242;
+}
+
+.catalogue .clear .toc-title{
+    margin-top: 5px;
+    margin-left: 2px;
+}
+.post-meta{
+    margin-top: 10px;
+}
+.post-meta ul{
+    margin: 0%;
+    padding: 0%;
+}
+.post-meta ul li{
+    padding: 0% 6px;
+}
+.post-meta ul li a{
+    margin-left: 0%;
+    padding-left: 10px;
+}
+</style>
+</html>

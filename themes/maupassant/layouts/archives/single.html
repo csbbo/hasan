@@ -1,0 +1,45 @@
+{{ partial "head" . }}
+
+<body>
+{{ partial "header" . }}
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="post-archive">
+                    {{ range (where (where .Site.Pages "Type" "in" (slice "post" "posts")) "Kind" "page").GroupByDate "2006" }}
+                    <h2 class="menu-title">{{ .Key }}</h2>
+                    <ul class="listing archives-listing">
+                        {{ range .Pages }}
+                        <li>
+                            <span class="date">{{ .Date.Format "01月02日" }}</span>
+                            <a href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}</a>
+                        </li>
+                        {{ end }}
+                    </ul>
+                    {{ end }}
+
+                </div>
+            </div>
+
+            {{ partial "sidebar" . }}
+        </div>
+    </div>
+</div>
+{{ partial "footer" . }}
+<style>
+    .archives-listing{
+        list-style: none;
+    }
+    .archives-listing a{
+        font-size: 17px;
+        color: #424242 !important;
+    }
+    .archives-listing li a:hover{
+        color: #00796b !important;
+    }
+</style>
+</body>
+</html>

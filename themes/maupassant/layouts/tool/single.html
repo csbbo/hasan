@@ -1,0 +1,45 @@
+{{ partial "head" . }}
+
+<body>
+{{ partial "header" . }}
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="post-archive">
+                    <h2 class="menu-title">{{.Title}}</h2>
+                    <div class="tool-content">
+                    {{.Content}}
+                    </div>
+                </div>
+            </div>
+            {{ partial "sidebar" . }}
+        </div>
+    </div>
+</div>
+{{ partial "footer" . }}
+</body>
+<style>
+.tool-content{
+    margin-top: 40px;
+}
+.tool-content h1,.tool-content h2,.tool-content h3,.tool-content h4,.tool-content h5,.tool-content h6,.tool-content h7{
+    padding: 0%;
+    margin: 0%;
+    color: #009688;
+}
+.tool-content p{
+    padding: 0%;
+    margin: 0%;
+}
+.tool-content p a{
+    padding: 0%;
+    margin: 0%;
+}
+.tool-content p a:hover{
+    color: #424242;
+}
+</style>
+</html>

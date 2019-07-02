@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>算法 on Hasan</title>
+    <link>https://csbbo.github.io/categories/%E7%AE%97%E6%B3%95/</link>
+    <description>Recent content in 算法 on Hasan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 May 2019 20:01:40 +0800</lastBuildDate>
+    
+	<atom:link href="https://csbbo.github.io/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Base64笔记</title>
+      <link>https://csbbo.github.io/posts/20190528-base64Note/</link>
+      <pubDate>Tue, 28 May 2019 20:01:40 +0800</pubDate>
+      
+      <guid>https://csbbo.github.io/posts/20190528-base64Note/</guid>
+      <description>&lt;p&gt;Base64是一种基于64个可打印字符来表示二进制数据的表示方法。常用于在通常处理文本数据的场合，表示、传输、存储一些二进制数据，包括MIME的电子邮件及XML的一些复杂数据。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;所谓Base64，就是说选出64个字符小写字母a-z、大写字母A-Z、数字0-9、符号&amp;rdquo;+&amp;ldquo;、&amp;rdquo;/&amp;ldquo;（再加上作为垫字的&amp;rdquo;=&amp;ldquo;，实际上是65个字符）作为一个基本字符集。然后，其他所有符号都转换成这个字符集中的字符。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;具体来说，转换方式可以分为四步:&lt;br /&gt;
+1.将每三个字节作为一组，一共是24个二进制位。&lt;br /&gt;
+2.将这24个二进制位分为四组，每个组有6个二进制位。&lt;br /&gt;
+3.在每组前面加两个00，扩展成32个二进制位，即四个字节。&lt;br /&gt;
+4.根据下表，得到扩展后的每个字节的对应符号，这就是Base64的编码值。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>算法笔记</title>
+      <link>https://csbbo.github.io/posts/20190523-algorithmNote/</link>
+      <pubDate>Thu, 23 May 2019 20:04:46 +0800</pubDate>
+      
+      <guid>https://csbbo.github.io/posts/20190523-algorithmNote/</guid>
+      <description>&lt;h3 id=&#34;huffmantree&#34;&gt;HuffmanTree&lt;/h3&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E9%9C%8D%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81&#34;&gt;哈弗曼编码&lt;/a&gt;:使用变长编码表对应原符号进行编码，其中变长编码表是通过一种评估原符号出现几率的方法得到的，出现几率高的使用较短的编码，反之出现几率低的则使用较长的编码，这便使编码后的字符串的平均长度、期望值降低，从而达到无损压缩数据的目的。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;使用01进行哈弗曼编码时任何一个编码都不能是另一个编码的前缀，满足这样性质的编码称为前缀码(Preix Code)&lt;br /&gt;
+最优编码问题，给出n个字符的频率，每个字符赋予一个01编码串，使得任意一个字符的编码不是另一个字符的前缀，而且编码后的总长度尽量小&lt;/p&gt;
+
+&lt;p&gt;Huffman算法:把每个字符看做单节点子树放在一个树的集合中，每棵子树的权值等于相应字符的频率。每次取出权值最小的两棵子树合并成一棵新树，并重新放到集合中。新树的权值等于两棵子树的权值之和。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.55.6" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>多线程编程 | Hasan</title>
+    <meta property="og:title" content="多线程编程 - Hasan">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-07-02T16:28:40&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-07-02T16:28:40&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="多线程编程">
+        
+    <meta name="author" content="shaobo">
+    <meta property="og:url" content="https://csbbo.github.io/posts/20190702-multithreaded-programming/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://csbbo.github.io">
+                        Hasan
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">我欲乘风破浪，又恐黄沙海洋</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://csbbo.github.io">首页</a>
+                    
+                    <a  href="https://csbbo.github.io/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://csbbo.github.io/tool/" title="工具">工具</a>
+                    
+                    <a  href="https://csbbo.github.io/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">多线程编程</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019-7-2
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://csbbo.github.io/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="post-content">
+                            <p>在Linux 系统下,启动一个新的进程必须分配给它独立的地址空间,建立众多的数据表来维护它的代码段、堆栈段和数据段,这是一种&rdquo;昂贵&rdquo;的多任务工作方式。而运行于一个进程中的多个线程,它们彼此之间使用相同的地址空间,共享大部分数据,启动一个线程所花费的空间远远小于启动一个进程所花费的空间,而且,线程间彼此切换所需的时间也远远小于进程间切换所需要的时间。</p>
+
+<p><img src="/assets/article/20190702/thread_and_process.png" alt="thread_and_process" /></p>
+
+<h3 id="线程的实现">线程的实现</h3>
+
+<p>Linux系统下的多线程遵循POSIX线程接口,称为pthread。编写 Linux 下的多线程程序,需要使用头文件pthread.h,连接时需要使用库libpthread.a。
+创建线程实际上就是确定调用该线程函数的入口点,这里通常使用的函数是pthread_create。在线程创建以后,就开始运行相关的线程函数。pthread_create 函数的原型如下:</p>
+
+<pre><code class="language-c">#include&lt;pthread.h&gt;
+int pthread_create ((pthread_t *thread, pthread_attr_t *attr,void *(*start_routine) (void *),void arg));
+</code></pre>
+
+<p>函数 pthread_create 用来创建一个线程,第一个参数为指向线程标识符的指针,第二个参数用来设置线程属性,第三个参数是线程运行函数的起始地址,最后一个参数是运行函数的参数。当创建线程成功时,函数返回 0,若不为 0 则说明创建线程失败,常见的错误返回代码为EAGAIN 和 EINVAL。前者表示系统限制创建新的线程,例如线程数目过多了;后者表示第二个参数代表的线程属性值非法。下面我们展示一个最简单的多线程程序</p>
+
+<pre><code class="language-c">/*pthread.c*/
+#include &lt;stdio.h&gt;
+#include &lt;pthread.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;stdlib.h&gt;
+void thread(void)
+{
+    int i;
+    for(i=0;i&lt;3;i++)
+        printf(&quot;This is a pthread.\n&quot;);
+}
+int main()
+{
+    pthread_t id;
+    int i,ret;
+    ret=pthread_create(&amp;id,NULL,(void *) thread,NULL);
+    if(ret!=0){
+        printf (&quot;Create pthread error!\n&quot;);
+        exit (1);
+    }
+    for(i=0;i&lt;3;i++)
+        printf(&quot;This is the main process.\n&quot;);
+    pthread_join(id,NULL);
+    return 0;
+}
+</code></pre>
+
+<blockquote>
+<p>pthread不是Linux系统默认库,编译时需要使用静态库libpthread.a,archlinux上安装<code>sudo pacman -S libpthread-stubs</code>.所以在使用pthread_create创建线程时在编译中加上-lpthread参数,即<code>gcc pthread.c -o pthread -lpthread</code>. pthread_join可以用于将当前线程挂起,等待线程的结束。这个函数是一个线程阻塞的函数,调用它的函数将一直等待到被等待的线程结束为止,当函数返回时,被等待线程的资源就被收回。函数pthread_join 用来等待一个线程的结束。</p>
+</blockquote>
+
+<h3 id="修改线程属性">修改线程属性</h3>
+
+<p>pthread_create 函数创建了一个线程,在这个线程中,我们使用了默认参数,即将该函数的第二个参数设为 NULL。的确,对大多数程序来说,使用默认属性就够了,但我们还是有必要来了解一下线程的有关属性。</p>
+
+<p>属性结构为pthread_attr_t,它同样在头文件/usr/include/pthread.h 中定义。属性值不能直接设置,须使用相关函数进行操作,初始化的函数为pthread_attr_init,这个函数必须在 pthread_create函数之前调用。属性对象主要包括是否绑定、是否分离、堆栈地址、堆栈大小、优先级。默认的属性为非绑定、非分离、缺省 1MB 的堆栈、与父进程同样级别的优先级。</p>
+
+<ol>
+<li>绑定属性</li>
+</ol>
+
+<p>关于线程的绑定,牵涉到另外一个概念:轻进程(LWP:Light Weight Process)。轻进
+程可以理解为内核线程,它位于用户层和系统层之间。系统对线程资源的分配、对线程的控
+制是通过轻进程来实现的,一个轻进程可以控制一个或多个线程。默认状况下,启动多少轻
+进程、哪些轻进程来控制哪些线程是由系统来控制的,这种状况即称为非绑定的。绑定状况
+下,则顾名思义,即某个线程固定的&rdquo;绑&rdquo;在一个轻进程之上。被绑定的线程具有较高的响应
+速度,这是因为 CPU 时间片的调度是面向轻进程的,绑定的线程可以保证在需要的时候它总
+有一个轻进程可用。通过设置被绑定的轻进程的优先级和调度级可以使得绑定的线程满足诸
+如实时反应之类的要求。下面的代码即创建了一个绑定的线程。</p>
+
+<pre><code class="language-c">#include &lt;pthread.h&gt;
+pthread_attr_t attr;
+pthread_t tid;
+pthread_attr_init(&amp;attr); /*初始化属性值,均设为默认值*/
+pthread_attr_setscope(&amp;attr, PTHREAD_SCOPE_SYSTEM); /* 绑定的 */
+pthread_create(&amp;tid, &amp;attr, (void *) my_function, NULL);
+</code></pre>
+
+<ol>
+<li>分离属性</li>
+</ol>
+
+<p>线程的分离状态决定一个线程以什么样的方式来终止自己。在上面的例子中,我们采用了线程的默认属性,即为非分离状态,这种情况下,原有的线程等待创建的线程结束。只有当pthread_join()函数返回时,创建的线程才算终止,才能释放自己占用的系统资源。而分离线程不是这样子的,它没有被其他的线程所等待,自己运行结束了,线程也就终止了,马上释放系统资源。程序员应该根据自己的需要,选择适当的分离状态。设置线程分离状态的函数为 pthread_attr_setdetachstate(pthread_attr_t *attr, int detachstate)。第二个参数可选为PTHREAD_CREATE_DETACHED(分离线程)和PTHREAD_CREATE_JOINABLE(非分离线程)
+。这里要注意的一点是,如果设置一个线程为分离线程,而这个线程运行又非常快,它很可能在pthread_create函数返回之前就终止了,它终止以后就可能将线程号和系统资源移交给其他的线程使用,这样调用 pthread_create的线程就得到了错误的线程号。要避免这种情况可以采取一定的同步措施,最简单的方法之一是可以在被创建的线程里调用pthread_cond_timewait函 数,让这个线程等待一会儿,留出足 够的时间让函数pthread_create返回。设置一段等待时间,是在多线程编程里常用的方法。但是注意不要使用诸如wait()之类的函数,它们是使整个进程睡眠,并不能解决线程同步的问题。</p>
+
+<ol>
+<li>优先级</li>
+</ol>
+
+<p>另外一个可能常用的属性是线程的优先级,它存放在结构sched_param 中。用函数pthread_attr_getschedparam和函数pthread_attr_setschedparam进行存放,一般说来,我们总是先取优先级,对取得的值修改后再存放回去。下面即是一段简单的例子。</p>
+
+<pre><code class="language-c">#include &lt;pthread.h&gt;
+#include &lt;sched.h&gt;
+
+pthread_attr_t attr;
+pthread_t tid;
+sched_param param;
+int newprio=20;
+pthread_attr_init(&amp;attr);
+pthread_attr_getschedparam(&amp;attr, &amp;param);
+param.sched_priority=newprio;
+pthread_attr_setschedparam(&amp;attr, &amp;param);
+pthread_create(&amp;tid, &amp;attr, (void *)myfunction,myarg);
+</code></pre>
+
+<h3 id="多线程访问控制">多线程访问控制</h3>
+
+<p>由于多线程共享进程的资源和地址空间,因此对这些资源进行操作时,必须考虑到线程间资源访问的唯一性问题。线程同步可以使用互斥锁和信号量的方式来解决线程间数据的共享和通信问题,互斥锁一个明显的缺点是它只有两种状态:锁定和非锁定。而条件变量通过允许线程阻塞和等待另一个线程发送信号的方法弥补了互斥锁的不足,它常和互斥锁一起使用。使用时,条件变量被用来阻塞一个线程,当条件不满足时,线程往往解开相应的互斥锁并等待条件发生变化。一旦其它的某个线程改变了条件变量,它将通知相应的条件变量唤醒一个或多个正被此条件变量阻塞的线程。这些线程将重新锁定互斥锁并重新测试条件是否满足。一般说来,条件变量被用来进行线程间的同步。下面介绍这几个函数</p>
+
+<ol>
+<li>pthread_cond_init()函数</li>
+</ol>
+
+<p>该函数条件变量的结构为pthread_cond_t,函数 pthread_cond_init()被用来初始化一个条件变量。它的原型为:</p>
+
+<pre><code class="language-c">int pthread_cond_init (pthread_cond_t * cond, __const pthread_condattr_t
+* cond_attr)
+</code></pre>
+
+<ol>
+<li>pthread_cond_wait()函数</li>
+</ol>
+
+<p>使线程阻塞在一个条件变量上。它的函数原型为:</p>
+
+<pre><code class="language-c">extern int pthread_cond_wait (pthread_cond_t
+pthread_mutex_t *__restrict __mutex)
+</code></pre>
+
+<ol>
+<li>pthread_cond_timedwait()函数</li>
+</ol>
+
+<p>用来阻塞线程的另一个函数是 pthread_cond_timedwait(),它的原型为:</p>
+
+<pre><code class="language-c">extern int pthread_cond_timedwait __P ((pthread_cond_t
+*__cond,pthread_mutex_t *__mutex, __const struct timespec *__abstime))
+</code></pre>
+
+<p>4.pthread_cond_signal()函数</p>
+
+<p>它的函数原型为:extern int pthread_cond_signal (pthread_cond_t *__cond)它用来释放被阻塞在条件变量 cond 上的一个线程。多个线程阻塞在此条件变量上时,哪一个线程被唤醒是由线程的调度策略所决定的。要注意的是,必须用保护条件变量的互斥锁来保护这个函数,否则条件满足信号又可能在测试条件和调用 pthread_cond_wait 函数之间被发出,从而造成无限制的等待。</p>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://csbbo.github.io/tags/Linux">Linux</a></li>
+                                
+                                <li><a href="https://csbbo.github.io/tags/thread">thread</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+
+    
+        <li class="pre">
+        <a href="https://csbbo.github.io/posts/20190701-process-communication/">
+        <span>进程通信</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #5d4037;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #dd2c00;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+<hr>
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/20190701-process-communication/">进程通信</a></li>
+        
+        <li><a href="/posts/20190630-process-control/">进程控制</a></li>
+        
+        <li><a href="/posts/20190630-fileio/">文件I/O编程</a></li>
+        
+        <li><a href="/posts/20190629-tcpip/">Linux网络编程</a></li>
+        
+    </ul>
+</div>
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hugo-blog"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="https://www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190702-multithreaded-programming/" title="多线程编程">多线程编程</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190701-process-communication/" title="进程通信">进程通信</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190630-process-control/" title="进程控制">进程控制</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190630-fileio/" title="文件I/O编程">文件I/O编程</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190630-tmux/" title="工欲善其事,必先利其器--tmux">工欲善其事,必先利其器--tmux</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190629-tcpip/" title="Linux网络编程">Linux网络编程</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190623-beautifualVim/" title="工欲善其事,必先利其器--vim">工欲善其事,必先利其器--vim</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190528-base64Note/" title="Base64笔记">Base64笔记</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190527-sortAlgorithm/" title="常用排序算法">常用排序算法</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/posts/20190523-algorithmNote/" title="算法笔记">算法笔记</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://csbbo.github.io/categories/Tool/">Tool(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://csbbo.github.io/categories/%E7%AE%97%E6%B3%95/">算法(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://csbbo.github.io/tags/Base64/">Base64</a>
+    
+    <a href="https://csbbo.github.io/tags/Linux/">Linux</a>
+    
+    <a href="https://csbbo.github.io/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="https://csbbo.github.io/tags/Vim/">Vim</a>
+    
+    <a href="https://csbbo.github.io/tags/algorithm/">algorithm</a>
+    
+    <a href="https://csbbo.github.io/tags/process/">process</a>
+    
+    <a href="https://csbbo.github.io/tags/sort/">sort</a>
+    
+    <a href="https://csbbo.github.io/tags/thread/">thread</a>
+    
+    <a href="https://csbbo.github.io/tags/tmux/">tmux</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="https://csbbo.github.io/index.xml">文章 RSS</a></li>
+            <li><a href="/friend/">友情链接</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="https://csbbo.github.io">Hasan By shaobo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+<style>
+.catalogue:hover .clear{
+    display: block;
+}
+.catalogue .show{
+    position: fixed;
+    top: 35px;
+    left: 0px;
+    width: 3px;
+    height: 50px;
+    background-color: #424242;
+}
+.catalogue .clear{
+    position: fixed;
+    top:30px;
+    left:0px;
+    z-index: 100;
+    background-color: #fff;
+    border: 1px solid #9e9e9e;
+    border-radius: 5px;
+    display: none;
+}
+.catalogue .clear li a{
+    color: #424242;
+}
+.catalogue .clear li a:hover{
+    border-bottom: 1px solid #424242;
+}
+
+.catalogue .clear .toc-title{
+    margin-top: 5px;
+    margin-left: 2px;
+}
+.post-meta{
+    margin-top: 10px;
+}
+.post-meta ul{
+    margin: 0%;
+    padding: 0%;
+}
+.post-meta ul li{
+    padding: 0% 6px;
+}
+.post-meta ul li a{
+    margin-left: 0%;
+    padding-left: 10px;
+}
+</style>
+</html>

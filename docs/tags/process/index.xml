@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>process on Hasan</title>
+    <link>https://csbbo.github.io/tags/process/</link>
+    <description>Recent content in process on Hasan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 01 Jul 2019 22:34:15 +0800</lastBuildDate>
+    
+	<atom:link href="https://csbbo.github.io/tags/process/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>进程通信</title>
+      <link>https://csbbo.github.io/posts/20190701-process-communication/</link>
+      <pubDate>Mon, 01 Jul 2019 22:34:15 +0800</pubDate>
+      
+      <guid>https://csbbo.github.io/posts/20190701-process-communication/</guid>
+      <description>&lt;p&gt;每个进程各自有不同的用户地址空间,任何一个进程的全局变量在另一个进程中都看不到,所以进程之间要交换数据必须通过内核,在内核中开辟一块缓冲区,进程 1 把数据从用户空间拷到内核缓冲区,进程 2 再从内核缓冲区把数据读走,内核提供的这种机制称为进程间通信(IPC,InterProcess Communication)。如图所示。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://csbbo.github.io/assets/article/20190701/process_communication.png&#34; alt=&#34;process_communication&#34; /&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
