@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>thread on Hasan</title>
-    <link>https://csbbo.github.io/tags/thread/</link>
+    <link>https://csbbo.github.io/hasan/tags/thread/</link>
     <description>Recent content in thread on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 02 Jul 2019 16:28:40 +0800</lastBuildDate>
     
-	<atom:link href="https://csbbo.github.io/tags/thread/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://csbbo.github.io/hasan/tags/thread/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>多线程编程</title>
-      <link>https://csbbo.github.io/posts/20190702-multithreaded-programming/</link>
+      <link>https://csbbo.github.io/hasan/posts/20190702-multithreaded-programming/</link>
       <pubDate>Tue, 02 Jul 2019 16:28:40 +0800</pubDate>
       
-      <guid>https://csbbo.github.io/posts/20190702-multithreaded-programming/</guid>
+      <guid>https://csbbo.github.io/hasan/posts/20190702-multithreaded-programming/</guid>
       <description>&lt;p&gt;在Linux 系统下,启动一个新的进程必须分配给它独立的地址空间,建立众多的数据表来维护它的代码段、堆栈段和数据段,这是一种&amp;rdquo;昂贵&amp;rdquo;的多任务工作方式。而运行于一个进程中的多个线程,它们彼此之间使用相同的地址空间,共享大部分数据,启动一个线程所花费的空间远远小于启动一个进程所花费的空间,而且,线程间彼此切换所需的时间也远远小于进程间切换所需要的时间。&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://csbbo.github.io/assets/article/20190702/thread_and_process.png&#34; alt=&#34;thread_and_process&#34; /&gt;&lt;/p&gt;</description>
+&lt;p&gt;&lt;img src=&#34;https://csbbo.github.io/hasan/assets/article/20190702/thread_and_process.png&#34; alt=&#34;thread_and_process&#34; /&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>
