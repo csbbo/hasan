@@ -16,7 +16,7 @@ disablePathToLower = true
 
 [params.utteranc]
     enable = true
-    repo = "csbbo/hugo-blog"
+    repo = "csbbo/hasan"
     issueTerm = "pathname"
     theme = "github-light"
 
