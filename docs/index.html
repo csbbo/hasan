@@ -171,6 +171,46 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://hasan.shaobo.fun/posts/20190630-serial-port/" title="Linux串口通信" >Linux串口通信</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019-6-30
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                <p>在Linux中,串口是一个字符设备,访问具体的串行端口的编程与读/写文件的操作类似,只需打开相应的设备文件操作即可.串口编程的特殊在于串口通信时相关参数的设置.若在根文件没有串口设备文件可以用mknod命令创建.</p>
+
+<p>串口作为终端I/O,它的参数设置需要使用<code>struct termios</code>结构体,这个结构体在termio.h文件中定义.</p>
+
+<pre><code class="language-c">typedef unsigned char cc_t;
+typedef unsigned int speed_t;
+typedef unsigned int tcflag_t;
+struct termios{
+    tcflag_t c_iflag;   //输入模式标志
+    tcflag_t c_oflag;   //输出模式标志
+    tcflag_t c_cflag;   //控制模式标志
+    tcflag_t c_lflag;   //本地模式标志
+    tcflag_t c_line;    //行规程类型,一般应用程序不使用
+    cc_t c_cc[NCC]; //控制字符
+    speed_t c_ispeed;   //输入数据波特率
+    speed_t c_ospeed;   //输出数据波特率
+}
+</code></pre>
+                            </div>
+                            <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20190630-serial-port/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://hasan.shaobo.fun/posts/20190630-tmux/" title="工欲善其事,必先利其器--tmux" >工欲善其事,必先利其器--tmux</a>
                                 </h1>
                             </header>
@@ -281,22 +321,6 @@ ACONVERT
                             <p class="readmore"><a href="http://hasan.shaobo.fun/friend/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://hasan.shaobo.fun/archives/" title="Archives" >Archives</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019-6-28
-                            </date>
-                            
-                            <div class="post-content">
-                                
-                            </div>
-                            <p class="readmore"><a href="http://hasan.shaobo.fun/archives/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -357,6 +381,10 @@ ACONVERT
     </li>
     
     <li>
+        <a href="http://hasan.shaobo.fun/posts/20190630-serial-port/" title="Linux串口通信">Linux串口通信</a>
+    </li>
+    
+    <li>
         <a href="http://hasan.shaobo.fun/posts/20190630-tmux/" title="工欲善其事,必先利其器--tmux">工欲善其事,必先利其器--tmux</a>
     </li>
     
@@ -376,10 +404,6 @@ ACONVERT
         <a href="http://hasan.shaobo.fun/posts/20190527-sortAlgorithm/" title="常用排序算法">常用排序算法</a>
     </li>
     
-    <li>
-        <a href="http://hasan.shaobo.fun/posts/20190523-algorithmNote/" title="算法笔记">算法笔记</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -394,7 +418,7 @@ ACONVERT
     </li>
     
     <li>
-        <a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(5)</a>
+        <a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
@@ -419,6 +443,8 @@ ACONVERT
     <a href="http://hasan.shaobo.fun/tags/algorithm/">algorithm</a>
     
     <a href="http://hasan.shaobo.fun/tags/process/">process</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/serial/">serial</a>
     
     <a href="http://hasan.shaobo.fun/tags/sort/">sort</a>
     

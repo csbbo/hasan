@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>工欲善其事,必先利其器--tmux | Hasan</title>
-    <meta property="og:title" content="工欲善其事,必先利其器--tmux - Hasan">
+    <title>Linux串口通信 | Hasan</title>
+    <meta property="og:title" content="Linux串口通信 - Hasan">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-06-30T10:56:41&#43;08:00">
+    <meta property="article:published_time" content="2019-06-30T20:45:31&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-06-30T10:56:41&#43;08:00">
+    <meta property="article:modified_time" content="2019-06-30T20:45:31&#43;08:00">
         
     <meta name="Keywords" content="">
-    <meta name="description" content="工欲善其事,必先利其器--tmux">
+    <meta name="description" content="Linux串口通信">
         
     <meta name="author" content="shaobo">
-    <meta property="og:url" content="http://hasan.shaobo.fun/posts/20190630-tmux/">
+    <meta property="og:url" content="http://hasan.shaobo.fun/posts/20190630-serial-port/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -77,7 +77,7 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">工欲善其事,必先利其器--tmux</h1>
+                            <h1 class="post-title">Linux串口通信</h1>
                         </header>
                         <date class="post-meta meta-date">
                             2019-6-30
@@ -86,7 +86,7 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/Tool">Tool</a></span>
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
                             
                         </div>
                         
@@ -97,58 +97,340 @@
                         
                         
                         <div class="post-content">
-                            <p>tmux是一个终端多路复用器:它允许在一个屏幕上创建、访问和控制多个终端。tmux可以从屏幕上分离出来，在后台继续运行，然后重新连接。
-可以运行在OpenBSD、FreeBSD、NetBSD、Linux、OS X和Solaris上。</p>
+                            <p>在Linux中,串口是一个字符设备,访问具体的串行端口的编程与读/写文件的操作类似,只需打开相应的设备文件操作即可.串口编程的特殊在于串口通信时相关参数的设置.若在根文件没有串口设备文件可以用mknod命令创建.</p>
 
-<p>会话（session）指令</p>
+<p>串口作为终端I/O,它的参数设置需要使用<code>struct termios</code>结构体,这个结构体在termio.h文件中定义.</p>
 
-<pre><code>tmux new -s demo # 新建一个名称为demo的会话
-tmux detach # 断开当前会话，会话在后台运行
-tmux a # 默认进入第一个会话
-tmux a -t demo # 进入到名称为demo的会话
-tmux kill-session -t demo # 关闭demo会话
-tmux kill-server # 关闭服务器，所有的会话都将关闭
-tmux ls # 查看所有会话，提倡使用简写形式 
+<pre><code class="language-c">typedef unsigned char cc_t;
+typedef unsigned int speed_t;
+typedef unsigned int tcflag_t;
+struct termios{
+    tcflag_t c_iflag;   //输入模式标志
+    tcflag_t c_oflag;   //输出模式标志
+    tcflag_t c_cflag;   //控制模式标志
+    tcflag_t c_lflag;   //本地模式标志
+    tcflag_t c_line;    //行规程类型,一般应用程序不使用
+    cc_t c_cc[NCC]; //控制字符
+    speed_t c_ispeed;   //输入数据波特率
+    speed_t c_ospeed;   //输出数据波特率
+}
 </code></pre>
 
-<p>窗口（window）指令</p>
+<p>串口的设置主要就是设置这个结构体的各成员值,然后利用该结构体将参数传给硬件驱动程序.tcgetattr()/tcsetattr()函数获取/设置串口参数.</p>
 
-<pre><code>前缀  指令  描述
-Ctrl+b  c   新建窗口
-Ctrl+b  &amp;   关闭当前窗口（关闭前需输入y or n确认）
-Ctrl+b  0~9 切换到指定窗口
-Ctrl+b  p   切换到上一窗口
-Ctrl+b  n   切换到下一窗口
-Ctrl+b  w   打开窗口列表，用于且切换窗口
-Ctrl+b  ,   重命名当前窗口
-Ctrl+b  .   修改当前窗口编号（适用于窗口重新排序）
-Ctrl+b  f   快速定位到窗口（输入关键字匹配窗口名称）
+<pre><code class="language-c">int tcgetattr(int fd,struct termios *termios_p);
+int tcsetattr(int fd,int optional_actions,struct termios *termios_p);
 </code></pre>
 
-<p>面板（pane）指令</p>
+<p>optional_action参数用于指定新设定参数生效时间,其设定值可以为:</p>
 
-<pre><code>前缀  指令  描述
-Ctrl+b  &quot;   当前面板上下一分为二，下侧新建面板
-Ctrl+b  %   当前面板左右一分为二，右侧新建面板
-Ctrl+b  x   关闭当前面板（关闭前需输入y or n确认）
+<table>
+<thead>
+<tr>
+<th>TCSANOW</th>
+<th>改变立即生效</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>TCSADRAIN</td>
+<td>所有输出都被传输后改变生效</td>
+</tr>
+
+<tr>
+<td>TCSAFLUSH</td>
+<td>所有输出都被传输后改变生效,丢弃所有未读入的输入</td>
+</tr>
+</tbody>
+</table>
+
+<p>1.设置波特率
+使用函数设置波特率,使用波特率常数设置波特率,其定义为字母&rdquo;B+波特率&rdquo;,如B19200就是波特率为19200 bps.</p>
+
+<pre><code class="language-c">int cfsetispeed(struct termios *termios_p,speed_t speed);
+int cfsetospeed(struct termios *termios_p,speed_t speed);
 </code></pre>
 
-<p>my <strong>.tmux.conf</strong> (tmux&gt;=2.1)</p>
+<p>例:</p>
 
-<pre><code>bind-key l select-pane -R
-bind-key h select-pane -L
-bind-key j select-pane -D
-bind-key k select-pane -U
-set -g mouse on
-set -g prefix C-a
-set -g default-terminal &quot;screen-256color&quot;#开启256 colors支持
+<pre><code class="language-c">int cfsetispeed(ttys0_opt,B115200);
+int cfsetospeed(ttys0_opt,B115200);
 </code></pre>
 
-<p>Github上也已经有人写了一份漂亮而又多功能的<a href="https://github.com/gpakosz/.tmux">tmux配置</a>,只想享受tmux的带来的便利而又懒得编写tmux配置的小伙伴可以去安装它</p>
+<p>2.设置控制模式标志
+控制模式标志c_cflag主要用于设置串口对DCD信号状态检测,硬件流控制,字符位宽,停止位和奇偶检验位等,常用标志如下:</p>
 
-<p>REMINDING</p>
+<table>
+<thead>
+<tr>
+<th>CLOCAL</th>
+<th>忽略DCD信号,若不使用MODEM或没有串口/CD脚,则设置此标志</th>
+</tr>
+</thead>
 
-<p>Tmux中复制,需要先按住shift键再拖动的选择才有效</p>
+<tbody>
+<tr>
+<td>CREAD</td>
+<td>启用接收装置,可以接收字符</td>
+</tr>
+
+<tr>
+<td>CRTSCTS</td>
+<td>启用硬件流控制,对于许多三线制的串不应使用,需要设置~CRTCTS</td>
+</tr>
+
+<tr>
+<td>CSIZE</td>
+<td>字符数位掩码,常用CS8</td>
+</tr>
+
+<tr>
+<td>CSTOPB</td>
+<td>使用两个停止位,若用一位应设置~CSTOPB</td>
+</tr>
+
+<tr>
+<td>PARENB</td>
+<td>启用奇偶检验</td>
+</tr>
+</tbody>
+</table>
+
+<p>例如:</p>
+
+<pre><code class="language-c">struct temios ttys0
+ttys0.c_cflag |= CLOCAL | CREAD;
+ttys0.c_cflag &amp;= ~CRTSCTS;
+ttys0.c_cflag &amp;= ~CSIZE;
+ttys0.c_cflag |= CS8;
+ttys0.c_cflag &amp;= ~(PARENB|CSTOPB);
+</code></pre>
+
+<p>3.设置本地模式标志</p>
+
+<p>本地模式设置标志c_lflag主要用于设置终端与用户的交互方式,常见的设置标志位有ICAN-ON,ECHO和ECHOE等.</p>
+
+<p>4.设置输入模式标志</p>
+
+<p>输入模式标志c_iflag主要用于控制串口的输入特性,常用的设置有IXOFF和IXON,分别用于软件流控制.</p>
+
+<p>起用软件流控制:</p>
+
+<pre><code class="language-c">ttys0_opt.c_iflag |= IXOFF|IXON
+</code></pre>
+
+<p>5.设置输出模式标志</p>
+
+<p>输出模式标志c_oflag主要用于处理串口在规范模式时输出的特殊字符,而对非规范模式无效.</p>
+
+<p>6.设置控制字符</p>
+
+<p>在非规范模式中,控制字符数组c_cc[]中的变量c_cc[VMIN]和c_cc[VTIME]用于设置read()返回前读到的最少字节数和读超时时间.</p>
+
+<p>7.清空发送/接收缓冲区</p>
+
+<p>为保证读/写操作不被串口缓冲区中原有的数据干扰,可以在读/写数据前用tc_flush()函数清空发送/接收缓冲区.</p>
+
+<p>串口配置函数实例:</p>
+
+<pre><code class="language-c">int set_com_config(int fd,int baud_rate,int data_bits,char parity,int stop_bits)
+{
+	struct termios new_cfg,old_cfg;
+	int speed;
+	/* 保存测试现有串口参数设置 */
+	if(tcgetattr(fd,&amp;old_cfg) != 0){
+		perror(&quot;tcgetattr&quot;);
+		return -1;
+	}
+	/* 设置字符大小 */
+	new_cfg = old_cfg;
+	cfmakeraw(&amp;new_cfg);
+	new_cfg.c_flag &amp;= ~CSIZE;
+	/* 设置串口波特率 */
+	switch(baud_rate){
+		case 2400:
+			speed = B2400;
+			break;
+		case 4800:
+			speed = B4800;
+			break;
+		case 9600:
+			speed = B9600;
+			break;
+		case 19200:
+			speed = B19200;
+			break;
+		case 38400:
+			speed = B38400;
+			break;
+		default:
+		case 115200:
+			speed = B115200;
+			break;
+	}
+	cfsetispeed(&amp;new_cfg,speed);
+	cfsetospeed(&amp;new_cfg,speed);
+	/* 设置停止位 */
+	switch(data_bits){
+		case 7:
+			new_cfg.c_cflag |= CS7;
+			break;
+		default:
+		case 8:
+			new_cfg.c_cflag |= CS8;
+			break;
+	}
+	/* 设置奇偶检验位 */
+	switch(parity){
+		default:
+		case 'n':
+		case 'N':
+			new_cfg.c_flag &amp;= ~PARENB;
+			new_cfg.ciflag |= INPCK;
+			break;
+		case 'o':
+		case 'O':
+			new_cfg.c_cflag |= (PARODD | PARENB);
+			new_cfg.c_iflag |= INPCK;
+			break;
+		case 'e':
+		case 'E':
+			new_cfg.c_cflag |= PARENB;
+			new_cfg.c_cflag &amp;= ~PARODD;
+			new_cfg.c_cflag |= INPCK;
+			break;
+		case 's':
+		case 'S':
+			new_cfg.c_cflag &amp;= ~PARENB;
+			new_cfg.c_cflag &amp;= ~CSTOPB;
+			break;
+	}
+	/* 设置停止位 */
+	switch(stop_bits){
+		default:
+		case 1:
+			new_cfg.c_cflag &amp;= ~CSTOPB;
+			break;
+		case 2:
+			new_cfg.c_cflag |= ~CSTOPB;
+	}
+	/* 设置等待时间和最小接收字符 */
+	new_cfg.c_cc[VTIME] = 0;
+	new_cfg.c_cc[VMIE] = 1;
+	/* 处理接收字符 */
+	tcflush(fd,TCIFLUSH);
+	/* 激活新配置 */
+	if((tcsetattr(fd,TCSANOW,&amp;new_cfg)) != 0){
+		perror(&quot;tcsetattr&quot;);
+		return -1;
+	}
+	return 0;
+}
+</code></pre>
+
+<p>串口通信实例<br />
+下面给出串口发送和接收的信程序,其中串口在宿主机上运行,串口接收程序在目标机上运行</p>
+
+<pre><code class="language-c">/** serial_port_send.c **/
+#include&lt;stdlib.h&gt;
+#include&lt;stdio.h&gt;
+#include&lt;unistd.h&gt;
+#include&lt;sys/types.h&gt;
+#include&lt;fcntl.h&gt;
+#include&lt;termios.h&gt;
+#include&lt;errno.h&gt;
+
+#define BAUDRATE B115200
+#define MODEMDEVICE &quot;/dev/ttyS0&quot;
+#define STOP '@'
+
+int main()
+{
+    int fd,c = 0,res;
+    struct termios oldtio,newtio;
+    char ch;
+    static char s1[20];
+    printf(&quot;Start...\n&quot;);
+    fd = open(MODEMDEVICE,O_RDWR|O_NOCTTY);
+    if(fd&lt;0){
+        perror(MODEMDEVICE);
+        exit(1);
+    }
+    printf(&quot;Open...\n&quot;);
+    tcgetattr(fd,&amp;oldtio);
+    bzero(&amp;newtio,sizeof(newtio)); //清除newtio结构,重新设置通信协议
+    newtio.c_cflag = BAUDRATE|CS8|CLOCAL|CREAD;
+    newtio.c_iflag = IGNPAR;
+    newtio.c_oflag = 0;
+    newtio.c_lflag = ICANON;
+    tcflush(fd,TCOFLUSH);
+    tcsetattr(fd,TCSANOW,&amp;newtio);
+    printf(&quot;Writting..\n&quot;);
+    while(1){
+        while((ch = getchar()) != STOP){
+            s1[0] = ch;
+            res = write(fd,s1,1);
+        }
+        s1[0] = ch;
+        s1[1] = '\n';
+        res = write(fd,s1,2);
+        break;
+    }
+    printf(&quot;Close...\n&quot;);
+    close(fd);
+    tcsetattr(fd,TCSANOW,&amp;oldtio);
+    return 0;
+}
+</code></pre>
+
+<pre><code class="language-c">/** serial_port_rev.c **/
+#include&lt;stdlib.h&gt;
+#include&lt;stdio.h&gt;
+#include&lt;unistd.h&gt;
+#include&lt;sys/types.h&gt;
+#include&lt;sys/stat.h&gt;
+#include&lt;fcntl.h&gt;
+#include&lt;termios.h&gt;
+#include&lt;errno.h&gt;
+
+#define BAUDRATE B115200
+#define MODEMDEVICE &quot;/dev/ttyS0&quot;
+
+int main()
+{
+    int fd,c = 0,res;
+    struct termios oldtio,newtio;
+    char buf[256];
+    printf(&quot;Start...\n&quot;);
+    fd = open(MODEMDEVICE,O_RDWR|O_NOCTTY);
+    if(fd&lt;0){
+        perror(MODEMDEVICE);
+        exit(1);
+    }
+    printf(&quot;open...\n&quot;);
+    tcgetattr(fd,&amp;oldtio);
+    bzero(&amp;newtio,sizeof(newtio)); //清除newtio结构,重新设置通信协议
+    newtio.c_cflag = BAUDRATE|CS8|CLOCAL|CREAD;
+    newtio.c_iflag = IGNPAR;
+    newtio.c_oflag = 0;
+    newtio.c_lflag = ICANON;
+    tcflush(fd,TCIFLUSH);
+    tcsetattr(fd,TCSANOW,&amp;newtio);
+    printf(&quot;Reading...\n&quot;);
+    while(1){
+        res = read(fd,buf,255);
+        buf[res] = 0;
+        printf(&quot;res = %d buf = %s\n&quot;,res,buf);
+        if(buf[0] == '@')
+            break;
+    }
+    printf(&quot;Close...\n&quot;);
+    close(fd);
+    tcsetattr(fd,TCSANOW,&amp;oldtio);
+    return 0;
+}
+</code></pre>
                         </div>
 
                         
@@ -158,7 +440,9 @@ set -g default-terminal &quot;screen-256color&quot;#开启256 colors支持
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://hasan.shaobo.fun/tags/tmux">tmux</a></li>
+                                <li><a href="http://hasan.shaobo.fun/tags/Linux">Linux</a></li>
+                                
+                                <li><a href="http://hasan.shaobo.fun/tags/serial">serial</a></li>
                                 
                             </ul>
                         </div>
@@ -173,16 +457,16 @@ set -g default-terminal &quot;screen-256color&quot;#开启256 colors支持
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://hasan.shaobo.fun/posts/20190630-serial-port/">
-        <i class="material-icons">arrow_back</i><span>Linux串口通信</span>
+        <a href="http://hasan.shaobo.fun/posts/20190630-fileio/">
+        <i class="material-icons">arrow_back</i><span>文件I/O编程</span>
         </a>
         </li>
     
 
     
         <li class="pre">
-        <a href="http://hasan.shaobo.fun/posts/20190629-tcpip/">
-        <span>Linux网络编程</span><i class="material-icons">arrow_forward</i>
+        <a href="http://hasan.shaobo.fun/posts/20190630-tmux/">
+        <span>工欲善其事,必先利其器--tmux</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
     
@@ -221,6 +505,16 @@ set -g default-terminal &quot;screen-256color&quot;#开启256 colors支持
 }
 </style>
                     
+
+<hr>
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/20190629-tcpip/">Linux网络编程</a></li>
+        
+    </ul>
+</div>
 
                     
     

@@ -71,6 +71,17 @@
   </url>
   
   <url>
+    <loc>http://hasan.shaobo.fun/posts/20190630-serial-port/</loc>
+    <lastmod>2019-06-30T20:45:31+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/tags/serial/</loc>
+    <lastmod>2019-06-30T20:45:31+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://hasan.shaobo.fun/categories/Tool/</loc>
     <lastmod>2019-06-30T10:56:41+08:00</lastmod>
     <priority>0</priority>

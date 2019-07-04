@@ -385,7 +385,7 @@ int main(int argc ,char **argv) {
 
 <p><img src="/assets/article/20190629/tcp_communication_process.png" alt="TCPcommunicationprocess" /></p>
 
-<p>服务器首先启动,通过调用 socket()建立一个套接字,然后调用 bind()将该套接字和本地网络地址联系在一起,再调用 1isten()使套接字做好侦听的准备,并规定它的请求队列的长度,之后就调用 accept()来接收连接。客户在建立套接字后就可调用connect()和服务器建立连接。连接一旦建立,客户机和服务器之间就可以通过调用 read()和 write()来发送和接收数据。最后,待数据传送结束后,双方调用 close()关闭套接字。</p>
+<p>服务器首先启动,通过调用socket()建立一个套接字,然后调用 bind()将该套接字和本地网络地址联系在一起,再调用listen()使套接字做好侦听的准备,并规定它的请求队列的长度,之后就调用accept()来接收连接。客户在建立套接字后就可调用connect()和服务器建立连接。连接一旦建立,客户机和服务器之间就可以通过调用read()和write()来发送和接收数据。最后,待数据传送结束后,双方调用close()关闭套接字。</p>
 
 <p>TCPServer程序设计:</p>
 
@@ -747,6 +747,10 @@ int main(int argc,char *argv[])
     </li>
     
     <li>
+        <a href="http://hasan.shaobo.fun/posts/20190630-serial-port/" title="Linux串口通信">Linux串口通信</a>
+    </li>
+    
+    <li>
         <a href="http://hasan.shaobo.fun/posts/20190630-tmux/" title="工欲善其事,必先利其器--tmux">工欲善其事,必先利其器--tmux</a>
     </li>
     
@@ -766,10 +770,6 @@ int main(int argc,char *argv[])
         <a href="http://hasan.shaobo.fun/posts/20190527-sortAlgorithm/" title="常用排序算法">常用排序算法</a>
     </li>
     
-    <li>
-        <a href="http://hasan.shaobo.fun/posts/20190523-algorithmNote/" title="算法笔记">算法笔记</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -784,7 +784,7 @@ int main(int argc,char *argv[])
     </li>
     
     <li>
-        <a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(5)</a>
+        <a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
@@ -809,6 +809,8 @@ int main(int argc,char *argv[])
     <a href="http://hasan.shaobo.fun/tags/algorithm/">algorithm</a>
     
     <a href="http://hasan.shaobo.fun/tags/process/">process</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/serial/">serial</a>
     
     <a href="http://hasan.shaobo.fun/tags/sort/">sort</a>
     

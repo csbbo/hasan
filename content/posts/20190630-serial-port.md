@@ -1,8 +1,7 @@
 ---
 title: "Linux串口通信"
 date: 2019-06-30T20:45:31+08:00
-draft: true
-tags: ["Linux"]
+tags: ["Linux","serial"]
 categories: ["嵌入式Linux操作系统笔记"]
 ---
 
@@ -190,5 +189,110 @@ int set_com_config(int fd,int baud_rate,int data_bits,char parity,int stop_bits)
 		return -1;
 	}
 	return 0;
+}
+```
+
+串口通信实例  
+下面给出串口发送和接收的信程序,其中串口在宿主机上运行,串口接收程序在目标机上运行
+
+```c
+/** serial_port_send.c **/
+#include<stdlib.h>
+#include<stdio.h>
+#include<unistd.h>
+#include<sys/types.h>
+#include<fcntl.h>
+#include<termios.h>
+#include<errno.h>
+
+#define BAUDRATE B115200
+#define MODEMDEVICE "/dev/ttyS0"
+#define STOP '@'
+
+int main()
+{
+    int fd,c = 0,res;
+    struct termios oldtio,newtio;
+    char ch;
+    static char s1[20];
+    printf("Start...\n");
+    fd = open(MODEMDEVICE,O_RDWR|O_NOCTTY);
+    if(fd<0){
+        perror(MODEMDEVICE);
+        exit(1);
+    }
+    printf("Open...\n");
+    tcgetattr(fd,&oldtio);
+    bzero(&newtio,sizeof(newtio)); //清除newtio结构,重新设置通信协议
+    newtio.c_cflag = BAUDRATE|CS8|CLOCAL|CREAD;
+    newtio.c_iflag = IGNPAR;
+    newtio.c_oflag = 0;
+    newtio.c_lflag = ICANON;
+    tcflush(fd,TCOFLUSH);
+    tcsetattr(fd,TCSANOW,&newtio);
+    printf("Writting..\n");
+    while(1){
+        while((ch = getchar()) != STOP){
+            s1[0] = ch;
+            res = write(fd,s1,1);
+        }
+        s1[0] = ch;
+        s1[1] = '\n';
+        res = write(fd,s1,2);
+        break;
+    }
+    printf("Close...\n");
+    close(fd);
+    tcsetattr(fd,TCSANOW,&oldtio);
+    return 0;
+}
+```
+
+```c
+/** serial_port_rev.c **/
+#include<stdlib.h>
+#include<stdio.h>
+#include<unistd.h>
+#include<sys/types.h>
+#include<sys/stat.h>
+#include<fcntl.h>
+#include<termios.h>
+#include<errno.h>
+
+#define BAUDRATE B115200
+#define MODEMDEVICE "/dev/ttyS0"
+
+int main()
+{
+    int fd,c = 0,res;
+    struct termios oldtio,newtio;
+    char buf[256];
+    printf("Start...\n");
+    fd = open(MODEMDEVICE,O_RDWR|O_NOCTTY);
+    if(fd<0){
+        perror(MODEMDEVICE);
+        exit(1);
+    }
+    printf("open...\n");
+    tcgetattr(fd,&oldtio);
+    bzero(&newtio,sizeof(newtio)); //清除newtio结构,重新设置通信协议
+    newtio.c_cflag = BAUDRATE|CS8|CLOCAL|CREAD;
+    newtio.c_iflag = IGNPAR;
+    newtio.c_oflag = 0;
+    newtio.c_lflag = ICANON;
+    tcflush(fd,TCIFLUSH);
+    tcsetattr(fd,TCSANOW,&newtio);
+    printf("Reading...\n");
+    while(1){
+        res = read(fd,buf,255);
+        buf[res] = 0;
+        printf("res = %d buf = %s\n",res,buf);
+        if(buf[0] == '@')
+            break;
+    }
+    printf("Close...\n");
+    close(fd);
+    tcsetattr(fd,TCSANOW,&oldtio);
+    return 0;
 }
 ```
