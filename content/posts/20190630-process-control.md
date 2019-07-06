@@ -69,6 +69,7 @@ main()
 ![fatherandsonprocess](/assets/article/20190630/father_and_son_process.png)
 
 fork调用的一个奇妙之处就是它仅仅被调用一次,却能够返回两次,它可能有三种不同的返回值:
+
 - 在父进程中,fork 返回新创建子进程的进程 ID;
 - 在子进程中,fork 返回 0;
 - 如果出现错误,fork 返回一个负值;
@@ -109,6 +110,7 @@ int main(void)
 
 一个进程终止则存在异
 常终止和正常终止两种情况。进程异常终止的两种方式是:当进程接收到某些信号时;或是调用abort()函数,它产生SIGABRT信号,这是前一种的特例一个进程正常终止有三种方式:
+
 - 由 main()函数返回
 - 调用 exit()函数
 - 调用_exit()或_Exit()函数
