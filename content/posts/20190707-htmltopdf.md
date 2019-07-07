@@ -1,7 +1,8 @@
 ---
 title: "HtmlToPdf"
 date: 2019-07-07T22:40:51+08:00
-draft: true
+tags: ["Python"]
+categories: ["Tool"]
 ---
 
 最近用html写简历，打印的时候需要将html转成pdf,网上也有网站提供转换功能，但还是自己写一个转换程序更为方便些

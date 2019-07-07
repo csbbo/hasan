@@ -73,6 +73,39 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://hasan.shaobo.fun/posts/20190707-htmltopdf/" title="HtmlToPdf" >HtmlToPdf</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019-7-7
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/Tool">Tool</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                 最近用html写简历，打印的时候需要将html转成pdf,网上也有网站提供转换功能，但还是自己写一个转换程序更为方便些
+准备工作 安装pdfkit
+pip install pdfkit  自己的操作系统上还需要装上wkhtmltopdf
+我的系统是archlinux
+sudo pacman -S wkhtmltopdf  然后其他的操作系统也类似
+Ubuntu
+sudo apt-get install wkhtmltopdf  CentOS
+sudo yum intsall wkhtmltopdf  Mac
+brew install Caskroom/cask/wkhtmltopdf  Windows
+下载地址：https://wkhtmltopdf.org/downloads.html 并配置系统环境变量  最是炒鸡简单Python程序代码
+#! /usr/bin/python3 # -*- coding:utf-8 -*- import pdfkit options={ 'page-size':'A4',#Letter 'margin-top':'0.4in', 'margin-right':'0.6in', 'margin-bottom':'0.4in', 'margin-left':'0.6in', 'encoding':&quot;UTF-8&quot;, 'no-outline':None } pdfkit.from_file('./in.html','out.pdf',options=options)  
+                            </div>
+                            <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20190707-htmltopdf/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://hasan.shaobo.fun/posts/20190702-multithreaded-programming/" title="多线程编程" >多线程编程</a>
                                 </h1>
                             </header>
@@ -305,22 +338,6 @@ ACONVERT
                             <p class="readmore"><a href="http://hasan.shaobo.fun/about/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://hasan.shaobo.fun/friend/" title="友情链接" >友情链接</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019-6-28
-                            </date>
-                            
-                            <div class="post-content">
-                                约伊兹的萌狼乡手札 想装大神的技术渣 Staneyffer Julindada
-                            </div>
-                            <p class="readmore"><a href="http://hasan.shaobo.fun/friend/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -365,6 +382,10 @@ ACONVERT
 <ul class="widget-list">
     
     <li>
+        <a href="http://hasan.shaobo.fun/posts/20190707-htmltopdf/" title="HtmlToPdf">HtmlToPdf</a>
+    </li>
+    
+    <li>
         <a href="http://hasan.shaobo.fun/posts/20190702-multithreaded-programming/" title="多线程编程">多线程编程</a>
     </li>
     
@@ -400,10 +421,6 @@ ACONVERT
         <a href="http://hasan.shaobo.fun/posts/20190528-base64Note/" title="Base64笔记">Base64笔记</a>
     </li>
     
-    <li>
-        <a href="http://hasan.shaobo.fun/posts/20190527-sortAlgorithm/" title="常用排序算法">常用排序算法</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -414,7 +431,7 @@ ACONVERT
 <ul class="widget-list">
     
     <li>
-        <a href="http://hasan.shaobo.fun/categories/Tool/">Tool(2)</a>
+        <a href="http://hasan.shaobo.fun/categories/Tool/">Tool(3)</a>
     </li>
     
     <li>
@@ -435,6 +452,8 @@ ACONVERT
     <a href="http://hasan.shaobo.fun/tags/Base64/">Base64</a>
     
     <a href="http://hasan.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Python/">Python</a>
     
     <a href="http://hasan.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     

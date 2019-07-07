@@ -7,27 +7,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>工欲善其事,必先利其器--tmux | Hasan</title>
-    <meta property="og:title" content="工欲善其事,必先利其器--tmux - Hasan">
+    <title>Python | Hasan</title>
+    <meta property="og:title" content="Python - Hasan">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-06-30T10:56:41&#43;08:00">
-        
-        
-    <meta property="article:modified_time" content="2019-06-30T10:56:41&#43;08:00">
         
     <meta name="Keywords" content="">
-    <meta name="description" content="工欲善其事,必先利其器--tmux">
+    <meta name="description" content="Python">
         
     <meta name="author" content="shaobo">
-    <meta property="og:url" content="http://hasan.shaobo.fun/posts/20190630-tmux/">
+    <meta property="og:url" content="http://hasan.shaobo.fun/tags/Python/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
     
-        <link rel="stylesheet" href="/css/prism.css">
-    
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="alternate" type="application/rss+xml+xml" href="http://hasan.shaobo.fun/tags/Python/index.xml" title="Hasan" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
     
@@ -37,6 +32,7 @@
     
     <link href="/iconfont/material-icons.css" rel="stylesheet">
 </head>
+
 
 <body>
 <header id="header" class="clearfix">
@@ -75,170 +71,46 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
-                    <article class="post">
-                        <header>
-                            <h1 class="post-title">工欲善其事,必先利其器--tmux</h1>
-                        </header>
-                        <date class="post-meta meta-date">
-                            2019-6-30
-                        </date>
-                        
-                        <div class="post-meta">
-                            <span>|</span>
-                            
-                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/Tool">Tool</a></span>
-                            
-                        </div>
-                        
-                        
-                        <div class="post-meta">
-                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
-                        </div>
-                        
-                        
-                        <div class="post-content">
-                            <p>tmux是一个终端多路复用器:它允许在一个屏幕上创建、访问和控制多个终端。tmux可以从屏幕上分离出来，在后台继续运行，然后重新连接。
-可以运行在OpenBSD、FreeBSD、NetBSD、Linux、OS X和Solaris上。</p>
-
-<p>会话（session）指令</p>
-
-<pre><code>tmux new -s demo # 新建一个名称为demo的会话
-tmux detach # 断开当前会话，会话在后台运行
-tmux a # 默认进入第一个会话
-tmux a -t demo # 进入到名称为demo的会话
-tmux kill-session -t demo # 关闭demo会话
-tmux kill-server # 关闭服务器，所有的会话都将关闭
-tmux ls # 查看所有会话，提倡使用简写形式 
-</code></pre>
-
-<p>窗口（window）指令</p>
-
-<pre><code>前缀  指令  描述
-Ctrl+b  c   新建窗口
-Ctrl+b  &amp;   关闭当前窗口（关闭前需输入y or n确认）
-Ctrl+b  0~9 切换到指定窗口
-Ctrl+b  p   切换到上一窗口
-Ctrl+b  n   切换到下一窗口
-Ctrl+b  w   打开窗口列表，用于且切换窗口
-Ctrl+b  ,   重命名当前窗口
-Ctrl+b  .   修改当前窗口编号（适用于窗口重新排序）
-Ctrl+b  f   快速定位到窗口（输入关键字匹配窗口名称）
-</code></pre>
-
-<p>面板（pane）指令</p>
-
-<pre><code>前缀  指令  描述
-Ctrl+b  &quot;   当前面板上下一分为二，下侧新建面板
-Ctrl+b  %   当前面板左右一分为二，右侧新建面板
-Ctrl+b  x   关闭当前面板（关闭前需输入y or n确认）
-</code></pre>
-
-<p>my <strong>.tmux.conf</strong> (tmux&gt;=2.1)</p>
-
-<pre><code>bind-key l select-pane -R
-bind-key h select-pane -L
-bind-key j select-pane -D
-bind-key k select-pane -U
-set -g mouse on
-set -g prefix C-a
-set -g default-terminal &quot;screen-256color&quot;#开启256 colors支持
-</code></pre>
-
-<p>Github上也已经有人写了一份漂亮而又多功能的<a href="https://github.com/gpakosz/.tmux">tmux配置</a>,只想享受tmux的带来的便利而又懒得编写tmux配置的小伙伴可以去安装它</p>
-
-<p>REMINDING</p>
-
-<p>Tmux中复制,需要先按住shift键再拖动的选择才有效</p>
-                        </div>
-
-                        
-
-
-                        
-                        <div class="post-meta meta-tags">
-                            <ul class="clearfix">
-                                
-                                <li><a href="http://hasan.shaobo.fun/tags/tmux">tmux</a></li>
-                                
-                            </ul>
-                        </div>
-                        
-                    </article>
-                    <div class="nextpre">
-    
-    
-    
-    
-    <div class="clearfix">
-    <ul class="prevnext">
-    
-        <li class="next">
-        <a href="http://hasan.shaobo.fun/posts/20190630-serial-port/">
-        <i class="material-icons">arrow_back</i><span>Linux串口通信</span>
-        </a>
-        </li>
-    
-
-    
-        <li class="pre">
-        <a href="http://hasan.shaobo.fun/posts/20190629-tcpip/">
-        <span>Linux网络编程</span><i class="material-icons">arrow_forward</i>
-        </a>
-        </li>
-    
-    </ul>
-    </div>
-    
-</div>
-<style>
-.nextpre .prevnext{
-    margin: 0%;
-    padding: 0%;
-    list-style: none;
-    margin-bottom: 50px;
-} 
-.nextpre .prevnext li{
-    font-size: 16px;
-} 
-.nextpre .prevnext li a{
-    color: #5d4037;
-}
-.nextpre .prevnext li a i{
-    float: left;
-}
-.nextpre .prevnext li a span{
-    padding-top: 5px;
-    float: left;
-}
-.nextpre .prevnext li a:hover{
-    color: #dd2c00;
-}
-.nextpre .prevnext .next{
-    float: left;
-}
-.nextpre .prevnext .pre{
-    float: right;
-}
-</style>
+                    
+                    <h3 class="archive-title">
+                        包含标签
+                        <span class="keyword">Python</span>
+                        的文章
+                    </h3>
                     
 
                     
-    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
+                                    <a href="http://hasan.shaobo.fun/posts/20190707-htmltopdf/">HtmlToPdf</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019-7-7
+                            </date>
+                            
+                            <div class="post-meta meta-category">
+                                |
+                                
+                                    <a href="http://hasan.shaobo.fun/categories/Tool">Tool</a>
+                                
+                            </div>
+                            
+                            
+                        </article>
+                        <hr>
+                    
 
-    
-    
-    <div class="post bg-white utteranc-comment">
-      <script src="https://utteranc.es/client.js"
-            repo= "csbbo/hasan"
-            issue-term="pathname"
-            theme="github-light"
-            crossorigin="anonymous"
-            async>
-      </script>
-    </div>
-    
+                    
+
+
+
+
+
                 </div>
             </div>
+
             <div id="secondary">
     <section class="widget">
         <form id="search" action="https://www.google.com/search" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
@@ -372,22 +244,6 @@ set -g default-terminal &quot;screen-256color&quot;#开启256 colors支持
 </footer>
 
 
-    <script type="text/javascript">
-    
-    (function(){
-        $("pre code").parent().addClass("line-numbers")
-    }())
-
-    window.MathJax = {
-        tex2jax: {
-            inlineMath: [ ['$','$'] ],
-            processEscapes: true
-        }
-    };
-    </script>
-    <script type="text/javascript" src="/js/prism.js" async="true"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
 <a id="rocket" href="#top"></a>
 <script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
 
@@ -398,53 +254,6 @@ set -g default-terminal &quot;screen-256color&quot;#开启256 colors支持
 
 
 
-</body>
-<style>
-.catalogue:hover .clear{
-    display: block;
-}
-.catalogue .show{
-    position: fixed;
-    top: 35px;
-    left: 0px;
-    width: 3px;
-    height: 50px;
-    background-color: #424242;
-}
-.catalogue .clear{
-    position: fixed;
-    top:30px;
-    left:0px;
-    z-index: 100;
-    background-color: #fff;
-    border: 1px solid #9e9e9e;
-    border-radius: 5px;
-    display: none;
-}
-.catalogue .clear li a{
-    color: #424242;
-}
-.catalogue .clear li a:hover{
-    border-bottom: 1px solid #424242;
-}
 
-.catalogue .clear .toc-title{
-    margin-top: 5px;
-    margin-left: 2px;
-}
-.post-meta{
-    margin-top: 10px;
-}
-.post-meta ul{
-    margin: 0%;
-    padding: 0%;
-}
-.post-meta ul li{
-    padding: 0% 6px;
-}
-.post-meta ul li a{
-    margin-left: 0%;
-    padding-left: 10px;
-}
-</style>
+</body>
 </html>

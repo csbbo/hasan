@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>工欲善其事,必先利其器--tmux | Hasan</title>
-    <meta property="og:title" content="工欲善其事,必先利其器--tmux - Hasan">
+    <title>HtmlToPdf | Hasan</title>
+    <meta property="og:title" content="HtmlToPdf - Hasan">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-06-30T10:56:41&#43;08:00">
+    <meta property="article:published_time" content="2019-07-07T22:40:51&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-06-30T10:56:41&#43;08:00">
+    <meta property="article:modified_time" content="2019-07-07T22:40:51&#43;08:00">
         
     <meta name="Keywords" content="">
-    <meta name="description" content="工欲善其事,必先利其器--tmux">
+    <meta name="description" content="HtmlToPdf">
         
     <meta name="author" content="shaobo">
-    <meta property="og:url" content="http://hasan.shaobo.fun/posts/20190630-tmux/">
+    <meta property="og:url" content="http://hasan.shaobo.fun/posts/20190707-htmltopdf/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -77,10 +77,10 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">工欲善其事,必先利其器--tmux</h1>
+                            <h1 class="post-title">HtmlToPdf</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019-6-30
+                            2019-7-7
                         </date>
                         
                         <div class="post-meta">
@@ -97,58 +97,67 @@
                         
                         
                         <div class="post-content">
-                            <p>tmux是一个终端多路复用器:它允许在一个屏幕上创建、访问和控制多个终端。tmux可以从屏幕上分离出来，在后台继续运行，然后重新连接。
-可以运行在OpenBSD、FreeBSD、NetBSD、Linux、OS X和Solaris上。</p>
+                            
 
-<p>会话（session）指令</p>
+<p>最近用html写简历，打印的时候需要将html转成pdf,网上也有网站提供转换功能，但还是自己写一个转换程序更为方便些</p>
 
-<pre><code>tmux new -s demo # 新建一个名称为demo的会话
-tmux detach # 断开当前会话，会话在后台运行
-tmux a # 默认进入第一个会话
-tmux a -t demo # 进入到名称为demo的会话
-tmux kill-session -t demo # 关闭demo会话
-tmux kill-server # 关闭服务器，所有的会话都将关闭
-tmux ls # 查看所有会话，提倡使用简写形式 
+<h4 id="准备工作">准备工作</h4>
+
+<p>安装pdfkit</p>
+
+<pre><code>pip install pdfkit
 </code></pre>
 
-<p>窗口（window）指令</p>
+<p>自己的操作系统上还需要装上wkhtmltopdf</p>
 
-<pre><code>前缀  指令  描述
-Ctrl+b  c   新建窗口
-Ctrl+b  &amp;   关闭当前窗口（关闭前需输入y or n确认）
-Ctrl+b  0~9 切换到指定窗口
-Ctrl+b  p   切换到上一窗口
-Ctrl+b  n   切换到下一窗口
-Ctrl+b  w   打开窗口列表，用于且切换窗口
-Ctrl+b  ,   重命名当前窗口
-Ctrl+b  .   修改当前窗口编号（适用于窗口重新排序）
-Ctrl+b  f   快速定位到窗口（输入关键字匹配窗口名称）
+<p>我的系统是archlinux</p>
+
+<pre><code>sudo pacman -S wkhtmltopdf
 </code></pre>
 
-<p>面板（pane）指令</p>
+<p>然后其他的操作系统也类似</p>
 
-<pre><code>前缀  指令  描述
-Ctrl+b  &quot;   当前面板上下一分为二，下侧新建面板
-Ctrl+b  %   当前面板左右一分为二，右侧新建面板
-Ctrl+b  x   关闭当前面板（关闭前需输入y or n确认）
+<p><strong>Ubuntu</strong></p>
+
+<pre><code>sudo apt-get install wkhtmltopdf
 </code></pre>
 
-<p>my <strong>.tmux.conf</strong> (tmux&gt;=2.1)</p>
+<p><strong>CentOS</strong></p>
 
-<pre><code>bind-key l select-pane -R
-bind-key h select-pane -L
-bind-key j select-pane -D
-bind-key k select-pane -U
-set -g mouse on
-set -g prefix C-a
-set -g default-terminal &quot;screen-256color&quot;#开启256 colors支持
+<pre><code>sudo yum intsall wkhtmltopdf
 </code></pre>
 
-<p>Github上也已经有人写了一份漂亮而又多功能的<a href="https://github.com/gpakosz/.tmux">tmux配置</a>,只想享受tmux的带来的便利而又懒得编写tmux配置的小伙伴可以去安装它</p>
+<p><strong>Mac</strong></p>
 
-<p>REMINDING</p>
+<pre><code>brew install Caskroom/cask/wkhtmltopdf
+</code></pre>
 
-<p>Tmux中复制,需要先按住shift键再拖动的选择才有效</p>
+<p><strong>Windows</strong></p>
+
+<pre><code>下载地址：https://wkhtmltopdf.org/downloads.html
+并配置系统环境变量
+</code></pre>
+
+<p>最是炒鸡简单Python程序代码</p>
+
+<pre><code class="language-python3">#! /usr/bin/python3
+# -*- coding:utf-8 -*-
+
+import pdfkit
+
+options={
+   'page-size':'A4',#Letter
+    'margin-top':'0.4in',
+    'margin-right':'0.6in',
+    'margin-bottom':'0.4in',
+    'margin-left':'0.6in',
+    'encoding':&quot;UTF-8&quot;,
+    'no-outline':None
+}  
+
+pdfkit.from_file('./in.html','out.pdf',options=options)
+</code></pre>
+
                         </div>
 
                         
@@ -158,7 +167,7 @@ set -g default-terminal &quot;screen-256color&quot;#开启256 colors支持
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://hasan.shaobo.fun/tags/tmux">tmux</a></li>
+                                <li><a href="http://hasan.shaobo.fun/tags/Python">Python</a></li>
                                 
                             </ul>
                         </div>
@@ -172,17 +181,11 @@ set -g default-terminal &quot;screen-256color&quot;#开启256 colors支持
     <div class="clearfix">
     <ul class="prevnext">
     
-        <li class="next">
-        <a href="http://hasan.shaobo.fun/posts/20190630-serial-port/">
-        <i class="material-icons">arrow_back</i><span>Linux串口通信</span>
-        </a>
-        </li>
-    
 
     
         <li class="pre">
-        <a href="http://hasan.shaobo.fun/posts/20190629-tcpip/">
-        <span>Linux网络编程</span><i class="material-icons">arrow_forward</i>
+        <a href="http://hasan.shaobo.fun/posts/20190702-multithreaded-programming/">
+        <span>多线程编程</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
     

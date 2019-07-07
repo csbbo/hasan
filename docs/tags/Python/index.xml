@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on Hasan</title>
+    <link>http://hasan.shaobo.fun/tags/Python/</link>
+    <description>Recent content in Python on Hasan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 07 Jul 2019 22:40:51 +0800</lastBuildDate>
+    
+	<atom:link href="http://hasan.shaobo.fun/tags/Python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>HtmlToPdf</title>
+      <link>http://hasan.shaobo.fun/posts/20190707-htmltopdf/</link>
+      <pubDate>Sun, 07 Jul 2019 22:40:51 +0800</pubDate>
+      
+      <guid>http://hasan.shaobo.fun/posts/20190707-htmltopdf/</guid>
+      <description> 最近用html写简历，打印的时候需要将html转成pdf,网上也有网站提供转换功能，但还是自己写一个转换程序更为方便些
+准备工作 安装pdfkit
+pip install pdfkit  自己的操作系统上还需要装上wkhtmltopdf
+我的系统是archlinux
+sudo pacman -S wkhtmltopdf  然后其他的操作系统也类似
+Ubuntu
+sudo apt-get install wkhtmltopdf  CentOS
+sudo yum intsall wkhtmltopdf  Mac
+brew install Caskroom/cask/wkhtmltopdf  Windows
+下载地址：https://wkhtmltopdf.org/downloads.html 并配置系统环境变量  最是炒鸡简单Python程序代码
+#! /usr/bin/python3 # -*- coding:utf-8 -*- import pdfkit options={ &#39;page-size&#39;:&#39;A4&#39;,#Letter &#39;margin-top&#39;:&#39;0.4in&#39;, &#39;margin-right&#39;:&#39;0.6in&#39;, &#39;margin-bottom&#39;:&#39;0.4in&#39;, &#39;margin-left&#39;:&#39;0.6in&#39;, &#39;encoding&#39;:&amp;quot;UTF-8&amp;quot;, &#39;no-outline&#39;:None } pdfkit.from_file(&#39;./in.html&#39;,&#39;out.pdf&#39;,options=options)  </description>
+    </item>
+    
+  </channel>
+</rss>
