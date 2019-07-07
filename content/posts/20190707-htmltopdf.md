@@ -14,7 +14,7 @@ categories: ["Tool"]
 pip install pdfkit
 ```
 自己的操作系统上还需要装上wkhtmltopdf
-
+<!--more-->
 我的系统是archlinux
 ```
 sudo pacman -S wkhtmltopdf
