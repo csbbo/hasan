@@ -39,7 +39,7 @@ brew install Caskroom/cask/wkhtmltopdf
 并配置系统环境变量
 ```
 
-最是炒鸡简单Python程序代码
+最后是炒鸡简单Python程序代码
 ```python3
 #! /usr/bin/python3
 # -*- coding:utf-8 -*-
