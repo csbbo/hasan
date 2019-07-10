@@ -6,28 +6,39 @@
     <description>Recent content in 算法 on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 May 2019 20:01:40 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 27 May 2019 20:02:58 +0800</lastBuildDate>
     
 	<atom:link href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Base64笔记</title>
-      <link>http://hasan.shaobo.fun/posts/20190528-base64Note/</link>
-      <pubDate>Tue, 28 May 2019 20:01:40 +0800</pubDate>
+      <title>常用排序算法</title>
+      <link>http://hasan.shaobo.fun/posts/20190527-sortAlgorithm/</link>
+      <pubDate>Mon, 27 May 2019 20:02:58 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/20190528-base64Note/</guid>
-      <description>&lt;p&gt;Base64是一种基于64个可打印字符来表示二进制数据的表示方法。常用于在通常处理文本数据的场合，表示、传输、存储一些二进制数据，包括MIME的电子邮件及XML的一些复杂数据。&lt;/p&gt;
+      <guid>http://hasan.shaobo.fun/posts/20190527-sortAlgorithm/</guid>
+      <description>&lt;p&gt;排序算法有很多，但就其全面性而言，很难提出一种被认为是最好的方法，每一种方法都有各自的优缺点，适合在不同的环境使用。排序过程是一个逐步扩大记录的有序序列长度的过程，排序过程中可以将记录分为有序序列区和无序序列区。&lt;/p&gt;
+
+&lt;p&gt;以下算法都是经过运行成功的C++代码:&lt;/p&gt;
+
+&lt;h3 id=&#34;插入排序&#34;&gt;插入排序&lt;/h3&gt;
 
 &lt;blockquote&gt;
-&lt;p&gt;所谓Base64，就是说选出64个字符小写字母a-z、大写字母A-Z、数字0-9、符号&amp;rdquo;+&amp;ldquo;、&amp;rdquo;/&amp;ldquo;（再加上作为垫字的&amp;rdquo;=&amp;ldquo;，实际上是65个字符）作为一个基本字符集。然后，其他所有符号都转换成这个字符集中的字符。&lt;/p&gt;
+&lt;p&gt;插入排序是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。插入排序在实现上，通常采用in-place排序（即只需用到O(1)的额外空间的排序），因而在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;具体来说，转换方式可以分为四步:&lt;br /&gt;
-1.将每三个字节作为一组，一共是24个二进制位。&lt;br /&gt;
-2.将这24个二进制位分为四组，每个组有6个二进制位。&lt;br /&gt;
-3.在每组前面加两个00，扩展成32个二进制位，即四个字节。&lt;br /&gt;
-4.根据下表，得到扩展后的每个字节的对应符号，这就是Base64的编码值。&lt;/p&gt;</description>
+&lt;pre&gt;&lt;code&gt;void InsertSort(int arr[],int len){
+    for(int i=1;i&amp;lt;len;i++){
+        int key=arr[i];     //当前要插入值
+        int j=i-1;
+        while(key&amp;lt;arr[j] &amp;amp;&amp;amp; j&amp;gt;=0){      //从后往前比对，比当前值大都往后挪
+            arr[j+1]=arr[j];            //后一个等于前一个
+            j--;
+        }
+        arr[j+1]=key;                   //找到合适位置后插入
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</description>
     </item>
     
     <item>
