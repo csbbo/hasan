@@ -158,26 +158,35 @@
 
 <p>在vim中可以通过a/A/i/I/o/O进入插入模式,gi能够快速的跳转到上一次编辑的地方并进入插入模式</p>
 
-<p>快速纠错<br />
-- ctrl+h删除上一个字符
-- ctrl+w删除上一个单词
-- ctrl+u删除当前行</p>
+<p>快速纠错</p>
+
+<ul>
+<li>ctrl+h删除上一个字符</li>
+<li>ctrl+w删除上一个单词</li>
+<li>ctrl+u删除当前行</li>
+</ul>
 
 <h3 id="快速移动">快速移动</h3>
 
-<p>单词间移动<br />
-- w/W移动到下一个单词的开头
-- e/E移动到下一个单词的末尾
-- b/B移动到上一个单词的开头</p>
+<p>单词间移动</p>
+
+<ul>
+<li>w/W移动到下一个单词的开头</li>
+<li>e/E移动到下一个单词的末尾</li>
+<li>b/B移动到上一个单词的开头</li>
+</ul>
 
 <blockquote>
 <p>小写字母指的是以非空白符分割的单词,大写字母指的是以空白符分割的单词</p>
 </blockquote>
 
-<p>行中移动<br />
-- f{char}移动到char字符上
-- t{char}移动到char前一个字符上
-- F{char}反过来搜索前面的字符</p>
+<p>行中移动</p>
+
+<ul>
+<li>f{char}移动到char字符上</li>
+<li>t{char}移动到char前一个字符上</li>
+<li>F{char}反过来搜索前面的字符</li>
+</ul>
 
 <blockquote>
 <p>如果第一次没搜到可以用&rdquo;;&ldquo;继续搜索下一个&rdquo;,&ldquo;继续搜索上一个
@@ -186,20 +195,26 @@
 
 <h3 id="增删改查">增删改查</h3>
 
-<p>快速删除<br />
-- daw删除一个单词
-- dt{char}删除到char
-- d$删除到行未,删除到行首
-快速修改</p>
+<p>快速删除</p>
+
+<ul>
+<li>daw删除一个单词</li>
+<li>dt{char}删除到char</li>
+<li>d$删除到行未,删除到行首
+快速修改</li>
+</ul>
 
 <blockquote>
-<p>常用的命令有r(replace),c(change),s(substitue)
-- r替换一个字符,s删除一个字符并进入插入模式
-- c配合文本对象,快速修改
-快速查询<br />
-- &ldquo;/&ldquo;或&rdquo;?&ldquo;进行前向搜索或反向搜索
-- &ldquo;n&rdquo;或&rdquo;N&rdquo;跳转到上一个或下一个匹配</p>
+<p>常用的命令有r(replace),c(change),s(substitue)</p>
 </blockquote>
+
+<ul>
+<li>r替换一个字符,s删除一个字符并进入插入模式</li>
+<li>c配合文本对象,快速修改
+快速查询<br /></li>
+<li>&rdquo;/&ldquo;或&rdquo;?&ldquo;进行前向搜索或反向搜索</li>
+<li>&ldquo;n&rdquo;或&rdquo;N&rdquo;跳转到上一个或下一个匹配</li>
+</ul>
 
 <h3 id="搜索替换">搜索替换</h3>
 
@@ -211,14 +226,21 @@
 
 <h3 id="多文件模式">多文件模式</h3>
 
-<p>Buffer间切换<br />
-- ls列举当前缓冲区,b n跳转到第n个缓冲区
-- bpre bnext bfirst blast
-- b buffer_name加上tab补全跳转
-窗口<br />
-- sp水平分割,vs垂直分割
-- ctrl+w+[w|h|j|k|l]进行循环,上下左右的窗口切换
-- e在当前窗口打开一个新的Buffer</p>
+<p>Buffer间切换</p>
+
+<ul>
+<li>ls列举当前缓冲区,b n跳转到第n个缓冲区</li>
+<li>bpre bnext bfirst blast</li>
+
+<li><p>b buffer_name加上tab补全跳转
+窗口</p></li>
+
+<li><p>sp水平分割,vs垂直分割</p></li>
+
+<li><p>ctrl+w+[w|h|j|k|l]进行循环,上下左右的窗口切换</p></li>
+
+<li><p>e在当前窗口打开一个新的Buffer</p></li>
+</ul>
 
 <h3 id="text-object">text object</h3>
 
@@ -262,9 +284,12 @@
 
 <h3 id="映射">映射</h3>
 
-<p>vim映射就是吧一个操作映射到另一个操作<br />
-- nmap/vmap/imap分别在normal/visual/insert模式下分别有效
-- nnoremap/vnoremap/inoremap分别表示normal/visual/insert模式下的非递归映射</p>
+<p>vim映射就是吧一个操作映射到另一个操作</p>
+
+<ul>
+<li>nmap/vmap/imap分别在normal/visual/insert模式下分别有效</li>
+<li>nnoremap/vnoremap/inoremap分别表示normal/visual/insert模式下的非递归映射</li>
+</ul>
 
 <h3 id="插件">插件</h3>
 

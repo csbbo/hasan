@@ -20,20 +20,24 @@ toc : true
 
 在vim中可以通过a/A/i/I/o/O进入插入模式,gi能够快速的跳转到上一次编辑的地方并进入插入模式
 
-快速纠错  
+快速纠错
+ 
 - ctrl+h删除上一个字符
 - ctrl+w删除上一个单词
 - ctrl+u删除当前行
 
 ### 快速移动
-单词间移动  
+
+单词间移动
+
 - w/W移动到下一个单词的开头
 - e/E移动到下一个单词的末尾
 - b/B移动到上一个单词的开头
 
 > 小写字母指的是以非空白符分割的单词,大写字母指的是以空白符分割的单词
 
-行中移动  
+行中移动
+
 - f{char}移动到char字符上
 - t{char}移动到char前一个字符上
 - F{char}反过来搜索前面的字符
@@ -43,13 +47,15 @@ toc : true
 
 ### 增删改查
 
-快速删除   
+快速删除
+
 - daw删除一个单词
 - dt{char}删除到char
 - d$删除到行未,删除到行首
 快速修改
 
 > 常用的命令有r(replace),c(change),s(substitue)
+
 - r替换一个字符,s删除一个字符并进入插入模式
 - c配合文本对象,快速修改
 快速查询  
@@ -64,11 +70,13 @@ toc : true
 
 ### 多文件模式
 
-Buffer间切换  
+Buffer间切换
+
 - ls列举当前缓冲区,b n跳转到第n个缓冲区
 - bpre bnext bfirst blast
 - b buffer_name加上tab补全跳转
-窗口  
+窗口
+
 - sp水平分割,vs垂直分割
 - ctrl+w+[w|h|j|k|l]进行循环,上下左右的窗口切换
 - e在当前窗口打开一个新的Buffer
@@ -106,7 +114,8 @@ Buffer间切换
 
 ### 映射
 
-vim映射就是吧一个操作映射到另一个操作  
+vim映射就是吧一个操作映射到另一个操作
+
 - nmap/vmap/imap分别在normal/visual/insert模式下分别有效
 - nnoremap/vnoremap/inoremap分别表示normal/visual/insert模式下的非递归映射
 
