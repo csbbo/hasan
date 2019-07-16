@@ -21,7 +21,7 @@ toc : true
 在vim中可以通过a/A/i/I/o/O进入插入模式,gi能够快速的跳转到上一次编辑的地方并进入插入模式
 
 快速纠错
- 
+
 - ctrl+h删除上一个字符
 - ctrl+w删除上一个单词
 - ctrl+u删除当前行
@@ -75,6 +75,7 @@ Buffer间切换
 - ls列举当前缓冲区,b n跳转到第n个缓冲区
 - bpre bnext bfirst blast
 - b buffer_name加上tab补全跳转
+
 窗口
 
 - sp水平分割,vs垂直分割
