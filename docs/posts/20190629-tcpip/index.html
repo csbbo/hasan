@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.57.2" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -281,55 +281,49 @@ Socket 也是一种文件描述符。 Socket 也具有一个类似于打开文�
 </code></pre>
 
 <ol>
-<li>IP 地址转换</li>
-</ol>
+<li><p>IP 地址转换</p>
 
 <pre><code class="language-c">int inet_aton(const char *cp,struct in_addr *inp)
 char *inet_ntoa(struct in_addr in)
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>IP和域名的转换</li>
-</ol>
+<li><p>IP和域名的转换</p>
 
 <pre><code class="language-c">struct hostent *gethostbyname(const char *hostname);
 struct hostent *gethostbyaddr(const char *addr,int len,int type);
 </code></pre>
 
 <pre><code class="language-c">struct hostent{
-    char *h_name; /*主机的正式名称 */
-    char *h_aliases; /*主机的别名 */
-    int h_addrtype; /*主机的地址类型 AF_INET*/
-    int h_length; /*主机的地址长度对于IP4是4字节32位*/
-    char **h_addr_list; /* 主机的 IP 地址列表 */
+char *h_name; /*主机的正式名称 */
+char *h_aliases; /*主机的别名 */
+int h_addrtype; /*主机的地址类型 AF_INET*/
+int h_length; /*主机的地址长度对于IP4是4字节32位*/
+char **h_addr_list; /* 主机的 IP 地址列表 */
 } ;
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>字节顺序转换</li>
-</ol>
+<li><p>字节顺序转换</p>
 
 <pre><code class="language-c">unsigned long int htonl(unsigned long int hostlong);
 unsigned short int htons(unisgned short int hostshort);
 unsigned long int ntohl(unsigned long int netlong);
 unsigned short int ntohs(unsigned short int netshort);
-</code></pre>
+</code></pre></li>
 
-<ol>
-<li>服务信息函数</li>
-</ol>
+<li><p>服务信息函数</p>
 
 <pre><code class="language-c">int getsockname(int sockfd,struct sockaddr *localaddr,int *addrlen);
 int getpeername(int sockfd,struct sockaddr *peeraddr, int *addrlen);
 struct servent *getservbyname(const char *servname,const char *protoname);
 struct servent *getservbyport(int port,const char *protoname);
 struct servent {
-    char *s_name; /* 正式服务名 */
-    char **s_aliases; /* 别名列表 */
-    int s_port; /* 端口号 */
-    char *s_proto; /* 使用的协议 */
+char *s_name; /* 正式服务名 */
+char **s_aliases; /* 别名列表 */
+int s_port; /* 端口号 */
+char *s_proto; /* 使用的协议 */
 }
-</code></pre>
+</code></pre></li>
+</ol>
 
 <h4 id="socket基础编程">socket基础编程</h4>
 
@@ -879,52 +873,4 @@ int main(int argc,char *argv[])
 
 
 </body>
-<style>
-.catalogue:hover .clear{
-    display: block;
-}
-.catalogue .show{
-    position: fixed;
-    top: 35px;
-    left: 0px;
-    width: 3px;
-    height: 50px;
-    background-color: #424242;
-}
-.catalogue .clear{
-    position: fixed;
-    top:30px;
-    left:0px;
-    z-index: 100;
-    background-color: #fff;
-    border: 1px solid #9e9e9e;
-    border-radius: 5px;
-    display: none;
-}
-.catalogue .clear li a{
-    color: #424242;
-}
-.catalogue .clear li a:hover{
-    border-bottom: 1px solid #424242;
-}
-
-.catalogue .clear .toc-title{
-    margin-top: 5px;
-    margin-left: 2px;
-}
-.post-meta{
-    margin-top: 10px;
-}
-.post-meta ul{
-    margin: 0%;
-    padding: 0%;
-}
-.post-meta ul li{
-    padding: 0% 6px;
-}
-.post-meta ul li a{
-    margin-left: 0%;
-    padding-left: 10px;
-}
-</style>
 </html>

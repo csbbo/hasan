@@ -914,7 +914,7 @@ img.alignright {
 
 /* for archive page starts*/
 .post-archive {
-    font-size: 15px;
+    font-size: 16px;
     line-height: 2;
     padding-bottom: .8em; 
 }
@@ -924,6 +924,53 @@ img.alignright {
 }
 .post-archive .date {
       padding-right: .7em; 
+}
+.post-archive ul{
+    list-style: none;
+}
+.post-archive ul li a:hover{
+    border-bottom: 0.8px solid #505050;
+}
+
+.tool-content{
+    margin-top: 40px;
+}
+.tool-content h1,.tool-content h2,.tool-content h3,.tool-content h4,.tool-content h5,.tool-content h6,.tool-content h7{
+    padding: 0%;
+    margin: 0%;
+    color: #009688;
+}
+.tool-content p{
+    padding: 0%;
+    margin: 0%;
+}
+.tool-content p a{
+    padding: 0%;
+    margin: 0%;
+}
+.tool-content p a:hover{
+    color: #424242;
+    border-bottom: 0.8px solid #505050;
+}
+
+.links{
+    margin-top: 10px;
+}
+.links a{
+    border: 1px solid #009688;
+    float: left;
+    width: 45%;
+    height: 30px;
+    padding: 10px 5px;;
+    margin-right: 20px;
+    margin-top: 25px;
+    font-size: 15px;
+    word-break: break-all;
+    text-align: center;
+    color: #009688;
+}
+.links a:hover{
+    background-color: #e3f2fd;
 }
 /* for archive page ends*/
 
@@ -1082,30 +1129,4 @@ table tr th, table tr td {
 
 #TableOfContents li {
     list-style-type: none; 
-}
-
-/* mycss */
-.post-archive h2{
-    color: #00796b;
-    margin-top: 10px;
-}
-.post-archive ul{
-    margin-top: 0%;
-    padding: 0%;
-}
-.post-archive ul li{
-    list-style: none;
-    margin-left: 35px;
-}
-.post-archive ul li a{
-    color: #00796b;
-}
-.post-archive ul li a:hover{
-    color: #004d40;
-}
-.menu-title{
-    color: #757575 !important;
-}
-.subtitle-descrition{
-    margin-top: 20px;
 }
