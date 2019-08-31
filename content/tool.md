@@ -5,6 +5,8 @@ type: tool
 ---
 
 #### 在线工具
+[Linux命令大全](https://man.linuxde.net/)
+
 [Materialize Color](https://materializecss.com/color.html)
 
 [ACONVERT](https://www.aconvert.com/cn/)
