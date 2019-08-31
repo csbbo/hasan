@@ -13,7 +13,7 @@ toc : true
 ### 插入排序
 > 插入排序是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。插入排序在实现上，通常采用in-place排序（即只需用到O(1)的额外空间的排序），因而在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。
 
-```
+```c
 void InsertSort(int arr[],int len){
     for(int i=1;i<len;i++){
         int key=arr[i];     //当前要插入值
@@ -44,7 +44,7 @@ void InsertSort(int arr[],int len){
 ### 折半插入排序
 > 折半插入排序是对插入排序的一种改进，由于插入排序过程中就是不断依次将元素插入前面已经排好的序列中。而前半部分已经是排好序的数列，所以在查找的过程中采用这半查找来加快查找插入点的速度
 
-```
+```c
 void BinaryInsertSort(int arr[],int len){
     for(int i=1;i<len;i++){
         int key=arr[i];     //当前要插入值
@@ -74,7 +74,7 @@ void BinaryInsertSort(int arr[],int len){
 
 > 希尔排序又称缩小增量排序，是插入排序中的一种。希尔排序实际是分组插入排序，将整个待排序列每次按照不同的增量分组。当经过几次分组后整个序列基本有序时，再对全体记录进行一次插入排序。
 
-```
+```c
 void ShellSort(int arr[],int len){
     for(int d=len/2;d>0;d = d/2){
 
@@ -110,7 +110,7 @@ void ShellSort(int arr[],int len){
 
 > 冒泡排序是一种简单的交换排序方法，他通过两两比较相邻记录的关键字，如果发生逆序，则进行交换，从而使关键字小的记录如气泡一般逐渐往上漂浮(左移)，或者使关键字大的记录如石块一样向下坠落(右移)
 
-```
+```c
 void BubbleSort(int arr[],int len)
 {
     int m = len-1;
@@ -141,7 +141,7 @@ void BubbleSort(int arr[],int len)
 算法步骤: 在待排序的n个记录中取任一记录(这里选最后一个)作为枢纽(pivot)，经过一趟排序后把所有关键字小于key的记录交换到前面，大于key的交换到后面形成两个子表，key放到分界处，然后分别对左右子表重复上诉操作，直至每一个字表只有一个记录时，排序完成。
 
 **递归法**
-```
+```c
 void QSort(int arr[],int start,int end)
 {
     if (start >= end)
@@ -164,7 +164,7 @@ void QSort(int arr[],int start,int end)
 }
 ```
 **迭代法**
-```
+```c
 struct Range {
     int start, end;
     Range(int s = 0, int e = 0) {
@@ -216,7 +216,7 @@ void quick_sort(int arr[], const int len) {
 
 > 选择排序是一种简单直观的排序算法。它的工作原理如下。首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。
 
-```
+```c
 void SelectSort(int arr[],int len)
 {
     for(int i=0;i<len;i++){
@@ -238,7 +238,7 @@ void SelectSort(int arr[],int len)
 
 > 堆排序是指利用堆这种数据结构所设计的一种排序算法。堆是一个近似完全二叉树的结构，并同时满足堆积的性质：即子节点的键值或索引总是小于（或者大于）它的父节点。
 
-```
+```c
 void MaxHeap(int arr[],int start,int end){
     int dad = start;
     int son = dad*2 + 1;
@@ -281,7 +281,7 @@ void HeadSort(int arr[],int len){
 
 > 归并排序，是创建在归并操作上的一种有效的排序算法,归并排序算法思想是假设初始序列含有n个记录，则可以看成n个有序的子序列，每个子序列的长度为１，然后两两归并，不断将归并后数据继续归并直到得到一个长度为n的有序序列为止
 
-```
+```c
 void MergeSortRecursive(int arr[],int reg[],int start,int end){
     if(start >= end)
         return ;
