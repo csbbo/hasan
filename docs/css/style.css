@@ -1106,7 +1106,7 @@ table tr th, table tr td {
     text-align: left;
 }
 /* toc*/
-.toc-article {
+.catalogue {
     border: 1px solid #bbb;
     border-radius: 7px;
     margin: 1.1em 0 0 2em;

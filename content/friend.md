@@ -8,3 +8,4 @@ type: friend
 [想装大神的技术渣](https://angovia.me/)
 [Staneyffer](https://www.chengfy.com/)
 [Julindada](https://julindada.github.io/)
+[飞雪无情](https://www.flysnow.org/)
