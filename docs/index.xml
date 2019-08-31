@@ -6,10 +6,32 @@
     <description>Recent content on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 26 Aug 2019 09:22:05 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 31 Aug 2019 23:49:08 +0800</lastBuildDate>
     
 	<atom:link href="http://hasan.shaobo.fun/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Python字符串加密解密</title>
+      <link>http://hasan.shaobo.fun/posts/20190931-cryptography/</link>
+      <pubDate>Sat, 31 Aug 2019 23:49:08 +0800</pubDate>
+      
+      <guid>http://hasan.shaobo.fun/posts/20190931-cryptography/</guid>
+      <description>&lt;p&gt;之前接触比较多的加密还是非对称的,都不知道对称加密怎么玩了,莫名的想试下.感谢Python当工具用真的是无往不利,这里用到的库是&lt;a href=&#34;https://github.com/pyca/cryptography&#34;&gt;cryptography&lt;/a&gt;,做的需求是给一篇文章加密,等到使用的时候再解密获取内容.&lt;/p&gt;
+
+&lt;h3 id=&#34;官方示例&#34;&gt;官方示例&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;&amp;gt;&amp;gt;&amp;gt; from cryptography.fernet import Fernet
+&amp;gt;&amp;gt;&amp;gt; # Put this somewhere safe!
+&amp;gt;&amp;gt;&amp;gt; key = Fernet.generate_key()
+&amp;gt;&amp;gt;&amp;gt; f = Fernet(key)
+&amp;gt;&amp;gt;&amp;gt; token = f.encrypt(b&amp;quot;A really secret message. Not for prying eyes.&amp;quot;)
+&amp;gt;&amp;gt;&amp;gt; token
+&#39;...&#39;
+&amp;gt;&amp;gt;&amp;gt; f.decrypt(token)
+&#39;A really secret message. Not for prying eyes.&#39;
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
     
     <item>
       <title>Session Cookie Token JWT</title>
