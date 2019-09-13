@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.58.1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Python字符串加密解密 | Hasan</title>
+    <meta property="og:title" content="Python字符串加密解密 - Hasan">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-08-31T23:49:08&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-08-31T23:49:08&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Python字符串加密解密">
+        
+    <meta name="author" content="shaobo">
+    <meta property="og:url" content="http://hasan.shaobo.fun/posts/20190831-cryptography/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hasan.shaobo.fun/">
+                        Hasan
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">我欲乘风破浪，又恐黄沙海洋</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hasan.shaobo.fun/">首页</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/tool/" title="工具">工具</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Python字符串加密解密</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019-8-31
+                        </date>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="post-content">
+                            <p>之前接触比较多的加密还是非对称的,都不知道对称加密怎么玩了,莫名的想试下.感谢Python当工具用真的是无往不利,这里用到的库是<a href="https://github.com/pyca/cryptography">cryptography</a>,做的需求是给一篇文章加密,等到使用的时候再解密获取内容.</p>
+
+<h3 id="官方示例">官方示例</h3>
+
+<pre><code class="language-python">&gt;&gt;&gt; from cryptography.fernet import Fernet
+&gt;&gt;&gt; # Put this somewhere safe!
+&gt;&gt;&gt; key = Fernet.generate_key()
+&gt;&gt;&gt; f = Fernet(key)
+&gt;&gt;&gt; token = f.encrypt(b&quot;A really secret message. Not for prying eyes.&quot;)
+&gt;&gt;&gt; token
+'...'
+&gt;&gt;&gt; f.decrypt(token)
+'A really secret message. Not for prying eyes.'
+</code></pre>
+
+<p>cryptography安装</p>
+
+<pre><code>pip install cryptography
+</code></pre>
+
+<ol>
+<li>首先导入包Fernet</li>
+<li>实例化Fernet需要唯一的参数key,这个参数要求有点高，不是随便一个字节序列就行，要求32位 + url-safe + base64-encoded 的bytes类型。为了方便，Fernet类内置了生成key的类方法: generate_key()，作为加密解密的钥匙，生成的key要保存好，以供解密的时候使用</li>
+<li>实例化一个Fernet对象。</li>
+<li>接下来就是加密方法: fernet.encrypt(data) 接受一个bytes类型的数据，返回一个加密后的bytes类型数据(人类看不懂)，俗称 token-Fernet。</li>
+<li>解密fernet.decrypt(token)</li>
+</ol>
+
+<h1 id="使用实例">使用实例</h1>
+
+<pre><code class="language-python">import sys
+from cryptography.fernet import Fernet
+
+def read_article(path):
+    with open(path, 'r') as f:
+        article = f.read()
+    return article
+
+if __name__ == '__main__':
+    params = len(sys.argv)
+    if params == 1: # 生成秘钥
+        key = Fernet.generate_key() # 生成加密解密秘钥
+        print(key)
+    elif params == 3: # 加密
+        path = sys.argv[1]
+        key = sys.argv[2]
+        f = Fernet(key)
+        content = read_article(path)
+        token = f.encrypt(content.encode('utf-8'))
+        content = str(token,encoding='utf-8')
+        print(content)
+    elif params == 4: # 解密
+        path = sys.argv[1]
+        key = sys.argv[2]
+        decode = sys.argv[3]
+        f = Fernet(key)
+        if decode == '-d':
+            content = read_article(path)
+            token = bytes(content,encoding='utf-8')
+            try:
+                string = f.decrypt(token).decode('utf-8')
+                print(string)
+            except:
+                print(&quot;密码错误!!!&quot;)
+        else:
+            print(&quot;参数错误!!!&quot;)
+    else: # 参数错误
+        print(&quot;生成秘钥: python cripto.py\n&quot;)
+        print(&quot;加密: python cripto.py articlepath key&quot;)
+        print(&quot;解密: python cripto.py articlepath key -d&quot;)
+
+</code></pre>
+
+<blockquote>
+<p>这就完成了对文档的加密解密了,但内容都在终端输出了可以用<code>&gt;</code>重定向到文件</p>
+</blockquote>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="http://hasan.shaobo.fun/tags/crypto">crypto</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+
+    
+        <li class="pre">
+        <a href="http://hasan.shaobo.fun/posts/20190826-session-cookie-token-jwt/">
+        <span>Session Cookie Token JWT</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #5d4037;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #dd2c00;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
+      
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190831-cryptography/" title="Python字符串加密解密">Python字符串加密解密</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190826-session-cookie-token-jwt/" title="Session Cookie Token JWT">Session Cookie Token JWT</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190707-htmltopdf/" title="HtmlToPdf">HtmlToPdf</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190702-multithreaded-programming/" title="多线程编程">多线程编程</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190701-process-communication/" title="进程通信">进程通信</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190630-process-control/" title="进程控制">进程控制</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190630-fileio/" title="文件I/O编程">文件I/O编程</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190630-serial-port/" title="Linux串口通信">Linux串口通信</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190629-tcpip/" title="Linux网络编程">Linux网络编程</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190624-tmux/" title="工欲善其事,必先利其器--tmux">工欲善其事,必先利其器--tmux</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Tool/">Tool(3)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(2)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://hasan.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/process/">process</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tmux/">tmux</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="http://hasan.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a href="/friend/">友情链接</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="http://hasan.shaobo.fun/">Hasan By shaobo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

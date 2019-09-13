@@ -13,10 +13,10 @@
     
     <item>
       <title>Python字符串加密解密</title>
-      <link>http://hasan.shaobo.fun/posts/20190931-cryptography/</link>
+      <link>http://hasan.shaobo.fun/posts/20190831-cryptography/</link>
       <pubDate>Sat, 31 Aug 2019 23:49:08 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/20190931-cryptography/</guid>
+      <guid>http://hasan.shaobo.fun/posts/20190831-cryptography/</guid>
       <description>&lt;p&gt;之前接触比较多的加密还是非对称的,都不知道对称加密怎么玩了,莫名的想试下.感谢Python当工具用真的是无往不利,这里用到的库是&lt;a href=&#34;https://github.com/pyca/cryptography&#34;&gt;cryptography&lt;/a&gt;,做的需求是给一篇文章加密,等到使用的时候再解密获取内容.&lt;/p&gt;
 
 &lt;h3 id=&#34;官方示例&#34;&gt;官方示例&lt;/h3&gt;
@@ -83,7 +83,7 @@
       <pubDate>Mon, 01 Jul 2019 22:34:15 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190701-process-communication/</guid>
-      <description>&lt;p&gt;每个进程各自有不同的用户地址空间,任何一个进程的全局变量在另一个进程中都看不到,所以进程之间要交换数据必须通过内核,在内核中开辟一块缓冲区,进程 1 把数据从用户空间拷到内核缓冲区,进程 2 再从内核缓冲区把数据读走,内核提供的这种机制称为进程间通信(IPC,InterProcess Communication)。如图所示。&lt;/p&gt;
+      <description>&lt;p&gt;每个进程各自有不同的用户地址空间,任何一个进程的全局变量在另一个进程中都看不到,所以进程之间要交换数据必须通过内核,在内核中开辟一块缓冲区,进程1把数据从用户空间拷到内核缓冲区,进程2再从内核缓冲区把数据读走,内核提供的这种机制称为进程间通信(IPC,InterProcess Communication)。如图所示。&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://hasan.shaobo.fun/assets/article/20190701/process_communication.png&#34; alt=&#34;process_communication&#34; /&gt;&lt;/p&gt;</description>
     </item>
@@ -94,7 +94,7 @@
       <pubDate>Sun, 30 Jun 2019 21:52:25 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190630-process-control/</guid>
-      <description>&lt;p&gt;“进程是可并发执行的程序在一个数据集合上的运行过程”进程是一个程序的一次执行的过程。它是程序执行和资源管理的最小单位Linux 是一个多任务的操作系统,也就是说,在同一个时间内,可以有多个进程同时执行。但是单CPU计算机实际上在一个时间片断内只能执行一条指令,Linux 使用了一种称为“进程调度(process scheduling)”的手段分配时间片实现多进程同时执行。&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;strong&gt;进程是可并发执行的程序在一个数据集合上的运行过程&lt;/strong&gt;,进程是一个程序的一次执行的过程。是系统进行处理机调度和资源分配的基本单位,Linux 是一个多任务的操作系统,也就是说,在同一个时间内,可以有多个进程同时执行。但是单CPU计算机实际上在一个时间片断内只能执行一条指令,Linux 使用了一种称为进程调度(process scheduling)的手段分配时间片实现多进程同时执行。&lt;/p&gt;</description>
     </item>
     
     <item>
