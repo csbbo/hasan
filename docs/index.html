@@ -73,6 +73,40 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://hasan.shaobo.fun/posts/20190914-redis-exploration/" title="Redis初探" >Redis初探</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019-9-14
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                <p>Redis数据类型丰富，支持数据磁盘持久化存储，支持主从同步，支持分片。由C语言编写性能非常高按官方的数据能达到100000QPS（query per second，每秒查询次数）</p>
+
+<h2 id="redis数据类型">Redis数据类型</h2>
+
+<ul>
+<li>String: 最基本的数据类型，二进制安全（能够包含任何类型数据）其实现依靠地城的动态字符串<strong>sdshdr</strong></li>
+<li>Hash: string组成的字典，适合存储对象</li>
+<li>List: 列表，按string元素插入顺序排序</li>
+<li>Set: string组成的无序集合，通过哈希表实现，不允许重复</li>
+<li>Sorted Set: 通过分数来为集合中的成员从小到大排序</li>
+<li>用于计数的HyperLogLog，用于支持存储地理位置信息的Geo</li>
+</ul>
+                            </div>
+                            <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20190914-redis-exploration/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://hasan.shaobo.fun/posts/20190913-innodb-index-transaction/" title="InnoDB事务及索引原理" >InnoDB事务及索引原理</a>
                                 </h1>
                             </header>
@@ -325,35 +359,6 @@ struct termios{
                             <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20190630-serial-port/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://hasan.shaobo.fun/posts/20190629-tcpip/" title="Linux网络编程" >Linux网络编程</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019-6-29
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                <h2 id="网络协议概述">网络协议概述</h2>
-
-<p>国际标准组织(ISO)制定了 OSI 模型。这个模型把网络通信的工作分为 7 层。每一层负责一项具体的工作,然后把数据传送到下一层。这个模型虽然规定得非常细致,但在实际应用中显得过于复杂了。</p>
-
-<p><img src="/assets/article/20190629/osi_reference_model.png" alt="Osi reference model" /></p>
-
-<p>而TCP/IP协议则将OSI的7层模型简化为了4层,从而更有利于实现和使用。TCP/IP许多年来一直被人们所采用,而且越来越成熟。</p>
-                            </div>
-                            <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20190629-tcpip/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -398,6 +403,10 @@ struct termios{
 <ul class="widget-list">
     
     <li>
+        <a href="http://hasan.shaobo.fun/posts/20190914-redis-exploration/" title="Redis初探">Redis初探</a>
+    </li>
+    
+    <li>
         <a href="http://hasan.shaobo.fun/posts/20190913-innodb-index-transaction/" title="InnoDB事务及索引原理">InnoDB事务及索引原理</a>
     </li>
     
@@ -433,10 +442,6 @@ struct termios{
         <a href="http://hasan.shaobo.fun/posts/20190630-serial-port/" title="Linux串口通信">Linux串口通信</a>
     </li>
     
-    <li>
-        <a href="http://hasan.shaobo.fun/posts/20190629-tcpip/" title="Linux网络编程">Linux网络编程</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -455,7 +460,7 @@ struct termios{
     </li>
     
     <li>
-        <a href="http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(1)</a>
+        <a href="http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(2)</a>
     </li>
     
     <li>

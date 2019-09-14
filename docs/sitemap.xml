@@ -4,12 +4,27 @@
   
   <url>
     <loc>http://hasan.shaobo.fun/categories/</loc>
-    <lastmod>2019-09-13T20:40:13+08:00</lastmod>
+    <lastmod>2019-09-14T14:26:52+08:00</lastmod>
   </url>
   
   <url>
     <loc>http://hasan.shaobo.fun/</loc>
-    <lastmod>2019-09-13T20:40:13+08:00</lastmod>
+    <lastmod>2019-09-14T14:26:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/</loc>
+    <lastmod>2019-09-14T14:26:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/20190914-redis-exploration/</loc>
+    <lastmod>2019-09-14T14:26:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2019-09-14T14:26:52+08:00</lastmod>
   </url>
   
   <url>
@@ -28,17 +43,7 @@
   </url>
   
   <url>
-    <loc>http://hasan.shaobo.fun/posts/</loc>
-    <lastmod>2019-09-13T20:40:13+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://hasan.shaobo.fun/tags/</loc>
-    <lastmod>2019-09-13T20:40:13+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2019-09-13T20:40:13+08:00</lastmod>
   </url>
   
