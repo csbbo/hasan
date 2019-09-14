@@ -101,7 +101,7 @@ mark {
     background: #fffdd1;
 }
 pre, code {
-    background:#e0e0e0;
+    background:#eeeeee;
     font-family:Menlo, Monaco, Consolas, "Lucida Console", "Courier New", monospace;
     font-size:.92857em;
 }
@@ -113,15 +113,16 @@ pre {
 }
 code {
     display: inline-block;
+    border-radius: 5px;
 }
 blockquote {
     display: block;
     margin: auto;
-    border-left: 0.3em solid #00796b;
+    border-left: 0.3em solid #9e9e9e;
     color: #6a737d;
     padding: 0 1em;
     margin-left: 0; 
-    background-color: #b2dfdb;
+    /* background-color: #b2dfdb; */
 }
   
 /**
@@ -957,20 +958,18 @@ img.alignright {
     margin-top: 10px;
 }
 .links a{
-    border: 1px solid #009688;
+    border: 1px solid #9e9e9e;
     float: left;
-    width: 45%;
     height: 30px;
     padding: 10px 5px;;
     margin-right: 20px;
     margin-top: 25px;
     font-size: 15px;
-    word-break: break-all;
     text-align: center;
-    color: #009688;
+    border-radius: 5px;
 }
 .links a:hover{
-    background-color: #e3f2fd;
+    border: 1px solid #616161;
 }
 /* for archive page ends*/
 
@@ -1081,10 +1080,10 @@ tbody {
     border: 0;
 }
 table tr th {
-    font-weight: bold;
+    font-weight: lighter;
     padding: 5px 10px;
     border-bottom: 2px solid #909ba2; 
-    background-color: #F0F0F0;
+    background-color: #F0F0F1;
 }
 table td {
     padding: 5px 10px; 
@@ -1118,9 +1117,9 @@ table tr th, table tr td {
 .toc-title {
     font-size: 120%; 
 }
-#TableOfContents {
+/* #TableOfContents {
     
-}
+} */
 #TableOfContents ul {
     padding: 0;
     margin: 0.5em;

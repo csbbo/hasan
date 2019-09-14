@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MySQL on Hasan</title>
+    <link>http://hasan.shaobo.fun/tags/MySQL/</link>
+    <description>Recent content in MySQL on Hasan</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 13 Sep 2019 20:40:13 +0800</lastBuildDate>
+    
+	<atom:link href="http://hasan.shaobo.fun/tags/MySQL/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>InnoDB事务及索引原理</title>
+      <link>http://hasan.shaobo.fun/posts/20190913-innodb-index-transaction/</link>
+      <pubDate>Fri, 13 Sep 2019 20:40:13 +0800</pubDate>
+      
+      <guid>http://hasan.shaobo.fun/posts/20190913-innodb-index-transaction/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;InnoDB是MySQL的默认存储引擎（5.1版本及以上），与MyISAM相比最大的特色就是支持事务，这里主要是探究InnoDB事务的实现原理及如何解决并发事务访问带来的问题；以及了解InnoDB下数据的存储方式和索引是怎样利用B+树来提高存储性能的。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;事务的acid特性&#34;&gt;事务的ACID特性&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;原子性(Atomicity)：一个事务中的所有操作要么全部提交成功，要么全部失败回滚，不会结束在中间的某个环节。&lt;/li&gt;
+&lt;li&gt;一致性(Consistency)：数据库总是从一个一致性的状态转换到另一个一致性的状态。&lt;/li&gt;
+&lt;li&gt;隔离性(Isolation)：事务的隔离性要求每个读写事务的对象对其他事务的操作对象能相互分离，即该事务提交前对其他事务都不可见。&lt;/li&gt;
+&lt;li&gt;持久性(Durability)：事务一旦提交，其结果是永久性的，就算发生宕机等故障，数据库也能将数据恢复。&lt;/li&gt;
+&lt;/ol&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

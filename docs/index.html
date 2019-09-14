@@ -73,6 +73,40 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://hasan.shaobo.fun/posts/20190913-innodb-index-transaction/" title="InnoDB事务及索引原理" >InnoDB事务及索引原理</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019-9-13
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                <blockquote>
+<p>InnoDB是MySQL的默认存储引擎（5.1版本及以上），与MyISAM相比最大的特色就是支持事务，这里主要是探究InnoDB事务的实现原理及如何解决并发事务访问带来的问题；以及了解InnoDB下数据的存储方式和索引是怎样利用B+树来提高存储性能的。</p>
+</blockquote>
+
+<h2 id="事务的acid特性">事务的ACID特性</h2>
+
+<ol>
+<li>原子性(Atomicity)：一个事务中的所有操作要么全部提交成功，要么全部失败回滚，不会结束在中间的某个环节。</li>
+<li>一致性(Consistency)：数据库总是从一个一致性的状态转换到另一个一致性的状态。</li>
+<li>隔离性(Isolation)：事务的隔离性要求每个读写事务的对象对其他事务的操作对象能相互分离，即该事务提交前对其他事务都不可见。</li>
+<li>持久性(Durability)：事务一旦提交，其结果是永久性的，就算发生宕机等故障，数据库也能将数据恢复。</li>
+</ol>
+                            </div>
+                            <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20190913-innodb-index-transaction/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://hasan.shaobo.fun/posts/20190831-cryptography/" title="Python字符串加密解密" >Python字符串加密解密</a>
                                 </h1>
                             </header>
@@ -320,31 +354,6 @@ struct termios{
                             <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20190629-tcpip/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://hasan.shaobo.fun/tool/" title="在线实用工具" >在线实用工具</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019-6-28
-                            </date>
-                            
-                            <div class="post-content">
-                                在线工具 Linux命令大全
-Materialize Color
-ACONVERT
-文档库 Python 3.7.4 文档
-python3-cookbook
-Django 文档
-Django REST framework 中文文档
-Makefile介绍，跟我一起写Makefile 1.0 文档
-欢迎来到Flask 的世界— Flask 1.0.2 documentation
-让HTTP 服务人类— Requests 2.18.1 文档 - Requests
-                            </div>
-                            <p class="readmore"><a href="http://hasan.shaobo.fun/tool/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -389,6 +398,10 @@ Makefile介绍，跟我一起写Makefile 1.0 文档
 <ul class="widget-list">
     
     <li>
+        <a href="http://hasan.shaobo.fun/posts/20190913-innodb-index-transaction/" title="InnoDB事务及索引原理">InnoDB事务及索引原理</a>
+    </li>
+    
+    <li>
         <a href="http://hasan.shaobo.fun/posts/20190831-cryptography/" title="Python字符串加密解密">Python字符串加密解密</a>
     </li>
     
@@ -424,10 +437,6 @@ Makefile介绍，跟我一起写Makefile 1.0 文档
         <a href="http://hasan.shaobo.fun/posts/20190629-tcpip/" title="Linux网络编程">Linux网络编程</a>
     </li>
     
-    <li>
-        <a href="http://hasan.shaobo.fun/posts/20190624-tmux/" title="工欲善其事,必先利其器--tmux">工欲善其事,必先利其器--tmux</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -446,6 +455,10 @@ Makefile介绍，跟我一起写Makefile 1.0 文档
     </li>
     
     <li>
+        <a href="http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(1)</a>
+    </li>
+    
+    <li>
         <a href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(2)</a>
     </li>
     
@@ -460,9 +473,13 @@ Makefile介绍，跟我一起写Makefile 1.0 文档
     
     <a href="http://hasan.shaobo.fun/tags/Cookie/">Cookie</a>
     
+    <a href="http://hasan.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
     <a href="http://hasan.shaobo.fun/tags/JWT/">JWT</a>
     
     <a href="http://hasan.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/MySQL/">MySQL</a>
     
     <a href="http://hasan.shaobo.fun/tags/Python/">Python</a>
     

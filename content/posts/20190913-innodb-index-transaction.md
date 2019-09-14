@@ -1,11 +1,12 @@
 ---
 title: "InnoDB事务及索引原理"
 date: 2019-09-13T20:40:13+08:00
-draft: true
 toc: true
+tags: ["MySQL","InnoDB"]
+categories: ["数据库"]
 ---
 
-> InnoDB是MySQL的默认存储引擎（5.1版本及以上），通过日志和锁来实现事务的特性，采用B+树来作为索引的数据结构。
+> InnoDB是MySQL的默认存储引擎（5.1版本及以上），与MyISAM相比最大的特色就是支持事务，这里主要是探究InnoDB事务的实现原理及如何解决并发事务访问带来的问题；以及了解InnoDB下数据的存储方式和索引是怎样利用B+树来提高存储性能的。
 
 ## 事务的ACID特性
 
@@ -192,7 +193,30 @@ B+树使用填充因子（fill factor）来控制树的删除变化，50%是填�
 + 根据定义，手动计算列的区分度，不重复的列值个数/列值的总个数；
 + 通过 MySQL的carlinality，通过命令`show index from <table_name>`来查看，解释一下，此处的carlinality并不是准确值，而且 MySQL在B+树种选择了8个数据页来抽样统计的值，也就是说carlinality=每个数据页记录总和/8*所有的数据页，因此也说明这个值是不准确的，因为在插入/更新记录时，实时的去更新carlinality对于 MySQL的负载是很高的，如果数据量很大的话，触发 MySQL重新统计该值得条件是当表中的1/16数据发生变化时。
 
+附:
+```sql
+查看事务隔离级别
+select @@tx_isolation;
+
+修改事务隔离级别
+set session transaction isolation level [read uncommitted][read committed][repeatable read][serializable];
+
+开启事务
+start transaction;
+...
+commit|rollback;
+
+关闭事务自动提交
+set autocommit=0;
+
+查看慢查询日志位置
+show variables like '%slow_query_log_file%';
+
+SQL语句分析
+explain select ...
+```
 
 
-参考:  
-[MySQL InnoDB 索引原理](https://zhuanlan.zhihu.com/p/35811482)
+**参考**:  
+[MySQL InnoDB 索引原理](https://zhuanlan.zhihu.com/p/35811482)  
+[InnoDB事务及索引原理](https://zhuanlan.zhihu.com/p/37051941)
