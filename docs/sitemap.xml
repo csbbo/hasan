@@ -18,7 +18,17 @@
   </url>
   
   <url>
+    <loc>http://hasan.shaobo.fun/tags/Redis/</loc>
+    <lastmod>2019-09-14T14:26:52+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hasan.shaobo.fun/posts/20190914-redis-exploration/</loc>
+    <lastmod>2019-09-14T14:26:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/tags/</loc>
     <lastmod>2019-09-14T14:26:52+08:00</lastmod>
   </url>
   
@@ -39,11 +49,6 @@
   
   <url>
     <loc>http://hasan.shaobo.fun/tags/MySQL/</loc>
-    <lastmod>2019-09-13T20:40:13+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/tags/</loc>
     <lastmod>2019-09-13T20:40:13+08:00</lastmod>
   </url>
   

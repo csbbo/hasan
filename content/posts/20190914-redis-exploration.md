@@ -1,7 +1,7 @@
 ---
 title: "Redis初探"
 date: 2019-09-14T14:26:52+08:00
-tag: ["Redis"]
+tags: ["Redis"]
 categories: ["数据库"]
 toc: true
 ---
