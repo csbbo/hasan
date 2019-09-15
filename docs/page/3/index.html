@@ -7,22 +7,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>process | Hasan</title>
-    <meta property="og:title" content="process - Hasan">
-    <meta property="og:type" content="article">
-        
-        
+    <title>Hasan </title>
+    <meta property="og:title" content="Hasan | 我欲乘风破浪，又恐黄沙海洋">
+    <meta property="og:type" content="website">
     <meta name="Keywords" content="">
-    <meta name="description" content="process">
-        
-    <meta name="author" content="shaobo">
-    <meta property="og:url" content="http://hasan.shaobo.fun/tags/process/">
+    <meta name="description" content="">
+    <meta property="og:url" content="http://hasan.shaobo.fun/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
     
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="http://hasan.shaobo.fun/tags/process/index.xml" title="Hasan" />
+    <link rel="alternate" type="application/rss+xml+xml" href="http://hasan.shaobo.fun/index.xml" title="Hasan" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
     
@@ -40,9 +36,11 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://hasan.shaobo.fun/">
-                        Hasan
-                    </a>
+                    <h1>
+                        <a id="logo" href="http://hasan.shaobo.fun/">
+                            Hasan
+                        </a>
+                    </h1>
                 
                 <div class="subtitle-descrition">
                     <p class="description">我欲乘风破浪，又恐黄沙海洋</p>
@@ -50,7 +48,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://hasan.shaobo.fun/">首页</a>
+                    <a class="current" href="http://hasan.shaobo.fun/">首页</a>
                     
                     <a  href="http://hasan.shaobo.fun/archives/" title="归档">归档</a>
                     
@@ -72,39 +70,65 @@
             <div class="col-8" id="main">
                 <div class="res-cons">
                     
-                    <h3 class="archive-title">
-                        包含标签
-                        <span class="keyword">process</span>
-                        的文章
-                    </h3>
-                    
-
-                    
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="http://hasan.shaobo.fun/posts/20190701-process-communication/">进程通信</a>
+                                    <a href="http://hasan.shaobo.fun/posts/20190523-algorithmNote/" title="算法笔记" >算法笔记</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
-                                2019-7-1
+                                2019-5-23
                             </date>
                             
-                            <div class="post-meta meta-category">
-                                |
+                            <div class="post-meta">
+                                <span>|</span>
                                 
-                                    <a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a>
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95">算法</a></span>
                                 
                             </div>
                             
-                            
+                            <div class="post-content">
+                                <h3 id="huffmantree">HuffmanTree</h3>
+
+<blockquote>
+<p><a href="https://zh.wikipedia.org/wiki/%E9%9C%8D%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81">哈弗曼编码</a>:使用变长编码表对应原符号进行编码，其中变长编码表是通过一种评估原符号出现几率的方法得到的，出现几率高的使用较短的编码，反之出现几率低的则使用较长的编码，这便使编码后的字符串的平均长度、期望值降低，从而达到无损压缩数据的目的。</p>
+</blockquote>
+
+<p>使用01进行哈弗曼编码时任何一个编码都不能是另一个编码的前缀，满足这样性质的编码称为前缀码(Preix Code)<br />
+最优编码问题，给出n个字符的频率，每个字符赋予一个01编码串，使得任意一个字符的编码不是另一个字符的前缀，而且编码后的总长度尽量小</p>
+
+<p>Huffman算法:把每个字符看做单节点子树放在一个树的集合中，每棵子树的权值等于相应字符的频率。每次取出权值最小的两棵子树合并成一棵新树，并重新放到集合中。新树的权值等于两棵子树的权值之和。</p>
+                            </div>
+                            <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20190523-algorithmNote/">阅读全文</a></p>
                         </article>
-                        <hr>
+                    
                     
 
-                    
 
 
+<ol class="page-navigator">
+    
+    <li class="prev">
+        <a href="http://hasan.shaobo.fun/page/2/">上一页</a>
+    </li>
+    
+
+    
+    <li >
+        <a href="http://hasan.shaobo.fun/">1</a>
+    </li>
+    
+    <li >
+        <a href="http://hasan.shaobo.fun/page/2/">2</a>
+    </li>
+    
+    <li  class="current">
+        <a href="http://hasan.shaobo.fun/page/3/">3</a>
+    </li>
+    
+
+    
+</ol>
 
 
 

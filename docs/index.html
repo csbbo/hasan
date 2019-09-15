@@ -73,6 +73,26 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://hasan.shaobo.fun/posts/20190915-git-summary/" title="分布式版本控制系统--Git" >分布式版本控制系统--Git</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2019-9-15
+                            </date>
+                            
+                            <div class="post-content">
+                                <h2 id="工作区暂存区版本库">工作区暂存区版本库</h2>
+
+<p>工作区就是建立Git版本库的目录，Git版本库其实就是工作区中<code>.git</code>文件。Git的版本库里存了很多东西，其中最重要的就是称为stage的暂存区，还有Git为我们自动创建的第一个分支<code>master</code>，以及指向<code>master</code>的一个指针叫<code>HEAD</code>。</p>
+
+<p><img src="/assets/article/20190915/struct.png" style="width:50%"/></p>
+                            </div>
+                            <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20190915-git-summary/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://hasan.shaobo.fun/posts/20190914-redis-exploration/" title="Redis初探" >Redis初探</a>
                                 </h1>
                             </header>
@@ -319,46 +339,6 @@
                             <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20190630-fileio/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://hasan.shaobo.fun/posts/20190630-serial-port/" title="Linux串口通信" >Linux串口通信</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019-6-30
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                <p>在Linux中,串口是一个字符设备,访问具体的串行端口的编程与读/写文件的操作类似,只需打开相应的设备文件操作即可.串口编程的特殊在于串口通信时相关参数的设置.若在根文件没有串口设备文件可以用mknod命令创建.</p>
-
-<p>串口作为终端I/O,它的参数设置需要使用<code>struct termios</code>结构体,这个结构体在termio.h文件中定义.</p>
-
-<pre><code class="language-c">typedef unsigned char cc_t;
-typedef unsigned int speed_t;
-typedef unsigned int tcflag_t;
-struct termios{
-    tcflag_t c_iflag;   //输入模式标志
-    tcflag_t c_oflag;   //输出模式标志
-    tcflag_t c_cflag;   //控制模式标志
-    tcflag_t c_lflag;   //本地模式标志
-    tcflag_t c_line;    //行规程类型,一般应用程序不使用
-    cc_t c_cc[NCC]; //控制字符
-    speed_t c_ispeed;   //输入数据波特率
-    speed_t c_ospeed;   //输出数据波特率
-}
-</code></pre>
-                            </div>
-                            <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20190630-serial-port/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -373,6 +353,10 @@ struct termios{
     
     <li >
         <a href="http://hasan.shaobo.fun/page/2/">2</a>
+    </li>
+    
+    <li >
+        <a href="http://hasan.shaobo.fun/page/3/">3</a>
     </li>
     
 
@@ -401,6 +385,10 @@ struct termios{
     <section class="widget">
         <h3 class="widget-title">最近文章</h3>
 <ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190915-git-summary/" title="分布式版本控制系统--Git">分布式版本控制系统--Git</a>
+    </li>
     
     <li>
         <a href="http://hasan.shaobo.fun/posts/20190914-redis-exploration/" title="Redis初探">Redis初探</a>
@@ -438,10 +426,6 @@ struct termios{
         <a href="http://hasan.shaobo.fun/posts/20190630-fileio/" title="文件I/O编程">文件I/O编程</a>
     </li>
     
-    <li>
-        <a href="http://hasan.shaobo.fun/posts/20190630-serial-port/" title="Linux串口通信">Linux串口通信</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -477,6 +461,8 @@ struct termios{
     <a href="http://hasan.shaobo.fun/tags/Base64/">Base64</a>
     
     <a href="http://hasan.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Git/">Git</a>
     
     <a href="http://hasan.shaobo.fun/tags/InnoDB/">InnoDB</a>
     

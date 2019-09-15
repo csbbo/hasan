@@ -1,7 +1,6 @@
 ---
 title: "分布式版本控制系统--Git"
 date: 2019-09-15T21:13:13+08:00
-draft: true
 tags: ["Git"]
 toc: true
 ---

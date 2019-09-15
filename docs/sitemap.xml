@@ -3,17 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://hasan.shaobo.fun/categories/</loc>
-    <lastmod>2019-09-14T14:26:52+08:00</lastmod>
+    <loc>http://hasan.shaobo.fun/tags/Git/</loc>
+    <lastmod>2019-09-15T21:13:13+08:00</lastmod>
   </url>
   
   <url>
     <loc>http://hasan.shaobo.fun/</loc>
-    <lastmod>2019-09-14T14:26:52+08:00</lastmod>
+    <lastmod>2019-09-15T21:13:13+08:00</lastmod>
   </url>
   
   <url>
     <loc>http://hasan.shaobo.fun/posts/</loc>
+    <lastmod>2019-09-15T21:13:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/tags/</loc>
+    <lastmod>2019-09-15T21:13:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/20190915-git-summary/</loc>
+    <lastmod>2019-09-15T21:13:13+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/categories/</loc>
     <lastmod>2019-09-14T14:26:52+08:00</lastmod>
   </url>
   
@@ -24,11 +39,6 @@
   
   <url>
     <loc>http://hasan.shaobo.fun/posts/20190914-redis-exploration/</loc>
-    <lastmod>2019-09-14T14:26:52+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/tags/</loc>
     <lastmod>2019-09-14T14:26:52+08:00</lastmod>
   </url>
   
