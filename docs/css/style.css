@@ -67,8 +67,8 @@
     content: "\e60d";
 }
 body {
-    background-color:#fcfcfc;
-    color:#444;
+    background-color:#FFFFFF;
+    color:#666;
     font-size: 15px;
     /**
     font-family:"TIBch", "Classic Grotesque W01", "Helvetica Neue", Arial, "Hiragino Sans GB", "STHeiti", "Microsoft YaHei", "WenQuanYi Micro Hei", SimSun, sans-serif;
@@ -114,6 +114,7 @@ pre {
 code {
     display: inline-block;
     border-radius: 5px;
+    color: #dd4055;
 }
 blockquote {
     display: block;
@@ -354,7 +355,7 @@ textarea {
     padding-top:27px;
 }
 .post-content h2,.post-content h3,.post-content h4,.post-content h5,.post-content h6 {
-    color: #795548;
+    color: #00838f;
     margin: 6px;
     margin-left: 0%;
 }

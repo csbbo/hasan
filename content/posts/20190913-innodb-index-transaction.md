@@ -16,7 +16,8 @@ categories: ["数据库"]
 4. 持久性(Durability)：事务一旦提交，其结果是永久性的，就算发生宕机等故障，数据库也能将数据恢复。
 <!--more-->
 
-![transaction](/assets/article/20190913/transaction.jpg)
+<!-- ![transaction](/assets/article/20190913/transaction.jpg) -->
+<img src="/assets/article/20190913/transaction.jpg" style="width:50%"/>
 
 ## 事务日志
 InnoDB 使用undo、 redo log来保证事务原子性、一致性及持久性，同时采用预写日志方式将随机写入变成顺序追加写入，提升事务性能。
@@ -35,7 +36,8 @@ InnoDB实现事务的ACID特性
 持久性 | 重做日志（Redo Log）+回滚日志（Undo Logo）
 
 以银行汇款为例子一个事务的执行过程
-![redo-undo-log](/assets/article/20190913/bank.png)
+<!-- ![redo-undo-log](/assets/article/20190913/bank.png) -->
+<img src="/assets/article/20190913/bank.png" style="width:60%"/>
 
 ## 事务隔离级别
 
