@@ -23,7 +23,7 @@ Huffman算法:把每个字符看做单节点子树放在一个树的集合中，
 结论 2: 设T是加权字符集C的最优编码树，x和y是树T中两个叶子节点，且互为兄弟节点，z是他们的父节点。若把z看成是具有频率f(z)=f(x)+f(y)的字符，则树T\`=T-{x,y}是字符集C\`=C-{x,y}U{z}的一棵最优编码树。换句话说，原问题最优解包含子问题最优解。
 证明: 设T\`的编码长度为L，其中字符{x,}的深度为h，则把字符{x,y}拆成两个后,长度变为L-(f(x)+f(y))*h+(f(x)+f(y))*(h+1)=L+f(x)+f(y)。因此T\`必须是C\`的最优编码树,T才是C的最优编码树。
 
-```
+```c
 #include<cstdio>
 #include<deque>
 #include<algorithm>
@@ -99,7 +99,7 @@ Node* encodingHuffman(int* arr,int len){
 > 欧几里得算法其实就是[辗转相除法](https://zh.wikipedia.org/wiki/%E8%BC%BE%E8%BD%89%E7%9B%B8%E9%99%A4%E6%B3%95),是求最大公约数的算法。  
 辗转相除法基于如下原理：两个整数的最大公约数等于其中较小的数和两数的差的最大公约数。(a>b当a>2b需要重复多次a-b操作,所以欧几里得算法也是，两个整数的最大公约数等于其中较小的数和两数的余数的最大公约数)
 
-```
+```c
 gcd(a,b){
     if(a<b)
         swap(a,b);
@@ -117,7 +117,8 @@ gcd(a,b){
 
 > [杨辉三角](https://zh.wikipedia.org/wiki/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%E5%BD%A2)，是二项式系数在三角形中的一种几何排列。
 
-```
+```c
+#include
               １
 　　　　　　　１　１
 　　　　　　１　２　１
@@ -141,7 +142,7 @@ gcd(a,b){
 组合数公式: `C = n!/k!(n-k)!`  
 (<i>[特殊符号](http://www.w3school.com.cn/tags/html_ref_symbols.html)</i>)
 
-```
+```c
 １
 １　１
 １　２　１
@@ -154,7 +155,7 @@ gcd(a,b){
 
 ```
 把杨辉三角左对齐一下不难发现，从第二行开始元素x[i][j]的值等于x[i-1][j-1]+x[i-1][j],构造一个n次方的杨辉三角
-```
+```c
 #include<cstdio>
 #include<cstring>
 using namespace std;
@@ -191,7 +192,7 @@ int main(){
 
 最初的戴克斯特拉算法不采用最小优先级队列，时间复杂度是O(|V|<sup>2</sup>)(其中|V|为图的顶点个数)通过斐波那契堆实现的戴克斯特拉算法时间复杂度是O(|E|+|V|log|V|) (其中|E|是边数)。对于不含负权的有向图，这是当前已知的最快的单源最短路径算法。
 
-```
+```c
 void Dijkstra(Vertex s)
 {
     while(1){
@@ -217,7 +218,7 @@ void Dijkstra(Vertex s)
 
 [普里姆算法](https://zh.wikipedia.org/wiki/%E6%99%AE%E6%9E%97%E5%A7%86%E7%AE%97%E6%B3%95)图论中的一种算法，可在加权连通图里搜索最小生成树。意即由此算法搜索到的边子集所构成的树中，不但包括了连通图里的所有顶点，且其所有边的权值之和亦为最小。
 
-```
+```c
 void Prim()
 {
     MST = {s};
@@ -253,7 +254,7 @@ void Prim()
 
 > [Kruskal算法](https://zh.wikipedia.org/wiki/%E5%85%8B%E9%B2%81%E6%96%AF%E5%85%8B%E5%B0%94%E6%BC%94%E7%AE%97%E6%B3%95)是一种用来查找最小生成树的算法，由Joseph Kruskal在1956年发表。用来解决同样问题的还有Prim算法和Boruvka算法等。三种算法都是贪心算法的应用。和Boruvka算法不同的地方是，Kruskal算法在图中存在相同权值的边时也有效。
 
-```
+```c
 void Kruskal(Graph G)
 {
     MST = {};

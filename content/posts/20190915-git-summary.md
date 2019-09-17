@@ -16,6 +16,7 @@ toc: true
 
 + 用`git add`把文件添加进去，实际上就是把文件修改添加到暂存区；
 + 用`git commit`提交更改，实际上就是把暂存区的所有内容提交到当前分支。
+
 > 因为我们创建Git版本库时，Git自动为我们创建了唯一一个`master`分支，所以，现在，`git commit`就是往`master`分支上提交更改。
 
 ## Git命令
@@ -26,7 +27,7 @@ toc: true
 ### 查看历史
 
 HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令`git reset --hard commit_id | HEAD^`。
-穿梭前，用`git log`可以查看提交历史，以便确定要回退到哪个版本要重返未来，用`git reflog`查看命令历史，以便确定要回到未来的哪个版本。
+穿梭前，用`git log`可以查看提交历史，以便确定要回退到哪个版本。要重返未来，用`git reflog`查看命令历史，以便确定要回到未来的哪个版本。
 
 ### 丢弃修改
 
@@ -89,6 +90,7 @@ Git鼓励大量使用分支:
 bug分支：
 
 修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；  当手头工作没有完成时，先把工作现场`git stash`一下，然后去修复bug，修复后，再`git stash apply [stash@{0}]`恢复工作现场`git stash list`可以查看多次`stash`指定恢复的`stash`，最后`git stash pop`删掉`stash`内容。
+
 > `git stash`把当前工作区和暂存区内容存储起来(不包括`untrack`,即未被`git`管理的文件)
 
 在master分支上修复了bug后，我们要想一想，dev分支是早期从master分支分出来的，所以，这个bug其实在当前dev分支上也存在。那怎么在dev分支上修复同样的bug？

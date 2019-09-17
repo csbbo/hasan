@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Python字符串加密解密 | Hasan</title>
-    <meta property="og:title" content="Python字符串加密解密 - Hasan">
+    <title>C&#43;&#43;容器 | Hasan</title>
+    <meta property="og:title" content="C&#43;&#43;容器 - Hasan">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-08-31T23:49:08&#43;08:00">
+    <meta property="article:published_time" content="2019-09-17T22:17:59&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-08-31T23:49:08&#43;08:00">
+    <meta property="article:modified_time" content="2019-09-17T22:17:59&#43;08:00">
         
     <meta name="Keywords" content="">
-    <meta name="description" content="Python字符串加密解密">
+    <meta name="description" content="C&#43;&#43;容器">
         
     <meta name="author" content="shaobo">
-    <meta property="og:url" content="http://hasan.shaobo.fun/posts/20190831-cryptography/">
+    <meta property="og:url" content="http://hasan.shaobo.fun/posts/20190917-cpp-container/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -77,10 +77,10 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">Python字符串加密解密</h1>
+                            <h1 class="post-title">C&#43;&#43;容器</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019-8-31
+                            2019-9-17
                         </date>
                         
                         
@@ -89,83 +89,190 @@
                         </div>
                         
                         
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#序列容器">序列容器</a>
+<ul>
+<li>
+<ul>
+<li><a href="#vector">Vector</a></li>
+<li><a href="#deque">Deque</a></li>
+<li><a href="#array">Array</a></li>
+<li><a href="#list">List</a></li>
+<li><a href="#forward-list">Forward List</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#堆栈容器">堆栈容器</a>
+<ul>
+<li>
+<ul>
+<li><a href="#stack">stack</a></li>
+<li><a href="#queue">queue</a></li>
+<li><a href="#priority-queue">priority queue</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#关联容器">关联容器</a>
+<ul>
+<li>
+<ul>
+<li><a href="#set和multiset">Set和Multiset</a></li>
+<li><a href="#map和multimap">Map和Multimap</a></li>
+<li><a href="#迭代器">迭代器</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
                         <div class="post-content">
-                            <p>之前接触比较多的加密还是非对称的,都不知道对称加密怎么玩了,莫名的想试下.感谢Python当工具用真的是无往不利,这里用到的库是<a href="https://github.com/pyca/cryptography">cryptography</a>,做的需求是给一篇文章加密,等到使用的时候再解密获取内容.</p>
+                            <h2 id="序列容器">序列容器</h2>
 
-<h3 id="官方示例">官方示例</h3>
+<h4 id="vector">Vector</h4>
 
-<pre><code class="language-python">&gt;&gt;&gt; from cryptography.fernet import Fernet
-&gt;&gt;&gt; # Put this somewhere safe!
-&gt;&gt;&gt; key = Fernet.generate_key()
-&gt;&gt;&gt; f = Fernet(key)
-&gt;&gt;&gt; token = f.encrypt(b&quot;A really secret message. Not for prying eyes.&quot;)
-&gt;&gt;&gt; token
-'...'
-&gt;&gt;&gt; f.decrypt(token)
-'A really secret message. Not for prying eyes.'
+<p>默认被default构造函数初始化</p>
+
+<pre><code class="language-cpp">#include&lt;vector&gt; 
+vector&lt;int&gt; coll; 
+coll.push_back(i); //所有序列容器都提供该函数
+for(int i = 0;i&lt;coll.size();++i){//所有容器都提供该函数
+} 
 </code></pre>
 
-<p>cryptography安装</p>
+<h4 id="deque">Deque</h4>
 
-<pre><code>pip install cryptography
+<pre><code class="language-cpp">#include&lt;deque&gt;
+deque&lt;float&gt; coll;
+coll.push_front(i*1.1);
+coll.push_back;
 </code></pre>
 
-<ol>
-<li>首先导入包Fernet</li>
-<li>实例化Fernet需要唯一的参数key,这个参数要求有点高，不是随便一个字节序列就行，要求32位 + url-safe + base64-encoded 的bytes类型。为了方便，Fernet类内置了生成key的类方法: generate_key()，作为加密解密的钥匙，生成的key要保存好，以供解密的时候使用</li>
-<li>实例化一个Fernet对象。</li>
-<li>接下来就是加密方法: fernet.encrypt(data) 接受一个bytes类型的数据，返回一个加密后的bytes类型数据(人类看不懂)，俗称 token-Fernet。</li>
-<li>解密fernet.decrypt(token)</li>
-</ol>
+<h4 id="array">Array</h4>
 
-<h1 id="使用实例">使用实例</h1>
-
-<pre><code class="language-python">import sys
-from cryptography.fernet import Fernet
-
-def read_article(path):
-    with open(path, 'r') as f:
-        article = f.read()
-    return article
-
-if __name__ == '__main__':
-    params = len(sys.argv)
-    if params == 1: # 生成秘钥
-        key = Fernet.generate_key() # 生成加密解密秘钥
-        print(key)
-    elif params == 3: # 加密
-        path = sys.argv[1]
-        key = sys.argv[2]
-        f = Fernet(key)
-        content = read_article(path)
-        token = f.encrypt(content.encode('utf-8'))
-        content = str(token,encoding='utf-8')
-        print(content)
-    elif params == 4: # 解密
-        path = sys.argv[1]
-        key = sys.argv[2]
-        decode = sys.argv[3]
-        f = Fernet(key)
-        if decode == '-d':
-            content = read_article(path)
-            token = bytes(content,encoding='utf-8')
-            try:
-                string = f.decrypt(token).decode('utf-8')
-                print(string)
-            except:
-                print(&quot;密码错误!!!&quot;)
-        else:
-            print(&quot;参数错误!!!&quot;)
-    else: # 参数错误
-        print(&quot;生成秘钥: python cripto.py\n&quot;)
-        print(&quot;加密: python cripto.py articlepath key&quot;)
-        print(&quot;解密: python cripto.py articlepath key -d&quot;)
-
+<pre><code class="language-cpp">#include&lt;array&gt;
+#include&lt;string&gt;
+array&lt;string,5&gt; coll = {&quot;hello&quot;,&quot;world&quot;};
+coll.size()
 </code></pre>
 
-<blockquote>
-<p>这就完成了对文档的加密解密了,但内容都在终端输出了可以用<code>&gt;</code>重定向到文件</p>
-</blockquote>
+<p>上面可搭配[]被随机访问</p>
+
+<h4 id="list">List</h4>
+
+<pre><code class="language-cpp">#include&lt;list&gt;
+lsit&lt;char&gt; coll;
+coll.push_back();
+for(auto&amp; elem : coll){
+cout&lt;&lt;elem&lt;&lt;' ';
+}
+while(!coll.empty()){
+cout&lt;&lt;coll.front()&lt;&lt;' ';//coll.front()返回第一个元素
+coll.pop_front();
+}
+</code></pre>
+
+<h4 id="forward-list">Forward List</h4>
+
+<p>forward list是一个受限的list,不支持任何 后退移动 或 效率低下 的操作,
+因此它不提供push_back()和size()</p>
+
+<pre><code class="language-cpp">#include&lt;forward_list&gt;
+forward_list&lt;long&gt; coll = {2,3,5,7,11,13,17};
+coll.resize(9);
+coll.resize(10,99);
+for(auto elem : coll){
+}
+</code></pre>
+
+<h2 id="堆栈容器">堆栈容器</h2>
+
+<h4 id="stack">stack</h4>
+
+<p>在<stack>头文件中,class stack定义如下</p>
+
+<pre><code class="language-cpp">namespace std{
+    template &lt;typename T,typename Container = deque&lt;T&gt; &gt;
+    class stack;
+}
+</code></pre>
+
+<p>Stack的实现只是单纯的把各项操作转化为内部容器的对应调用,所以可以使用sequence容器支持stack；</p>
+
+<p>只要他们提供back(),push_back(),pop_back(),例如:</p>
+
+<p><code>std::stack&lt;int,std::vector&lt;int&gt;&gt; st;</code>
+stack的核心接口:<code>push()</code>,<code>top()</code>,<code>pop()</code>
+stack中没有元素会导致<code>top()</code>和<code>pop</code>的不明确行为可以用<code>size()</code>,<code>empty()</code>检验容器是否为空</p>
+
+<pre><code class="language-cpp">#include&lt;stack&gt;
+std::stack&lt;int&gt; st;
+</code></pre>
+
+<h4 id="queue">queue</h4>
+
+<p>queue同样是把各项操作转化为对应容器的调用,只要他们支持front(),back(),push_back(),pop_front()
+核心接口:push(),pop(),front()返回queue内下一个元素,back()返回queue内最后一个元素</p>
+
+<pre><code class="language-cpp">#include&lt;queue&gt;
+queue&lt;string&gt; q;
+</code></pre>
+
+<h4 id="priority-queue">priority queue</h4>
+
+<p>同理,它需要容器支持random-access iterator,front(),push_back(),pop_back()
+核心借口:push(),top()返回priority中下一个元素,pop()
+用size(),empty()检验是否为空</p>
+
+<pre><code class="language-cpp">#include&lt;queueu&gt;
+priority_queue&lt;float&gt; q;
+</code></pre>
+
+<p>其内部排序值大的先入队</p>
+
+<h2 id="关联容器">关联容器</h2>
+
+<h4 id="set和multiset">Set和Multiset</h4>
+
+<pre><code class="language-cpp">#include&lt;set&gt;
+multiset&lt;string&gt; cities{//multiset允许重复
+&quot;beijing&quot;,&quot;shanghai&quot;,&quot;tianjing&quot;,&quot;shenzheng&quot;
+};
+for(const auto&amp; elem : cities){}
+cities.insert({&quot;hangzou&quot;,&quot;wuhan&quot;,&quot;chongqing&quot;});
+</code></pre>
+
+<h4 id="map和multimap">Map和Multimap</h4>
+
+<pre><code class="language-cpp">#include&lt;map&gt;
+multimap&lt;int,string&gt; coll;
+coll = {
+{5,&quot;tagge&quot;},
+{2,&quot;a&quot;},
+{4,&quot;of&quot;}
+};
+for(auto elem : coll){
+cout&lt;&lt;elem.second;
+cout&lt;&lt;elem.first;
+}
+</code></pre>
+
+<h4 id="迭代器">迭代器</h4>
+
+<pre><code class="language-cpp">list&lt;char&gt;::const_iterator pos;//只读模式,去掉const读写模式
+for(pos = coll.begin();pos != coll.end();++pos){//这里前置++逼后置++效率高
+cout&lt;&lt;*pos&lt;&lt;' ';
+}
+cbegin() 和 cend()返回类型cont::const_iterator对象
+</code></pre>
                         </div>
 
                         
@@ -175,7 +282,7 @@ if __name__ == '__main__':
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://hasan.shaobo.fun/tags/crypto">crypto</a></li>
+                                <li><a href="http://hasan.shaobo.fun/tags/c&#43;&#43;">c&#43;&#43;</a></li>
                                 
                             </ul>
                         </div>
@@ -189,17 +296,11 @@ if __name__ == '__main__':
     <div class="clearfix">
     <ul class="prevnext">
     
-        <li class="next">
-        <a href="http://hasan.shaobo.fun/posts/20190913-innodb-index-transaction/">
-        <i class="material-icons">arrow_back</i><span>InnoDB事务及索引原理</span>
-        </a>
-        </li>
-    
 
     
         <li class="pre">
-        <a href="http://hasan.shaobo.fun/posts/20190826-session-cookie-token-jwt/">
-        <span>Session Cookie Token JWT</span><i class="material-icons">arrow_forward</i>
+        <a href="http://hasan.shaobo.fun/posts/20190915-git-summary/">
+        <span>分布式版本控制系统--Git</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
     
