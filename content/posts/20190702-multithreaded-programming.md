@@ -6,9 +6,9 @@ categories: ["嵌入式Linux操作系统笔记"]
 ---
 
 在Linux 系统下,启动一个新的进程必须分配给它独立的地址空间,建立众多的数据表来维护它的代码段、堆栈段和数据段,这是一种"昂贵"的多任务工作方式。而运行于一个进程中的多个线程,它们彼此之间使用相同的地址空间,共享大部分数据,启动一个线程所花费的空间远远小于启动一个进程所花费的空间,而且,线程间彼此切换所需的时间也远远小于进程间切换所需要的时间。
-
-![thread_and_process](/assets/article/20190702/thread_and_process.png)
 <!--more-->
+![thread_and_process](/assets/article/20190702/thread_and_process.png)
+
 
 ### 线程的实现
 

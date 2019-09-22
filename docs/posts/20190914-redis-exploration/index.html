@@ -132,20 +132,21 @@
 <li>List: 列表，按string元素插入顺序排序</li>
 <li>Set: string组成的无序集合，通过哈希表实现，不允许重复</li>
 <li>Sorted Set: 通过分数来为集合中的成员从小到大排序</li>
-<li>用于计数的HyperLogLog，用于支持存储地理位置信息的Geo</li>
-</ul>
+
+<li><p>用于计数的HyperLogLog，用于支持存储地理位置信息的Geo</p>
 
 <pre><code class="language-c">struct sdshdr {
-    //buf中已占用空间长度
-    int len;
+//buf中已占用空间长度
+int len;
 
-    // buf剩余可用空间长度
-    int free;
+// buf剩余可用空间长度
+int free;
 
-    //数据空间
-    char buf[];
+//数据空间
+char buf[];
 }
-</code></pre>
+</code></pre></li>
+</ul>
 
 <blockquote>
 <p>Redis单个操作的是原子性的</p>

@@ -17,16 +17,7 @@
       <pubDate>Sun, 07 Jul 2019 22:40:51 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190707-htmltopdf/</guid>
-      <description>&lt;p&gt;最近用html写简历，打印的时候需要将html转成pdf,网上也有网站提供转换功能，但还是自己写一个转换程序更为方便些&lt;/p&gt;
-
-&lt;h4 id=&#34;准备工作&#34;&gt;准备工作&lt;/h4&gt;
-
-&lt;p&gt;安装pdfkit&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;pip install pdfkit
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;自己的操作系统上还需要装上wkhtmltopdf&lt;/p&gt;</description>
+      <description>&lt;p&gt;最近用html写简历，打印的时候需要将html转成pdf,网上也有网站提供转换功能，但还是自己写一个转换程序更为方便些。&lt;/p&gt;</description>
     </item>
     
   </channel>

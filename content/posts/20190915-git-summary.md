@@ -4,13 +4,17 @@ date: 2019-09-15T21:13:13+08:00
 tags: ["Git"]
 toc: true
 ---
+
+Linus花了两周时间自己用C写了一个分布式版本控制系统，这就是Git！  
+Git是目前世界上最先进的分布式版本控制系统（没有之一）。  
+Git有什么特点？简单来说就是：高端大气上档次！
+<!--more-->
 ## 工作区暂存区版本库
 
 工作区就是建立Git版本库的目录，Git版本库其实就是工作区中`.git`文件。Git的版本库里存了很多东西，其中最重要的就是称为stage的暂存区，还有Git为我们自动创建的第一个分支`master`，以及指向`master`的一个指针叫`HEAD`。
 
 <img src="/assets/article/20190915/struct.png" style="width:50%"/>
 
-<!--more-->
 
 把文件往Git版本库里添加的时候，是分两步执行的：
 
@@ -177,3 +181,7 @@ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Crese
 管理权限
 
 Git是为Linux源代码托管而开发的，所以Git也继承了开源社区的精神，不支持权限控制。不过，因为Git支持钩子（hook），所以，可以在服务器端编写一系列脚本来控制提交等操作，达到权限控制的目的。[Gitolite](https://github.com/sitaramc/gitolite)就是这个工具。
+
+[参考]
+
+*《[廖雪峰Git教程](https://www.liaoxuefeng.com/wiki/896043488029600)》*

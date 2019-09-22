@@ -6,15 +6,14 @@ tags: ["MySQL","InnoDB"]
 categories: ["数据库"]
 ---
 
-> InnoDB是MySQL的默认存储引擎（5.1版本及以上），与MyISAM相比最大的特色就是支持事务，这里主要是探究InnoDB事务的实现原理及如何解决并发事务访问带来的问题；以及了解InnoDB下数据的存储方式和索引是怎样利用B+树来提高存储性能的。
-
+InnoDB是MySQL的默认存储引擎（5.1版本及以上），与MyISAM相比最大的特色就是支持事务，这里主要是探究InnoDB事务的实现原理及如何解决并发事务访问带来的问题；以及了解InnoDB下数据的存储方式和索引是怎样利用B+树来提高存储性能的。
+<!--more-->
 ## 事务的ACID特性
 
 1. 原子性(Atomicity)：一个事务中的所有操作要么全部提交成功，要么全部失败回滚，不会结束在中间的某个环节。
 2. 一致性(Consistency)：数据库总是从一个一致性的状态转换到另一个一致性的状态。
 3. 隔离性(Isolation)：事务的隔离性要求每个读写事务的对象对其他事务的操作对象能相互分离，即该事务提交前对其他事务都不可见。
 4. 持久性(Durability)：事务一旦提交，其结果是永久性的，就算发生宕机等故障，数据库也能将数据恢复。
-<!--more-->
 
 <!-- ![transaction](/assets/article/20190913/transaction.jpg) -->
 <img src="/assets/article/20190913/transaction.jpg" style="width:50%"/>

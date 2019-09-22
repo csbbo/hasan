@@ -5,7 +5,7 @@ tags: ["crypto"]
 ---
 
 之前接触比较多的加密还是非对称的,都不知道对称加密怎么玩了,莫名的想试下.感谢Python当工具用真的是无往不利,这里用到的库是[cryptography](https://github.com/pyca/cryptography),做的需求是给一篇文章加密,等到使用的时候再解密获取内容.
-
+<!--more-->
 ### 官方示例
 ```python
 >>> from cryptography.fernet import Fernet
@@ -18,7 +18,7 @@ tags: ["crypto"]
 >>> f.decrypt(token)
 'A really secret message. Not for prying eyes.'
 ```
-<!--more-->
+
 cryptography安装
 ```
 pip install cryptography

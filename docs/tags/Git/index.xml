@@ -17,11 +17,9 @@
       <pubDate>Sun, 15 Sep 2019 21:13:13 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190915-git-summary/</guid>
-      <description>&lt;h2 id=&#34;工作区暂存区版本库&#34;&gt;工作区暂存区版本库&lt;/h2&gt;
-
-&lt;p&gt;工作区就是建立Git版本库的目录，Git版本库其实就是工作区中&lt;code&gt;.git&lt;/code&gt;文件。Git的版本库里存了很多东西，其中最重要的就是称为stage的暂存区，还有Git为我们自动创建的第一个分支&lt;code&gt;master&lt;/code&gt;，以及指向&lt;code&gt;master&lt;/code&gt;的一个指针叫&lt;code&gt;HEAD&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://hasan.shaobo.fun/assets/article/20190915/struct.png&#34; style=&#34;width:50%&#34;/&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Linus花了两周时间自己用C写了一个分布式版本控制系统，这就是Git！&lt;br /&gt;
+Git是目前世界上最先进的分布式版本控制系统（没有之一）。&lt;br /&gt;
+Git有什么特点？简单来说就是：高端大气上档次！&lt;/p&gt;</description>
     </item>
     
   </channel>

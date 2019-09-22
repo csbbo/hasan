@@ -17,28 +17,7 @@
       <pubDate>Mon, 27 May 2019 20:02:58 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190527-sortAlgorithm/</guid>
-      <description>&lt;p&gt;排序算法有很多，但就其全面性而言，很难提出一种被认为是最好的方法，每一种方法都有各自的优缺点，适合在不同的环境使用。排序过程是一个逐步扩大记录的有序序列长度的过程，排序过程中可以将记录分为有序序列区和无序序列区。&lt;/p&gt;
-
-&lt;p&gt;以下算法都是经过运行成功的C++代码:&lt;/p&gt;
-
-&lt;h3 id=&#34;插入排序&#34;&gt;插入排序&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;插入排序是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。插入排序在实现上，通常采用in-place排序（即只需用到O(1)的额外空间的排序），因而在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;void InsertSort(int arr[],int len){
-    for(int i=1;i&amp;lt;len;i++){
-        int key=arr[i];     //当前要插入值
-        int j=i-1;
-        while(key&amp;lt;arr[j] &amp;amp;&amp;amp; j&amp;gt;=0){      //从后往前比对，比当前值大都往后挪
-            arr[j+1]=arr[j];            //后一个等于前一个
-            j--;
-        }
-        arr[j+1]=key;                   //找到合适位置后插入
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;</description>
+      <description>&lt;p&gt;排序算法有很多，但就其全面性而言，很难提出一种被认为是最好的方法，每一种方法都有各自的优缺点，适合在不同的环境使用。排序过程是一个逐步扩大记录的有序序列长度的过程，排序过程中可以将记录分为有序序列区和无序序列区。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -47,16 +26,7 @@
       <pubDate>Thu, 23 May 2019 20:04:46 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190523-algorithmNote/</guid>
-      <description>&lt;h3 id=&#34;huffmantree&#34;&gt;HuffmanTree&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E9%9C%8D%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81&#34;&gt;哈弗曼编码&lt;/a&gt;:使用变长编码表对应原符号进行编码，其中变长编码表是通过一种评估原符号出现几率的方法得到的，出现几率高的使用较短的编码，反之出现几率低的则使用较长的编码，这便使编码后的字符串的平均长度、期望值降低，从而达到无损压缩数据的目的。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;使用01进行哈弗曼编码时任何一个编码都不能是另一个编码的前缀，满足这样性质的编码称为前缀码(Preix Code)&lt;br /&gt;
-最优编码问题，给出n个字符的频率，每个字符赋予一个01编码串，使得任意一个字符的编码不是另一个字符的前缀，而且编码后的总长度尽量小&lt;/p&gt;
-
-&lt;p&gt;Huffman算法:把每个字符看做单节点子树放在一个树的集合中，每棵子树的权值等于相应字符的频率。每次取出权值最小的两棵子树合并成一棵新树，并重新放到集合中。新树的权值等于两棵子树的权值之和。&lt;/p&gt;</description>
+      <description>&lt;p&gt;记录一下几个比较经典的算法。&lt;/p&gt;</description>
     </item>
     
   </channel>

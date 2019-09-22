@@ -17,9 +17,7 @@
       <pubDate>Mon, 01 Jul 2019 22:34:15 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190701-process-communication/</guid>
-      <description>&lt;p&gt;每个进程各自有不同的用户地址空间,任何一个进程的全局变量在另一个进程中都看不到,所以进程之间要交换数据必须通过内核,在内核中开辟一块缓冲区,进程1把数据从用户空间拷到内核缓冲区,进程2再从内核缓冲区把数据读走,内核提供的这种机制称为进程间通信(IPC,InterProcess Communication)。如图所示。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://hasan.shaobo.fun/assets/article/20190701/process_communication.png&#34; alt=&#34;process_communication&#34; /&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;每个进程各自有不同的用户地址空间,任何一个进程的全局变量在另一个进程中都看不到,所以进程之间要交换数据必须通过内核,在内核中开辟一块缓冲区,进程1把数据从用户空间拷到内核缓冲区,进程2再从内核缓冲区把数据读走,内核提供的这种机制称为进程间通信(IPC,InterProcess Communication)。如图所示。&lt;/p&gt;</description>
     </item>
     
   </channel>

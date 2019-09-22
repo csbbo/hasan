@@ -18,18 +18,7 @@
       
       <guid>http://hasan.shaobo.fun/posts/20190624-tmux/</guid>
       <description>&lt;p&gt;tmux是一个终端多路复用器:它允许在一个屏幕上创建、访问和控制多个终端。tmux可以从屏幕上分离出来，在后台继续运行，然后重新连接。
-可以运行在OpenBSD、FreeBSD、NetBSD、Linux、OS X和Solaris上。&lt;/p&gt;
-
-&lt;p&gt;会话（session）指令&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;tmux new -s demo # 新建一个名称为demo的会话
-tmux detach # 断开当前会话，会话在后台运行
-tmux a # 默认进入第一个会话
-tmux a -t demo # 进入到名称为demo的会话
-tmux kill-session -t demo # 关闭demo会话
-tmux kill-server # 关闭服务器，所有的会话都将关闭
-tmux ls # 查看所有会话，提倡使用简写形式 
-&lt;/code&gt;&lt;/pre&gt;</description>
+可以运行在OpenBSD、FreeBSD、NetBSD、Linux、OS X和Solaris上。&lt;/p&gt;</description>
     </item>
     
   </channel>

@@ -126,7 +126,11 @@
                         </div>
                         
                         <div class="post-content">
-                            <h2 id="序列容器">序列容器</h2>
+                            <p>C++ STL(Standard Template Library)主要由容器(Containers)、算法(Algorithms)和迭代器(Iterators)三部分组成。C++容器主要可分为以下几类:序列容器(Sequence containers)、容器适配器(Container adapters)、关联容器(Associative containers)</p>
+
+<h2 id="序列容器">序列容器</h2>
+
+<p>顺序容器提供了控制元素存储和访问顺序的能力，这种顺序不依赖于元素的值，而是与元素加入容器的位置相对应。</p>
 
 <h3 id="vector">Vector</h3>
 
@@ -139,9 +143,6 @@
 <li><code>back()</code>返回尾部元素的引用，可以当左值</li>
 <li><code>push_back()</code>添加元素，只能尾部添加</li>
 <li><code>pop_back()</code>移除元素，只能在尾部移除</li>
-</ul>
-
-<ul>
 <li><code>size()</code>获取容器长度</li>
 <li><code>empty()</code>判断容器是否为空</li>
 <li><code>clear()</code>清空容器</li>
@@ -290,6 +291,8 @@ for(auto elem : coll){
 
 <h2 id="堆栈容器">堆栈容器</h2>
 
+<p>堆栈容器其实就是一个容器适配器为序列容器提供了一种不同的接口，常见的容器适配器有:栈、队列、优先队列。</p>
+
 <h3 id="stack">Stack</h3>
 
 <p>在<stack>头文件中,class stack定义如下</p>
@@ -348,7 +351,7 @@ q.pop()
 
 <h3 id="priority-queue">Priority Queue</h3>
 
-<p>优先级队列分为：最小值优先队列和最大值优先队列。
+<p>优先级队列分为:最小值优先队列和最大值优先队列。
 同理,它需要容器支持<code>random-access</code> <code>iterator</code>,<code>front()</code>,<code>push_back()</code>,<code>pop_back()</code></p>
 
 <p>核心接口:<code>push()</code>,<code>top()</code>返回<code>priority</code>中下一个元素,<code>pop()</code>用<code>size()</code>,<code>empty()</code>检验是否为空</p>
@@ -361,7 +364,7 @@ q.pop()
 <li><code>pop()</code>从队首出栈</li>
 </ul>
 
-<p>定义优先级的方法：</p>
+<p>定义优先级的方法:</p>
 
 <ul>
 <li><code>priority_queue&lt;int&gt;</code>默认定义<code>int</code>类型的最大值队列</li>
@@ -388,6 +391,8 @@ p1.pop()
 <p>其内部排序值大的先入队</p>
 
 <h2 id="关联容器">关联容器</h2>
+
+<p>关联容器和顺序容器有着根本的不同:关联容器中的元素是按关键字来保存和访问的，与之相对，顺序容器中的元素是按它们在容器中的位置来顺序保存和访问的。</p>
 
 <h3 id="set和multiset">Set和Multiset</h3>
 

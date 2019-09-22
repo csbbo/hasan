@@ -5,8 +5,8 @@ tags: ["Linux","serial"]
 categories: ["嵌入式Linux操作系统笔记"]
 ---
 
-在Linux中,串口是一个字符设备,访问具体的串行端口的编程与读/写文件的操作类似,只需打开相应的设备文件操作即可.串口编程的特殊在于串口通信时相关参数的设置.若在根文件没有串口设备文件可以用mknod命令创建.
-
+在Linux中,串口是一个字符设备,访问具体的串行端口的编程与读/写文件的操作类似,只需打开相应的设备文件操作即可.串口编程的特殊在于串口通信时相关参数的设置.若在根文件没有串口设备文件可以用mknod命令创建。
+<!--more-->
 串口作为终端I/O,它的参数设置需要使用`struct termios`结构体,这个结构体在termio.h文件中定义.
 ```c
 typedef unsigned char cc_t;
@@ -24,7 +24,6 @@ struct termios{
 }
 ```
 
-<!--more-->
 串口的设置主要就是设置这个结构体的各成员值,然后利用该结构体将参数传给硬件驱动程序.tcgetattr()/tcsetattr()函数获取/设置串口参数.
 ```c
 int tcgetattr(int fd,struct termios *termios_p);

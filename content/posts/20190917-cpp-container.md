@@ -4,8 +4,11 @@ date: 2019-09-17T22:17:59+08:00
 toc: true
 tags: ["c++","Vector"]
 ---
-
+C++ STL(Standard Template Library)主要由容器(Containers)、算法(Algorithms)和迭代器(Iterators)三部分组成。C++容器主要可分为以下几类:序列容器(Sequence containers)、容器适配器(Container adapters)、关联容器(Associative containers)
+<!--more-->
 ## 序列容器
+
+顺序容器提供了控制元素存储和访问顺序的能力，这种顺序不依赖于元素的值，而是与元素加入容器的位置相对应。
 
 ### Vector
 
@@ -17,7 +20,6 @@ Vector是动态数组，动态数组并不是真正意义上的动态的内存�
 + `back()`返回尾部元素的引用，可以当左值
 + `push_back()`添加元素，只能尾部添加
 + `pop_back()`移除元素，只能在尾部移除
-<!--more-->
 + `size()`获取容器长度
 + `empty()`判断容器是否为空
 + `clear()`清空容器
@@ -149,6 +151,8 @@ for(auto elem : coll){
 
 ## 堆栈容器
 
+堆栈容器其实就是一个容器适配器为序列容器提供了一种不同的接口，常见的容器适配器有:栈、队列、优先队列。
+
 ### Stack 
 在<stack>头文件中,class stack定义如下
 ```cpp
@@ -200,7 +204,7 @@ q.pop()
 
 ### Priority Queue
 
-优先级队列分为：最小值优先队列和最大值优先队列。
+优先级队列分为:最小值优先队列和最大值优先队列。
 同理,它需要容器支持`random-access` `iterator`,`front()`,`push_back()`,`pop_back()`
 
 核心接口:`push()`,`top()`返回`priority`中下一个元素,`pop()`用`size()`,`empty()`检验是否为空
@@ -211,7 +215,7 @@ q.pop()
 + `top()`取队首元素
 + `pop()`从队首出栈
 
-定义优先级的方法：
+定义优先级的方法:
 
 + `priority_queue<int>`默认定义`int`类型的最大值队列
 + `priority_queue<int,vector<int>,less<int>>`定义`int`型的最大值优先队列
@@ -236,6 +240,8 @@ p1.pop()
 
 
 ## 关联容器
+
+关联容器和顺序容器有着根本的不同:关联容器中的元素是按关键字来保存和访问的，与之相对，顺序容器中的元素是按它们在容器中的位置来顺序保存和访问的。
 
 ### Set和Multiset
 

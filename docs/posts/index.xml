@@ -17,20 +17,7 @@
       <pubDate>Tue, 17 Sep 2019 22:17:59 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190917-cpp-container/</guid>
-      <description>&lt;h2 id=&#34;序列容器&#34;&gt;序列容器&lt;/h2&gt;
-
-&lt;h3 id=&#34;vector&#34;&gt;Vector&lt;/h3&gt;
-
-&lt;p&gt;Vector是动态数组，动态数组并不是真正意义上的动态的内存，而是一块连续的内存，当添加新的元素时，容量已经等于当前的大小的时候，重新开辟一块大小为当前容量两倍的数组，把原数据拷贝过去，释放掉旧的数组&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;基本用法:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;front()&lt;/code&gt;返回头部元素的引用，可以当左值&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;back()&lt;/code&gt;返回尾部元素的引用，可以当左值&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;push_back()&lt;/code&gt;添加元素，只能尾部添加&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;pop_back()&lt;/code&gt;移除元素，只能在尾部移除&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;p&gt;C++ STL(Standard Template Library)主要由容器(Containers)、算法(Algorithms)和迭代器(Iterators)三部分组成。C++容器主要可分为以下几类:序列容器(Sequence containers)、容器适配器(Container adapters)、关联容器(Associative containers)&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -39,11 +26,9 @@
       <pubDate>Sun, 15 Sep 2019 21:13:13 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190915-git-summary/</guid>
-      <description>&lt;h2 id=&#34;工作区暂存区版本库&#34;&gt;工作区暂存区版本库&lt;/h2&gt;
-
-&lt;p&gt;工作区就是建立Git版本库的目录，Git版本库其实就是工作区中&lt;code&gt;.git&lt;/code&gt;文件。Git的版本库里存了很多东西，其中最重要的就是称为stage的暂存区，还有Git为我们自动创建的第一个分支&lt;code&gt;master&lt;/code&gt;，以及指向&lt;code&gt;master&lt;/code&gt;的一个指针叫&lt;code&gt;HEAD&lt;/code&gt;。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://hasan.shaobo.fun/assets/article/20190915/struct.png&#34; style=&#34;width:50%&#34;/&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;Linus花了两周时间自己用C写了一个分布式版本控制系统，这就是Git！&lt;br /&gt;
+Git是目前世界上最先进的分布式版本控制系统（没有之一）。&lt;br /&gt;
+Git有什么特点？简单来说就是：高端大气上档次！&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -52,18 +37,7 @@
       <pubDate>Sat, 14 Sep 2019 14:26:52 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190914-redis-exploration/</guid>
-      <description>&lt;p&gt;Redis数据类型丰富，支持数据磁盘持久化存储，支持主从同步，支持分片。由C语言编写性能非常高按官方的数据能达到100000QPS（query per second，每秒查询次数）&lt;/p&gt;
-
-&lt;h2 id=&#34;redis数据类型&#34;&gt;Redis数据类型&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;String: 最基本的数据类型，二进制安全（能够包含任何类型数据）其实现依靠地城的动态字符串&lt;strong&gt;sdshdr&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;Hash: string组成的字典，适合存储对象&lt;/li&gt;
-&lt;li&gt;List: 列表，按string元素插入顺序排序&lt;/li&gt;
-&lt;li&gt;Set: string组成的无序集合，通过哈希表实现，不允许重复&lt;/li&gt;
-&lt;li&gt;Sorted Set: 通过分数来为集合中的成员从小到大排序&lt;/li&gt;
-&lt;li&gt;用于计数的HyperLogLog，用于支持存储地理位置信息的Geo&lt;/li&gt;
-&lt;/ul&gt;</description>
+      <description>&lt;p&gt;Redis数据类型丰富，支持数据磁盘持久化存储，支持主从同步，支持分片。由C语言编写性能非常高按官方的数据能达到100000QPS（query per second，每秒查询次数）&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -72,18 +46,7 @@
       <pubDate>Fri, 13 Sep 2019 20:40:13 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190913-innodb-index-transaction/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;InnoDB是MySQL的默认存储引擎（5.1版本及以上），与MyISAM相比最大的特色就是支持事务，这里主要是探究InnoDB事务的实现原理及如何解决并发事务访问带来的问题；以及了解InnoDB下数据的存储方式和索引是怎样利用B+树来提高存储性能的。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&#34;事务的acid特性&#34;&gt;事务的ACID特性&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;原子性(Atomicity)：一个事务中的所有操作要么全部提交成功，要么全部失败回滚，不会结束在中间的某个环节。&lt;/li&gt;
-&lt;li&gt;一致性(Consistency)：数据库总是从一个一致性的状态转换到另一个一致性的状态。&lt;/li&gt;
-&lt;li&gt;隔离性(Isolation)：事务的隔离性要求每个读写事务的对象对其他事务的操作对象能相互分离，即该事务提交前对其他事务都不可见。&lt;/li&gt;
-&lt;li&gt;持久性(Durability)：事务一旦提交，其结果是永久性的，就算发生宕机等故障，数据库也能将数据恢复。&lt;/li&gt;
-&lt;/ol&gt;</description>
+      <description>&lt;p&gt;InnoDB是MySQL的默认存储引擎（5.1版本及以上），与MyISAM相比最大的特色就是支持事务，这里主要是探究InnoDB事务的实现原理及如何解决并发事务访问带来的问题；以及了解InnoDB下数据的存储方式和索引是怎样利用B+树来提高存储性能的。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -92,20 +55,7 @@
       <pubDate>Sat, 31 Aug 2019 23:49:08 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190831-cryptography/</guid>
-      <description>&lt;p&gt;之前接触比较多的加密还是非对称的,都不知道对称加密怎么玩了,莫名的想试下.感谢Python当工具用真的是无往不利,这里用到的库是&lt;a href=&#34;https://github.com/pyca/cryptography&#34;&gt;cryptography&lt;/a&gt;,做的需求是给一篇文章加密,等到使用的时候再解密获取内容.&lt;/p&gt;
-
-&lt;h3 id=&#34;官方示例&#34;&gt;官方示例&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;&amp;gt;&amp;gt;&amp;gt; from cryptography.fernet import Fernet
-&amp;gt;&amp;gt;&amp;gt; # Put this somewhere safe!
-&amp;gt;&amp;gt;&amp;gt; key = Fernet.generate_key()
-&amp;gt;&amp;gt;&amp;gt; f = Fernet(key)
-&amp;gt;&amp;gt;&amp;gt; token = f.encrypt(b&amp;quot;A really secret message. Not for prying eyes.&amp;quot;)
-&amp;gt;&amp;gt;&amp;gt; token
-&#39;...&#39;
-&amp;gt;&amp;gt;&amp;gt; f.decrypt(token)
-&#39;A really secret message. Not for prying eyes.&#39;
-&lt;/code&gt;&lt;/pre&gt;</description>
+      <description>&lt;p&gt;之前接触比较多的加密还是非对称的,都不知道对称加密怎么玩了,莫名的想试下.感谢Python当工具用真的是无往不利,这里用到的库是&lt;a href=&#34;https://github.com/pyca/cryptography&#34;&gt;cryptography&lt;/a&gt;,做的需求是给一篇文章加密,等到使用的时候再解密获取内容.&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -114,13 +64,7 @@
       <pubDate>Mon, 26 Aug 2019 09:22:05 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190826-session-cookie-token-jwt/</guid>
-      <description>&lt;p&gt;HTTP是无状态协议,而现实的业务场景中又往往需要保持用户的状态,Session和Cookie就是为解决这个问题而出现的。&lt;/p&gt;
-
-&lt;h3 id=&#34;什么是cookie&#34;&gt;什么是Cookie&lt;/h3&gt;
-
-&lt;p&gt;Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，实际上Cookie是服务器在本地机器上存储的一小段文本，并随着每次请求发送到服务器。&lt;/p&gt;
-
-&lt;p&gt;Cookie技术通过请求和响应报文中写入Cookie信息来控制客户端的状态。Cookie会根据响应报文里的一个叫Set-Cookie的首部字段信息，通知客户端保存Cookie。当下客户端再向服务端发起请求时，客户端会自动在请求报文中加入Cookie值之后发送出去.之后服务端发现客户端发送过来的Cookie后，会检查是那个客户端发送过来的请求，然后对服务器上的记录，最后得到了之前的状态信息。&lt;/p&gt;</description>
+      <description>&lt;p&gt;HTTP是无状态协议,而现实的业务场景中又往往需要保持用户的状态,Session和Cookie就是为解决这个问题而出现的。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -129,16 +73,7 @@
       <pubDate>Sun, 07 Jul 2019 22:40:51 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190707-htmltopdf/</guid>
-      <description>&lt;p&gt;最近用html写简历，打印的时候需要将html转成pdf,网上也有网站提供转换功能，但还是自己写一个转换程序更为方便些&lt;/p&gt;
-
-&lt;h4 id=&#34;准备工作&#34;&gt;准备工作&lt;/h4&gt;
-
-&lt;p&gt;安装pdfkit&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;pip install pdfkit
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;自己的操作系统上还需要装上wkhtmltopdf&lt;/p&gt;</description>
+      <description>&lt;p&gt;最近用html写简历，打印的时候需要将html转成pdf,网上也有网站提供转换功能，但还是自己写一个转换程序更为方便些。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -147,9 +82,7 @@
       <pubDate>Tue, 02 Jul 2019 16:28:40 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190702-multithreaded-programming/</guid>
-      <description>&lt;p&gt;在Linux 系统下,启动一个新的进程必须分配给它独立的地址空间,建立众多的数据表来维护它的代码段、堆栈段和数据段,这是一种&amp;rdquo;昂贵&amp;rdquo;的多任务工作方式。而运行于一个进程中的多个线程,它们彼此之间使用相同的地址空间,共享大部分数据,启动一个线程所花费的空间远远小于启动一个进程所花费的空间,而且,线程间彼此切换所需的时间也远远小于进程间切换所需要的时间。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://hasan.shaobo.fun/assets/article/20190702/thread_and_process.png&#34; alt=&#34;thread_and_process&#34; /&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;在Linux 系统下,启动一个新的进程必须分配给它独立的地址空间,建立众多的数据表来维护它的代码段、堆栈段和数据段,这是一种&amp;rdquo;昂贵&amp;rdquo;的多任务工作方式。而运行于一个进程中的多个线程,它们彼此之间使用相同的地址空间,共享大部分数据,启动一个线程所花费的空间远远小于启动一个进程所花费的空间,而且,线程间彼此切换所需的时间也远远小于进程间切换所需要的时间。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -158,9 +91,7 @@
       <pubDate>Mon, 01 Jul 2019 22:34:15 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190701-process-communication/</guid>
-      <description>&lt;p&gt;每个进程各自有不同的用户地址空间,任何一个进程的全局变量在另一个进程中都看不到,所以进程之间要交换数据必须通过内核,在内核中开辟一块缓冲区,进程1把数据从用户空间拷到内核缓冲区,进程2再从内核缓冲区把数据读走,内核提供的这种机制称为进程间通信(IPC,InterProcess Communication)。如图所示。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://hasan.shaobo.fun/assets/article/20190701/process_communication.png&#34; alt=&#34;process_communication&#34; /&gt;&lt;/p&gt;</description>
+      <description>&lt;p&gt;每个进程各自有不同的用户地址空间,任何一个进程的全局变量在另一个进程中都看不到,所以进程之间要交换数据必须通过内核,在内核中开辟一块缓冲区,进程1把数据从用户空间拷到内核缓冲区,进程2再从内核缓冲区把数据读走,内核提供的这种机制称为进程间通信(IPC,InterProcess Communication)。如图所示。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -178,9 +109,7 @@
       <pubDate>Sun, 30 Jun 2019 20:45:43 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190630-fileio/</guid>
-      <description>&lt;p&gt;在 Linux 中,为了保护内核空间,将程序的运行空间分为内核空间和用户空间(内核态和用户态),它们运行在不同的级别上,在逻辑上是相互隔离的,因此用户进程在通常情况下不允许访问内核数据,也无法使用内核函数,它们只能在用户空间操作用户数据,调用用户空间的函数。操作系统为用户提供了两个接口:一个是用户编程接口 API,用户利用这些操作命令来组织和控制任务的执行或管理计算机系统。另一个接口是系统调用,编程人员使用系统调用来请求操作系统提供服务。&lt;/p&gt;
-
-&lt;p&gt;用户程序可以通过这组接口来获得操作系统内核提供的服务。而系统调用并不是直接与程序员进行交互的,它仅仅是一个通过软中断机制向内核提交请求,以获得内核服务的接口。进行系统调用时,程序运行空间需要从用户空间进入内核空间,处理后再返回到用户空间。Linux系统调用部分是非常精简的系统调用包括进程控制、文件系统控制、系统控制、内存管理、网络管理 、socket控制、用户管理、进程间通信八个模块。&lt;/p&gt;</description>
+      <description>&lt;p&gt;在Linux中,为了保护内核空间,将程序的运行空间分为内核空间和用户空间(内核态和用户态),它们运行在不同的级别上,在逻辑上是相互隔离的,因此用户进程在通常情况下不允许访问内核数据,也无法使用内核函数,它们只能在用户空间操作用户数据,调用用户空间的函数。操作系统为用户提供了两个接口:一个是用户编程接口 API,用户利用这些操作命令来组织和控制任务的执行或管理计算机系统。另一个接口是系统调用,编程人员使用系统调用来请求操作系统提供服务。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -189,24 +118,7 @@
       <pubDate>Sun, 30 Jun 2019 20:45:31 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190630-serial-port/</guid>
-      <description>&lt;p&gt;在Linux中,串口是一个字符设备,访问具体的串行端口的编程与读/写文件的操作类似,只需打开相应的设备文件操作即可.串口编程的特殊在于串口通信时相关参数的设置.若在根文件没有串口设备文件可以用mknod命令创建.&lt;/p&gt;
-
-&lt;p&gt;串口作为终端I/O,它的参数设置需要使用&lt;code&gt;struct termios&lt;/code&gt;结构体,这个结构体在termio.h文件中定义.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;typedef unsigned char cc_t;
-typedef unsigned int speed_t;
-typedef unsigned int tcflag_t;
-struct termios{
-    tcflag_t c_iflag;   //输入模式标志
-    tcflag_t c_oflag;   //输出模式标志
-    tcflag_t c_cflag;   //控制模式标志
-    tcflag_t c_lflag;   //本地模式标志
-    tcflag_t c_line;    //行规程类型,一般应用程序不使用
-    cc_t c_cc[NCC]; //控制字符
-    speed_t c_ispeed;   //输入数据波特率
-    speed_t c_ospeed;   //输出数据波特率
-}
-&lt;/code&gt;&lt;/pre&gt;</description>
+      <description>&lt;p&gt;在Linux中,串口是一个字符设备,访问具体的串行端口的编程与读/写文件的操作类似,只需打开相应的设备文件操作即可.串口编程的特殊在于串口通信时相关参数的设置.若在根文件没有串口设备文件可以用mknod命令创建。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -215,13 +127,7 @@ struct termios{
       <pubDate>Sat, 29 Jun 2019 22:11:05 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190629-tcpip/</guid>
-      <description>&lt;h2 id=&#34;网络协议概述&#34;&gt;网络协议概述&lt;/h2&gt;
-
-&lt;p&gt;国际标准组织(ISO)制定了 OSI 模型。这个模型把网络通信的工作分为 7 层。每一层负责一项具体的工作,然后把数据传送到下一层。这个模型虽然规定得非常细致,但在实际应用中显得过于复杂了。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://hasan.shaobo.fun/assets/article/20190629/osi_reference_model.png&#34; alt=&#34;Osi reference model&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;而TCP/IP协议则将OSI的7层模型简化为了4层,从而更有利于实现和使用。TCP/IP许多年来一直被人们所采用,而且越来越成熟。&lt;/p&gt;</description>
+      <description>&lt;p&gt;国际标准组织(ISO)制定了 OSI 模型。这个模型把网络通信的工作分为 7 层。每一层负责一项具体的工作,然后把数据传送到下一层。这个模型虽然规定得非常细致,但在实际应用中显得过于复杂了。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -231,18 +137,7 @@ struct termios{
       
       <guid>http://hasan.shaobo.fun/posts/20190624-tmux/</guid>
       <description>&lt;p&gt;tmux是一个终端多路复用器:它允许在一个屏幕上创建、访问和控制多个终端。tmux可以从屏幕上分离出来，在后台继续运行，然后重新连接。
-可以运行在OpenBSD、FreeBSD、NetBSD、Linux、OS X和Solaris上。&lt;/p&gt;
-
-&lt;p&gt;会话（session）指令&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;tmux new -s demo # 新建一个名称为demo的会话
-tmux detach # 断开当前会话，会话在后台运行
-tmux a # 默认进入第一个会话
-tmux a -t demo # 进入到名称为demo的会话
-tmux kill-session -t demo # 关闭demo会话
-tmux kill-server # 关闭服务器，所有的会话都将关闭
-tmux ls # 查看所有会话，提倡使用简写形式 
-&lt;/code&gt;&lt;/pre&gt;</description>
+可以运行在OpenBSD、FreeBSD、NetBSD、Linux、OS X和Solaris上。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -260,17 +155,7 @@ tmux ls # 查看所有会话，提倡使用简写形式
       <pubDate>Tue, 28 May 2019 20:01:40 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190528-base64Note/</guid>
-      <description>&lt;p&gt;Base64是一种基于64个可打印字符来表示二进制数据的表示方法。常用于在通常处理文本数据的场合，表示、传输、存储一些二进制数据，包括MIME的电子邮件及XML的一些复杂数据。&lt;/p&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;所谓Base64，就是说选出64个字符小写字母a-z、大写字母A-Z、数字0-9、符号&amp;rdquo;+&amp;ldquo;、&amp;rdquo;/&amp;ldquo;（再加上作为垫字的&amp;rdquo;=&amp;ldquo;，实际上是65个字符）作为一个基本字符集。然后，其他所有符号都转换成这个字符集中的字符。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;具体来说，转换方式可以分为四步:&lt;br /&gt;
-1.将每三个字节作为一组，一共是24个二进制位。&lt;br /&gt;
-2.将这24个二进制位分为四组，每个组有6个二进制位。&lt;br /&gt;
-3.在每组前面加两个00，扩展成32个二进制位，即四个字节。&lt;br /&gt;
-4.根据下表，得到扩展后的每个字节的对应符号，这就是Base64的编码值。&lt;/p&gt;</description>
+      <description>&lt;p&gt;Base64是一种基于64个可打印字符来表示二进制数据的表示方法。常用于在通常处理文本数据的场合，表示、传输、存储一些二进制数据，包括MIME的电子邮件及XML的一些复杂数据。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -279,28 +164,7 @@ tmux ls # 查看所有会话，提倡使用简写形式
       <pubDate>Mon, 27 May 2019 20:02:58 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190527-sortAlgorithm/</guid>
-      <description>&lt;p&gt;排序算法有很多，但就其全面性而言，很难提出一种被认为是最好的方法，每一种方法都有各自的优缺点，适合在不同的环境使用。排序过程是一个逐步扩大记录的有序序列长度的过程，排序过程中可以将记录分为有序序列区和无序序列区。&lt;/p&gt;
-
-&lt;p&gt;以下算法都是经过运行成功的C++代码:&lt;/p&gt;
-
-&lt;h3 id=&#34;插入排序&#34;&gt;插入排序&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;插入排序是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。插入排序在实现上，通常采用in-place排序（即只需用到O(1)的额外空间的排序），因而在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;void InsertSort(int arr[],int len){
-    for(int i=1;i&amp;lt;len;i++){
-        int key=arr[i];     //当前要插入值
-        int j=i-1;
-        while(key&amp;lt;arr[j] &amp;amp;&amp;amp; j&amp;gt;=0){      //从后往前比对，比当前值大都往后挪
-            arr[j+1]=arr[j];            //后一个等于前一个
-            j--;
-        }
-        arr[j+1]=key;                   //找到合适位置后插入
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;</description>
+      <description>&lt;p&gt;排序算法有很多，但就其全面性而言，很难提出一种被认为是最好的方法，每一种方法都有各自的优缺点，适合在不同的环境使用。排序过程是一个逐步扩大记录的有序序列长度的过程，排序过程中可以将记录分为有序序列区和无序序列区。&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -309,16 +173,7 @@ tmux ls # 查看所有会话，提倡使用简写形式
       <pubDate>Thu, 23 May 2019 20:04:46 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190523-algorithmNote/</guid>
-      <description>&lt;h3 id=&#34;huffmantree&#34;&gt;HuffmanTree&lt;/h3&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E9%9C%8D%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81&#34;&gt;哈弗曼编码&lt;/a&gt;:使用变长编码表对应原符号进行编码，其中变长编码表是通过一种评估原符号出现几率的方法得到的，出现几率高的使用较短的编码，反之出现几率低的则使用较长的编码，这便使编码后的字符串的平均长度、期望值降低，从而达到无损压缩数据的目的。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;使用01进行哈弗曼编码时任何一个编码都不能是另一个编码的前缀，满足这样性质的编码称为前缀码(Preix Code)&lt;br /&gt;
-最优编码问题，给出n个字符的频率，每个字符赋予一个01编码串，使得任意一个字符的编码不是另一个字符的前缀，而且编码后的总长度尽量小&lt;/p&gt;
-
-&lt;p&gt;Huffman算法:把每个字符看做单节点子树放在一个树的集合中，每棵子树的权值等于相应字符的频率。每次取出权值最小的两棵子树合并成一棵新树，并重新放到集合中。新树的权值等于两棵子树的权值之和。&lt;/p&gt;</description>
+      <description>&lt;p&gt;记录一下几个比较经典的算法。&lt;/p&gt;</description>
     </item>
     
   </channel>

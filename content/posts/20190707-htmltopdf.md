@@ -5,8 +5,8 @@ tags: ["Python"]
 categories: ["Tool"]
 ---
 
-最近用html写简历，打印的时候需要将html转成pdf,网上也有网站提供转换功能，但还是自己写一个转换程序更为方便些
-
+最近用html写简历，打印的时候需要将html转成pdf,网上也有网站提供转换功能，但还是自己写一个转换程序更为方便些。
+<!--more-->
 #### 准备工作
 
 安装pdfkit
@@ -14,7 +14,7 @@ categories: ["Tool"]
 pip install pdfkit
 ```
 自己的操作系统上还需要装上wkhtmltopdf
-<!--more-->
+
 我的系统是archlinux
 ```
 sudo pacman -S wkhtmltopdf
