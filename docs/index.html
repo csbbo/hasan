@@ -73,7 +73,7 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
-                                    <a href="http://hasan.shaobo.fun/posts/20190917-cpp-container/" title="C&#43;&#43;容器" >C&#43;&#43;容器</a>
+                                    <a href="http://hasan.shaobo.fun/posts/20190917-cpp-container/" title="C&#43;&#43; STL容器" >C&#43;&#43; STL容器</a>
                                 </h1>
                             </header>
                             <date class="post-meta meta-date">
@@ -83,16 +83,18 @@
                             <div class="post-content">
                                 <h2 id="序列容器">序列容器</h2>
 
-<h4 id="vector">Vector</h4>
+<h3 id="vector">Vector</h3>
 
-<p>默认被default构造函数初始化</p>
+<p>Vector是动态数组，动态数组并不是真正意义上的动态的内存，而是一块连续的内存，当添加新的元素时，容量已经等于当前的大小的时候，重新开辟一块大小为当前容量两倍的数组，把原数据拷贝过去，释放掉旧的数组</p>
 
-<pre><code class="language-cpp">#include&lt;vector&gt; 
-vector&lt;int&gt; coll; 
-coll.push_back(i); //所有序列容器都提供该函数
-for(int i = 0;i&lt;coll.size();++i){//所有容器都提供该函数
-} 
-</code></pre>
+<p><strong>基本用法:</strong></p>
+
+<ul>
+<li><code>front()</code>返回头部元素的引用，可以当左值</li>
+<li><code>back()</code>返回尾部元素的引用，可以当左值</li>
+<li><code>push_back()</code>添加元素，只能尾部添加</li>
+<li><code>pop_back()</code>移除元素，只能在尾部移除</li>
+</ul>
                             </div>
                             <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20190917-cpp-container/">阅读全文</a></p>
                         </article>
@@ -389,7 +391,7 @@ for(int i = 0;i&lt;coll.size();++i){//所有容器都提供该函数
 <ul class="widget-list">
     
     <li>
-        <a href="http://hasan.shaobo.fun/posts/20190917-cpp-container/" title="C&#43;&#43;容器">C&#43;&#43;容器</a>
+        <a href="http://hasan.shaobo.fun/posts/20190917-cpp-container/" title="C&#43;&#43; STL容器">C&#43;&#43; STL容器</a>
     </li>
     
     <li>
@@ -483,6 +485,8 @@ for(int i = 0;i&lt;coll.size();++i){//所有容器都提供该函数
     <a href="http://hasan.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
     <a href="http://hasan.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vector/">Vector</a>
     
     <a href="http://hasan.shaobo.fun/tags/Vim/">Vim</a>
     

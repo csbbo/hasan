@@ -12,23 +12,25 @@
     
     
     <item>
-      <title>C&#43;&#43;容器</title>
+      <title>C&#43;&#43; STL容器</title>
       <link>http://hasan.shaobo.fun/posts/20190917-cpp-container/</link>
       <pubDate>Tue, 17 Sep 2019 22:17:59 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20190917-cpp-container/</guid>
       <description>&lt;h2 id=&#34;序列容器&#34;&gt;序列容器&lt;/h2&gt;
 
-&lt;h4 id=&#34;vector&#34;&gt;Vector&lt;/h4&gt;
+&lt;h3 id=&#34;vector&#34;&gt;Vector&lt;/h3&gt;
 
-&lt;p&gt;默认被default构造函数初始化&lt;/p&gt;
+&lt;p&gt;Vector是动态数组，动态数组并不是真正意义上的动态的内存，而是一块连续的内存，当添加新的元素时，容量已经等于当前的大小的时候，重新开辟一块大小为当前容量两倍的数组，把原数据拷贝过去，释放掉旧的数组&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;#include&amp;lt;vector&amp;gt; 
-vector&amp;lt;int&amp;gt; coll; 
-coll.push_back(i); //所有序列容器都提供该函数
-for(int i = 0;i&amp;lt;coll.size();++i){//所有容器都提供该函数
-} 
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;p&gt;&lt;strong&gt;基本用法:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;front()&lt;/code&gt;返回头部元素的引用，可以当左值&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;back()&lt;/code&gt;返回尾部元素的引用，可以当左值&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;push_back()&lt;/code&gt;添加元素，只能尾部添加&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pop_back()&lt;/code&gt;移除元素，只能在尾部移除&lt;/li&gt;
+&lt;/ul&gt;</description>
     </item>
     
     <item>

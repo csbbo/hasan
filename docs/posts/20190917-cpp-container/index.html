@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>C&#43;&#43;容器 | Hasan</title>
-    <meta property="og:title" content="C&#43;&#43;容器 - Hasan">
+    <title>C&#43;&#43; STL容器 | Hasan</title>
+    <meta property="og:title" content="C&#43;&#43; STL容器 - Hasan">
     <meta property="og:type" content="article">
         
     <meta property="article:published_time" content="2019-09-17T22:17:59&#43;08:00">
@@ -17,7 +17,7 @@
     <meta property="article:modified_time" content="2019-09-17T22:17:59&#43;08:00">
         
     <meta name="Keywords" content="">
-    <meta name="description" content="C&#43;&#43;容器">
+    <meta name="description" content="C&#43;&#43; STL容器">
         
     <meta name="author" content="shaobo">
     <meta property="og:url" content="http://hasan.shaobo.fun/posts/20190917-cpp-container/">
@@ -77,7 +77,7 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">C&#43;&#43;容器</h1>
+                            <h1 class="post-title">C&#43;&#43; STL容器</h1>
                         </header>
                         <date class="post-meta meta-date">
                             2019-9-17
@@ -100,32 +100,23 @@
 <ul>
 <li><a href="#序列容器">序列容器</a>
 <ul>
-<li>
-<ul>
 <li><a href="#vector">Vector</a></li>
 <li><a href="#deque">Deque</a></li>
 <li><a href="#array">Array</a></li>
 <li><a href="#list">List</a></li>
 <li><a href="#forward-list">Forward List</a></li>
 </ul></li>
-</ul></li>
 <li><a href="#堆栈容器">堆栈容器</a>
 <ul>
-<li>
-<ul>
-<li><a href="#stack">stack</a></li>
-<li><a href="#queue">queue</a></li>
-<li><a href="#priority-queue">priority queue</a></li>
-</ul></li>
+<li><a href="#stack">Stack</a></li>
+<li><a href="#queue">Queue</a></li>
+<li><a href="#priority-queue">Priority Queue</a></li>
 </ul></li>
 <li><a href="#关联容器">关联容器</a>
-<ul>
-<li>
 <ul>
 <li><a href="#set和multiset">Set和Multiset</a></li>
 <li><a href="#map和multimap">Map和Multimap</a></li>
 <li><a href="#迭代器">迭代器</a></li>
-</ul></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -137,26 +128,97 @@
                         <div class="post-content">
                             <h2 id="序列容器">序列容器</h2>
 
-<h4 id="vector">Vector</h4>
+<h3 id="vector">Vector</h3>
 
-<p>默认被default构造函数初始化</p>
+<p>Vector是动态数组，动态数组并不是真正意义上的动态的内存，而是一块连续的内存，当添加新的元素时，容量已经等于当前的大小的时候，重新开辟一块大小为当前容量两倍的数组，把原数据拷贝过去，释放掉旧的数组</p>
+
+<p><strong>基本用法:</strong></p>
+
+<ul>
+<li><code>front()</code>返回头部元素的引用，可以当左值</li>
+<li><code>back()</code>返回尾部元素的引用，可以当左值</li>
+<li><code>push_back()</code>添加元素，只能尾部添加</li>
+<li><code>pop_back()</code>移除元素，只能在尾部移除</li>
+</ul>
+
+<ul>
+<li><code>size()</code>获取容器长度</li>
+<li><code>empty()</code>判断容器是否为空</li>
+<li><code>clear()</code>清空容器</li>
+<li><code>begin()</code>返回容器第一个元素的迭代器。</li>
+<li><code>end()</code>返回容器最后一个元素之后的迭代器。</li>
+</ul>
+
+<blockquote>
+<p>序列容器均具备以上能力，Array因为长度固定所以不支持push_back()之类修改长度操作</p>
+</blockquote>
+
+<p><strong>Vector初始化:</strong></p>
+
+<ul>
+<li>直接构造函数初始化,<code>vector&lt;int&gt; v1;</code> <code>v1.push_back(1);</code></li>
+<li>拷贝构造函数初始化<code>vector&lt;int&gt; v2 = v1;</code></li>
+<li>使用部分元素来构造<code>vector&lt;int&gt; v3(v1.begin(), v1.begin() + 1);</code> <code>vector&lt;int&gt; v4(v1.begin(), v1.end());</code></li>
+<li>存放3个元素，每个元素都是9<code>vector&lt;int&gt; v5(3,9);</code></li>
+</ul>
+
+<p><strong>Vector的遍历:</strong></p>
+
+<ul>
+<li><code>v[n]</code>方式，如果越界或出现其他错误，不会抛出异常，可能会崩溃，可能数据随机出现</li>
+<li><code>v.at(n)</code>方式，如果越界或出现其他错误，会抛出异常，需要捕获异常并处理</li>
+<li>迭代器提供了逆向遍历，可以通过迭代器来实现逆向遍历，当然上面两种方式也可以</li>
+</ul>
+
+<p><strong>迭代器遍历</strong></p>
+
+<pre><code class="language-cpp">#include&lt;iterator&gt;
+
+for(vector&lt;int&gt;::iterator it = v1.begin(); it != v1.end(); it++) {
+    cout &lt;&lt; *it &lt;&lt; &quot; &quot;;
+}
+for(vector&lt;int&gt;::reverse_iterator it = v1.rbegin(); it != v1.rend(); it++){
+    cout &lt;&lt; *it &lt;&lt; &quot; &quot;;
+}
+</code></pre>
+
+<p><strong>插入删除:</strong></p>
+
+<ul>
+<li><code>erase(iterator)</code>函数，删除后会返回当前迭代器的下一个位置。例:删除前3个元素<code>v1.erase(v1.begin(),v1.begin()+3);</code>删除指定位置的元素<code>v1.erase(v1.begin() +3);</code></li>
+<li>Vector提供了<code>insert</code>函数，结合迭代器位置插入指定的元素。在指定的位置插入元素10的拷贝<code>v1.insert(v1.begin() + 3,10);</code>在指定的位置插入3个元素11的拷贝<code>v1.insert(v1.begin(),3,11);</code></li>
+</ul>
+
+<p><strong>例子</strong></p>
 
 <pre><code class="language-cpp">#include&lt;vector&gt; 
 vector&lt;int&gt; coll; 
-coll.push_back(i); //所有序列容器都提供该函数
-for(int i = 0;i&lt;coll.size();++i){//所有容器都提供该函数
+coll.push_back(i);  //所有序列容器都提供该函数
+for(int i = 0;i&lt;coll.size();++i){   //所有容器都提供该函数
+    cout&lt;&lt;coll[i]&lt;&lt;endl;
 } 
 </code></pre>
 
-<h4 id="deque">Deque</h4>
+<h3 id="deque">Deque</h3>
 
-<pre><code class="language-cpp">#include&lt;deque&gt;
-deque&lt;float&gt; coll;
-coll.push_front(i*1.1);
-coll.push_back;
-</code></pre>
+<p>deque是一个双端数组容器:可以在头部和尾部操作元素。</p>
 
-<h4 id="array">Array</h4>
+<p><strong>基本用法:</strong></p>
+
+<ul>
+<li><code>push_back()</code>从尾部插入元素</li>
+<li><code>push_front()</code>从头部插入元素</li>
+<li><code>pop_back()</code>从尾部删除元素</li>
+<li><code>pop_front()</code>从头部删除元素</li>
+</ul>
+
+<blockquote>
+<p><code>distance</code>函数可以求出当前的迭代器指针<code>it</code>距离头部的位置，也就是容器的指针。用法:<code>distance(v1.begin(),it)</code></p>
+</blockquote>
+
+<h3 id="array">Array</h3>
+
+<p>数组容器，可以使用迭代器操作</p>
 
 <pre><code class="language-cpp">#include&lt;array&gt;
 #include&lt;string&gt;
@@ -164,25 +226,58 @@ array&lt;string,5&gt; coll = {&quot;hello&quot;,&quot;world&quot;};
 coll.size()
 </code></pre>
 
-<p>上面可搭配[]被随机访问</p>
+<h3 id="list">List</h3>
 
-<h4 id="list">List</h4>
+<p>List可以在头部和尾部插入和删除元素，不能随机访问元素，也就是迭代器只能++,不能一次性跳转</p>
+
+<p><strong>list的删除</strong></p>
+
+<p>list提供了两个函数用来删除元素,分别是<code>erase</code>和<code>remove</code>:</p>
+
+<ul>
+<li><code>erase(iterater)</code>是通过位置或者区间来删除,主要结合迭代器指针来操作</li>
+<li><code>remove(value)</code>是通过值来删除</li>
+</ul>
+
+<p>删除例子</p>
+
+<pre><code class="language-cpp">//删除某个元素
+l.erase(l.begin());
+//删除某个区间
+list&lt;int&gt;::iterator it = l.begin();
+it++;
+it++;
+it++;
+l.erase(l.begin(), it);
+//移除值为100的所有元素
+l.remove(100);
+</code></pre>
+
+<p><strong>List的插入</strong></p>
+
+<ul>
+<li><code>l.insert(iterater_pos,num)</code>在pos位置插入元素num</li>
+<li><code>l.insert(iterater_pos,n,num)</code>在pos位置插入n个元素num</li>
+<li><code>l.insert(iterater_pos,beg,end)</code>在pos位置插入区间为[beg,end)的元素</li>
+</ul>
+
+<p>例子</p>
 
 <pre><code class="language-cpp">#include&lt;list&gt;
 lsit&lt;char&gt; coll;
 coll.push_back();
 for(auto&amp; elem : coll){
-cout&lt;&lt;elem&lt;&lt;' ';
+    cout&lt;&lt;elem&lt;&lt;' ';
 }
 while(!coll.empty()){
-cout&lt;&lt;coll.front()&lt;&lt;' ';//coll.front()返回第一个元素
-coll.pop_front();
+    cout&lt;&lt;coll.front()&lt;&lt;' ';//coll.front()返回第一个元素
+    coll.pop_front();
 }
 </code></pre>
 
-<h4 id="forward-list">Forward List</h4>
+<h3 id="forward-list">Forward List</h3>
 
-<p>forward list是一个受限的list,不支持任何 后退移动 或 效率低下 的操作,
+<p>Forward List是一个受限的list,不支持任何后退移动或效率低下的操作,
 因此它不提供push_back()和size()</p>
 
 <pre><code class="language-cpp">#include&lt;forward_list&gt;
@@ -195,7 +290,7 @@ for(auto elem : coll){
 
 <h2 id="堆栈容器">堆栈容器</h2>
 
-<h4 id="stack">stack</h4>
+<h3 id="stack">Stack</h3>
 
 <p>在<stack>头文件中,class stack定义如下</p>
 
@@ -205,52 +300,106 @@ for(auto elem : coll){
 }
 </code></pre>
 
-<p>Stack的实现只是单纯的把各项操作转化为内部容器的对应调用,所以可以使用sequence容器支持stack；</p>
+<p>Stack的实现只是单纯的把各项操作转化为内部容器的对应调用,所以可以使用sequence容器支持stack;只要他们提供<code>back()</code>,<code>push_back()</code>,<code>pop_back()</code>,例如:<code>std::stack&lt;int,std::vector&lt;int&gt;&gt; st;</code></p>
 
-<p>只要他们提供back(),push_back(),pop_back(),例如:</p>
+<p>基本操作:</p>
 
-<p><code>std::stack&lt;int,std::vector&lt;int&gt;&gt; st;</code>
-stack的核心接口:<code>push()</code>,<code>top()</code>,<code>pop()</code>
-stack中没有元素会导致<code>top()</code>和<code>pop</code>的不明确行为可以用<code>size()</code>,<code>empty()</code>检验容器是否为空</p>
+<ul>
+<li><code>push()</code>入栈</li>
+<li><code>top</code>取栈顶元素</li>
+<li><code>pop</code>出栈</li>
+</ul>
+
+<blockquote>
+<p>stack中没有元素会导致<code>top()</code>和<code>pop</code>的不明确行为可以用<code>size()</code>,<code>empty()</code>检验容器是否为空</p>
+</blockquote>
 
 <pre><code class="language-cpp">#include&lt;stack&gt;
-std::stack&lt;int&gt; st;
+stack&lt;int&gt; st;
+st.push(1)
+st.top()
+st.pop()
 </code></pre>
 
-<h4 id="queue">queue</h4>
+<h3 id="queue">Queue</h3>
 
-<p>queue同样是把各项操作转化为对应容器的调用,只要他们支持front(),back(),push_back(),pop_front()
-核心接口:push(),pop(),front()返回queue内下一个元素,back()返回queue内最后一个元素</p>
+<p>队列是一种先进先出数据结构</p>
+
+<p>queue同样是把各项操作转化为对应容器的调用,只要他们支持<code>front()</code>,<code>back()</code>,<code>push_back()</code>,<code>pop_front()</code></p>
+
+<p>基本操作</p>
+
+<ul>
+<li>push()从队尾入队</li>
+<li>pop()从队首出队</li>
+<li>front()取队首元素</li>
+<li>back()取队尾元素</li>
+</ul>
+
+<p>例子</p>
 
 <pre><code class="language-cpp">#include&lt;queue&gt;
-queue&lt;string&gt; q;
+queue&lt;int&gt; q;
+q.push(1)
+q.front()
+q.back()
+q.pop()
 </code></pre>
 
-<h4 id="priority-queue">priority queue</h4>
+<h3 id="priority-queue">Priority Queue</h3>
 
-<p>同理,它需要容器支持random-access iterator,front(),push_back(),pop_back()
-核心借口:push(),top()返回priority中下一个元素,pop()
-用size(),empty()检验是否为空</p>
+<p>优先级队列分为：最小值优先队列和最大值优先队列。
+同理,它需要容器支持<code>random-access</code> <code>iterator</code>,<code>front()</code>,<code>push_back()</code>,<code>pop_back()</code></p>
 
-<pre><code class="language-cpp">#include&lt;queueu&gt;
-priority_queue&lt;float&gt; q;
+<p>核心接口:<code>push()</code>,<code>top()</code>返回<code>priority</code>中下一个元素,<code>pop()</code>用<code>size()</code>,<code>empty()</code>检验是否为空</p>
+
+<p>基本操作:</p>
+
+<ul>
+<li><code>push()</code>从队尾入栈</li>
+<li><code>top()</code>取队首元素</li>
+<li><code>pop()</code>从队首出栈</li>
+</ul>
+
+<p>定义优先级的方法：</p>
+
+<ul>
+<li><code>priority_queue&lt;int&gt;</code>默认定义<code>int</code>类型的最大值队列</li>
+<li><code>priority_queue&lt;int,vector&lt;int&gt;,less&lt;int&gt;&gt;</code>定义<code>int</code>型的最大值优先队列</li>
+<li><code>priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt;&gt;</code>定义<code>int</code>型的最小值队列</li>
+</ul>
+
+<p>例子</p>
+
+<pre><code class="language-cpp">#include&lt;queue&gt;
+priority_queue&lt;int&gt; p1;
+
+//给默认的最大优先级队列入栈
+p1.push(33);
+p1.push(11);
+p1.push(55);
+p1.push(22);
+//最大优先级的队首元素
+p1.top()
+//队首出栈
+p1.pop()
 </code></pre>
 
 <p>其内部排序值大的先入队</p>
 
 <h2 id="关联容器">关联容器</h2>
 
-<h4 id="set和multiset">Set和Multiset</h4>
+<h3 id="set和multiset">Set和Multiset</h3>
 
 <pre><code class="language-cpp">#include&lt;set&gt;
 multiset&lt;string&gt; cities{//multiset允许重复
-&quot;beijing&quot;,&quot;shanghai&quot;,&quot;tianjing&quot;,&quot;shenzheng&quot;
+    &quot;beijing&quot;,&quot;shanghai&quot;,&quot;tianjing&quot;,&quot;shenzheng&quot;
 };
 for(const auto&amp; elem : cities){}
 cities.insert({&quot;hangzou&quot;,&quot;wuhan&quot;,&quot;chongqing&quot;});
 </code></pre>
 
-<h4 id="map和multimap">Map和Multimap</h4>
+<h3 id="map和multimap">Map和Multimap</h3>
 
 <pre><code class="language-cpp">#include&lt;map&gt;
 multimap&lt;int,string&gt; coll;
@@ -260,16 +409,16 @@ coll = {
 {4,&quot;of&quot;}
 };
 for(auto elem : coll){
-cout&lt;&lt;elem.second;
-cout&lt;&lt;elem.first;
+    cout&lt;&lt;elem.second;
+    cout&lt;&lt;elem.first;
 }
 </code></pre>
 
-<h4 id="迭代器">迭代器</h4>
+<h3 id="迭代器">迭代器</h3>
 
 <pre><code class="language-cpp">list&lt;char&gt;::const_iterator pos;//只读模式,去掉const读写模式
-for(pos = coll.begin();pos != coll.end();++pos){//这里前置++逼后置++效率高
-cout&lt;&lt;*pos&lt;&lt;' ';
+for(pos = coll.begin();pos != coll.end();++pos){//这里前置++比后置++效率高
+    cout&lt;&lt;*pos&lt;&lt;' ';
 }
 cbegin() 和 cend()返回类型cont::const_iterator对象
 </code></pre>
@@ -283,6 +432,8 @@ cbegin() 和 cend()返回类型cont::const_iterator对象
                             <ul class="clearfix">
                                 
                                 <li><a href="http://hasan.shaobo.fun/tags/c&#43;&#43;">c&#43;&#43;</a></li>
+                                
+                                <li><a href="http://hasan.shaobo.fun/tags/Vector">Vector</a></li>
                                 
                             </ul>
                         </div>
@@ -372,7 +523,7 @@ cbegin() 和 cend()返回类型cont::const_iterator对象
 <ul class="widget-list">
     
     <li>
-        <a href="http://hasan.shaobo.fun/posts/20190917-cpp-container/" title="C&#43;&#43;容器">C&#43;&#43;容器</a>
+        <a href="http://hasan.shaobo.fun/posts/20190917-cpp-container/" title="C&#43;&#43; STL容器">C&#43;&#43; STL容器</a>
     </li>
     
     <li>
@@ -466,6 +617,8 @@ cbegin() 和 cend()返回类型cont::const_iterator对象
     <a href="http://hasan.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
     <a href="http://hasan.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vector/">Vector</a>
     
     <a href="http://hasan.shaobo.fun/tags/Vim/">Vim</a>
     
