@@ -294,7 +294,6 @@ void HeadSort(int arr[],int len){
 + 父节点i的右子节点在位置 (2i+1);
 + 子节点i的父节点在位置 floor(i/2);
 
-
 算法特点:
 
 1. 是不稳定排序
