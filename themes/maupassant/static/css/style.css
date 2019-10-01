@@ -12,7 +12,13 @@
     font-weight: normal;
     font-style: normal;
 }
-
+ol,ul{
+    margin-top: 5px;
+    padding-left: 32px;
+}
+p{
+    margin-bottom: 5px !important;
+}
 [class^="icon-"], [class*=" icon-"] {
     font-family: 'icomoon';
     speak: none;
@@ -1109,14 +1115,21 @@ table tr th, table tr td {
 .catalogue {
     border: 1px solid #bbb;
     border-radius: 7px;
-    margin: 1.1em 0 0 2em;
+    /* margin: 1.1em 0 0 2em; */
     padding: 0.7em 0.7em 0 0.7em;
     max-width: 40%;
     line-height: 1em;
     float: right;  
+    margin-left: 15px;
 }
 .toc-title {
     font-size: 120%; 
+}
+.catalogue ul{
+    margin-top: 0px !important;
+}
+.catalogue ul li a:hover{
+    border-bottom: 1px solid #009688;
 }
 /* #TableOfContents {
     
