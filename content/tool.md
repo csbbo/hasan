@@ -4,14 +4,20 @@ date: 2019-06-28T11:40:12+08:00
 type: tool
 ---
 
-#### 在线工具
+#### ONLINE TOOL
 [Linux命令大全](https://man.linuxde.net/)
 
 [Materialize Color](https://materializecss.com/color.html)
 
 [ACONVERT](https://www.aconvert.com/cn/)
 
-#### 文档库
+#### LIBRALY
+
+[CS-Notes](https://cyc2018.github.io/CS-Notes/)
+
+[Go语言高级编程](https://chai2010.gitbooks.io/advanced-go-programming-book/content/ch1-basic/ch1-01-genesis.html)
+
+[Go语言圣经](https://www.kancloud.cn/hartnett/gopl-zh/126048)
 
 [Python 3.7.4 文档](https://docs.python.org/zh-cn/3/)
 
