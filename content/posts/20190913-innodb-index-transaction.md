@@ -101,7 +101,7 @@ MySQL表中的所有数据被存储在一个空间内，称之为表空间，表
 
 ## B+树
 
-一个 m 阶的[B树](/assets/article/20190913/https://zh.wikipedia.org/wiki/B%E6%A0%91)是一个有以下属性的树:
+一个 m 阶的[B树](https://zh.wikipedia.org/wiki/B%E6%A0%91)是一个有以下属性的树:
 
 1. 每一个节点最多有 m 个子节点
 2. 每一个非叶子节点（除根节点）最少有ceil(m/2)个子节点
@@ -109,7 +109,7 @@ MySQL表中的所有数据被存储在一个空间内，称之为表空间，表
 4. 有 k 个子节点的非叶子节点拥有 k − 1 个键
 5. 所有的叶子节点都在同一层
 
-而[B+树](/assets/article/20190913/https://baike.baidu.com/item/B%2B%E6%A0%91)是B树的一种变形形式但:
+而[B+树](https://baike.baidu.com/item/B%2B%E6%A0%91)是B树的一种变形形式但:
 
 1. 非叶子节点子树的指针与关键字个数相同
 2. 非叶子节点的子树指针p[i]指向( k[i] , k[i+1] ]
