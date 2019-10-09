@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 Sep 2019 22:17:59 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 09 Oct 2019 22:26:30 +0800</lastBuildDate>
     
 	<atom:link href="http://hasan.shaobo.fun/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>algorithm</title>
+      <link>http://hasan.shaobo.fun/tags/algorithm/</link>
+      <pubDate>Wed, 09 Oct 2019 22:26:30 +0800</pubDate>
+      
+      <guid>http://hasan.shaobo.fun/tags/algorithm/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>c&#43;&#43;</title>
@@ -188,15 +197,6 @@
       <pubDate>Tue, 28 May 2019 20:01:40 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/tags/Base64/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>algorithm</title>
-      <link>http://hasan.shaobo.fun/tags/algorithm/</link>
-      <pubDate>Mon, 27 May 2019 20:02:58 +0800</pubDate>
-      
-      <guid>http://hasan.shaobo.fun/tags/algorithm/</guid>
       <description></description>
     </item>
     

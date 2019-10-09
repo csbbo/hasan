@@ -3,27 +3,47 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://hasan.shaobo.fun/tags/algorithm/</loc>
+    <lastmod>2019-10-09T22:26:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/categories/</loc>
+    <lastmod>2019-10-09T22:26:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/</loc>
+    <lastmod>2019-10-09T22:26:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/</loc>
+    <lastmod>2019-10-09T22:26:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/tags/</loc>
+    <lastmod>2019-10-09T22:26:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/20191009-binary-tree-traversal/</loc>
+    <lastmod>2019-10-09T22:26:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2019-10-09T22:26:30+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hasan.shaobo.fun/tags/c&#43;&#43;/</loc>
     <lastmod>2019-09-17T22:17:59+08:00</lastmod>
   </url>
   
   <url>
     <loc>http://hasan.shaobo.fun/posts/20190917-cpp-container/</loc>
-    <lastmod>2019-09-17T22:17:59+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/</loc>
-    <lastmod>2019-09-17T22:17:59+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/posts/</loc>
-    <lastmod>2019-09-17T22:17:59+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/tags/</loc>
     <lastmod>2019-09-17T22:17:59+08:00</lastmod>
   </url>
   
@@ -40,11 +60,6 @@
   <url>
     <loc>http://hasan.shaobo.fun/posts/20190915-git-summary/</loc>
     <lastmod>2019-09-15T21:13:13+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/categories/</loc>
-    <lastmod>2019-09-14T14:26:52+08:00</lastmod>
   </url>
   
   <url>
@@ -238,22 +253,12 @@
   </url>
   
   <url>
-    <loc>http://hasan.shaobo.fun/tags/algorithm/</loc>
-    <lastmod>2019-05-27T20:02:58+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://hasan.shaobo.fun/tags/sort/</loc>
     <lastmod>2019-05-27T20:02:58+08:00</lastmod>
   </url>
   
   <url>
     <loc>http://hasan.shaobo.fun/posts/20190527-sortAlgorithm/</loc>
-    <lastmod>2019-05-27T20:02:58+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2019-05-27T20:02:58+08:00</lastmod>
   </url>
   

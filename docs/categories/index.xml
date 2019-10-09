@@ -6,10 +6,19 @@
     <description>Recent content in Categories on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 14 Sep 2019 14:26:52 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 09 Oct 2019 22:26:30 +0800</lastBuildDate>
     
 	<atom:link href="http://hasan.shaobo.fun/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>算法</title>
+      <link>http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Wed, 09 Oct 2019 22:26:30 +0800</pubDate>
+      
+      <guid>http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>数据库</title>
@@ -35,15 +44,6 @@
       <pubDate>Tue, 02 Jul 2019 16:28:40 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>算法</title>
-      <link>http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/</link>
-      <pubDate>Mon, 27 May 2019 20:02:58 +0800</pubDate>
-      
-      <guid>http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/</guid>
       <description></description>
     </item>
     

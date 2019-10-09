@@ -13,7 +13,7 @@ type: tool
 
 #### LIBRALY
 
-[CS-Notes](https://cyc2018.github.io/CS-Notes/)
+[CS-Notes](https://cyc2018.github.io/CS-Notes/#/README)
 
 [Go语言高级编程](https://chai2010.gitbooks.io/advanced-go-programming-book/content/ch1-basic/ch1-01-genesis.html)
 

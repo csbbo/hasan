@@ -6,10 +6,19 @@
     <description>Recent content in algorithm on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 27 May 2019 20:02:58 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 09 Oct 2019 22:26:30 +0800</lastBuildDate>
     
 	<atom:link href="http://hasan.shaobo.fun/tags/algorithm/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>二叉树遍历</title>
+      <link>http://hasan.shaobo.fun/posts/20191009-binary-tree-traversal/</link>
+      <pubDate>Wed, 09 Oct 2019 22:26:30 +0800</pubDate>
+      
+      <guid>http://hasan.shaobo.fun/posts/20191009-binary-tree-traversal/</guid>
+      <description>&lt;p&gt;二叉树的前中后序遍历，使用递归算法实现最为简单，他们的差别仅在于输出时机的不同。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>常用排序算法</title>
