@@ -1,10 +1,12 @@
 ---
-title: "Data Structures and Algorithms 、Os、 Net 、 Database"
+title: "DS、Os、 Net 、 DB"
 date: 2019-10-09T22:33:24+08:00
 draft: true
 toc: true
 ---
+
 数据结构算法，操作系统，计算机网络，数据库总结
+
 <!--more-->
 ## 数据库(SQL、MySQL、Redis)
 

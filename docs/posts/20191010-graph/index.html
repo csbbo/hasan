@@ -1,0 +1,636 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.58.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>图 | Hasan</title>
+    <meta property="og:title" content="图 - Hasan">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-10-10T08:45:59&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-10-10T08:45:59&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="图">
+        
+    <meta name="author" content="shaobo">
+    <meta property="og:url" content="http://hasan.shaobo.fun/posts/20191010-graph/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hasan.shaobo.fun/">
+                        Hasan
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">我欲乘风破浪，又恐黄沙海洋</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hasan.shaobo.fun/">首页</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/tool/" title="工具">工具</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">图</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019-10-10
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95">算法</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#图的存储结构">图的存储结构</a>
+<ul>
+<li><a href="#邻接矩阵">邻接矩阵</a></li>
+<li><a href="#邻接表">邻接表</a></li>
+</ul></li>
+<li><a href="#深度优先搜索-dfs">深度优先搜索(DFS)</a></li>
+<li><a href="#广度优先搜索-bfs">广度优先搜索(BFS)</a></li>
+<li><a href="#最小生成树">最小生成树</a>
+<ul>
+<li><a href="#普里姆算法-prim">普里姆算法(Prim)</a></li>
+<li><a href="#克鲁斯卡尔-kruskal">克鲁斯卡尔(Kruskal)</a></li>
+</ul></li>
+<li><a href="#最短路径">最短路径</a>
+<ul>
+<li><a href="#迪杰斯特拉算法">迪杰斯特拉算法</a></li>
+<li><a href="#弗洛伊德算法">弗洛伊德算法</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>图（Graph）G是由两个集合V和E组成，记为G=(V,E)，其中V为顶点的有穷非空集合，E是V中顶点偶对的有穷非空集合，这些顶点偶对称为边。V(G)和E(G)通常分别表示图G的顶点集合和边集合，E(G)可以为空集。若E(G)为空，则图G只有顶点没有边。</p>
+
+<h2 id="图的存储结构">图的存储结构</h2>
+
+<h3 id="邻接矩阵">邻接矩阵</h3>
+
+<pre><code class="language-c">#define MazInt 32767
+#define MVNum
+typedef char VerTexType;
+typedef int ArcType;
+typedef struct{
+    VerTexType vexs[MVNum]; //顶点表
+    ArcType arcs[MVNum][MVNum]; //邻接矩阵
+    int vexnum,arcnum;  //图的当前点数和边数
+}AMGraph
+</code></pre>
+
+<h3 id="邻接表">邻接表</h3>
+
+<pre><code class="language-c">#define MVNum 100   //最大定点数
+
+// 边节点
+typedef struct ArcNode{
+    int adjvex; //该边指向的顶点
+    struct ArcNode* nextarc;    //指向下一条边的指针
+    OtherInfo info; //边相关信息
+}ArcNode
+
+// 顶点信息
+typedef struct VNode{
+    ArcNode* firstarc;  //指向依附该顶点的边的指针
+}VNode,AdjList[MVNum];
+
+// 邻接表
+typedef struct{
+    AdjList vertices;
+    int vexnum,arcnum;
+}ALGraph;
+</code></pre>
+
+<h2 id="深度优先搜索-dfs">深度优先搜索(DFS)</h2>
+
+<p>图的深度优先搜索(Depth First Search)遍历类似于树的先序遍历，是树的先序遍历的推广。</p>
+
+<pre><code class="language-c">bool visited[MVNum];    //访问标志数组
+void DFS(Graph G,int v){
+    cout&lt;&lt;v;
+    visited[v] = true;
+    for(w=FirstAdjVex(G,v);w&gt;=0;w=NextAdjVex(G,v,w))
+    if(!visited[w])
+        DFS(G,w);
+}
+// FirstAdjVex(G,v)表示v的第一个邻接点
+// NextAdjVex(G,v,w)表示v相对于w的下一个邻接点
+</code></pre>
+
+<h2 id="广度优先搜索-bfs">广度优先搜索(BFS)</h2>
+
+<pre><code class="language-cpp">void BFS(Graph G,int v){
+    cout&lt;&lt;v;
+    visited[v] = true;
+    queue Q;
+    Q.push(v);
+    while(!Q.empty()){
+        Q.pop();
+        for(w=FirstAdjVex(G,v);w&gt;=0;w=NextAdjVex(G,v,w)){
+            if(!visited[w]){
+                cout&lt;&lt;w;
+                visited[w]=true;
+                Q.push(v);
+            }
+        }
+            
+    }
+}
+</code></pre>
+
+<h2 id="最小生成树">最小生成树</h2>
+
+<p>在一个连通网中的所有生成树中，各边的代价和最小的那颗生成树称为该连通网的<strong>最小代价生成树（Minimum Cost Spanning Tree）</strong>，简称<strong>最小生成树（Minimum Spanning Tree,MST）</strong></p>
+
+<h3 id="普里姆算法-prim">普里姆算法(Prim)</h3>
+
+<p><a href="https://zh.wikipedia.org/wiki/%E6%99%AE%E6%9E%97%E5%A7%86%E7%AE%97%E6%B3%95">Prim</a>是图论中的一种算法，可在加权连通图里搜索最小生成树。意即由此算法搜索到的边子集所构成的树中，不但包括了连通图里的所有顶点，且其所有边的权值之和亦为最小。</p>
+
+<p><img src="/assets/article/20191010/800081-20180927221126399-947827138.png" style="width:60%;margin-left:0;margin-top:20px;"></p>
+
+<pre><code class="language-c">void Prim()
+{
+    MST = {s};
+    while(1){
+        V = 未收录顶点中dist最小值
+        if(这样的V不存在){
+            break;
+        }
+        将V收录进MST: dist[V] = 0;
+        for(V的每个邻接点W){
+            if(dist[W] != 0){
+                if(E(v,w) &lt; dist[W]){
+                    parent[W] = V;
+                }
+            }
+        }
+    }
+    if(MST中的顶点不到|V|个)
+        Error(&quot;生成树不存在&quot;)
+}
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>最小边、权的数据结构</th>
+<th>时间复杂度（总计）</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>邻接矩阵、搜索</td>
+<td>O(|V|<sup>2</sup>)</td>
+</tr>
+
+<tr>
+<td>二叉堆、邻接表</td>
+<td>O((|V|+|E|)log|V|)=O(|E|log |V|)</td>
+</tr>
+
+<tr>
+<td>斐波那契堆、邻接表</td>
+<td>O(|E|+|V|log|V|)</td>
+</tr>
+</tbody>
+</table>
+
+<p>通过邻接矩阵图表示的简易实现中，找到所有最小权边共需O(|V|<sup>2</sup>)的运行时间。使用简单的二叉堆与邻接表来表示的话，普里姆算法的运行时间则可缩减为O(|E|log |V|)，其中|E|为连通图的边集大小，|V|为点集大小。如果使用较为复杂的斐波那契堆，则可将运行时间进一步缩短为 O(|E|+|V|log|V|)，这在连通图足够密集时（当|E|满足&Omega;(|V|log|V|)}条件时），可较显著地提高运行速度。</p>
+
+<h3 id="克鲁斯卡尔-kruskal">克鲁斯卡尔(Kruskal)</h3>
+
+<p><a href="https://zh.wikipedia.org/wiki/%E5%85%8B%E9%B2%81%E6%96%AF%E5%85%8B%E5%B0%94%E6%BC%94%E7%AE%97%E6%B3%95">Kruskal</a>是一种用来查找最小生成树的算法，由Joseph Kruskal在1956年发表。用来解决同样问题的还有Prim算法和Boruvka算法等。三种算法都是贪心算法的应用。和Boruvka算法不同的地方是，Kruskal算法在图中存在相同权值的边时也有效。</p>
+
+<p><img src="/assets/article/20191010/20141016003341734.png" style="width:50%;margin-left:0;margin-top:20px;"></p>
+
+<pre><code class="language-c">void Kruskal(Graph G)
+{
+    MST = {};
+    while(MST中不到|V|-1条边 &amp;&amp; E中还有边){
+        从E中取一条权重最小的边E(v,w);
+        将E(v,w)从E中删除;
+        if(E(v,w)不在MST中构成回路)
+            将E(v,w)加入MST
+        else
+            彻底无视
+    }
+    if(MST中不到|V|-1条边)
+        Error(&quot;生成树不存在&quot;)
+}
+</code></pre>
+
+<p>相比于Prim，Kruskal更适合稀疏图</p>
+
+<h2 id="最短路径">最短路径</h2>
+
+<p><strong>最短路径</strong>问题是<a href="https://zh.wikipedia.org/wiki/%E5%9B%BE%E8%AE%BA">图论</a>研究中的一个经典算法问题，旨在寻找图（由结点和路径组成的）中两结点之间的最短路径。算法具体的形式包括：</p>
+
+<ul>
+<li><strong>确定起点的最短路径问题</strong> - 即已知起始结点，求最短路径的问题。适合使用<a href="https://zh.wikipedia.org/wiki/%E6%88%B4%E5%85%8B%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95">Dijkstra算法</a>。</li>
+<li><strong>确定终点的最短路径问题</strong> - 与确定起点的问题相反，该问题是已知终结结点，求最短路径的问题。在无向图中该问题与确定起点的问题完全等同，在<a href="https://zh.wikipedia.org/wiki/%E6%9C%89%E5%90%91%E5%9B%BE">有向图</a>中该问题等同于把所有路径方向反转的确定起点的问题。</li>
+<li><strong>确定起点终点的最短路径问题</strong> - 即已知起点和终点，求两结点之间的最短路径。</li>
+<li><strong>全局最短路径问题</strong> - 求图中所有的最短路径。适合使用<a href="https://zh.wikipedia.org/wiki/Floyd-Warshall%E7%AE%97%E6%B3%95">Floyd-Warshall算法</a>。</li>
+</ul>
+
+<h3 id="迪杰斯特拉算法">迪杰斯特拉算法</h3>
+
+<blockquote>
+<p><a href="https://zh.wikipedia.org/wiki/%E6%88%B4%E5%85%8B%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95">迪杰斯特拉算法</a>使用了广度优先搜索解决赋权有向图的单源最短路径问题。该算法存在很多变体；戴克斯特拉的原始版本找到两个顶点之间的最短路径，但是更常见的变体固定了一个顶点作为源节点然后找到该顶点到图中所有其它节点的最短路径，产生一个最短路径树。该算法常用于路由算法或者作为其他图算法的一个子模块。</p>
+</blockquote>
+
+<p>最初的戴克斯特拉算法不采用最小优先级队列，时间复杂度是O(|V|<sup>2</sup>)(其中|V|为图的顶点个数)通过斐波那契堆实现的戴克斯特拉算法时间复杂度是O(|E|+|V|log|V|) (其中|E|是边数)。对于不含负权的有向图，这是当前已知的最快的单源最短路径算法。</p>
+
+<pre><code class="language-c">void Dijkstra(Vertex s)
+{
+    while(1){
+        V = 未收录顶点中dist最小者
+        if(这样的顶点不存在)
+            break;
+        collected[V] = true;
+        for(V的每个邻接点W){
+            if(collected[W] == false){
+                if(dist[V]+E&lt;v,w&gt; &lt; dist[W]){
+                    dist[W] = dist[V] + E&lt;v,w&gt;;
+                    path[W] = V;
+                }
+            }
+        }
+    }
+}
+</code></pre>
+
+<h3 id="弗洛伊德算法">弗洛伊德算法</h3>
+
+<p>弗洛伊德算法求每对顶点之间的最短路径</p>
+
+<pre><code class="language-c">void ShortestPath_Floyed(AMGraph G){
+    for(i = 0;i&lt;G.vexnum;++i){  //初始各节点之间已知路径及距离
+        for(j = 0;j&lt;G.vexnum;++j){
+            D[i][j] = G.arcs[i][j];
+            if(D[i][j]&lt;MaxInt)
+                Path[i][j] = i;
+            else
+                Path[i][j] = -1;
+        }
+    }
+    for(k=0;k&lt;G.vexnum;++k){
+        for(i=0;i&lt;G.vexnum;++i){
+            for(j=0;j&lt;G.vexnum;++j){
+                if(D[i][k]+D[k][j]&lt;D[i][j]){
+                    D[i][j] = D[i][k]+D[k][j];
+                    Path[i][j] = Path[k][j];
+                }
+            }
+        }
+    }
+}
+</code></pre>
+
+<ul>
+<li>Path[i][j]最短路径上顶点v<sub>j</sub>的前一顶点序号</li>
+<li>D[i][j]记录
+v<sub>i</sub>和<sub>j</sub>之间最短路径</li>
+</ul>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="http://hasan.shaobo.fun/tags/Graph">Graph</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+
+    
+        <li class="pre">
+        <a href="http://hasan.shaobo.fun/posts/20191009-binary-tree-traversal/">
+        <span>二叉树遍历</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
+      
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191010-graph/" title="图">图</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191009-binary-tree-traversal/" title="二叉树遍历">二叉树遍历</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190917-cpp-container/" title="C&#43;&#43; STL容器">C&#43;&#43; STL容器</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190915-git-summary/" title="分布式版本控制系统--Git">分布式版本控制系统--Git</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190914-redis-exploration/" title="Redis初探">Redis初探</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190913-innodb-index-transaction/" title="InnoDB事务及索引原理">InnoDB事务及索引原理</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190831-cryptography/" title="Python字符串加密解密">Python字符串加密解密</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190826-session-cookie-token-jwt/" title="Session Cookie Token JWT">Session Cookie Token JWT</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190707-htmltopdf/" title="HtmlToPdf">HtmlToPdf</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20190702-multithreaded-programming/" title="多线程编程">多线程编程</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Tool/">Tool(3)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(4)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://hasan.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/process/">process</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tmux/">tmux</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="http://hasan.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a href="/friend/">友情链接</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="http://hasan.shaobo.fun/">Hasan By shaobo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

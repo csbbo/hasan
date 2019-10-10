@@ -3,37 +3,47 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://hasan.shaobo.fun/categories/</loc>
+    <lastmod>2019-10-10T08:45:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/tags/Graph/</loc>
+    <lastmod>2019-10-10T08:45:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/</loc>
+    <lastmod>2019-10-10T08:45:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/</loc>
+    <lastmod>2019-10-10T08:45:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/tags/</loc>
+    <lastmod>2019-10-10T08:45:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/20191010-graph/</loc>
+    <lastmod>2019-10-10T08:45:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2019-10-10T08:45:59+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hasan.shaobo.fun/tags/algorithm/</loc>
     <lastmod>2019-10-09T22:26:30+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://hasan.shaobo.fun/categories/</loc>
-    <lastmod>2019-10-09T22:26:30+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/</loc>
-    <lastmod>2019-10-09T22:26:30+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/posts/</loc>
-    <lastmod>2019-10-09T22:26:30+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/tags/</loc>
-    <lastmod>2019-10-09T22:26:30+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://hasan.shaobo.fun/posts/20191009-binary-tree-traversal/</loc>
-    <lastmod>2019-10-09T22:26:30+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2019-10-09T22:26:30+08:00</lastmod>
   </url>
   
