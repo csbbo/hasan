@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>算法笔记 | Hasan</title>
-    <meta property="og:title" content="算法笔记 - Hasan">
+    <title>乐观锁和悲观锁 | Hasan</title>
+    <meta property="og:title" content="乐观锁和悲观锁 - Hasan">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-05-23T20:04:46&#43;08:00">
+    <meta property="article:published_time" content="2019-10-24T22:14:19&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-05-23T20:04:46&#43;08:00">
+    <meta property="article:modified_time" content="2019-10-24T22:14:19&#43;08:00">
         
     <meta name="Keywords" content="">
-    <meta name="description" content="算法笔记">
+    <meta name="description" content="乐观锁和悲观锁">
         
     <meta name="author" content="shaobo">
-    <meta property="og:url" content="http://hasan.shaobo.fun/posts/20190523-algorithmNote/">
+    <meta property="og:url" content="http://hasan.shaobo.fun/posts/20191024-optimistic-lock-pessimistic-lock/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -77,16 +77,16 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">算法笔记</h1>
+                            <h1 class="post-title">乐观锁和悲观锁</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019-5-23
+                            2019-10-24
                         </date>
                         
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95">算法</a></span>
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
                             
                         </div>
                         
@@ -105,11 +105,22 @@
 <ul>
 <li>
 <ul>
-<li>
+<li><a href="#实现方式">实现方式</a>
 <ul>
-<li><a href="#huffmantree">HuffmanTree</a></li>
-<li><a href="#欧几里得算法">欧几里得算法</a></li>
-<li><a href="#杨辉三角">杨辉三角</a></li>
+<li><a href="#cas-compare-and-swap">CAS（Compare And Swap）</a></li>
+<li><a href="#版本号机制">版本号机制</a></li>
+</ul></li>
+<li><a href="#优缺点和适用场景">优缺点和适用场景</a>
+<ul>
+<li><a href="#功能限制">功能限制</a></li>
+<li><a href="#竞争激烈程度">竞争激烈程度</a></li>
+<li><a href="#乐观锁加锁吗">乐观锁加锁吗？</a></li>
+<li><a href="#cas有哪些缺点">CAS有哪些缺点？</a>
+<ul>
+<li><a href="#aba问题">ABA问题</a></li>
+<li><a href="#高竞争下的开销问题">高竞争下的开销问题</a></li>
+<li><a href="#功能限制-1">功能限制</a></li>
+</ul></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -119,186 +130,119 @@
                         </div>
                         
                         <div class="post-content">
-                            <p>记录一下几个比较经典的算法。</p>
+                            <p>乐观锁和悲观锁是两种思想，乐观并发控制(乐观锁)和悲观并发控制（悲观锁）是并发控制主要采用的技术手段，用于解决并发场景下的数据竞争问题。</p>
 
-<h3 id="huffmantree">HuffmanTree</h3>
+<ul>
+<li><p>乐观锁：乐观锁在操作数据时非常乐观，认为别人不会同时修改数据。因此乐观锁不会上锁，只是在执行更新的时候判断一下在此期间别人是否修改了数据：如果别人修改了数据则放弃操作，否则执行操作。</p></li>
 
-<blockquote>
-<p><a href="https://zh.wikipedia.org/wiki/%E9%9C%8D%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81">哈弗曼编码</a>:使用变长编码表对应原符号进行编码，其中变长编码表是通过一种评估原符号出现几率的方法得到的，出现几率高的使用较短的编码，反之出现几率低的则使用较长的编码，这便使编码后的字符串的平均长度、期望值降低，从而达到无损压缩数据的目的。</p>
-</blockquote>
-
-<p>使用01进行哈弗曼编码时任何一个编码都不能是另一个编码的前缀，满足这样性质的编码称为前缀码(Preix Code)<br />
-最优编码问题，给出n个字符的频率，每个字符赋予一个01编码串，使得任意一个字符的编码不是另一个字符的前缀，而且编码后的总长度尽量小</p>
-
-<p>Huffman算法:把每个字符看做单节点子树放在一个树的集合中，每棵子树的权值等于相应字符的频率。每次取出权值最小的两棵子树合并成一棵新树，并重新放到集合中。新树的权值等于两棵子树的权值之和。</p>
-
-<p>下面证明算法的正确性:</p>
-
-<p>结论 1: 设x和y是频率最小的两个字符,则存在前缀码使得x和y具有相同的码长，且仅有最后一位编码不同，也就是说第一步贪心算法选择保留最优解。
-证明: 假设深度最大节点为a，则a一定有一个兄弟节点b。不妨设f(x)&lt;=f(y),f(a)&lt;=f(b),则f(x)&lt;=f(a),f(y)&lt;=f(b)。如果x不是a,则交换x和a;如果y不是b则交换y和b,这样得到新编码的树不会比。
-结论 2: 设T是加权字符集C的最优编码树，x和y是树T中两个叶子节点，且互为兄弟节点，z是他们的父节点。若把z看成是具有频率f(z)=f(x)+f(y)的字符，则树T`=T-{x,y}是字符集C`=C-{x,y}U{z}的一棵最优编码树。换句话说，原问题最优解包含子问题最优解。
-证明: 设T`的编码长度为L，其中字符{x,}的深度为h，则把字符{x,y}拆成两个后,长度变为L-(f(x)+f(y))<em>h+(f(x)+f(y))</em>(h+1)=L+f(x)+f(y)。因此T`必须是C`的最优编码树,T才是C的最优编码树。</p>
-
-<pre><code class="language-c">#include&lt;cstdio&gt;
-#include&lt;deque&gt;
-#include&lt;algorithm&gt;
-
-struct Node{
-    unsigned int weight;
-    Node *left;
-    Node *right;
-    Node(int x):weight(x),left(NULL),right(NULL){}
-};
-
-
-
-bool isFirst = true;   //输出时判断是否第一个
-
-bool compare(Node* a,Node* b);  //定义排序规则
-void printHuffmanLeaf(Node* root);  //输出编码后的叶子,从左至右
-Node* encodingHuffman(int* arr,int len);    //构造哈夫曼树
-
-int main(){
-    int arr[8]={5,29,7,8,14,23,3,11};  //测试数据,根据权值进行哈夫曼编码
-    const int len = sizeof(arr)/sizeof(unsigned int);
-
-    Node* ptr = encodingHuffman(arr,len);
-    printf(&quot;[&quot;);
-    printHuffmanLeaf(ptr);
-    printf(&quot;]\n&quot;);
-    return 0;
-}
-
-bool compare(Node* a,Node* b){
-    return a-&gt;weight &lt; b-&gt;weight;   //按从小到大顺序来排
-}
-
-void printHuffmanLeaf(Node* root){
-    if(root-&gt;left==NULL &amp;&amp; root-&gt;right==NULL){
-        if(isFirst)
-            isFirst=false;
-        else
-            printf(&quot;,&quot;);
-        printf(&quot;%d&quot;,root-&gt;weight);
-        return ;
-    }
-    printHuffmanLeaf(root-&gt;left);   //递归输出左边叶子节点
-    printHuffmanLeaf(root-&gt;right);  //递归输出右边叶子节点
-}
-
-Node* encodingHuffman(int* arr,int len){
-    std::deque&lt;Node*&gt; huffmanTree;   //用于构造哈夫曼树的队列
-    for(int i=0;i&lt;len;++i){     //初始化队列
-        Node* ptr = new Node(arr[i]);
-        huffmanTree.push_back(ptr);
-    }
-    for(int i=0;i&lt;len-1;i++){
-        std::sort(huffmanTree.begin(),huffmanTree.end(),compare);    //每次构造完新的哈夫曼树后从新排序
-        Node* ptr = new Node(huffmanTree[0]-&gt;weight + huffmanTree[1]-&gt;weight);  //新哈夫曼树的权值等于当前最小两棵哈夫曼树权值和(每个节点看做一棵小的哈夫曼树)
-        ptr-&gt;left = huffmanTree[0];     //新节点的左子树等于最小哈夫曼树
-        ptr-&gt;right = huffmanTree[1];    //新节点的右子树等于次小哈夫曼树
-        huffmanTree.pop_front();        //最小两棵哈夫曼树出队
-        huffmanTree.pop_front();
-        huffmanTree.push_back(ptr);     //新哈夫曼树入队
-    }
-    return huffmanTree.front();         //返回第一棵哈夫曼树,此时也仅剩一棵了
-}
-</code></pre>
-
-<p>时间复杂度分析:可以看出来本例算法时间主要用在哈弗曼编码函数encodingHuffuman()第二个for循环中,循环每次只需要将队列的前两个合成一棵哈夫曼树所以其时间复杂度为O(n),每次插入新的哈夫曼树后需要重新排序，其时间复杂度是logn,总的时间复杂度为O(nlogn)</p>
-
-<hr />
-
-<h3 id="欧几里得算法">欧几里得算法</h3>
+<li><p>悲观锁：悲观锁在操作数据时比较悲观，认为别人会同时修改数据。因此操作数据时直接把数据锁住，直到操作完成后才会释放锁；上锁期间其他人不能修改数据。</p></li>
+</ul>
 
 <blockquote>
-<p>欧几里得算法其实就是<a href="https://zh.wikipedia.org/wiki/%E8%BC%BE%E8%BD%89%E7%9B%B8%E9%99%A4%E6%B3%95">辗转相除法</a>,是求最大公约数的算法。<br />
-辗转相除法基于如下原理：两个整数的最大公约数等于其中较小的数和两数的差的最大公约数。(a&gt;b当a&gt;2b需要重复多次a-b操作,所以欧几里得算法也是，两个整数的最大公约数等于其中较小的数和两数的余数的最大公约数)</p>
+<p>乐观锁和悲观锁是两种思想，它们的使用是非常广泛的，不局限于某种编程语言或数据库。</p>
 </blockquote>
 
-<pre><code class="language-c">gcd(a,b){
-    if(a&lt;b)
-        swap(a,b);
-    return b==0 ? a:gcd(b,a%b);
-}
-</code></pre>
+<h2 id="实现方式">实现方式</h2>
 
-<p>辗转相除法的计算过程可以用图形演示。[24]假设我们要在a×b的矩形地面上铺正方形瓷砖，并且正好铺满，其中a大于b。我们先尝试用b×b的瓷砖，但是留下了r0×b的部分，其中r0&lt;b。我们接着尝试用r0×r0的正方形瓷砖铺，又留下了r1×r0的部分，然后再使用r1×r1的正方形铺……直到全部铺满为止，即到某步时正方形刚好覆盖剩余的面积为止。此时用到的最小的正方形的边长就是原来矩形的两条边长的最大公约数。在图中，最小的正方形面积是21×21（红色），而原先的矩形（绿色）边长是1071×462，所以21是1071和462的最大公约数。</p>
+<ul>
+<li><p>悲观锁的实现方式是加锁，加锁既可以是对代码块加锁（如Java的synchronized关键字），也可以是对数据加锁（如MySQL中的排它锁）。</p></li>
 
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Euclidean_algorithm_1071_462.gif/51px-Euclidean_algorithm_1071_462.gif" alt="" /></p>
+<li><p>乐观锁的实现方式主要有两种：CAS机制和版本号机制，下面详细介绍。</p></li>
+</ul>
 
-<hr />
+<h3 id="cas-compare-and-swap">CAS（Compare And Swap）</h3>
 
-<h3 id="杨辉三角">杨辉三角</h3>
+<p>CAS操作包括了3个操作数：</p>
+
+<ol>
+<li>需要读写的内存位置(V)</li>
+<li>进行比较的预期值(A)</li>
+<li>拟写入的新值(B)</li>
+</ol>
+
+<p>CAS操作逻辑如下：如果内存位置V的值等于预期的A值，则将该位置更新为新值B，否则不进行任何操作。许多CAS的操作是自旋的：如果操作不成功，会一直重试，直到操作成功为止。</p>
 
 <blockquote>
-<p><a href="https://zh.wikipedia.org/wiki/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%E5%BD%A2">杨辉三角</a>，是二项式系数在三角形中的一种几何排列。</p>
+<p>CAS包含了Compare和Swap两个操作，它又如何保证原子性呢？答案是：CAS是由CPU支持的原子操作，其原子性是在硬件层面进行保证的。</p>
 </blockquote>
 
-<pre><code class="language-c">#include
-              １
-　　　　　　　１　１
-　　　　　　１　２　１
-　　　　　１　３　３　１
-　　　　１　４　６　４　１
-　　　１　５　10　10　５　１
-　　１　６　15　20　15　６　１
-　１　７　21　35　35　21　７　１
-１　８　28　56　70　56　28　８　１
+<h3 id="版本号机制">版本号机制</h3>
 
-</code></pre>
+<p>版本号机制的基本思路是在数据中增加一个字段version，表示该数据的版本号，每当数据被修改，版本号加1。当某个线程查询数据时，将该数据的版本号一起查出来；当该线程更新数据时，判断当前版本号与之前读取的版本号是否一致，如果一致才进行操作。</p>
 
-<p>(a+b)<sup>n</sup> 展开，将得到一个关于x的多项式:<br />
-(a+b)<sup>0</sup> = 1<br />
-(a+b)<sup>1</sup> = a+b<br />
-(a+b)<sup>2</sup> = a<sup>2</sup> + 2ab + b<sup>2</sup><br />
-(a+b)<sup>3</sup> = a<sup>3</sup> + 3a<sup>2</sup>b + 3ab<sup>2</sup>  + b<sup>3</sup><br />
-(a+b)<sup>3</sup> = a<sup>4</sup> + 4a<sup>3</sup>b + 6a<sup>2</sup>b<sup>2</sup> + 4ab<sup>3</sup> + b<sup>4</sup></p>
+<blockquote>
+<p>这里使用了版本号作为判断数据变化的标记，实际上可以根据实际情况选用其他能够标记数据版本的字段，如时间戳等。</p>
+</blockquote>
 
-<p>系数正好和杨辉三角一致,而(a+b)<sup>n</sup> =  &sum;<sup>n</sup><sub>k=0</sub> C<sup>k</sup><sub>n</sub>a<sup>n-k</sup>b<sup>k</sup><br />
-组合数公式: <code>C = n!/k!(n-k)!</code><br />
-(<i><a href="http://www.w3school.com.cn/tags/html_ref_symbols.html">特殊符号</a></i>)</p>
+<h2 id="优缺点和适用场景">优缺点和适用场景</h2>
 
-<pre><code class="language-c">１
-１　１
-１　２　１
-１　３　３　１
-１　４　６　４　１
-１　５　10　10　５　１
-１　６　15　20　15　６　１
-１　７　21　35　35　21　７　１
-１　８　28　56　70　56　28　８　１
+<p>乐观锁和悲观锁并没有优劣之分，它们有各自适合的场景；下面从两个方面进行说明。</p>
 
-</code></pre>
+<h3 id="功能限制">功能限制</h3>
 
-<p>把杨辉三角左对齐一下不难发现，从第二行开始元素x[i][j]的值等于x[i-1][j-1]+x[i-1][j],构造一个n次方的杨辉三角</p>
+<p>与悲观锁相比，乐观锁适用的场景受到了更多的限制，无论是CAS还是版本号机制。</p>
 
-<pre><code class="language-c">#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-using namespace std;
+<p>例如，CAS只能保证单个变量操作的原子性，当涉及到多个变量时，CAS是无能为力的，而synchronized则可以通过对整个代码块加锁来处理。再比如版本号机制，如果query的时候是针对表1，而update的时候是针对表2，也很难通过简单的版本号来实现乐观锁。</p>
 
-int main(){
-    int n;
-    scanf(&quot;%d&quot;,&amp;n);
-    int triangle[n+1][n+1];
-    memset(triangle,0,sizeof(triangle));
+<h3 id="竞争激烈程度">竞争激烈程度</h3>
 
-    for(int i=0;i&lt;=n;i++){  //构造杨辉三角
-        triangle[i][0] = 1;
-        for(int j=1;j&lt;=i;j++){
-            triangle[i][j] = triangle[i-1][j-1] + triangle[i-1][j];
-        }
-    }
+<p>如果悲观锁和乐观锁都可以使用，那么选择就要考虑竞争的激烈程度：</p>
 
-    for(int i=0;i&lt;=n;i++){  //输出
-        for(int j=0;j&lt;=i;j++){
-            printf(&quot;%3d &quot;,triangle[i][j]);
-        }
-        printf(&quot;\n&quot;);
-    }
-    return 0;
-}
-</code></pre>
+<ul>
+<li>当竞争不激烈 (出现并发冲突的概率小)时，乐观锁更有优势，因为悲观锁会锁住代码块或数据，其他线程无法同时访问，影响并发，而且加锁和释放锁都需要消耗额外的资源。</li>
+<li>当竞争激烈(出现并发冲突的概率大)时，悲观锁更有优势，因为乐观锁在执行更新时频繁失败，需要不断重试，浪费CPU资源。</li>
+</ul>
+
+<h3 id="乐观锁加锁吗">乐观锁加锁吗？</h3>
+
+<ul>
+<li><p>乐观锁本身是不加锁的，只是在更新时判断一下数据是否被其他线程更新了；AtomicInteger便是一个例子。</p></li>
+
+<li><p>有时乐观锁可能与加锁操作合作，例如，在前述updateCoins()的例子中，MySQL在执行update时会加排它锁。但这只是乐观锁与加锁操作合作的例子，不能改变“乐观锁本身不加锁”这一事实。</p></li>
+</ul>
+
+<h3 id="cas有哪些缺点">CAS有哪些缺点？</h3>
+
+<p>下面是CAS一些不那么完美的地方</p>
+
+<h4 id="aba问题">ABA问题</h4>
+
+<p>假设有两个线程——线程1和线程2，两个线程按照顺序进行以下操作：</p>
+
+<ol>
+<li><p>线程1读取内存中数据为A；</p></li>
+
+<li><p>线程2将该数据修改为B；</p></li>
+
+<li><p>线程2将该数据修改为A；</p></li>
+
+<li><p>线程1对数据进行CAS操作</p></li>
+</ol>
+
+<p>在第(4)步中，由于内存中数据仍然为A，因此CAS操作成功，但实际上该数据已经被线程2修改过了。这就是ABA问题。</p>
+
+<p>在AtomicInteger的例子中，ABA似乎没有什么危害。但是在某些场景下，ABA却会带来隐患，例如栈顶问题：一个栈的栈顶经过两次(或多次)变化又恢复了原值，但是栈可能已发生了变化。</p>
+
+<p>对于ABA问题，比较有效的方案是引入版本号，内存中的值每发生一次变化，版本号都+1；在进行CAS操作时，不仅比较内存中的值，也会比较版本号，只有当二者都没有变化时，CAS才能执行成功。Java中的AtomicStampedReference类便是使用版本号来解决ABA问题的。</p>
+
+<h4 id="高竞争下的开销问题">高竞争下的开销问题</h4>
+
+<p>在并发冲突概率大的高竞争环境下，如果CAS一直失败，会一直重试，CPU开销较大。针对这个问题的一个思路是引入退出机制，如重试次数超过一定阈值后失败退出。当然，更重要的是避免在高竞争环境下使用乐观锁。</p>
+
+<h4 id="功能限制-1">功能限制</h4>
+
+<p>CAS的功能是比较受限的，例如CAS只能保证单个变量（或者说单个内存值）操作的原子性，这意味着：</p>
+
+<ol>
+<li>原子性不一定能保证线程安全，例如在Java中需要与volatile配合来保证线程安全；</li>
+<li>当涉及到多个变量(内存值)时，CAS也无能为力。</li>
+</ol>
+
+<p>除此之外，CAS的实现需要硬件层面处理器的支持，在Java中普通用户无法直接使用，只能借助atomic包下的原子类使用，灵活性受到限制。</p>
+
+<p>[参考]</p>
+
+<p><a href="https://www.cnblogs.com/kismetv/p/10787228.html">编程迷思</a></p>
                         </div>
 
                         
@@ -308,7 +252,7 @@ int main(){
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://hasan.shaobo.fun/tags/algorithm">algorithm</a></li>
+                                <li><a href="http://hasan.shaobo.fun/tags/MySQL">MySQL</a></li>
                                 
                             </ul>
                         </div>
@@ -322,13 +266,13 @@ int main(){
     <div class="clearfix">
     <ul class="prevnext">
     
-        <li class="next">
-        <a href="http://hasan.shaobo.fun/posts/20190527-sortAlgorithm/">
-        <i class="material-icons">arrow_back</i><span>九大排序算法</span>
+
+    
+        <li class="pre">
+        <a href="http://hasan.shaobo.fun/posts/20191024-linux-three-musketeers/">
+        <span>Linux三剑客</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
-    
-
     
     </ul>
     </div>
@@ -365,6 +309,16 @@ int main(){
 }
 </style>
                     
+
+<hr>
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/20190913-innodb-index-transaction/">InnoDB事务及索引原理</a></li>
+        
+    </ul>
+</div>
 
                     
     
