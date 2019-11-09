@@ -1,15 +1,40 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
     <loc>http://hasan.shaobo.fun/categories/</loc>
-    <lastmod>2019-10-24T22:14:19+08:00</lastmod>
+    <lastmod>2019-11-09T16:55:31+08:00</lastmod>
   </url>
   
   <url>
     <loc>http://hasan.shaobo.fun/</loc>
-    <lastmod>2019-10-24T22:14:19+08:00</lastmod>
+    <lastmod>2019-11-09T16:55:31+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/tags/PostgreSQL/</loc>
+    <lastmod>2019-11-09T16:55:31+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/20191109-postgresql-green/</loc>
+    <lastmod>2019-11-09T16:55:31+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/</loc>
+    <lastmod>2019-11-09T16:55:31+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/tags/</loc>
+    <lastmod>2019-11-09T16:55:31+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2019-11-09T16:55:31+08:00</lastmod>
   </url>
   
   <url>
@@ -18,22 +43,7 @@
   </url>
   
   <url>
-    <loc>http://hasan.shaobo.fun/posts/</loc>
-    <lastmod>2019-10-24T22:14:19+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/tags/</loc>
-    <lastmod>2019-10-24T22:14:19+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://hasan.shaobo.fun/posts/20191024-optimistic-lock-pessimistic-lock/</loc>
-    <lastmod>2019-10-24T22:14:19+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
     <lastmod>2019-10-24T22:14:19+08:00</lastmod>
   </url>
   
