@@ -11,6 +11,8 @@ type: tool
 
 [ACONVERT](https://www.aconvert.com/cn/)
 
+[Md5 Sha256 Base64 转换](https://hasan.shaobo.fun/posts/20191117-md5-sha256-base64)
+
 #### LIBRALY
 
 [CS-Notes](https://cyc2018.github.io/CS-Notes/#/README)
