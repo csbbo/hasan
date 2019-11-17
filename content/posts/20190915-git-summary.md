@@ -126,12 +126,86 @@ Feature分支:
 
 在本地创建和远程分支对应的分支，使用`git checkout -b branch-name origin/branch-name`，本地和远程分支的名称最好一致；
 
-Rebase:
+### Rebase
+
+对于克隆下来的远程分支
 
 在`git pull`后输入`git rebase`把分叉的提交历史“整理”成一条直线,它把本地的提交都挪到了远程仓库的提交之后，也就是本地的修改变成了基于远程提交之后的了
 
+优缺点:
+
 + rebase操作可以把本地未push的分叉提交历史整理成直线,缺点是本地的分叉提交已经被修改过了；
 + rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。
+
+使用场景：
+
+**Rebase合并多次提交纪录**
+
+多次无用commit不利于代码review，造成分支污染，如果有一天线上出现了紧急问题，你需要回滚代码，却发现海量的 commit 需要一条条来看。
+
+我们来合并最近的 4 次提交纪录，执行：
+
+```git
+git rebase -i HEAD~4
+```
+
+这时候，会自动进入 vi 编辑模式：
+
+```git
+pick cacc52da add: qrcode
+pick f072ef48 update: indexeddb hack
+pick 4e84901a feat: add indexedDB floder
+pick 8f33126c feat: add test2.js
+
+# Rebase 5f2452b2..8f33126c onto 5f2452b2 (4 commands)
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like "squash", but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+# d, drop = remove commit
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+```
+
+按照如上命令来修改你的提交纪录：
+
+```git
+pick cacc52da add: qrcode
+s f072ef48 update: indexeddb hack
+s 4e84901a feat: add indexedDB floder
+s 8f33126c feat: add test2.js
+```
+
+使用`wq`保存退出后，进入合并后commit信息编辑页确定合并后提交信息
+
+**分支合并**
+
+有这么一个使用场景:
+
+1.我们先从 master 分支切出一个 dev 分支，进行开发。  
+2.这时候，你的同事完成了一次 hotfix，并合并入了 master 分支，此时 master 已经领先于你的 feature1 分支了。  
+3.恰巧，我们想要同步 master 分支的改动，首先想到了 merge执行`git merge master`  
+4.就会在记录里发现一些 merge 的信息，但是我们觉得这样污染了commit记录，想要保持一份干净的 commit，怎么办呢？这时候，`git rebase` 就派上用场了。
+
+让我们来试试 git rebase ，先回退到同事 hotfix 后合并 master 的步骤
+
+使用 rebase 后来看看结果,执行`git rebase master`
+
+> 这里补充一点：rebase 做了什么操作呢？首先，git 会把 feature1 分支里面的每个 commit 取消掉；
+其次，把上面的操作临时保存成 patch 文件，存在 .git/rebase 目录下；
+然后，把 feature1 分支更新到最新的 master 分支；
+最后，把上面保存的 patch 文件应用到 feature1 分支上；
+从 commit 记录我们可以看出来，feature1 分支是基于 hotfix 合并后的 master ，自然而然的成为了最领先的分支，而且没有 merge 的 commit 记录，是不是感觉很舒服了。
+
 
 ### 标签
 
@@ -184,4 +258,5 @@ Git是为Linux源代码托管而开发的，所以Git也继承了开源社区的
 
 [参考]
 
-*《[廖雪峰Git教程](https://www.liaoxuefeng.com/wiki/896043488029600)》*
+[廖雪峰Git教程](https://www.liaoxuefeng.com/wiki/896043488029600)  
+[彻底搞懂 Git-Rebase](http://jartto.wang/2018/12/11/git-rebase/)
