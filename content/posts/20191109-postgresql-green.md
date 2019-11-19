@@ -1,7 +1,7 @@
 ---
 title: "PostgreSQL新手入门"
 date: 2019-11-09T16:55:31+08:00
-categories: ["数据库"]
+categories: ["数据库", "新手入门"]
 tags: ["PostgreSQL"]
 toc: true
 ---

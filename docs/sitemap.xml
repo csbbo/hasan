@@ -4,12 +4,42 @@
   
   <url>
     <loc>http://hasan.shaobo.fun/categories/</loc>
-    <lastmod>2019-11-18T14:21:08+08:00</lastmod>
+    <lastmod>2019-11-19T14:43:10+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/categories/Docker/</loc>
+    <lastmod>2019-11-19T14:43:10+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/tags/Docker/</loc>
+    <lastmod>2019-11-19T14:43:10+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/20191119-docker-rookie/</loc>
+    <lastmod>2019-11-19T14:43:10+08:00</lastmod>
   </url>
   
   <url>
     <loc>http://hasan.shaobo.fun/</loc>
-    <lastmod>2019-11-18T14:21:08+08:00</lastmod>
+    <lastmod>2019-11-19T14:43:10+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/</loc>
+    <lastmod>2019-11-19T14:43:10+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/tags/</loc>
+    <lastmod>2019-11-19T14:43:10+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/</loc>
+    <lastmod>2019-11-19T14:43:10+08:00</lastmod>
   </url>
   
   <url>
@@ -19,16 +49,6 @@
   
   <url>
     <loc>http://hasan.shaobo.fun/tags/iproute2/</loc>
-    <lastmod>2019-11-18T14:21:08+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/posts/</loc>
-    <lastmod>2019-11-18T14:21:08+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/tags/</loc>
     <lastmod>2019-11-18T14:21:08+08:00</lastmod>
   </url>
   
