@@ -35,10 +35,10 @@ HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历�
 
 ### 丢弃修改
 
-+ 当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令`git checkout -- file`。这里有两种情况：
++ 当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令`git restore <file>`。这里有两种情况：
     + 一种是`readme.txt`自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
     + 一种是`readme.txt`已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
-+ 当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令`git reset HEAD <file>`，就回到了上面的场景，第二步按上面的场景操作。  
++ 当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令`git restore --staged <file>`，就回到了上面的场景，第二步按上面的场景操作。  
 + 已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
 `git clean -fd`可以清空工作区修改。
 
@@ -67,6 +67,7 @@ Git鼓励大量使用分支:
 + 创建+切换分支：`git checkout -b <branch>`  
 + 合并某分支到当前分支：`git merge <branch>`  
 + 删除分支：`git branch -d <branch>`
++ 重命名分支：`git branch -m oldname new name`
 
 > switch:我们注意到切换分支使用git checkout <branch>，而前面讲过的撤销修改则是git checkout -- <file>，同一个命令，有两种作用，确实有点令人迷惑。因此，最新版本的Git提供了新的git switch命令来切换分支,上面切换分支命令可以改为`git switch master`、`git switch -c dev`
 
@@ -93,7 +94,7 @@ Git鼓励大量使用分支:
 
 bug分支：
 
-修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；  当手头工作没有完成时，先把工作现场`git stash`一下，然后去修复bug，修复后，再`git stash apply [stash@{0}]`恢复工作现场`git stash list`可以查看多次`stash`指定恢复的`stash`，最后`git stash pop`删掉`stash`内容。
+修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；  当手头工作没有完成时，先把工作现场`git stash`一下，然后去修复bug，修复后，再`git stash apply [stash@{0}]`恢复工作现场`git stash list`可以查看多次`stash`指定恢复的`stash`，最后`git stash drop stash@{0}`删掉`stash`内容。
 
 > `git stash`把当前工作区和暂存区内容存储起来(不包括`untrack`,即未被`git`管理的文件)
 

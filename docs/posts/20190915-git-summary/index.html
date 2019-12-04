@@ -155,13 +155,13 @@ Git有什么特点？简单来说就是：高端大气上档次！</p>
 <h3 id="丢弃修改">丢弃修改</h3>
 
 <ul>
-<li>当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令<code>git checkout -- file</code>。这里有两种情况：
+<li>当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令<code>git restore &lt;file&gt;</code>。这里有两种情况：
 
 <ul>
 <li>一种是<code>readme.txt</code>自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；</li>
 <li>一种是<code>readme.txt</code>已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。</li>
 </ul></li>
-<li>当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令<code>git reset HEAD &lt;file&gt;</code>，就回到了上面的场景，第二步按上面的场景操作。<br /></li>
+<li>当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令<code>git restore --staged &lt;file&gt;</code>，就回到了上面的场景，第二步按上面的场景操作。<br /></li>
 <li>已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
 <code>git clean -fd</code>可以清空工作区修改。</li>
 </ul>
@@ -193,6 +193,7 @@ Git有什么特点？简单来说就是：高端大气上档次！</p>
 <li>创建+切换分支：<code>git checkout -b &lt;branch&gt;</code><br /></li>
 <li>合并某分支到当前分支：<code>git merge &lt;branch&gt;</code><br /></li>
 <li>删除分支：<code>git branch -d &lt;branch&gt;</code></li>
+<li>重命名分支：<code>git branch -m oldname new name</code></li>
 </ul>
 
 <blockquote>
@@ -226,7 +227,7 @@ Git有什么特点？简单来说就是：高端大气上档次！</p>
 
 <p>bug分支：</p>
 
-<p>修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；  当手头工作没有完成时，先把工作现场<code>git stash</code>一下，然后去修复bug，修复后，再<code>git stash apply [stash@{0}]</code>恢复工作现场<code>git stash list</code>可以查看多次<code>stash</code>指定恢复的<code>stash</code>，最后<code>git stash pop</code>删掉<code>stash</code>内容。</p>
+<p>修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；  当手头工作没有完成时，先把工作现场<code>git stash</code>一下，然后去修复bug，修复后，再<code>git stash apply [stash@{0}]</code>恢复工作现场<code>git stash list</code>可以查看多次<code>stash</code>指定恢复的<code>stash</code>，最后<code>git stash drop stash@{0}</code>删掉<code>stash</code>内容。</p>
 
 <blockquote>
 <p><code>git stash</code>把当前工作区和暂存区内容存储起来(不包括<code>untrack</code>,即未被<code>git</code>管理的文件)</p>

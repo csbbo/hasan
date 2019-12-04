@@ -115,6 +115,24 @@ psql exampledb < exampledb.sql
 \e：打开文本编辑器。
 \conninfo：列出当前数据库和连接的信息。
 ```
+### postgresql数据导入导出
+
+导出数据库
+```
+pg_dump -U user database > db.sql
+```
+导出具体表
+```
+pg_dump -U user database -t table > table.sql
+```
+导入数据库
+```
+psql -d database -f db.sql user
+```
+导入具体表
+```
+psql -d database -f table.sql user
+```
 
 ## 角色属性（Role Attributes）
 
@@ -246,6 +264,19 @@ ALTER TABLE user_tbl RENAME TO backup_tbl;
 
 # 删除表格
 DROP TABLE IF EXISTS backup_tbl;
+```
+
+### FAQ
+
++ Peer authentication failed for user "postgres" 的解决办法
+
+psql的连接建立于Unix Socket上默认使用peer authentication，所以必须要用和 数据库用户 相同的 系统用户 进行登录。
+还有一种方法，将peer authentiction 改为 md5，并给数据库设置密码。修改配置文件
+**/etc/postgresql/9.5/main/pg_hba.conf**
+```
+local   all             all                                     peer
+修改为
+local   all             all                                     md5
 ```
 
 [参考]
