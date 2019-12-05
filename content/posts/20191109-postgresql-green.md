@@ -19,42 +19,42 @@ PostgreSQL支持大部分 SQL标准并且提供了许多其他现代特性：复
 ### 第一种方法，使用PostgreSQL控制台。
 首先，新建一个Linux新用户，可以取你想要的名字，这里为dbuser。
 
-```
+```sql
 sudo adduser dbuser
 ```
 
 然后，切换到postgres用户。
-```
+```sql
 sudo su - postgres
 ```
 
 下一步，使用psql命令登录PostgreSQL控制台。
-```
+```sql
 psql
 ```
 
 这时相当于系统用户postgres以同名数据库用户的身份，登录数据库，这是不用输入密码的。如果一切正常，系统提示符会变为"postgres=#"，表示这时已经进入了数据库控制台。以下的命令都在控制台内完成。
 
 第一件事是使用\password命令，为postgres用户设置一个密码。
-```
+```sql
 \password postgres
 ```
 
 第二件事是创建数据库用户dbuser（刚才创建的是Linux系统用户），并设置密码。
-```
+```sql
 CREATE USER dbuser WITH PASSWORD 'password';
 ```
 第三件事是创建用户数据库，这里为exampledb，并指定所有者为dbuser。
-```
+```sql
 CREATE DATABASE exampledb OWNER dbuser;
 ```
 第四件事是将exampledb数据库的所有权限都赋予dbuser，否则dbuser只能登录控制台，没有任何数据库操作权限。
-```
+```sql
 GRANT ALL PRIVILEGES ON DATABASE exampledb to dbuser;
 ```
 
 最后，使用\q命令退出控制台（也可以直接按ctrl+D）。
-```
+```sql
 \q
 ```
 
@@ -63,11 +63,11 @@ GRANT ALL PRIVILEGES ON DATABASE exampledb to dbuser;
 添加新用户和新数据库，除了在PostgreSQL控制台内，还可以在shell命令行下完成。这是因为PostgreSQL提供了命令行程序createuser和createdb。还是以新建用户dbuser和数据库exampledb为例。
 
 首先，创建数据库用户dbuser，并指定其为超级用户。
-```
+```sql
 sudo -u postgres createuser --superuser dbuser
 ```
 然后，登录数据库控制台，设置dbuser用户的密码，完成后退出控制台。
-```
+```sql
 sudo -u postgres psql
 
 \password dbuser
@@ -75,12 +75,12 @@ sudo -u postgres psql
 \q
 ```
 接着，在shell命令行下，创建数据库exampledb，并指定所有者为dbuser。
-```
+```sql
 sudo -u postgres createdb -O dbuser exampledb
 ```
 
 ## 登录数据库
-```
+```sql
 psql -U dbuser -d exampledb -h 127.0.0.1 -p 5432
 ```
 上面命令的参数含义如下：-U指定用户，-d指定数据库，-h指定服务器，-p指定端口。
@@ -88,15 +88,15 @@ psql -U dbuser -d exampledb -h 127.0.0.1 -p 5432
 输入上面命令以后，系统会提示输入dbuser用户的密码。输入正确，就可以登录控制台了。
 
 psql命令存在简写形式。如果当前Linux系统用户，同时也是PostgreSQL用户，则可以省略用户名（-U参数的部分）。举例来说，我的Linux系统用户名为ruanyf，且PostgreSQL数据库存在同名用户，则我以ruanyf身份登录Linux系统后，可以直接使用下面的命令登录数据库，且不需要密码。
-```
+```sql
 psql exampledb
 ```
 此时，如果PostgreSQL内部还存在与当前系统用户同名的数据库，则连数据库名都可以省略。比如，假定存在一个叫做ruanyf的数据库，则直接键入psql就可以登录该数据库。
-```
+```sql
 psql
 ```
 另外，如果要恢复外部数据，可以使用下面的命令。
-```
+```sql
 psql exampledb < exampledb.sql
 ```
 
@@ -118,26 +118,26 @@ psql exampledb < exampledb.sql
 ### postgresql数据导入导出
 
 导出数据库
-```
+```sql
 pg_dump -U user database > db.sql
 ```
 导出具体表
-```
+```sql
 pg_dump -U user database -t table > table.sql
 ```
 导入数据库
-```
+```sql
 psql -d database -f db.sql user
 ```
 导入具体表
-```
+```sql
 psql -d database -f table.sql user
 ```
 
 ## 角色属性（Role Attributes）
 
 一个数据库角色可以有一系列属性，这些属性定义了他的权限。
-```
+```sql
 ALTER ROLE <rolename> <attributes>;
 ```
 
@@ -223,7 +223,7 @@ macaddr	|6 字节	|MAC 地址
 uuid 数据类型用来存储 RFC 4122，ISO/IEF 9834-8:2005 以及相关标准定义的通用唯一标识符（UUID）。 （一些系统认为这个数据类型为全球唯一标识符，或GUID。） 这个标识符是一个由算法产生的 128 位标识符，使它不可能在已知使用相同算法的模块中和其他方式产生的标识符相同。 因此，对分布式系统而言，这种标识符比序列能更好的提供唯一性保证，因为序列只能在单一数据库中保证唯一。
 
 UUID 被写成一个小写十六进制数字的序列，由分字符分成几组， 特别是一组8位数字+3组4位数字+一组12位数字，总共 32 个数字代表 128 位， 一个这种标准的 UUID 例子如下：
-```
+```sql
 a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
 ```
 
@@ -273,7 +273,7 @@ DROP TABLE IF EXISTS backup_tbl;
 psql的连接建立于Unix Socket上默认使用peer authentication，所以必须要用和 数据库用户 相同的 系统用户 进行登录。
 还有一种方法，将peer authentiction 改为 md5，并给数据库设置密码。修改配置文件
 **/etc/postgresql/9.5/main/pg_hba.conf**
-```
+```sql
 local   all             all                                     peer
 修改为
 local   all             all                                     md5

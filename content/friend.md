@@ -9,3 +9,4 @@ type: friend
 [Staneyffer](https://www.chengfy.com/)
 [Julindada](https://julindada.github.io/)
 [飞雪无情](https://www.flysnow.org/)
+[Wang sir~的博客](https://blog.csdn.net/wangxinyao1997)
