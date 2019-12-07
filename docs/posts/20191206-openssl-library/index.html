@@ -158,13 +158,13 @@
 <ol>
 <li><p>生成ca.key CA私钥</p>
 
-<pre><code class="language-shell">openssl genrsa -des3 -out ca.key 2048
+<pre><code class="language-cpp">openssl genrsa -des3 -out ca.key 2048
 //输入密码A
 </code></pre></li>
 
 <li><p>生成ca.crt CA根证书(公钥)</p>
 
-<pre><code class="language-shell">openssl req -new -x509 -days 7305 -key ca.key -out ca.crt
+<pre><code class="language-cpp">openssl req -new -x509 -days 7305 -key ca.key -out ca.crt
 //输入密码A
 //Common Name必填
 </code></pre></li>
@@ -175,20 +175,20 @@
 <ol>
 <li><p>生成server.key 网站CA私钥</p>
 
-<pre><code class="language-shell">openssl genrsa -des3 -out server.key 2048
+<pre><code class="language-cpp">openssl genrsa -des3 -out server.key 2048
 //输入密码B
 </code></pre></li>
 
 <li><p>生成网站签名请求server.csr</p>
 
-<pre><code class="language-shell">openssl req -new -key server.key -out server.csr
+<pre><code class="language-cpp">openssl req -new -key server.key -out server.csr
 //输入密码B
 //Common Name必填
 </code></pre></li>
 
 <li><p>使用CA进行签名</p>
 
-<pre><code class="language-shell">openssl ca -cert ca.crt -keyfile ca.key -policy policy_anything -days 365 -in server.csr -out server.crt
+<pre><code class="language-cpp">openssl ca -cert ca.crt -keyfile ca.key -policy policy_anything -days 365 -in server.csr -out server.crt
 //输入密码A
 </code></pre></li>
 </ol>

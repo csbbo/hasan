@@ -126,7 +126,7 @@
 
 <p>实现代码:</p>
 
-<pre><code class="language-python3">def singleson(cls):
+<pre><code class="language-python">def singleson(cls):
     _instance = {}
 
     def wrapper(*args, **kw):
@@ -148,7 +148,7 @@ print(id(c1) == id(c2))
 
 <p>输出结果</p>
 
-<pre><code class="language-python3">True
+<pre><code class="language-python">True
 </code></pre>
 
 <blockquote>
@@ -159,7 +159,7 @@ print(id(c1) == id(c2))
 
 <p>实现代码:</p>
 
-<pre><code class="language-python3">class Singleson():
+<pre><code class="language-python">class Singleson():
     def __init__(self, cls):
         self._cls = cls
         self._instance = {}
@@ -181,7 +181,7 @@ print(id(c1) == id(c2))
 
 <p>输出结果</p>
 
-<pre><code class="language-python3">True
+<pre><code class="language-python">True
 </code></pre>
 
 <blockquote>
@@ -192,7 +192,7 @@ print(id(c1) == id(c2))
 
 <p>代码实现:</p>
 
-<pre><code class="language-python3">class Singleson():
+<pre><code class="language-python">class Singleson():
     _instance = None
     def __new__(cls, *args, **kw):
         if cls._instance is None:
@@ -206,7 +206,7 @@ print(id(c1) == id(c2))
 
 <p>输出结果</p>
 
-<pre><code class="language-python3">True
+<pre><code class="language-python">True
 </code></pre>
 
 <blockquote>
@@ -217,7 +217,7 @@ print(id(c1) == id(c2))
 
 <p>type创造类的方法</p>
 
-<pre><code class="language-python3">def func(self):
+<pre><code class="language-python">def func(self):
     print(&quot;do sth&quot;)
 
 Cls = type(&quot;Cls&quot;, (), {&quot;func&quot;: func})
@@ -228,7 +228,7 @@ c.func
 
 <p>使用type创造了一个类出来是mataclass实现单例的基础</p>
 
-<pre><code class="language-python3">class Singleton(type):
+<pre><code class="language-python">class Singleton(type):
     _instances = {}
     def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:
@@ -245,7 +245,7 @@ print(id(cls1) == id(cls2))
 
 <p>输出结果</p>
 
-<pre><code class="language-python3">True
+<pre><code class="language-python">True
 </code></pre>
 
 <blockquote>

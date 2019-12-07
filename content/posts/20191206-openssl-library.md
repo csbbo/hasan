@@ -43,13 +43,13 @@ mkdir -p demoCA/newcerts && touch demoCA/index.txt && echo 01 > demoCA/serial
 制作CA证书
 
 1. 生成ca.key CA私钥
-```shell
+```cpp
 openssl genrsa -des3 -out ca.key 2048
 //输入密码A
 ```
 
 2. 生成ca.crt CA根证书(公钥)
-```shell
+```cpp
 openssl req -new -x509 -days 7305 -key ca.key -out ca.crt
 //输入密码A
 //Common Name必填
@@ -58,20 +58,20 @@ openssl req -new -x509 -days 7305 -key ca.key -out ca.crt
 制作网站证书并用CA签名认证
 
 1. 生成server.key 网站CA私钥
-```shell
+```cpp
 openssl genrsa -des3 -out server.key 2048
 //输入密码B
 ```
 
 2. 生成网站签名请求server.csr
-```shell
+```cpp
 openssl req -new -key server.key -out server.csr
 //输入密码B
 //Common Name必填
 ```
 
 3. 使用CA进行签名
-```shell
+```cpp
 openssl ca -cert ca.crt -keyfile ca.key -policy policy_anything -days 365 -in server.csr -out server.crt
 //输入密码A
 ```

@@ -13,7 +13,7 @@ toc: true
 ### 函数装饰器实现
 
 实现代码:
-```python3
+```python
 def singleson(cls):
     _instance = {}
 
@@ -34,7 +34,7 @@ c2 = Cls(3,4)
 print(id(c1) == id(c2))
 ```
 输出结果
-```python3
+```python
 True
 ```
 > 内存值相同说明是同一个对象,使用类地址作为键，实例对象作为值，检查如果实例存在则直接返回
@@ -42,7 +42,7 @@ True
 ### 类装饰器实现
 
 实现代码:
-```python3
+```python
 class Singleson():
     def __init__(self, cls):
         self._cls = cls
@@ -63,7 +63,7 @@ c2 = Cls(2)
 print(id(c1) == id(c2))
 ```
 输出结果
-```python3
+```python
 True
 ```
 > 类装饰器实现单例的原理和函数装饰器 实现的原理相似
@@ -72,7 +72,7 @@ True
 ### __new__关键字实现
 
 代码实现:
-```python3
+```python
 class Singleson():
     _instance = None
     def __new__(cls, *args, **kw):
@@ -85,7 +85,7 @@ c2 = Singleson()
 print(id(c1) == id(c2))
 ```
 输出结果
-```python3
+```python
 True
 ```
 
@@ -94,7 +94,7 @@ True
 ### metaclass实现
 
 type创造类的方法
-```python3
+```python
 def func(self):
     print("do sth")
 
@@ -105,7 +105,7 @@ c.func
 ```
 
 使用type创造了一个类出来是mataclass实现单例的基础
-```python3
+```python
 class Singleton(type):
     _instances = {}
     def __call__(cls, *args, **kwargs):
@@ -121,7 +121,7 @@ cls2 = Cls()
 print(id(cls1) == id(cls2))
 ```
 输出结果
-```python3
+```python
 True
 ```
 
