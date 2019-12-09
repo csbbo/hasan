@@ -197,6 +197,13 @@
 <p>至此自签名证书生成完成，最终需要：server.key 和 server.crt</p>
 </blockquote>
 
+<p>或则可以直接利用server.key生成证书</p>
+
+<pre><code class="language-cpp">openssl genrsa -out server.key 1024
+openssl req -new -key server.key -out server.csr
+openssl x509 -req -in server.csr -out server.crt -signkey server.key -days 3650
+</code></pre>
+
 <h3 id="配置nginx使用自签名证书">配置Nginx使用自签名证书</h3>
 
 <pre><code class="language-cpp">server {

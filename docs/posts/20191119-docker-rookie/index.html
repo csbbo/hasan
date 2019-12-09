@@ -227,6 +227,11 @@ sudo systemctl start docker
 <pre><code class="language-docker">docker container kill
 </code></pre>
 
+<p>启动一个后台运行容器并命名，端口映射</p>
+
+<pre><code class="language-docker">docker run --name skynginx -p 80:80 -d skynginx
+</code></pre>
+
 <p>容器启动、停止、重启</p>
 
 <pre><code class="language-docker">docker start [containername]

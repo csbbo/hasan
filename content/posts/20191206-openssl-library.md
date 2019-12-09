@@ -78,6 +78,13 @@ openssl ca -cert ca.crt -keyfile ca.key -policy policy_anything -days 365 -in se
 
 > 至此自签名证书生成完成，最终需要：server.key 和 server.crt
 
+或则可以直接利用server.key生成证书
+```cpp
+openssl genrsa -out server.key 1024
+openssl req -new -key server.key -out server.csr
+openssl x509 -req -in server.csr -out server.crt -signkey server.key -days 3650
+```
+
 ### 配置Nginx使用自签名证书
 ```cpp
 server {

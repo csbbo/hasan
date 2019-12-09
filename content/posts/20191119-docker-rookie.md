@@ -99,6 +99,11 @@ docker container ls --all
 docker container kill
 ```
 
+启动一个后台运行容器并命名，端口映射
+```docker
+docker run --name skynginx -p 80:80 -d skynginx
+```
+
 容器启动、停止、重启
 ```docker
 docker start [containername]
