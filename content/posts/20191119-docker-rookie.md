@@ -81,6 +81,12 @@ docker container run hello-world
 docker image rm $(docker image ls -q)
 ```
 
+删除所有dangling image
+```docker
+docker image prune
+```
+
+
 ### 容器文件
 
 image 文件生成的容器实例，本身也是一个文件，称为容器文件。也就是说，一旦容器生成，就会同时存在两个文件： image 文件和容器文件。而且关闭容器并不会删除容器文件，只是容器停止运行而已。
@@ -133,6 +139,13 @@ docker cp file [containername]:/path/to/file
 docker stop $(docker container ls -q)
 删除
 docker container rm $(docker container ls -aq)
+或则加-f删除强制删除正在运行的容器
+docker container rm -f $(docker container ls -aq)
+```
+
+删除所有停止运行的容器
+```docker
+docker container prune
 ```
 
 ### Dockerfile制作image
