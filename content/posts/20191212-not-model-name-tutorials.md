@@ -1,7 +1,8 @@
 ---
 title: "No module named 'tensorflow.examples.tutorials'解决办法"
 date: 2019-12-12T12:22:15+08:00
-draft: true
+categories: ["Tensorflow"]
+tags: ["tensorflow"]
 ---
 
 **Python 3.7.4**
