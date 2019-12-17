@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>python on Hasan</title>
-    <link>http://hasan.shaobo.fun/tags/python/</link>
-    <description>Recent content in python on Hasan</description>
+    <title>Python on Hasan</title>
+    <link>http://hasan.shaobo.fun/tags/Python/</link>
+    <description>Recent content in Python on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 05 Dec 2019 13:46:02 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 07 Jul 2019 22:40:51 +0800</lastBuildDate>
     
-	<atom:link href="http://hasan.shaobo.fun/tags/python/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://hasan.shaobo.fun/tags/Python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Python单例模式实现</title>
-      <link>http://hasan.shaobo.fun/posts/20191205-python-singleton-pattern/</link>
-      <pubDate>Thu, 05 Dec 2019 13:46:02 +0800</pubDate>
+      <title>HtmlToPdf</title>
+      <link>http://hasan.shaobo.fun/posts/20190707-htmltopdf/</link>
+      <pubDate>Sun, 07 Jul 2019 22:40:51 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/20191205-python-singleton-pattern/</guid>
-      <description>&lt;p&gt;单例是一种设计模式，使用该模式的类只会生成一个实例。单例模式保证了在程序不同位置都可以读取到同一对象实例，如果实例不存在则创建，已存在则返回这个实例。&lt;/p&gt;</description>
+      <guid>http://hasan.shaobo.fun/posts/20190707-htmltopdf/</guid>
+      <description>&lt;p&gt;最近用html写简历，打印的时候需要将html转成pdf,网上也有网站提供转换功能，但还是自己写一个转换程序更为方便些。&lt;/p&gt;</description>
     </item>
     
   </channel>

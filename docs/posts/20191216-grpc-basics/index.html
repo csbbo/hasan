@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.59.1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>gRPC基础 | Hasan</title>
+    <meta property="og:title" content="gRPC基础 - Hasan">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-12-16T15:08:50&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-12-16T15:08:50&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="gRPC基础">
+        
+    <meta name="author" content="shaobo">
+    <meta property="og:url" content="http://hasan.shaobo.fun/posts/20191216-grpc-basics/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hasan.shaobo.fun/">
+                        Hasan
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">我欲乘风破浪，又恐黄沙海洋</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hasan.shaobo.fun/">首页</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/tool/" title="工具">工具</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">gRPC基础</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019-12-16
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/RPC">RPC</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#安装">安装</a></li>
+<li><a href="#定义服务">定义服务</a></li>
+<li><a href="#样例">样例</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>在 gRPC 里客户端应用可以像调用本地对象一样直接调用另一台不同的机器上服务端应用的方法，使得您能够更容易地创建分布式应用和服务。与许多 RPC 系统类似，gRPC 也是基于以下理念：定义一个服务，指定其能够被远程调用的方法（包含参数和返回类型）。在服务端实现这个接口，并运行一个 gRPC 服务器来处理客户端调用。在客户端拥有一个存根能够像服务端一样的方法。</p>
+
+<p><img src="/assets/article/20191216/grpc_concept_diagram_00.png" style="width: 80%“/></p>
+
+<h3 id="安装">安装</h3>
+
+<p>Install gRPC</p>
+
+<pre><code>python -m pip install grpcio
+</code></pre>
+
+<p>Install gRPC tools</p>
+
+<pre><code>python -m pip install grpcio-tools
+</code></pre>
+
+<h3 id="定义服务">定义服务</h3>
+
+<p>使用 protocol buffers去定义 gRPC service 和方法 request、response 的类型。</p>
+
+<p>要定义一个服务，你必须在你的 .proto 文件中指定 service：</p>
+
+<pre><code class="language-python">service RouteGuide {
+   // (Method definitions not shown)
+}
+</code></pre>
+
+<p>然后在你的服务中定义 rpc 方法，指定请求的和响应类型。gRPC 允许你定义4种类型的 service 方法</p>
+
+<p>1.一个 简单 RPC ， 客户端使用存根发送请求到服务器并等待响应返回，就像平常的函数调用一样。</p>
+
+<pre><code class="language-python">rpc GetFeature(Point) returns (Feature) {}
+</code></pre>
+
+<p>2.一个 应答流式 RPC ， 客户端发送请求到服务器，拿到一个流去读取返回的消息序列。 客户端读取返回的流，直到里面没有任何消息。从例子中可以看出，通过在 响应 类型前插入 stream 关键字，可以指定一个服务器端的流方法。</p>
+
+<pre><code class="language-python">rpc ListFeatures(Rectangle) returns (stream Feature) {}
+</code></pre>
+
+<p>3.一个 请求流式 RPC ， 客户端写入一个消息序列并将其发送到服务器，同样也是使用流。一旦客户端完成写入消息，它等待服务器完成读取返回它的响应。通过在 请求 类型前指定 stream 关键字来指定一个客户端的流方法。</p>
+
+<pre><code class="language-python">rpc RecordRoute(stream Point) returns (RouteSummary) {}
+</code></pre>
+
+<p>4.一个 双向流式 RPC 是双方使用读写流去发送一个消息序列。两个流独立操作，因此客户端和服务器可以以任意喜欢的顺序读写：比如， 服务器可以在写入响应前等待接收所有的客户端消息，或者可以交替的读取和写入消息，或者其他读写的组合。 每个流中的消息顺序被预留。你可以通过在请求和响应前加 stream 关键字去制定方法的类型。</p>
+
+<pre><code class="language-python">rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
+</code></pre>
+
+<h3 id="样例">样例</h3>
+
+<p>proto文件</p>
+
+<pre><code class="language-python"># hello.proto
+syntax = &quot;proto3&quot;;
+package hello;
+
+service Hello {
+	rpc GetFeature(Point) returns (Feature) {}
+	rpc ListFeatures(Rectangle) returns (stream Feature) {}
+	rpc RecordRoute(stream Point) returns (RouteSummary) {}
+	rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
+}
+
+message Point {
+	float latitude = 1;
+	float longitude = 2;
+}
+
+message Rectangle {
+	Point lo = 1;
+	Point hi = 2;
+}
+
+message Feature {
+	string name = 1;
+	Point location = 2;
+}
+
+message RouteNote {
+	Point location = 1;
+	string message = 2;
+}
+
+message RouteSummary {
+	int32 point_count = 1;
+	int32 feature_count = 2;
+	int32 distance = 3;
+	int32 elapsed_time = 4;
+}
+</code></pre>
+
+<p>生成.proto定义的 gRPC 客户端和服务器端的接口</p>
+
+<pre><code>python -m grpc_tools.protoc -I . --python_out=. --grpc_python_out=. ./hello.proto
+</code></pre>
+
+<p>服务端代码</p>
+
+<pre><code class="language-python"># hello_server.py
+import grpc
+from concurrent import futures
+import hello_pb2_grpc
+from hello_pb2 import Point, Rectangle, Feature, RouteNote, RouteSummary
+
+class HelloServicer(hello_pb2_grpc.HelloServicer):
+    def __init__(self):
+        self.name = &quot;北京&quot;
+
+    def GetFeature(self, request, context):
+        latitude = request.latitude
+        longitude = request.longitude
+        location = Point(latitude=latitude, longitude=longitude)
+        return Feature(name=self.name, location=location)
+
+    def ListFeatures(self, request, context):
+        location = Point(latitude=request.lo.latitude, longitude=request.lo.longitude)
+        for i in range(10):
+            yield Feature(name=&quot;Beijing-Shanghai&quot;, location=location)
+
+    def RecordRoute(self, request, context):
+        for point in request:
+            return RouteSummary(point_count=1, feature_count=2, distance=3, elapsed_time=4)
+
+    def RouteChat(self, request, context):
+        for note in request:
+            yield note
+
+def main():
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    hello_pb2_grpc.add_HelloServicer_to_server(HelloServicer(), server)
+    server.add_insecure_port('[::]:50051')
+    server.start()
+    server.wait_for_termination()
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+
+<p>客户端代码</p>
+
+<pre><code class="language-python"># hello_client.py
+import grpc
+
+from hello_pb2 import Point, Rectangle, Feature, RouteNote, RouteSummary
+from hello_pb2_grpc import HelloStub
+
+def stream_point():
+    for i in range(10):
+        yield Point(latitude=1, longitude=2)
+
+def stream_route_note():
+    for i in range(10):
+        yield RouteNote(location=Point(latitude=1, longitude=2), message='good job!')
+
+def get_feature(latitude, longitude):
+    with grpc.insecure_channel('127.0.0.1:50051') as channel:
+        stub = HelloStub(channel)
+        response = stub.GetFeature(Point(latitude=latitude, longitude=longitude))
+        print(response)
+        return response
+
+def get_list_features():
+    with grpc.insecure_channel('127.0.0.1:50051') as channel:
+        stub = HelloStub(channel)
+        lo = Point(latitude=1, longitude=2)
+        hi = Point(latitude=3, longitude=4)
+        response = stub.ListFeatures(Rectangle(lo=lo, hi=hi))
+        for r in response:
+            print(r)
+
+def get_record_route():
+    with grpc.insecure_channel('127.0.0.1:50051') as channel:
+        stub = HelloStub(channel)
+        data = stream_point()
+        response = stub.RecordRoute(data)
+        print(response)
+        return response
+
+def get_route_chat():
+    with grpc.insecure_channel('127.0.0.1:50051') as channel:
+        stub = HelloStub(channel)
+        data = stream_route_note()
+        response = stub.RouteChat(data)
+        for r in response:
+            print(r)
+
+def main():
+    get_feature(39.92, 116.46)
+    get_list_features()
+    get_record_route()
+    get_route_chat()
+
+
+if __name__ == '__main__':
+    main()
+</code></pre>
+
+<p>[参考]</p>
+
+<p><a href="https://doc.oschina.net/grpc?t=58008">gRPC官方文档</a><br />
+<a href="https://grpc.io/docs/quickstart/python/">gRPC Documentation</a><br />
+<a href="https://developers.google.com/protocol-buffers/docs/proto3">Protocol Buffers</a></p>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="http://hasan.shaobo.fun/tags/grpc">grpc</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+
+    
+        <li class="pre">
+        <a href="http://hasan.shaobo.fun/posts/20191212-not-model-name-tutorials/">
+        <span>No module named &#39;tensorflow.examples.tutorials&#39;解决办法</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
+      
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191216-grpc-basics/" title="gRPC基础">gRPC基础</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191212-not-model-name-tutorials/" title="No module named &#39;tensorflow.examples.tutorials&#39;解决办法">No module named &#39;tensorflow.examples.tutorials&#39;解决办法</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191206-openssl-library/" title="Openssl生成SSL证书">Openssl生成SSL证书</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191205-python-singleton-pattern/" title="Python单例模式实现">Python单例模式实现</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191119-docker-rookie/" title="Docker新手入门">Docker新手入门</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191118-iproute2/" title="Iproute2">Iproute2</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191117-md5-sha256-base64/" title="Md5 Sha256 Base64 转换">Md5 Sha256 Base64 转换</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191109-postgresql-green/" title="PostgreSQL新手入门">PostgreSQL新手入门</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191024-optimistic-lock-pessimistic-lock/" title="乐观锁和悲观锁">乐观锁和悲观锁</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191024-linux-three-musketeers/" title="Linux三剑客">Linux三剑客</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Docker/">Docker(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Python/">Python(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/RPC/">RPC(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Tensorflow/">Tensorflow(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Tool/">Tool(6)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Unix/">Unix(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://hasan.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Docker/">Docker</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Nginx/">Nginx</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Openssl/">Openssl</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Sha256/">Sha256</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/grpc/">grpc</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/iproute2/">iproute2</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/md5/">md5</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/process/">process</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/python/">python</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tensorflow/">tensorflow</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tmux/">tmux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tree/">tree</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="http://hasan.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a href="/friend/">友情链接</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2019 <a href="http://hasan.shaobo.fun/">Hasan By shaobo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>
