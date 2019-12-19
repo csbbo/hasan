@@ -6,10 +6,20 @@
     <description>Recent content on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Dec 2019 15:08:50 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 19 Dec 2019 10:54:56 +0800</lastBuildDate>
     
 	<atom:link href="http://hasan.shaobo.fun/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Python内置函数</title>
+      <link>http://hasan.shaobo.fun/posts/20191219-python-build-in-function/</link>
+      <pubDate>Thu, 19 Dec 2019 10:54:56 +0800</pubDate>
+      
+      <guid>http://hasan.shaobo.fun/posts/20191219-python-build-in-function/</guid>
+      <description>&lt;p&gt;Python 解释器内置了很多函数和类型，您可以在任何时候使用它们。以下按字母表顺序列出它们。
+&lt;br&gt;&lt;br&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>gRPC基础</title>

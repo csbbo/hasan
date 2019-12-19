@@ -4,7 +4,27 @@
   
   <url>
     <loc>http://hasan.shaobo.fun/categories/</loc>
-    <lastmod>2019-12-16T15:08:50+08:00</lastmod>
+    <lastmod>2019-12-19T10:54:56+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/</loc>
+    <lastmod>2019-12-19T10:54:56+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/</loc>
+    <lastmod>2019-12-19T10:54:56+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/categories/Python/</loc>
+    <lastmod>2019-12-19T10:54:56+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/20191219-python-build-in-function/</loc>
+    <lastmod>2019-12-19T10:54:56+08:00</lastmod>
   </url>
   
   <url>
@@ -14,16 +34,6 @@
   
   <url>
     <loc>http://hasan.shaobo.fun/posts/20191216-grpc-basics/</loc>
-    <lastmod>2019-12-16T15:08:50+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/</loc>
-    <lastmod>2019-12-16T15:08:50+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/posts/</loc>
     <lastmod>2019-12-16T15:08:50+08:00</lastmod>
   </url>
   
@@ -70,11 +80,6 @@
   <url>
     <loc>http://hasan.shaobo.fun/categories/Tool/</loc>
     <lastmod>2019-12-06T15:45:55+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/categories/Python/</loc>
-    <lastmod>2019-12-05T13:46:02+08:00</lastmod>
   </url>
   
   <url>
