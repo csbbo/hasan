@@ -2,7 +2,7 @@
 title: "Python 并发编程"
 date: 2019-12-18T19:28:13+08:00
 categories: ["Python"]
-tags: ["nil"]
+tags: ["python"]
 toc: true
 ---
 
@@ -84,11 +84,189 @@ t3.start()
 > `Queue` 对象已经包含了必要的锁，所以你可以通过它在多个线程间安全地共享数据。 当使用队列时，协调生产者和消费者的关闭问题可能会有一些麻烦。一个通用的解决方法是在队列中放置一个特殊的值，当消费者读到这个值的时候，终止执行。
 
 
+### 给关键部分加锁
+
+多线程程序中的临界区通过加锁以避免竞争条件。Python中需要使用 `threading` 库中的 `Lock` 对象
+
+```python
+class SharedCounter:
+    def __init__(self, initial_value = 0):
+        self._value = initial_value
+        self._value_lock = threading.Lock()
+
+    def incr(self,delta=1):
+        with self._value_lock:
+             self._value += delta
+
+    def decr(self,delta=1):
+        with self._value_lock:
+             self._value -= delta
+```
+
+> `Lock` 对象和 `with` 语句块一起使用可以保证互斥执行，就是每次只有一个线程可以执行 `with` `语句包含的代码块。with` 语句会在这个代码块执行前自动获取锁，在执行结束后自动释放锁。为了避免出现死锁的情况，使用锁机制的程序应该设定为每个线程一次只允许获取一个锁。
+
+### 创建一个线程池
+
+`concurrent.futures` 函数库有一个 `ThreadPoolExecutor` 类可以被用来完成这个任务。 下面是一个简单的TCP服务器，使用了一个线程池来响应客户端：
+
+```python
+from socket import AF_INET, SOCK_STREAM, socket
+from concurrent.futures import ThreadPoolExecutor
+
+def echo_client(sock, client_addr):
+    '''
+    Handle a client connection
+    '''
+    print('Got connection from', client_addr)
+    while True:
+        msg = sock.recv(65536)
+        if not msg:
+            break
+        sock.sendall(msg)
+    print('Client closed connection')
+    sock.close()
+
+def echo_server(addr):
+    pool = ThreadPoolExecutor(128)
+    sock = socket(AF_INET, SOCK_STREAM)
+    sock.bind(addr)
+    sock.listen(5)
+    while True:
+        client_sock, client_addr = sock.accept()
+        pool.submit(echo_client, client_sock, client_addr)
+
+echo_server(('',15000))
+```
+
+> 每个客户端请求过来后服务端会开一个线程去执行处理函数`echo_client`。如果你想手动创建你自己的线程池， 通常可以使用一个Queue来轻松实现。
+
+### 简单的并行编程
+
+`concurrent.futures` 库提供了一个 `ProcessPoolExecutor`类， 可被用来在一个单独的Python解释器中执行计算密集型函数。
+
+```python
+import gzip
+import io
+import glob
+from concurrent import futures
+
+def find_robots(filename):
+    '''
+    Find all of the hosts that access robots.txt in a single log file
+
+    '''
+    robots = set()
+    with gzip.open(filename) as f:
+        for line in io.TextIOWrapper(f,encoding='ascii'):
+            fields = line.split()
+            if fields[6] == '/robots.txt':
+                robots.add(fields[0])
+    return robots
+
+def find_all_robots(logdir):
+    '''
+    Find all hosts across and entire sequence of files
+    '''
+    files = glob.glob(logdir+'/*.log.gz')
+    all_robots = set()
+    with futures.ProcessPoolExecutor() as pool:
+        for robots in pool.map(find_robots, files):
+            all_robots.update(robots)
+    return all_robots
+
+if __name__ == '__main__':
+    robots = find_all_robots('logs')
+    for ipaddr in robots:
+        print(ipaddr)
+```
+
+> 提交到池中的工作必须被定义为一个函数。有两种方法去提交。 如果你想让一个列表推导或一个 `map()` 操作并行执行的话，可使用 `pool.map()`。
+
+另外，你可以使用 `pool.submit()` 来手动的提交单个任务，如果你手动提交一个任务，结果是一个 `Future` 实例。 要获取最终结果，你需要调用它的 `result()` 方法。 它会阻塞进程直到结果被返回来。如果不想阻塞，你还可以使用一个回调函数，例如：
+
+```python
+def when_done(r):
+    print('Got:', r.result())
+
+with ProcessPoolExecutor() as pool:
+     future_result = pool.submit(work, arg)
+     future_result.add_done_callback(when_done)
+```
+
+> 回调函数接受一个 Future 实例，被用来获取最终的结果（比如通过调用它的result()方法）。 
+
+### 定义一个Actor任务
+
+actor模式是一种最古老的也是最简单的并行和分布式计算解决方案。 事实上，它天生的简单性是它如此受欢迎的重要原因之一。 简单来讲，一个actor就是一个并发执行的任务，只是简单的执行发送给它的消息任务。 响应这些消息时，它可能还会给其他actor发送更进一步的消息。 actor之间的通信是单向和异步的。因此，消息发送者不知道消息是什么时候被发送， 也不会接收到一个消息已被处理的回应或通知。
+
+。。。。
+
+### 实现消息发布/订阅模型
+
+要实现发布/订阅的消息通信模式， 你通常要引入一个单独的“交换机”或“网关”对象作为所有消息的中介。 也就是说，不直接将消息从一个任务发送到另一个，而是将其发送给交换机， 然后由交换机将它发送给一个或多个被关联任务。下面是一个非常简单的交换机实现例子：
+
+```python
+from collections import defaultdict
+
+class Exchange:
+    def __init__(self):
+        self._subscribers = set()
+
+    def attach(self, task):
+        self._subscribers.add(task)
+
+    def detach(self, task):
+        self._subscribers.remove(task)
+
+    def send(self, msg):
+        for subscriber in self._subscribers:
+            subscriber.send(msg)
+
+_exchanges = defaultdict(Exchange)
+
+def get_exchange(name):
+    return _exchanges[name]
+```
+一个交换机就是一个普通对象，负责维护一个活跃的订阅者集合，并为绑定、解绑和发送消息提供相应的方法。 每个交换机通过一个名称定位，`get_exchange()` 通过给定一个名称返回相应的 `Exchange` 实例。
+
+下面是一个简单例子，演示了如何使用一个交换机:
+
+```python
+class Task:
+    ...
+    def send(self, msg):
+        ...
+
+task_a = Task()
+task_b = Task()
+
+# Example of getting an exchange
+exc = get_exchange('name')
+
+# Examples of subscribing tasks to it
+exc.attach(task_a)
+exc.attach(task_b)
+
+# Example of sending messages
+exc.send('msg1')
+exc.send('msg2')
+
+# Example of unsubscribing
+exc.detach(task_a)
+exc.detach(task_b)
+```
+> 尽管对于这个问题有很多的变种，不过万变不离其宗。 消息会被发送给一个交换机，然后交换机会将它们发送给被绑定的订阅者。
+
+### 使用生成器代替线程
+
+生成器（协程）替代系统线程来实现并发，首先要对生成器函数和 yield 语句有深刻理解。 yield 语句会让一个生成器挂起它的执行，这样就可以编写一个调度器， 将生成器当做某种“任务”并使用任务协作切换来替换它们的执行。 要演示这种思想，考虑下面两个使用简单的 yield 语句的生成器函数：
+
+https://cn.bing.com/HPImageArchive.aspx?format=js&idx=6&n=1&nc=1576894703303&pid=hp&FORM=BEHPTB
+https://cn.bing.com/HPImageArchive.aspx?format=js&idx=7&n=1&nc=1576894741351&pid=hp&FORM=BEHPTB
+https://cn.bing.com/HPImageArchive.aspx?format=js&idx=2&n=1&nc=1576895280570&pid=hp&FORM=BEHPTB
+    
+
 未完待续...
-
-
-
-
 
 [参考]
 
