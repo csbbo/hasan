@@ -32,7 +32,12 @@ disablePathToLower = true
         url = "/tool/"
         weight = 2
     [[menu.main]]
+        identifier = "friend"
+        name = "友链"
+        url = "/friend/"
+        weight = 3
+    [[menu.main]]
         identifier = "about"
         name = "关于"
         url = "/about/"
-        weight = 3
+        weight = 4
