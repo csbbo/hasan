@@ -1,0 +1,72 @@
+#!/bin/bash
+
+error(){
+    echo "Command not found!"
+    echo "Run 'hasan --help' for usage."
+    exit 1
+}
+
+need_second_param(){
+    if [ $1 != 2 ]
+    then
+        echo "Need second param!"
+        echo "Run 'hasan --help' for usage."
+        exit 1
+    fi   
+}
+
+if [ $# -lt 1 ]
+then
+    error
+fi
+
+# 部署到Github
+if [ $1 == "deploy" ]
+then
+    need_second_param $#
+    commit_msg="$2"
+
+    hugo -d docs
+    git add .
+    git commit -m "$commit_msg"
+    git push origin master
+
+    echo "Deploy success!"
+
+# 本地运行
+elif [ $1 == "run" ]
+then
+    port="1313"
+
+    if [ $# == 2 ]
+    then
+        port=$2
+    fi
+
+    url="http://localhost:"$port
+    open $url #in macOS
+    $(hugo server -D -p $port)
+
+# 新建文章
+elif [ $1 == "new" ]
+then
+    need_second_param $#
+    name=$2
+	date=$(date "+%Y%m%d")
+	title=$date"-"$name".md"
+	file_path="posts/"$title
+
+	hugo new $file_path
+	echo "markdown file "$title
+    echo "Created in the posts folder!"
+
+# 帮助
+elif [ $1 == "--help" ]
+then
+    echo "pass"
+
+else
+    error
+fi
+
+
