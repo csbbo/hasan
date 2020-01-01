@@ -37,6 +37,7 @@ for files in $books
 do
     category=$(ls $books_path$files)
     echo -e "\n### "$files >> $article_path
+    files=$(echo $files | tr '[A-Z]' '[a-z]') # github不区分大小写
     for book in $category
     do
         url="<a href=\"https://hasan.shaobo.fun/assets/books/"$files"/"$book"\" target=\"_blank\">"${book%.pdf}"</a>$space\n"
