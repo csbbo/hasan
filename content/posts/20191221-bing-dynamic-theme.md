@@ -1,12 +1,14 @@
 ---
-title: "下载必应每日壁纸"
+title: "下载Bing每日壁纸"
 date: 2019-12-21T20:23:46+08:00
 categories: ["Python"]
 tags: ["thread"]
 ---
 
+Bing首页每日更新的壁纸非常漂亮，爬下来当做桌面壁纸很nice。
+Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取最近8天的壁纸。
 
-下载[https://cn.bing.com/](https://cn.bing.com/)每日更新的壁纸。
+下载[https://cn.bing.com/](https://cn.bing.com/)每日更新的壁纸代码如下：
 <!--more-->
 
 ```python

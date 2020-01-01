@@ -18,7 +18,7 @@
       
       <guid>http://hasan.shaobo.fun/posts/20200101-resume/</guid>
       <description>&lt;p&gt;&lt;span class=&#34;preview&#34;&gt;
-个人在线简历！输入密码后查看。
+个人在线简历！输入密码后才能查看捏😜😜😜。
 &lt;span&gt;&lt;/p&gt;</description>
     </item>
     
@@ -28,7 +28,8 @@
       <pubDate>Tue, 31 Dec 2019 17:57:29 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20191231-books/</guid>
-      <description>&lt;p&gt;图书一角，收藏一些觉得不错的书籍，方便平时在线阅读。&lt;/p&gt;</description>
+      <description>&lt;p&gt;意图打造一个在线图书库，收藏一些平时遇到又觉得不错的书籍，自动化脚本已写好，每次只需往书库里添加PDF文件即可，本文便是通过脚本检测动态生成。
+因为懒得维护服务器我整个博客都是挂在Github上，众所周知的原因导致看PDF有时会很慢，咳 ~&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -41,12 +42,15 @@
     </item>
     
     <item>
-      <title>下载必应每日壁纸</title>
+      <title>下载Bing每日壁纸</title>
       <link>http://hasan.shaobo.fun/posts/20191221-bing-dynamic-theme/</link>
       <pubDate>Sat, 21 Dec 2019 20:23:46 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/posts/20191221-bing-dynamic-theme/</guid>
-      <description>&lt;p&gt;下载&lt;a href=&#34;https://cn.bing.com/&#34;&gt;https://cn.bing.com/&lt;/a&gt;每日更新的壁纸。&lt;/p&gt;</description>
+      <description>&lt;p&gt;Bing首页每日更新的壁纸非常漂亮，爬下来当做桌面壁纸很nice。
+Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取最近8天的壁纸。&lt;/p&gt;
+
+&lt;p&gt;下载&lt;a href=&#34;https://cn.bing.com/&#34;&gt;https://cn.bing.com/&lt;/a&gt;每日更新的壁纸代码如下：&lt;/p&gt;</description>
     </item>
     
     <item>
