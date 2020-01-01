@@ -7,18 +7,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Hasan </title>
-    <meta property="og:title" content="Hasan | 我欲乘风破浪，又恐黄沙海洋">
-    <meta property="og:type" content="website">
+    <title> | Hasan</title>
+    <meta property="og:title" content=" - Hasan">
+    <meta property="og:type" content="article">
+        
+        
     <meta name="Keywords" content="">
     <meta name="description" content="">
-    <meta property="og:url" content="http://hasan.shaobo.fun/">
+        
+    <meta name="author" content="shaobo">
+    <meta property="og:url" content="http://hasan.shaobo.fun/assets/code/Database/README/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
     
+        <link rel="stylesheet" href="/css/prism.css">
+    
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="http://hasan.shaobo.fun/index.xml" title="Hasan" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
     
@@ -29,18 +34,15 @@
     <link href="/iconfont/material-icons.css" rel="stylesheet">
 </head>
 
-
 <body>
 <header id="header" class="clearfix">
     <div class="container">
         <div class="col-group">
             <div class="site-name ">
                 
-                    <h1>
-                        <a id="logo" href="http://hasan.shaobo.fun/">
-                            Hasan
-                        </a>
-                    </h1>
+                    <a id="logo" href="http://hasan.shaobo.fun/">
+                        Hasan
+                    </a>
                 
                 <div class="subtitle-descrition">
                     <p class="description">我欲乘风破浪，又恐黄沙海洋</p>
@@ -48,7 +50,7 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="current" href="http://hasan.shaobo.fun/">首页</a>
+                    <a class="" href="http://hasan.shaobo.fun/">首页</a>
                     
                     <a  href="http://hasan.shaobo.fun/archives/" title="归档">归档</a>
                     
@@ -71,92 +73,117 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://hasan.shaobo.fun/posts/20190523-algorithmNote/" title="算法笔记" >算法笔记</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019-5-23
-                            </date>
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title"></h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            1-1-1
+                        </date>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="post-content">
                             
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95">算法</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                <p>记录一下几个比较经典的算法。</p>
-                            </div>
-                            <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20190523-algorithmNote/">阅读全文</a></p>
-                        </article>
+
+<h1 id="warehouse">warehouse</h1>
+
+<p>导出数据库（表结构和数据）：</p>
+
+<pre><code>mysqldump -u用户名 -p密码 数据库名 &gt; 数据库名.sql
+
+</code></pre>
+
+<p>导出数据库（仅表结构）：</p>
+
+<pre><code>mysqldump -u用户名 -p密码 -d 数据库名 &gt; 数据库名.sql
+
+</code></pre>
+
+<p>导入数据库：</p>
+
+<pre><code>mysql -u用户名 -p密码 数据库名 &lt; 数据库名.sql
+
+</code></pre>
+
+<p>在Windows首次需要修改<code>root</code>密码：</p>
+
+<pre><code>alter user 'root'@'localhost' identified by 'chenshaobo';
+
+</code></pre>
+
+<p>查询表中某列出现次数大于8的前10条数据按从大到小顺序列出：</p>
+
+<pre><code>select sno,count(sno) as count from score group by sno having count &gt; 1 order by count desc limit 0,3;
+
+</code></pre>
+
+                        </div>
+
+                        
+
+
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://hasan.shaobo.fun/assets/code/Database/README/" title="" ></a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                1-1-1
-                            </date>
-                            
-                            <div class="post-content">
-                                 warehouse 导出数据库（表结构和数据）：
-mysqldump -u用户名 -p密码 数据库名 &gt; 数据库名.sql  导出数据库（仅表结构）：
-mysqldump -u用户名 -p密码 -d 数据库名 &gt; 数据库名.sql  导入数据库：
-mysql -u用户名 -p密码 数据库名 &lt; 数据库名.sql  在Windows首次需要修改root密码：
-alter user 'root'@'localhost' identified by 'chenshaobo';  查询表中某列出现次数大于8的前10条数据按从大到小顺序列出：
-select sno,count(sno) as count from score group by sno having count &gt; 1 order by count desc limit 0,3;  
-                            </div>
-                            <p class="readmore"><a href="http://hasan.shaobo.fun/assets/code/Database/README/">阅读全文</a></p>
-                        </article>
+
                     
-                    
-
-
-
-<ol class="page-navigator">
-    
-    <li class="prev">
-        <a href="http://hasan.shaobo.fun/page/4/">上一页</a>
-    </li>
     
 
     
-    <li >
-        <a href="http://hasan.shaobo.fun/">1</a>
-    </li>
     
-    <li >
-        <a href="http://hasan.shaobo.fun/page/2/">2</a>
-    </li>
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
     
-    <li >
-        <a href="http://hasan.shaobo.fun/page/3/">3</a>
-    </li>
-    
-    <li >
-        <a href="http://hasan.shaobo.fun/page/4/">4</a>
-    </li>
-    
-    <li  class="current">
-        <a href="http://hasan.shaobo.fun/page/5/">5</a>
-    </li>
-    
-
-    
-</ol>
-
-
-
                 </div>
             </div>
-
             <div id="secondary">
     <section class="widget">
         <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
@@ -365,13 +392,28 @@ select sno,count(sno) as count from score group by sno having count &gt; 1 order
 </footer>
 
 
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
 <a id="rocket" href="#top"></a>
 <script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
 
 
 
 <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
 
 
 
