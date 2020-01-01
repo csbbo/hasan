@@ -38,7 +38,7 @@ for files in $books
 do
     category=$(ls $books_path$files)
     echo -e "\n### "$files >> $article_path
-    files=$(echo $files | tr '[A-Z]' '[a-z]') # github文件夹名不区分大小写
+    files=$(echo $files | tr '[A-Z]' '[a-z]') # 难受，还未找到原因,为什么会被转成小写
     for book in $category
     do
         url="<a href=\"https://hasan.shaobo.fun/assets/books/"$files"/"$book"\" target=\"_blank\">"${book%.pdf}"</a>$space\n"
@@ -93,7 +93,7 @@ then
 	echo "markdown file "$title
     echo "Created in the posts folder!"
 
-# 更新图书角
+# 更新图书库
 elif [ $1 == "books" ]
 then
     books
