@@ -3,6 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>http://hasan.shaobo.fun/</loc>
+    <lastmod>2019-12-31T17:57:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/</loc>
+    <lastmod>2019-12-31T17:57:29+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://hasan.shaobo.fun/posts/20191231-books/</loc>
+    <lastmod>2019-12-31T17:57:29+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>http://hasan.shaobo.fun/categories/</loc>
     <lastmod>2019-12-31T15:31:28+08:00</lastmod>
   </url>
@@ -14,16 +29,6 @@
   
   <url>
     <loc>http://hasan.shaobo.fun/categories/Docker/</loc>
-    <lastmod>2019-12-31T15:31:28+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/</loc>
-    <lastmod>2019-12-31T15:31:28+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://hasan.shaobo.fun/posts/</loc>
     <lastmod>2019-12-31T15:31:28+08:00</lastmod>
   </url>
   
