@@ -6,10 +6,21 @@
     <description>Recent content in Posts on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Dec 2019 17:57:29 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 01 Jan 2020 16:13:16 +0800</lastBuildDate>
     
 	<atom:link href="http://hasan.shaobo.fun/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>个人简历</title>
+      <link>http://hasan.shaobo.fun/posts/20200101-resume/</link>
+      <pubDate>Wed, 01 Jan 2020 16:13:16 +0800</pubDate>
+      
+      <guid>http://hasan.shaobo.fun/posts/20200101-resume/</guid>
+      <description>&lt;p&gt;&lt;span class=&#34;preview&#34;&gt;
+个人在线简历！
+&lt;span&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>书籍</title>
