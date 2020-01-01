@@ -110,12 +110,14 @@
 <script src="https://cdn.bootcss.com/js-sha256/0.9.0/sha256.min.js"></script>
 
 <div id="app">
-    <span>md5:</span><input class="input" v-model="md5">
-    <p>{{md5Out}}</p><br>
+    <span>base64:</span><input class="input" v-model="base64">
+    <p class="base64TagP">{{base64Out}}</p><br>
+    
     <span>sha256:</span><input class="input" v-model="sha256">
     <p>{{sha256Out}}</p><br>
-    <span>base64:</span><input class="input" v-model="base64">
-    <p class="base64TagP">{{base64Out}}</p>
+
+    <span>md5:</span><input class="input" v-model="md5">
+    <p>{{md5Out}}</p>
 </div>
 
 <script>
@@ -128,9 +130,15 @@
         },
         computed:{
             md5Out: function () {
+                if(this.md5==""){
+                    return ""
+                }
                 return md5(this.md5)
             },
             sha256Out: function() {
+                if(this.sha256==""){
+                    return ""
+                }
                 return sha256(this.sha256)
             },
             base64Out: function() {
@@ -143,13 +151,20 @@
 <style>
 #app{
     margin: 20px 40px;
+    margin-left: 0;
 }
 #app span{
-    font-size: 25px;
+    font-size: 20px;
     margin-right: 10px;
+    background-color: #9e9e9e;
+    border-radius: 5px;
+    padding: 5px;
 }
 #app p{
-    font-size: 20px;
+    margin-top: 5px;
+    font-size: 15px;
+    background-color: #eeeeee;
+    border-radius: 2px;
 }
 #app input{
     width: 48%;
@@ -157,7 +172,7 @@
     font-size: 20px;
     outline: none;
     border: none;
-    border-bottom: 1px solid #004d40;
+    border-bottom: 1px solid #00897b;
 }
 #app .base64TagP{
     width: 68%;
