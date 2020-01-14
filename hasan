@@ -16,7 +16,7 @@ need_second_param(){
 }
 
 books(){
-article_path=$(pwd)"/content/posts/20191231-books.md"
+article_path=$(pwd)"/content/posts/2019/20191231-books.md"
 (
 cat << 'EOF'
 ---
@@ -32,16 +32,14 @@ EOF
 
 books_path=$(pwd)"/content/assets/books/"
 books=$(ls $books_path)
-space="  "
 
 for files in $books
 do
     category=$(ls $books_path$files)
     echo -e "\n### "$files >> $article_path
-    files=$(echo $files | tr '[A-Z]' '[a-z]') # 难受，还未找到原因,为什么会被转成小写
     for book in $category
     do
-        url="<a href=\"https://hasan.shaobo.fun/assets/books/"$files"/"$book"\" target=\"_blank\">"${book%.pdf}"</a>$space\n"
+        url="<a href=\"https://hasan.shaobo.fun/assets/books/"$files"/"$book"\" target=\"_blank\">"${book%.pdf}"</a>\n"
         echo -e $url >> $article_path
     done
 done

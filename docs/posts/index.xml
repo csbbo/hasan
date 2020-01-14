@@ -42,16 +42,6 @@
     </item>
     
     <item>
-      <title>书籍</title>
-      <link>http://hasan.shaobo.fun/posts/20191231-books/</link>
-      <pubDate>Tue, 31 Dec 2019 17:57:29 +0800</pubDate>
-      
-      <guid>http://hasan.shaobo.fun/posts/20191231-books/</guid>
-      <description>&lt;p&gt;意图打造一个在线图书库，收藏一些平时遇到又觉得不错的书籍，自动化脚本已写好，每次只需往书库里添加PDF文件即可，本文便是通过脚本检测动态生成。
-因为懒得维护服务器我整个博客都是挂在Github上，众所周知的原因导致看PDF有时会很慢，咳 ~&lt;/p&gt;</description>
-    </item>
-    
-    <item>
       <title>获取Docker中磁盘信息</title>
       <link>http://hasan.shaobo.fun/posts/2019/20191231-docker-volumes/</link>
       <pubDate>Tue, 31 Dec 2019 15:31:28 +0800</pubDate>
