@@ -6,10 +6,19 @@
     <description>Recent content in Categories on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Dec 2019 15:31:28 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jan 2020 11:03:42 +0800</lastBuildDate>
     
 	<atom:link href="http://hasan.shaobo.fun/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Python</title>
+      <link>http://hasan.shaobo.fun/categories/Python/</link>
+      <pubDate>Mon, 13 Jan 2020 11:03:42 +0800</pubDate>
+      
+      <guid>http://hasan.shaobo.fun/categories/Python/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Docker</title>
@@ -17,15 +26,6 @@
       <pubDate>Tue, 31 Dec 2019 15:31:28 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/categories/Docker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link>http://hasan.shaobo.fun/categories/Python/</link>
-      <pubDate>Sat, 21 Dec 2019 20:23:46 +0800</pubDate>
-      
-      <guid>http://hasan.shaobo.fun/categories/Python/</guid>
       <description></description>
     </item>
     

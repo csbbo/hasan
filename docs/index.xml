@@ -6,10 +6,19 @@
     <description>Recent content on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Jan 2020 16:13:16 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jan 2020 11:03:42 +0800</lastBuildDate>
     
 	<atom:link href="http://hasan.shaobo.fun/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django ORM annotate aggregate</title>
+      <link>http://hasan.shaobo.fun/posts/20200113-django-complex-query-orm/</link>
+      <pubDate>Mon, 13 Jan 2020 11:03:42 +0800</pubDate>
+      
+      <guid>http://hasan.shaobo.fun/posts/20200113-django-complex-query-orm/</guid>
+      <description>MixtureProblem.objects.order_by(&#39;-last_modify_time&#39;) \ .annotate( label=Coalesce( F(&#39;ctfproblem__label&#39;),F(&#39;penetrationproblem__lable&#39;), F(&#39;reinforceproblem__label&#39;)) ).filter(label__contains=&#39;web安全&#39;)  theory_list.filter(problem_type=TheoryProblemTypeEnum.single_choose).aggregate(Sum(&#39;score&#39;))[&#39;score__sum&#39;]  </description>
+    </item>
     
     <item>
       <title>个人简历</title>
@@ -326,7 +335,8 @@ Git有什么特点？简单来说就是：高端大气上档次！&lt;/p&gt;</de
 Materialize Color
 ACONVERT
 Md5 Sha256 Base64 转换
-LIBRALY CS-Notes
+LIBRALY GORM
+CS-Notes
 Go语言高级编程
 Go语言圣经
 Python 3.7.4 文档
@@ -413,20 +423,6 @@ QQ: NTk5ODgzNTE5Cg==
       
       <guid>http://hasan.shaobo.fun/posts/20190523-algorithmNote/</guid>
       <description>&lt;p&gt;记录一下几个比较经典的算法。&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://hasan.shaobo.fun/assets/code/Database/README/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://hasan.shaobo.fun/assets/code/Database/README/</guid>
-      <description> warehouse 导出数据库（表结构和数据）：
-mysqldump -u用户名 -p密码 数据库名 &amp;gt; 数据库名.sql  导出数据库（仅表结构）：
-mysqldump -u用户名 -p密码 -d 数据库名 &amp;gt; 数据库名.sql  导入数据库：
-mysql -u用户名 -p密码 数据库名 &amp;lt; 数据库名.sql  在Windows首次需要修改root密码：
-alter user &#39;root&#39;@&#39;localhost&#39; identified by &#39;chenshaobo&#39;;  查询表中某列出现次数大于8的前10条数据按从大到小顺序列出：
-select sno,count(sno) as count from score group by sno having count &amp;gt; 1 order by count desc limit 0,3;  </description>
     </item>
     
   </channel>

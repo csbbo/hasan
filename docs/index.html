@@ -75,6 +75,29 @@
                         <article class="post">
                             <header>
                                 <h1 class="post-title">
+                                    <a href="http://hasan.shaobo.fun/posts/20200113-django-complex-query-orm/" title="Django ORM annotate aggregate" >Django ORM annotate aggregate</a>
+                                </h1>
+                            </header>
+                            <date class="post-meta meta-date">
+                                2020-1-13
+                            </date>
+                            
+                            <div class="post-meta">
+                                <span>|</span>
+                                
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/Python">Python</a></span>
+                                
+                            </div>
+                            
+                            <div class="post-content">
+                                MixtureProblem.objects.order_by('-last_modify_time') \ .annotate( label=Coalesce( F('ctfproblem__label'),F('penetrationproblem__lable'), F('reinforceproblem__label')) ).filter(label__contains='web安全')  theory_list.filter(problem_type=TheoryProblemTypeEnum.single_choose).aggregate(Sum('score'))['score__sum']  
+                            </div>
+                            <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20200113-django-complex-query-orm/">阅读全文</a></p>
+                        </article>
+                    
+                        <article class="post">
+                            <header>
+                                <h1 class="post-title">
                                     <a href="http://hasan.shaobo.fun/posts/20200101-resume/" title="个人简历" >个人简历</a>
                                 </h1>
                             </header>
@@ -274,29 +297,6 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
                             <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20191206-openssl-library/">阅读全文</a></p>
                         </article>
                     
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="http://hasan.shaobo.fun/posts/20191205-python-singleton-pattern/" title="Python单例模式实现" >Python单例模式实现</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019-12-5
-                            </date>
-                            
-                            <div class="post-meta">
-                                <span>|</span>
-                                
-                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/Python">Python</a></span>
-                                
-                            </div>
-                            
-                            <div class="post-content">
-                                <p>单例是一种设计模式，使用该模式的类只会生成一个实例。单例模式保证了在程序不同位置都可以读取到同一对象实例，如果实例不存在则创建，已存在则返回这个实例。</p>
-                            </div>
-                            <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20191205-python-singleton-pattern/">阅读全文</a></p>
-                        </article>
-                    
                     
 
 
@@ -353,6 +353,10 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
 <ul class="widget-list">
     
     <li>
+        <a href="http://hasan.shaobo.fun/posts/20200113-django-complex-query-orm/" title="Django ORM annotate aggregate">Django ORM annotate aggregate</a>
+    </li>
+    
+    <li>
         <a href="http://hasan.shaobo.fun/posts/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
@@ -388,10 +392,6 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
         <a href="http://hasan.shaobo.fun/posts/20191206-openssl-library/" title="Openssl生成SSL证书">Openssl生成SSL证书</a>
     </li>
     
-    <li>
-        <a href="http://hasan.shaobo.fun/posts/20191205-python-singleton-pattern/" title="Python单例模式实现">Python单例模式实现</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -406,7 +406,7 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
     </li>
     
     <li>
-        <a href="http://hasan.shaobo.fun/categories/Python/">Python(4)</a>
+        <a href="http://hasan.shaobo.fun/categories/Python/">Python(5)</a>
     </li>
     
     <li>
@@ -451,6 +451,8 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
     <a href="http://hasan.shaobo.fun/tags/Base64/">Base64</a>
     
     <a href="http://hasan.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Django/">Django</a>
     
     <a href="http://hasan.shaobo.fun/tags/Docker/">Docker</a>
     
