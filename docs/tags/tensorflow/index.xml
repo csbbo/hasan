@@ -13,10 +13,10 @@
     
     <item>
       <title>No module named &#39;tensorflow.examples.tutorials&#39;解决办法</title>
-      <link>http://hasan.shaobo.fun/posts/20191212-not-model-name-tutorials/</link>
+      <link>http://hasan.shaobo.fun/posts/2019/20191212-not-model-name-tutorials/</link>
       <pubDate>Thu, 12 Dec 2019 12:22:15 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/20191212-not-model-name-tutorials/</guid>
+      <guid>http://hasan.shaobo.fun/posts/2019/20191212-not-model-name-tutorials/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Python 3.7.4&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;tensorflow==2.0.0&lt;/strong&gt;&lt;/p&gt;</description>

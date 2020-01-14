@@ -87,7 +87,7 @@ then
     name=$2
 	date=$(date "+%Y%m%d")
 	title=$date"-"$name".md"
-	file_path="posts/"$title
+	file_path="posts/2020/"$title
 
 	hugo new $file_path
 	echo "markdown file "$title

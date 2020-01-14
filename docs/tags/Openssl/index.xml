@@ -13,10 +13,10 @@
     
     <item>
       <title>Openssl生成SSL证书</title>
-      <link>http://hasan.shaobo.fun/posts/20191206-openssl-library/</link>
+      <link>http://hasan.shaobo.fun/posts/2019/20191206-openssl-library/</link>
       <pubDate>Fri, 06 Dec 2019 15:45:55 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/20191206-openssl-library/</guid>
+      <guid>http://hasan.shaobo.fun/posts/2019/20191206-openssl-library/</guid>
       <description>&lt;p&gt;OpenSSL是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及SSL协议，并提供丰富的应用程序供测试或其它目的使用&lt;/p&gt;</description>
     </item>
     

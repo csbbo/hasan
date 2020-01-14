@@ -13,10 +13,10 @@
     
     <item>
       <title>C&#43;&#43; STL容器</title>
-      <link>http://hasan.shaobo.fun/posts/20190917-cpp-container/</link>
+      <link>http://hasan.shaobo.fun/posts/2019/20190917-cpp-container/</link>
       <pubDate>Tue, 17 Sep 2019 22:17:59 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/20190917-cpp-container/</guid>
+      <guid>http://hasan.shaobo.fun/posts/2019/20190917-cpp-container/</guid>
       <description>&lt;p&gt;C++ STL(Standard Template Library)主要由容器(Containers)、算法(Algorithms)和迭代器(Iterators)三部分组成。C++容器主要可分为以下几类:序列容器(Sequence containers)、容器适配器(Container adapters)、关联容器(Associative containers)&lt;/p&gt;</description>
     </item>
     

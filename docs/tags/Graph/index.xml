@@ -13,10 +13,10 @@
     
     <item>
       <title>图</title>
-      <link>http://hasan.shaobo.fun/posts/20191010-graph/</link>
+      <link>http://hasan.shaobo.fun/posts/2019/20191010-graph/</link>
       <pubDate>Thu, 10 Oct 2019 08:45:59 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/20191010-graph/</guid>
+      <guid>http://hasan.shaobo.fun/posts/2019/20191010-graph/</guid>
       <description>&lt;p&gt;图（Graph）G是由两个集合V和E组成，记为G=(V,E)，其中V为顶点的有穷非空集合，E是V中顶点偶对的有穷非空集合，这些顶点偶对称为边。V(G)和E(G)通常分别表示图G的顶点集合和边集合，E(G)可以为空集。若E(G)为空，则图G只有顶点没有边。&lt;/p&gt;</description>
     </item>
     

@@ -13,10 +13,10 @@
     
     <item>
       <title>Iproute2</title>
-      <link>http://hasan.shaobo.fun/posts/20191118-iproute2/</link>
+      <link>http://hasan.shaobo.fun/posts/2019/20191118-iproute2/</link>
       <pubDate>Mon, 18 Nov 2019 14:21:08 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/20191118-iproute2/</guid>
+      <guid>http://hasan.shaobo.fun/posts/2019/20191118-iproute2/</guid>
       <description>&lt;p&gt;iproute2是Linux上有关TCP／IP网络上的流量控制的一系列工具,这一系列的工具包括了ss、route、tc、ip。相比于net-tools中已经被废弃的ifconfig,iproute2套件里提供了许多增强功能的命令。&lt;/p&gt;</description>
     </item>
     

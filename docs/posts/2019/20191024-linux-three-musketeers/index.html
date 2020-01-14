@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.59.1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Linux三剑客 | Hasan</title>
+    <meta property="og:title" content="Linux三剑客 - Hasan">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-10-24T22:10:44&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-10-24T22:10:44&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Linux三剑客">
+        
+    <meta name="author" content="shaobo">
+    <meta property="og:url" content="http://hasan.shaobo.fun/posts/2019/20191024-linux-three-musketeers/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hasan.shaobo.fun/">
+                        Hasan
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">我欲乘风破浪，又恐黄沙海洋</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hasan.shaobo.fun/">首页</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/tool/" title="工具">工具</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/friend/" title="友链">友链</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Linux三剑客</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019-10-24
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/Tool">Tool</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#awk">Awk</a>
+<ul>
+<li><a href="#awk的原理">awk的原理</a></li>
+<li><a href="#awk脚本基本结构">awk脚本基本结构</a></li>
+<li><a href="#awk内置变量">awk内置变量</a></li>
+<li><a href="#awk正则应用">awk正则应用</a></li>
+<li><a href="#awk的if-循环和数组">awk的if、循环和数组</a></li>
+</ul></li>
+<li><a href="#sed">Sed</a></li>
+<li><a href="#grep">Grep</a>
+<ul>
+<li><a href="#grep-选项">grep 选项</a></li>
+<li><a href="#正则表达式元字符">正则表达式元字符</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>在Linux系统当中，处理文本有三个常用的模式匹配命令 <strong>awk</strong> <strong>sed</strong> <strong>grep</strong>  ，这三个命令十分灵活，应该熟练掌握。</p>
+
+<h2 id="awk">Awk</h2>
+
+<p>awk 是一种很棒的语言，它适合文本处理和报表生成，其语法较为常见，借鉴了某些语言的一些精华，如 C 语言等。在 linux 系统日常处理工作中，发挥很重要的作用。</p>
+
+<h3 id="awk的原理">awk的原理</h3>
+
+<pre><code class="language-awk">awk '{print $0}' /etc/passwd
+echo hhh|awk '{print &quot;hello,world&quot;}'
+awk '{ print &quot;hiya&quot; }' /etc/passwd 
+</code></pre>
+
+<p>通过上面的命令知道，awk可以从文件或输入流中获取数据，依次对每一行都执行print命令，最后将结果输出到stdout。</p>
+
+<h3 id="awk脚本基本结构">awk脚本基本结构</h3>
+
+<pre><code class="language-awk">awk 'BEGIN{ print &quot;start&quot; } pattern{ commands } END{ print &quot;end&quot; }' file
+</code></pre>
+
+<p>一个awk脚本通常由：BEGIN语句块、能够使用模式匹配的通用语句块、END语句块3部分组成，这三个部分是可选的。任意一个部分都可以不出现在脚本中，脚本通常是被单引号或双引号中，例如：</p>
+
+<pre><code class="language-awk">awk 'BEGIN{ i=0 } { i++ } END{ print i }' filename
+awk &quot;BEGIN{ i=0 } { i++ } END{ print i }&quot; filename
+</code></pre>
+
+<ul>
+<li><p>BEGIN语句块在awk开始从输入流中读取行之前被执行，这是一个可选的语句块，比如变量初始化、打印输出表格的表头等语句通常可以写在BEGIN语句块中。</p></li>
+
+<li><p>END语句块在awk从输入流中读取完所有的行之后即被执行，比如打印所有行的分析结果这类信息汇总都是在END语句块中完成，它也是一个可选语句块。</p></li>
+
+<li><p>pattern语句块中的通用命令是最重要的部分，它也是可选的。awk读取的每一行都会执行该语句块。</p></li>
+</ul>
+
+<h3 id="awk内置变量">awk内置变量</h3>
+
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>属性</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>$0</td>
+<td>当前记录</td>
+</tr>
+
+<tr>
+<td>$1~$n</td>
+<td>当前记录的第 n 个字段</td>
+</tr>
+
+<tr>
+<td>FS</td>
+<td>输入字段分隔符默认是空格</td>
+</tr>
+
+<tr>
+<td>RS</td>
+<td>输入记录分割符默认为换行符</td>
+</tr>
+
+<tr>
+<td>NF</td>
+<td>当前记录中的字段个数，就是有多少列</td>
+</tr>
+
+<tr>
+<td>NR</td>
+<td>已经读出的记录数，就是行号，从 1 开始</td>
+</tr>
+
+<tr>
+<td>OFS</td>
+<td>输出字段分隔符 默认也是空格</td>
+</tr>
+
+<tr>
+<td>ORS</td>
+<td>输出的记录分隔符 默认为换行符</td>
+</tr>
+</tbody>
+</table>
+
+<p>FS=&rdquo;[&rdquo; &ldquo;:]+&rdquo; 以一个或多个空格或：分隔</p>
+
+<pre><code class="language-awc">awk -F [&quot; &quot;:]+ '{print $1,$2,$3}' hello.txt
+</code></pre>
+
+<p>字段数量 NF</p>
+
+<pre><code class="language-awc"> awk -F &quot;:&quot; 'NF==8{print $0}' hello.txt
+</code></pre>
+
+<p>记录数量 NR</p>
+
+<pre><code class="language-awk"> awk -F &quot;:&quot; 'NR&gt;=2{print $0}' hello.txt 
+</code></pre>
+
+<h3 id="awk正则应用">awk正则应用</h3>
+
+<p><code>awk  '/REG/{action}' file</code>,/REG/为正则表达式，可以将$0 中，满足条件的记录送入到： action 进行处理</p>
+
+<pre><code class="language-awk">awk '/root/{print $0}' /etc/passwd
+awk  -F : '$1~/root/{print $0}' /etc/passwd
+</code></pre>
+
+<p><code>awk  '布尔表达式{action}' file</code>仅当对前面的布尔表达式求值为真时，awk才执行代码块。</p>
+
+<pre><code class="language-awk">awk -F &quot;:&quot; '$1==&quot;root&quot;{print $0}' /etc/passwd 
+</code></pre>
+
+<h3 id="awk的if-循环和数组">awk的if、循环和数组</h3>
+
+<pre><code class="language-awk">{
+    if ( $1== &quot;foo&quot; ) {
+        if ( $2== &quot;foo&quot; ) {
+            print &quot;uno&quot;
+        } else {
+            print &quot;one&quot;
+        }
+    } elseif ($1== &quot;bar&quot; ) {
+        print &quot;two&quot;
+    } else {
+        print &quot;three&quot;
+    }
+}
+</code></pre>
+
+<pre><code class="language-awk">for ( x=1;x&lt;=4;x++ ) {
+    print &quot;iteration&quot;, x
+} 
+</code></pre>
+
+<pre><code class="language-awk">{
+    cities[1]=”beijing”
+    cities[2]=”shanghai”
+    cities[“three”]=”guangzhou”
+    for( c in cities) {
+        print cities[c]
+    }
+    print cities[1]
+    print cities[“1”]
+    print cities[“three”]
+} 
+</code></pre>
+
+<pre><code>cat access.log| awk -F &quot; &quot; '{print $1}' | sort | uniq -c | sort -r -k 1 -n | head -10
+</code></pre>
+
+<h2 id="sed">Sed</h2>
+
+<p>sed 是一种新型的，非交互式的编辑器。它能执行与编辑器 vi 和 ex 相同的编辑任务。 sed 编辑器没有提供交互式使用方式，使用者只能在命令行输入编辑命令、指定文件名，然 后在屏幕上查看输出。sed 编辑器没有破坏性，它不会修改文件，除非使用 shell 重定向来保 存输出结果。默认情况下，所有的输出行都被打印到屏幕上。</p>
+
+<p>替换操作：s命令</p>
+
+<pre><code class="language-sed">sed 's/book/books/' file
+</code></pre>
+
+<p>-n选项和p命令一起使用表示只打印那些发生替换的行：</p>
+
+<pre><code class="language-sed">sed -n 's/test/TEST/p' file
+</code></pre>
+
+<p>直接编辑文件选项-i，会匹配file文件中每一行的第一个book替换为books：</p>
+
+<pre><code class="language-sed">sed -i 's/book/books/g' file
+</code></pre>
+
+<p>全面替换标记g</p>
+
+<pre><code class="language-sed">sed 's/book/books/g' file
+</code></pre>
+
+<p>当需要从第N处匹配开始替换时，可以使用 /Ng：</p>
+
+<pre><code class="language-sed">echo sksksksksksk | sed 's/sk/SK/2g'
+skSKSKSKSKSK
+
+echo sksksksksksk | sed 's/sk/SK/3g'
+skskSKSKSKSK
+
+echo sksksksksksk | sed 's/sk/SK/4g'
+skskskSKSKSK
+</code></pre>
+
+<p>定界符</p>
+
+<pre><code class="language-sed">sed 's:test:TEXT:g'
+sed 's|test|TEXT|g'
+</code></pre>
+
+<p>定界符出现在样式内部时，需要进行转义：</p>
+
+<pre><code class="language-sed">sed 's/\/bin/\/usr\/local\/bin/g'
+</code></pre>
+
+<p>删除操作：d命令</p>
+
+<p>删除空白行：</p>
+
+<pre><code class="language-sed">sed '/^$/d' file
+</code></pre>
+
+<p>删除文件的第2行：</p>
+
+<pre><code class="language-sed">sed '2d' file
+</code></pre>
+
+<p>删除文件的第2行到末尾所有行：</p>
+
+<pre><code class="language-sed">sed '2,$d' file
+</code></pre>
+
+<p>删除文件最后一行：</p>
+
+<pre><code class="language-sed">sed '$d' file
+</code></pre>
+
+<p>删除文件中所有开头是test的行：</p>
+
+<pre><code class="language-sed">sed '/^test/'d file
+</code></pre>
+
+<p>追加（行下）：a\命令</p>
+
+<p>将 this is a test line 追加到 以test 开头的行后面：</p>
+
+<pre><code class="language-sed">sed '/^test/a\this is a test line' file
+</code></pre>
+
+<p>在 test.conf 文件第2行之后插入 this is a test line：</p>
+
+<pre><code class="language-sed">sed -i '2a\this is a test line' test.conf
+</code></pre>
+
+<h2 id="grep">Grep</h2>
+
+<p>grep 这个命令是一个全局查找正则表达式并且打印结果行的命令。它的输入是一个文 件或者是一个标准输入。</p>
+
+<h3 id="grep-选项">grep 选项</h3>
+
+<pre><code class="language-grep">-a 不要忽略二进制数据。
+-A&lt;显示列数&gt; 除了显示符合范本样式的那一行之外，并显示该行之后的内容。
+-b 在显示符合范本样式的那一行之外，并显示该行之前的内容。
+-c 计算符合范本样式的列数。
+-C&lt;显示列数&gt;或-&lt;显示列数&gt;  除了显示符合范本样式的那一列之外，并显示该列之前后的内容。
+-d&lt;进行动作&gt; 当指定要查找的是目录而非文件时，必须使用这项参数，否则grep命令将回报信息并停止动作。
+-e&lt;范本样式&gt; 指定字符串作为查找文件内容的范本样式。
+-E 将范本样式为延伸的普通表示法来使用，意味着使用能使用扩展正则表达式。
+-f&lt;范本文件&gt; 指定范本文件，其内容有一个或多个范本样式，让grep查找符合范本条件的文件内容，格式为每一列的范本样式。
+-F 将范本样式视为固定字符串的列表。
+-G 将范本样式视为普通的表示法来使用。
+-h 在显示符合范本样式的那一列之前，不标示该列所属的文件名称。
+-H 在显示符合范本样式的那一列之前，标示该列的文件名称。
+-i 忽略字符大小写的差别。
+-l 列出文件内容符合指定的范本样式的文件名称。
+-L 列出文件内容不符合指定的范本样式的文件名称。
+-n 在显示符合范本样式的那一列之前，标示出该列的编号。
+-q 不显示任何信息。
+-R/-r 此参数的效果和指定“-d recurse”参数相同。
+-s 不显示错误信息。
+-v 反转查找。
+-w 只显示全字符合的列。
+-x 只显示全列符合的列。
+-y 此参数效果跟“-i”相同。
+-o 只输出文件中匹配到的部分。
+</code></pre>
+
+<h3 id="正则表达式元字符">正则表达式元字符</h3>
+
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>功能</th>
+<th>示例</th>
+<th>示例的匹配对象</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>^</td>
+<td>行首定位符</td>
+<td>/^love/</td>
+<td>匹配所有以 love 开头的行</td>
+</tr>
+
+<tr>
+<td>$</td>
+<td>行尾定位符</td>
+<td>/love$/</td>
+<td>匹配所有以 love 结尾的行</td>
+</tr>
+
+<tr>
+<td>.</td>
+<td>匹配除换行外的单个字符</td>
+<td>/l..e/</td>
+<td>匹配包含字符 l、后跟两个任意 字符、再跟字母 e 的行</td>
+</tr>
+
+<tr>
+<td>*</td>
+<td>匹配零个或多个前导字符</td>
+<td>/*love/</td>
+<td>匹配在零个或多个空格紧跟着</td>
+</tr>
+
+<tr>
+<td>[]</td>
+<td>匹配指定字符组内任一字符</td>
+<td>/[Ll]ove/</td>
+<td>匹配包含 love 和 Love 的行</td>
+</tr>
+
+<tr>
+<td>[^]</td>
+<td>匹配不在指定字符组内任一字符</td>
+<td>/[^A-KM-Z]ove/</td>
+<td>匹配包含 ove，但 ove 之前的那 个字符不在 A 至 K 或 M 至 Z 间 的行</td>
+</tr>
+
+<tr>
+<td>(..)</td>
+<td>保存已匹配的字符</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>&amp;</td>
+<td>保存查找串以便在替换串中引用</td>
+<td>s/love/<strong>&amp;</strong>/</td>
+<td>符号&amp;代表查找串。字符串 love 将替换前后各加了两个<strong>的引 用，即 love 变成</strong>love**</td>
+</tr>
+
+<tr>
+<td>&lt;</td>
+<td>词首定位符</td>
+<td>/&lt;love/</td>
+<td>匹配包含以 love 开头的单词的行</td>
+</tr>
+
+<tr>
+<td>&gt;</td>
+<td>词尾定位符</td>
+<td>/love&gt;/</td>
+<td>匹配包含以 love 结尾的单词的 行</td>
+</tr>
+
+<tr>
+<td>x{m}</td>
+<td>连续 m 个 x</td>
+<td>/o{5}/</td>
+<td>5 个字母 o、 至少 5 个连续的 o、或 5~10 个 连续的 o 的行</td>
+</tr>
+
+<tr>
+<td>x{m,}</td>
+<td>至少 m 个 x</td>
+<td>/o{5,}/</td>
+<td>同上</td>
+</tr>
+
+<tr>
+<td>x{m,n}</td>
+<td>m 个 x，但不 超过 n 个 x</td>
+<td>/o{5,10}/</td>
+<td>同上</td>
+</tr>
+</tbody>
+</table>
+
+<p>egrep新增的元字符</p>
+
+<p>egrep 在 grep 的基础上增加了更多的元字符。但是 egrep 不允许使用(),{}.
+元字符 | 功能 | 示例 | 示例的匹配对象
+&mdash;|&mdash;|&mdash;|&mdash;
++ | 匹配一个或多个 | 加号前面的字符 | &lsquo;[a-z]+ove&rsquo; 匹配一个或多个小写字母后跟ove的字符串。move love approve
+？ | 匹配0个或一个前导字符 | &lsquo;lo?ve&rsquo; | 匹配l后跟一个或 0 个字母 o 以及 ve 的字符串。love lve
+a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个表达式之一
+() | 字符组 | &lsquo;love(able|ly)(ov+)&rsquo; | 匹配loveable或lovely匹配ov的一次或多次出现</p>
+
+<p>[参考]</p>
+
+<p><a href="https://man.linuxde.net/sed">Linux命令大全</a></p>
+
+<p>《跟老男孩学Linux三剑客命令》</p>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="http://hasan.shaobo.fun/tags/Linux">Linux</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+        <li class="next">
+        <a href="http://hasan.shaobo.fun/posts/2019/20191024-optimistic-lock-pessimistic-lock/">
+        <i class="material-icons">arrow_back</i><span>乐观锁和悲观锁</span>
+        </a>
+        </li>
+    
+
+    
+        <li class="pre">
+        <a href="http://hasan.shaobo.fun/posts/2019/20191010-graph/">
+        <span>图</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+<hr>
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/2019/20190702-multithreaded-programming/">多线程编程</a></li>
+        
+        <li><a href="/posts/2019/20190701-process-communication/">进程通信</a></li>
+        
+        <li><a href="/posts/2019/20190630-process-control/">进程控制</a></li>
+        
+        <li><a href="/posts/2019/20190630-fileio/">文件I/O编程</a></li>
+        
+        <li><a href="/posts/2019/20190630-serial-port/">Linux串口通信</a></li>
+        
+    </ul>
+</div>
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
+      
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM annotate aggregate">Django ORM annotate aggregate</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191231-books/" title="书籍">书籍</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191231-docker-volumes/" title="获取Docker中磁盘信息">获取Docker中磁盘信息</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191221-bing-dynamic-theme/" title="下载Bing每日壁纸">下载Bing每日壁纸</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191219-python-build-in-function/" title="Python内置函数">Python内置函数</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191218-python-concurrent-programming/" title="Python 并发编程">Python 并发编程</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191216-grpc-basics/" title="gRPC基础">gRPC基础</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191212-not-model-name-tutorials/" title="No module named &#39;tensorflow.examples.tutorials&#39;解决办法">No module named &#39;tensorflow.examples.tutorials&#39;解决办法</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Docker/">Docker(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Python/">Python(5)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/RPC/">RPC(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Tensorflow/">Tensorflow(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Tool/">Tool(6)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Unix/">Unix(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://hasan.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Django/">Django</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Docker/">Docker</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Nginx/">Nginx</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Openssl/">Openssl</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Sha256/">Sha256</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/grpc/">grpc</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/iproute2/">iproute2</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/md5/">md5</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/process/">process</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/psuitl/">psuitl</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/python/">python</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tensorflow/">tensorflow</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tmux/">tmux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tree/">tree</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="http://hasan.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="http://hasan.shaobo.fun/">Hasan By shaobo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

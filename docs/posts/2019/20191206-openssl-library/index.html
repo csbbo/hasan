@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.59.1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Openssl生成SSL证书 | Hasan</title>
+    <meta property="og:title" content="Openssl生成SSL证书 - Hasan">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-12-06T15:45:55&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-12-06T15:45:55&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Openssl生成SSL证书">
+        
+    <meta name="author" content="shaobo">
+    <meta property="og:url" content="http://hasan.shaobo.fun/posts/2019/20191206-openssl-library/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hasan.shaobo.fun/">
+                        Hasan
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">我欲乘风破浪，又恐黄沙海洋</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hasan.shaobo.fun/">首页</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/tool/" title="工具">工具</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/friend/" title="友链">友链</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Openssl生成SSL证书</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019-12-6
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/Tool">Tool</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#对称加密算法">对称加密算法</a></li>
+<li><a href="#非对称加密算法">非对称加密算法</a></li>
+<li><a href="#信息摘要算法">信息摘要算法</a></li>
+<li><a href="#密钥和证书管理">密钥和证书管理</a></li>
+<li><a href="#使用-openssl-生产自签名-ssl-证书">使用 OpenSSL 生产自签名 SSL 证书</a></li>
+<li><a href="#配置nginx使用自签名证书">配置Nginx使用自签名证书</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>OpenSSL是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及SSL协议，并提供丰富的应用程序供测试或其它目的使用</p>
+
+<p>虽说我只是单纯的想生成HTTPS证书，但既然入了OpenSSL的坑就多了解一点了</p>
+
+<h3 id="对称加密算法">对称加密算法</h3>
+
+<p>OpenSSL一共提供了8种对称加密算法，其中7种是分组加密算法，仅有的一种流加密算法是RC4。这7种分组加密算法分别是AES、DES、Blowfish、CAST、IDEA、RC2、RC5，都支持电子密码本模式（ECB）、加密分组链接模式（CBC）、加密反馈模式（CFB）和输出反馈模式（OFB）四种常用的分组密码加密模式。其中，AES使用的加密反馈模式（CFB）和输出反馈模式（OFB）分组长度是128位，其它算法使用的则是64位。事实上，DES算法里面不仅仅是常用的DES算法，还支持三个密钥和两个密钥3DES算法。</p>
+
+<h3 id="非对称加密算法">非对称加密算法</h3>
+
+<p>OpenSSL一共实现了4种非对称加密算法，包括DH算法、RSA算法、DSA算法和椭圆曲线算法（EC）。DH算法一般用户密钥交换。RSA算法既可以用于密钥交换，也可以用于数字签名，当然，如果你能够忍受其缓慢的速度，那么也可以用于数据加密。DSA算法则一般只用于数字签名。</p>
+
+<h3 id="信息摘要算法">信息摘要算法</h3>
+
+<p>OpenSSL实现了5种信息摘要算法，分别是MD2、MD5、MDC2、SHA和RIPEMD。SHA算法事实上包括了SHA和SHA1两种信息摘要算法，此外，OpenSSL还实现了DSS标准中规定的两种信息摘要算法DSS和DSS1。</p>
+
+<h3 id="密钥和证书管理">密钥和证书管理</h3>
+
+<p>OpenSSL实现了ASN.1的证书和密钥相关标准，提供了对证书、公钥、私钥、证书请求以及CRL等数据对象的DER、PEM和BASE64的编解码功能。OpenSSL提供了产生各种公开密钥对和对称密钥的方法、函数和应用程序，同时提供了对公钥和私钥的DER编解码功能。并实现了私钥的PKCS#12和PKCS#8的编解码功能。OpenSSL在标准中提供了对私钥的加密保护功能，使得密钥可以安全地进行存储和分发。</p>
+
+<p>OpenSSL提供的CA应用程序就是一个小型的证书管理中心（CA），实现了证书签发的整个流程和证书管理的大部分机制。</p>
+
+<h3 id="使用-openssl-生产自签名-ssl-证书">使用 OpenSSL 生产自签名 SSL 证书</h3>
+
+<p><img src="/assets/article/20191206/gen-certificate.png" style="width:70%"></p>
+
+<p>在当前路径生成文件夹和文件</p>
+
+<pre><code class="language-shell">mkdir -p demoCA/newcerts &amp;&amp; touch demoCA/index.txt &amp;&amp; echo 01 &gt; demoCA/serial
+</code></pre>
+
+<p>制作CA证书</p>
+
+<ol>
+<li><p>生成ca.key CA私钥</p>
+
+<pre><code class="language-cpp">openssl genrsa -des3 -out ca.key 2048
+//输入密码A
+</code></pre></li>
+
+<li><p>生成ca.crt CA根证书(公钥)</p>
+
+<pre><code class="language-cpp">openssl req -new -x509 -days 7305 -key ca.key -out ca.crt
+//输入密码A
+//Common Name必填
+</code></pre></li>
+</ol>
+
+<p>制作网站证书并用CA签名认证</p>
+
+<ol>
+<li><p>生成server.key 网站CA私钥</p>
+
+<pre><code class="language-cpp">openssl genrsa -des3 -out server.key 2048
+//输入密码B
+</code></pre></li>
+
+<li><p>生成网站签名请求server.csr</p>
+
+<pre><code class="language-cpp">openssl req -new -key server.key -out server.csr
+//输入密码B
+//Common Name必填
+</code></pre></li>
+
+<li><p>使用CA进行签名</p>
+
+<pre><code class="language-cpp">openssl ca -cert ca.crt -keyfile ca.key -policy policy_anything -days 365 -in server.csr -out server.crt
+//输入密码A
+</code></pre></li>
+</ol>
+
+<blockquote>
+<p>至此自签名证书生成完成，最终需要：server.key 和 server.crt</p>
+</blockquote>
+
+<p>或则可以直接利用server.key生成证书</p>
+
+<pre><code class="language-cpp">openssl genrsa -out server.key 1024
+openssl req -new -key server.key -out server.csr
+openssl x509 -req -in server.csr -out server.crt -signkey server.key -days 3650
+</code></pre>
+
+<h3 id="配置nginx使用自签名证书">配置Nginx使用自签名证书</h3>
+
+<pre><code class="language-cpp">server {
+        listen  80;
+        server_name     domain;
+        return  301     https://$host$request_uri;
+}
+server {
+        listen  443 ssl;
+        ssl_certificate       ssl/nginx.crt; # 前面生成的 crt 证书文件
+        ssl_certificate_key   ssl/nginx.key; # 前面生成的证书私钥
+        server_name     domain;
+        location / {
+            root /var/www-html;
+            index  index.html;
+        }
+}
+</code></pre>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="http://hasan.shaobo.fun/tags/Openssl">Openssl</a></li>
+                                
+                                <li><a href="http://hasan.shaobo.fun/tags/Nginx">Nginx</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+        <li class="next">
+        <a href="http://hasan.shaobo.fun/posts/2019/20191212-not-model-name-tutorials/">
+        <i class="material-icons">arrow_back</i><span>No module named &#39;tensorflow.examples.tutorials&#39;解决办法</span>
+        </a>
+        </li>
+    
+
+    
+        <li class="pre">
+        <a href="http://hasan.shaobo.fun/posts/2019/20191205-python-singleton-pattern/">
+        <span>Python单例模式实现</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
+      
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM annotate aggregate">Django ORM annotate aggregate</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191231-books/" title="书籍">书籍</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191231-docker-volumes/" title="获取Docker中磁盘信息">获取Docker中磁盘信息</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191221-bing-dynamic-theme/" title="下载Bing每日壁纸">下载Bing每日壁纸</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191219-python-build-in-function/" title="Python内置函数">Python内置函数</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191218-python-concurrent-programming/" title="Python 并发编程">Python 并发编程</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191216-grpc-basics/" title="gRPC基础">gRPC基础</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191212-not-model-name-tutorials/" title="No module named &#39;tensorflow.examples.tutorials&#39;解决办法">No module named &#39;tensorflow.examples.tutorials&#39;解决办法</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Docker/">Docker(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Python/">Python(5)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/RPC/">RPC(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Tensorflow/">Tensorflow(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Tool/">Tool(6)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Unix/">Unix(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://hasan.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Django/">Django</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Docker/">Docker</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Nginx/">Nginx</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Openssl/">Openssl</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Sha256/">Sha256</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/grpc/">grpc</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/iproute2/">iproute2</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/md5/">md5</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/process/">process</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/psuitl/">psuitl</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/python/">python</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tensorflow/">tensorflow</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tmux/">tmux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tree/">tree</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="http://hasan.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="http://hasan.shaobo.fun/">Hasan By shaobo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

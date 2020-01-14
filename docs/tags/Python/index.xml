@@ -13,19 +13,19 @@
     
     <item>
       <title>Python 并发编程</title>
-      <link>http://hasan.shaobo.fun/posts/20191218-python-concurrent-programming/</link>
+      <link>http://hasan.shaobo.fun/posts/2019/20191218-python-concurrent-programming/</link>
       <pubDate>Wed, 18 Dec 2019 19:28:13 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/20191218-python-concurrent-programming/</guid>
+      <guid>http://hasan.shaobo.fun/posts/2019/20191218-python-concurrent-programming/</guid>
       <description>&lt;p&gt;对于并发编程, Python有多种长期支持的方法, 包括多线程, 调用子进程, 以及各种各样的关于生成器函数的技巧。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Python单例模式实现</title>
-      <link>http://hasan.shaobo.fun/posts/20191205-python-singleton-pattern/</link>
+      <link>http://hasan.shaobo.fun/posts/2019/20191205-python-singleton-pattern/</link>
       <pubDate>Thu, 05 Dec 2019 13:46:02 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/20191205-python-singleton-pattern/</guid>
+      <guid>http://hasan.shaobo.fun/posts/2019/20191205-python-singleton-pattern/</guid>
       <description>&lt;p&gt;单例是一种设计模式，使用该模式的类只会生成一个实例。单例模式保证了在程序不同位置都可以读取到同一对象实例，如果实例不存在则创建，已存在则返回这个实例。&lt;/p&gt;</description>
     </item>
     

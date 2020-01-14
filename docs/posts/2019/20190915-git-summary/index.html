@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.59.1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>分布式版本控制系统--Git | Hasan</title>
+    <meta property="og:title" content="分布式版本控制系统--Git - Hasan">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-09-15T21:13:13&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-09-15T21:13:13&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="分布式版本控制系统--Git">
+        
+    <meta name="author" content="shaobo">
+    <meta property="og:url" content="http://hasan.shaobo.fun/posts/2019/20190915-git-summary/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hasan.shaobo.fun/">
+                        Hasan
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">我欲乘风破浪，又恐黄沙海洋</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hasan.shaobo.fun/">首页</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/tool/" title="工具">工具</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/friend/" title="友链">友链</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">分布式版本控制系统--Git</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019-9-15
+                        </date>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#工作区暂存区版本库">工作区暂存区版本库</a></li>
+<li><a href="#git命令">Git命令</a>
+<ul>
+<li><a href="#查看历史">查看历史</a></li>
+<li><a href="#丢弃修改">丢弃修改</a></li>
+<li><a href="#删除文件">删除文件</a></li>
+<li><a href="#远程仓库">远程仓库</a></li>
+<li><a href="#分支管理">分支管理</a></li>
+<li><a href="#rebase">Rebase</a></li>
+<li><a href="#标签">标签</a></li>
+<li><a href="#多个远程仓库">多个远程仓库</a></li>
+<li><a href="#忽略特殊文件">忽略特殊文件</a></li>
+<li><a href="#配置别名">配置别名</a></li>
+</ul></li>
+<li><a href="#搭建git服务器">搭建Git服务器</a></li>
+</ul></li>
+</ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>Linus花了两周时间自己用C写了一个分布式版本控制系统，这就是Git！<br />
+Git是目前世界上最先进的分布式版本控制系统（没有之一）。<br />
+Git有什么特点？简单来说就是：高端大气上档次！</p>
+
+<h2 id="工作区暂存区版本库">工作区暂存区版本库</h2>
+
+<p>工作区就是建立Git版本库的目录，Git版本库其实就是工作区中<code>.git</code>文件。Git的版本库里存了很多东西，其中最重要的就是称为stage的暂存区，还有Git为我们自动创建的第一个分支<code>master</code>，以及指向<code>master</code>的一个指针叫<code>HEAD</code>。</p>
+
+<p><img src="/assets/article/20190915/struct.png" style="width:50%"/></p>
+
+<p>把文件往Git版本库里添加的时候，是分两步执行的：</p>
+
+<ul>
+<li>用<code>git add</code>把文件添加进去，实际上就是把文件修改添加到暂存区；</li>
+<li>用<code>git commit</code>提交更改，实际上就是把暂存区的所有内容提交到当前分支。</li>
+</ul>
+
+<blockquote>
+<p>因为我们创建Git版本库时，Git自动为我们创建了唯一一个<code>master</code>分支，所以，现在，<code>git commit</code>就是往<code>master</code>分支上提交更改。</p>
+</blockquote>
+
+<h2 id="git命令">Git命令</h2>
+
+<p>常用的比如说有<code>git status</code>可以查看工作区状态,<code>git add &lt;file&gt;</code>可以将文件添加到暂存区，<code>git diff file|HEAD</code>查看修改内容,
+<code>git commit -m &quot;add file&quot;</code>将文件提交到仓库，<code>git clone &lt;remote_addr&gt;</code>将远程仓库克隆到本地,接下来就来分类聊聊。</p>
+
+<h3 id="查看历史">查看历史</h3>
+
+<p>HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令<code>git reset --hard commit_id | HEAD^</code>。
+穿梭前，用<code>git log</code>可以查看提交历史，以便确定要回退到哪个版本。要重返未来，用<code>git reflog</code>查看命令历史，以便确定要回到未来的哪个版本。</p>
+
+<h3 id="丢弃修改">丢弃修改</h3>
+
+<ul>
+<li>当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令<code>git restore &lt;file&gt;</code>。这里有两种情况：
+
+<ul>
+<li>一种是<code>readme.txt</code>自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；</li>
+<li>一种是<code>readme.txt</code>已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。</li>
+</ul></li>
+<li>当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令<code>git restore --staged &lt;file&gt;</code>，就回到了上面的场景，第二步按上面的场景操作。<br /></li>
+<li>已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。
+<code>git clean -fd</code>可以清空工作区修改。</li>
+</ul>
+
+<h3 id="删除文件">删除文件</h3>
+
+<p><code>rm &lt;file&gt;</code>后有连个选择<br />
+<code>git rm &lt;file&gt;</code>从版本库中也删除该文件然后<code>commit</code>提交<br />
+如果是误删<code>git checkout &lt;file&gt;</code>从版本库中恢复</p>
+
+<h3 id="远程仓库">远程仓库</h3>
+
+<p>由于你的本地Git仓库和GitHub仓库之间的传输是通过SSH加密的以需要一点设置生成ssh key<code>ssh-keygen -t rsa -c &quot;your email&quot;</code></p>
+
+<p>要关联一个远程库，使用命令<code>git remote add origin &lt;git@server-name:path/repo-name.git&gt;</code></p>
+
+<p>关联后，使用命令<code>git push -u origin master</code>第一次推送<code>master</code>分支的所有内容。</p>
+
+<p>我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以使用<code>git push</code>简化命令。</p>
+
+<h3 id="分支管理">分支管理</h3>
+
+<p>Git鼓励大量使用分支:</p>
+
+<ul>
+<li>查看分支：<code>git branch</code><br /></li>
+<li>创建分支：<code>git branch &lt;branch&gt;</code><br /></li>
+<li>切换分支：<code>git checkout &lt;branch&gt;</code><br /></li>
+<li>创建+切换分支：<code>git checkout -b &lt;branch&gt;</code><br /></li>
+<li>合并某分支到当前分支：<code>git merge &lt;branch&gt;</code><br /></li>
+<li>删除分支：<code>git branch -d &lt;branch&gt;</code></li>
+<li>重命名分支：<code>git branch -m oldname new name</code></li>
+</ul>
+
+<blockquote>
+<p>switch:我们注意到切换分支使用git checkout <branch>，而前面讲过的撤销修改则是git checkout &ndash; <file>，同一个命令，有两种作用，确实有点令人迷惑。因此，最新版本的Git提供了新的git switch命令来切换分支,上面切换分支命令可以改为<code>git switch master</code>、<code>git switch -c dev</code></p>
+</blockquote>
+
+<p>解决冲突:</p>
+
+<ul>
+<li>解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再add到<code>stage</code>后提交。</li>
+</ul>
+
+<p><img src="/assets/article/20190915/branch.png" style="width:50%"/></p>
+
+<ul>
+<li><p>查看分支合并图:
+<code>git log --graph --pretty=oneline --abbrev-commit</code></p></li>
+
+<li><p>合并分支时，加上&ndash;no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而<code>fast forward</code>合并就看不出来曾经做过合并。
+<code>git merge --no-ff -m &quot;no fast forward in master&quot; dev</code></p></li>
+</ul>
+
+<p>分支策略:</p>
+
+<p>首先，master分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
+那在哪干活呢？干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
+你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
+所以，团队合作的分支看起来就像这样</p>
+
+<p><img src="/assets/article/20190915/multilbranch.png" style="width:70%"/></p>
+
+<p>bug分支：</p>
+
+<p>修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；  当手头工作没有完成时，先把工作现场<code>git stash</code>一下，然后去修复bug，修复后，再<code>git stash apply [stash@{0}]</code>恢复工作现场<code>git stash list</code>可以查看多次<code>stash</code>指定恢复的<code>stash</code>，最后<code>git stash drop stash@{0}</code>删掉<code>stash</code>内容。</p>
+
+<blockquote>
+<p><code>git stash</code>把当前工作区和暂存区内容存储起来(不包括<code>untrack</code>,即未被<code>git</code>管理的文件)</p>
+</blockquote>
+
+<p>在master分支上修复了bug后，我们要想一想，dev分支是早期从master分支分出来的，所以，这个bug其实在当前dev分支上也存在。那怎么在dev分支上修复同样的bug？</p>
+
+<p>为了方便操作，Git专门提供了一个cherry-pick命令，让我们能复制一个特定的提交到当前分支：<code>git cherry-pick commit_id</code></p>
+
+<p>Feature分支:</p>
+
+<p>开发一个新<code>feature</code>，最好新建一个分支；<br />
+如果要丢弃一个没有被合并过的分支，可以通过<code>git branch -D &lt;name&gt;</code>强行删除。</p>
+
+<p>多人协作：</p>
+
+<p>查看远程库信息，使用<code>git remote -v</code>；<br />
+本地新建的分支如果不推送到远程，对其他人就是不可见的；</p>
+
+<p>多人协作的工作模式通常是这样：</p>
+
+<ol>
+<li>首先，可以试图用<code>git push origin &lt;branch-name&gt;</code>推送自己的修改；</li>
+<li>如果推送失败，则因为远程分支比你的本地更新，需要先用<code>git pull</code>试图合并；</li>
+<li>如果合并有冲突，则解决冲突，并在本地提交；</li>
+<li>没有冲突或者解决掉冲突后，再用<code>git push origin &lt;branch-name&gt;</code>推送就能成功！</li>
+</ol>
+
+<blockquote>
+<p>如果<code>git pull</code>提示<code>no tracking information</code>，则说明本地分支和远程分支的链接关系没有创建，用命令<code>git branch --set-upstream-to &lt;branch-name&gt; origin/&lt;branch-name&gt;</code>。</p>
+
+<p>删除远程仓库分支：
+<code>git branch -r -d origin/branch-name</code>删除本地分支与远程分支关系；
+<code>git push origin :branch-name</code>将远程分支删除提交</p>
+</blockquote>
+
+<p>在本地创建和远程分支对应的分支，使用<code>git checkout -b branch-name origin/branch-name</code>，本地和远程分支的名称最好一致；</p>
+
+<h3 id="rebase">Rebase</h3>
+
+<p>对于克隆下来的远程分支</p>
+
+<p>在<code>git pull</code>后输入<code>git rebase</code>把分叉的提交历史“整理”成一条直线,它把本地的提交都挪到了远程仓库的提交之后，也就是本地的修改变成了基于远程提交之后的了</p>
+
+<p>优缺点:</p>
+
+<ul>
+<li>rebase操作可以把本地未push的分叉提交历史整理成直线,缺点是本地的分叉提交已经被修改过了；</li>
+<li>rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。</li>
+</ul>
+
+<p>使用场景：</p>
+
+<p><strong>Rebase合并多次提交纪录</strong></p>
+
+<p>多次无用commit不利于代码review，造成分支污染，如果有一天线上出现了紧急问题，你需要回滚代码，却发现海量的 commit 需要一条条来看。</p>
+
+<p>我们来合并最近的 4 次提交纪录，执行：</p>
+
+<pre><code class="language-git">git rebase -i HEAD~4
+</code></pre>
+
+<p>这时候，会自动进入 vi 编辑模式：</p>
+
+<pre><code class="language-git">pick cacc52da add: qrcode
+pick f072ef48 update: indexeddb hack
+pick 4e84901a feat: add indexedDB floder
+pick 8f33126c feat: add test2.js
+
+# Rebase 5f2452b2..8f33126c onto 5f2452b2 (4 commands)
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like &quot;squash&quot;, but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+# d, drop = remove commit
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+</code></pre>
+
+<p>按照如上命令来修改你的提交纪录：</p>
+
+<pre><code class="language-git">pick cacc52da add: qrcode
+s f072ef48 update: indexeddb hack
+s 4e84901a feat: add indexedDB floder
+s 8f33126c feat: add test2.js
+</code></pre>
+
+<p>使用<code>wq</code>保存退出后，进入合并后commit信息编辑页确定合并后提交信息</p>
+
+<p><strong>分支合并</strong></p>
+
+<p>有这么一个使用场景:</p>
+
+<p>1.我们先从 master 分支切出一个 dev 分支，进行开发。<br />
+2.这时候，你的同事完成了一次 hotfix，并合并入了 master 分支，此时 master 已经领先于你的 feature1 分支了。<br />
+3.恰巧，我们想要同步 master 分支的改动，首先想到了 merge执行<code>git merge master</code><br />
+4.就会在记录里发现一些 merge 的信息，但是我们觉得这样污染了commit记录，想要保持一份干净的 commit，怎么办呢？这时候，<code>git rebase</code> 就派上用场了。</p>
+
+<p>让我们来试试 git rebase ，先回退到同事 hotfix 后合并 master 的步骤</p>
+
+<p>使用 rebase 后来看看结果,执行<code>git rebase master</code></p>
+
+<blockquote>
+<p>这里补充一点：rebase 做了什么操作呢？首先，git 会把 feature1 分支里面的每个 commit 取消掉；
+其次，把上面的操作临时保存成 patch 文件，存在 .git/rebase 目录下；
+然后，把 feature1 分支更新到最新的 master 分支；
+最后，把上面保存的 patch 文件应用到 feature1 分支上；
+从 commit 记录我们可以看出来，feature1 分支是基于 hotfix 合并后的 master ，自然而然的成为了最领先的分支，而且没有 merge 的 commit 记录，是不是感觉很舒服了。</p>
+</blockquote>
+
+<h3 id="标签">标签</h3>
+
+<p>标签不是按时间顺序列出，而是按字母排序的：</p>
+
+<ul>
+<li><code>git tag &lt;tagname&gt;</code>用于新建一个标签，默认为HEAD，也可以指定一个commit id;</li>
+<li><code>git tag -a &lt;tagname&gt; -m &quot;blablabla&quot; [commit_id]</code>可以指定标签信息；</li>
+<li><code>git tag</code>可以查看所有标签；</li>
+<li><code>git show &lt;tagname&gt;</code>可以用查看标签信息；</li>
+<li><code>git tag -d &lt;tagname&gt;</code>删除一个本地标签；</li>
+<li><code>git push origin &lt;tagname&gt;</code>可以推送一个本地标签；</li>
+<li><code>git push origin --tags</code>可以推送全部未推送过的本地标签；</li>
+<li><code>git push origin :refs/tags/&lt;tagname&gt;</code>删除一个远程标签。</li>
+</ul>
+
+<h3 id="多个远程仓库">多个远程仓库</h3>
+
+<ul>
+<li><code>git remote rm origin</code>删除已有远程仓库</li>
+<li><code>git remote add github git@github.com:hasan/learngit.git</code>关联github仓库</li>
+<li><code>git remote add gitee git@gitee.com:hasan/learngit.git</code>关联码云仓库</li>
+</ul>
+
+<h3 id="忽略特殊文件">忽略特殊文件</h3>
+
+<p>忽略某些文件时，需要编写<code>.gitignore</code>；<br />
+<code>.gitignore</code>文件本身要放到版本库里，并且可以对<code>.gitignore</code>做版本管理！<br />
+<a href="https://github.com">GitHub</a>已经为我们准备了各种<a href="https://github.com/github/gitignore">配置文件</a>，只需要组合一下就可以使用了。</p>
+
+<h3 id="配置别名">配置别名</h3>
+
+<pre><code>git config --global alias.lg &quot;log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset' --abbrev-commit&quot;
+</code></pre>
+
+<h2 id="搭建git服务器">搭建Git服务器</h2>
+
+<ul>
+<li>安装git：<code>sudo apt-get install git</code></li>
+<li>创建一个git用户，用来运行git服务：<code>sudo adduser git</code></li>
+<li>创建证书登录：收集所有需要登录的用户的公钥，就是他们自己的id_rsa.pub文件，把所有公钥导入到/home/git/.ssh/authorized_keys文件里，一行一个。</li>
+<li>初始化Git仓库：先选定一个目录作为Git仓库，假定是/srv/sample.git，在/srv目录下输入命令<code>sudo git init --bare sample.git</code></li>
+<li>Git就会创建一个裸仓库，裸仓库没有工作区，因为服务器上的Git仓库纯粹是为了共享，所以不让用户直接登录到服务器上去改工作区，并且服务器上的Git仓库通常都以.git结尾。然后，把owner改为git <code>sudo chown -R git:git sample.git</code></li>
+<li>出于安全考虑，第二步创建的git用户不允许登录shell，这可以通过编辑/etc/passwd文件完成。找到类似下面的一行：<code>git:x:1001:1001:,,,:/home/git:/bin/bash</code>改为<code>git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell</code>这样，git用户可以正常通过ssh使用git，但无法登录shell，因为我们为git用户指定的git-shell每次一登录就自动退出</li>
+<li>现在，可以通过git clone命令克隆远程仓库了，在各自的电脑上运行</li>
+</ul>
+
+<p>管理公钥</p>
+
+<p>把每个人的公钥收集起来放到服务器的/home/git/.ssh/authorized_keys文件里就是可行的。如果团队有几百号人，就没法这么玩了，这时，可以用<a href="https://github.com/res0nat0r/gitosis">Gitosis</a>来管理公钥。</p>
+
+<p>管理权限</p>
+
+<p>Git是为Linux源代码托管而开发的，所以Git也继承了开源社区的精神，不支持权限控制。不过，因为Git支持钩子（hook），所以，可以在服务器端编写一系列脚本来控制提交等操作，达到权限控制的目的。<a href="https://github.com/sitaramc/gitolite">Gitolite</a>就是这个工具。</p>
+
+<p>[参考]</p>
+
+<p><a href="https://www.liaoxuefeng.com/wiki/896043488029600">廖雪峰Git教程</a><br />
+<a href="http://jartto.wang/2018/12/11/git-rebase/">彻底搞懂 Git-Rebase</a></p>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="http://hasan.shaobo.fun/tags/Git">Git</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+        <li class="next">
+        <a href="http://hasan.shaobo.fun/posts/2019/20190917-cpp-container/">
+        <i class="material-icons">arrow_back</i><span>C&#43;&#43; STL容器</span>
+        </a>
+        </li>
+    
+
+    
+        <li class="pre">
+        <a href="http://hasan.shaobo.fun/posts/2019/20190914-redis-exploration/">
+        <span>Redis初探</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
+      
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM annotate aggregate">Django ORM annotate aggregate</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191231-books/" title="书籍">书籍</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191231-docker-volumes/" title="获取Docker中磁盘信息">获取Docker中磁盘信息</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191221-bing-dynamic-theme/" title="下载Bing每日壁纸">下载Bing每日壁纸</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191219-python-build-in-function/" title="Python内置函数">Python内置函数</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191218-python-concurrent-programming/" title="Python 并发编程">Python 并发编程</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191216-grpc-basics/" title="gRPC基础">gRPC基础</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191212-not-model-name-tutorials/" title="No module named &#39;tensorflow.examples.tutorials&#39;解决办法">No module named &#39;tensorflow.examples.tutorials&#39;解决办法</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Docker/">Docker(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Python/">Python(5)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/RPC/">RPC(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Tensorflow/">Tensorflow(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Tool/">Tool(6)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Unix/">Unix(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://hasan.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Django/">Django</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Docker/">Docker</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Nginx/">Nginx</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Openssl/">Openssl</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Sha256/">Sha256</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/grpc/">grpc</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/iproute2/">iproute2</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/md5/">md5</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/process/">process</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/psuitl/">psuitl</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/python/">python</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tensorflow/">tensorflow</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tmux/">tmux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tree/">tree</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="http://hasan.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="http://hasan.shaobo.fun/">Hasan By shaobo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

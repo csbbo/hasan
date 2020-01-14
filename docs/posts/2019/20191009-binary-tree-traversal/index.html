@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.59.1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>二叉树遍历 | Hasan</title>
+    <meta property="og:title" content="二叉树遍历 - Hasan">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2019-10-09T22:26:30&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2019-10-09T22:26:30&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="二叉树遍历">
+        
+    <meta name="author" content="shaobo">
+    <meta property="og:url" content="http://hasan.shaobo.fun/posts/2019/20191009-binary-tree-traversal/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hasan.shaobo.fun/">
+                        Hasan
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">我欲乘风破浪，又恐黄沙海洋</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hasan.shaobo.fun/">首页</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/tool/" title="工具">工具</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/friend/" title="友链">友链</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">二叉树遍历</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2019-10-9
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95">算法</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#非递归前序遍历-leetcode-144-https-leetcode-com-problems-binary-tree-preorder-traversal">非递归前序遍历<a href="https://leetcode.com/problems/binary-tree-preorder-traversal/">LeetCode 144</a></a></li>
+<li><a href="#非递归中序遍历-leetcode-94-https-leetcode-com-problems-binary-tree-inorder-traversal">非递归中序遍历<a href="https://leetcode.com/problems/binary-tree-inorder-traversal/">LeetCode 94</a></a></li>
+<li><a href="#非递归后序遍历-leetcode-145-https-leetcode-com-problems-binary-tree-postorder-traversal">非递归后序遍历<a href="https://leetcode.com/problems/binary-tree-postorder-traversal/">LeetCode 145</a></a></li>
+<li><a href="#层序遍历-leetcode-102-https-leetcode-com-problems-binary-tree-level-order-traversal">层序遍历 <a href="https://leetcode.com/problems/binary-tree-level-order-traversal/">LeetCode 102</a></a>
+<ul>
+<li><a href="#深度优先-dfs">深度优先（DFS）</a></li>
+<li><a href="#广度优先-bfs">广度优先（BFS）</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>二叉树的前中后序遍历，使用递归算法实现最为简单，他们的差别仅在于输出时机的不同。</p>
+
+<pre><code class="language-cpp">vector&lt;int&gt; ret;
+vector&lt;int&gt; preorderTraversal(TreeNode* root) {
+    backtraking(root);
+    return ret;
+}
+void backtraking(TreeNode* root){
+    if(root == NULL)
+        return ;
+    preorderTraversal(root-&gt;left);
+    ret.push_back(root-&gt;val);
+    preorderTraversal(root-&gt;right);
+}
+</code></pre>
+
+<h3 id="非递归前序遍历-leetcode-144-https-leetcode-com-problems-binary-tree-preorder-traversal">非递归前序遍历<a href="https://leetcode.com/problems/binary-tree-preorder-traversal/">LeetCode 144</a></h3>
+
+<p>二叉树的非递归遍历，主要的思想是使用栈（Stack）来进行存储操作，记录经过的节点。</p>
+
+<pre><code class="language-cpp">vector&lt;int&gt; preorderTraversal(TreeNode* root) {
+    vector&lt;int&gt; ret;
+    if(root==NULL)
+        return ret;
+    stack&lt;TreeNode *&gt; s;
+    while(root || !s.empty()){
+        if(root){
+            s.push(root);
+            ret.push_back(root-&gt;val);
+            root = root-&gt;left;
+        }else{
+            root = s.top();
+            root = root-&gt;right;
+            s.pop();
+        }
+    }
+    return ret;
+}
+</code></pre>
+
+<h3 id="非递归中序遍历-leetcode-94-https-leetcode-com-problems-binary-tree-inorder-traversal">非递归中序遍历<a href="https://leetcode.com/problems/binary-tree-inorder-traversal/">LeetCode 94</a></h3>
+
+<p>非递归中序遍历跟非递归前序遍历一样，只需要改一下输出的位置</p>
+
+<pre><code class="language-cpp">vector&lt;int&gt; inorderTraversal(TreeNode* root) {
+    vector&lt;int&gt; ret;
+    if(root==NULL)
+        return ret;
+    stack&lt;TreeNode *&gt; s;
+    while(root || !s.empty()){
+        if(root){
+            s.push(root);
+            root = root-&gt;left;
+        }else{
+            root = s.top();
+            ret.push_back(root-&gt;val);
+            root = root-&gt;right;
+            s.pop();
+        }
+    }
+    return ret;
+}
+</code></pre>
+
+<h3 id="非递归后序遍历-leetcode-145-https-leetcode-com-problems-binary-tree-postorder-traversal">非递归后序遍历<a href="https://leetcode.com/problems/binary-tree-postorder-traversal/">LeetCode 145</a></h3>
+
+<p>非递归遍历中，后序遍历相对更难实现，因为需要在遍历完左右子节点之后，再遍历根节点，因此不能直接将根节点出栈。这里使用一个 last 指针记录上次出栈的节点，当且仅当节点的右孩子为空（top-&gt;right == NULL），或者右孩子已经出栈（top-&gt;right == last），才将本节点出栈。</p>
+
+<p>因此后序遍历在前序遍历或中序遍历的基础上多加一个top指针指向当前要出栈节点和last指针指向上次出栈节点，</p>
+
+<p>然后判断右孩子为空或右孩子出栈。</p>
+
+<pre><code class="language-cpp">vector&lt;int&gt; postorderTraversal(TreeNode* root) {
+    vector&lt;int&gt; ret;
+    if(!root)
+        return ret;
+    TreeNode *top,*last = NULL;
+    stack&lt;TreeNode *&gt; s;
+    while(root || !s.empty()){
+        if(root){
+            s.push(root);
+            root = root-&gt;left;
+        }else{
+            top = s.top();
+            if(top-&gt;right==NULL || top-&gt;right==last){
+                s.pop();
+                ret.push_back(top-&gt;val);
+                last = top;
+            }else{
+                root = top-&gt;right;
+            }
+        }
+    }
+    return ret;
+}
+</code></pre>
+
+<h3 id="层序遍历-leetcode-102-https-leetcode-com-problems-binary-tree-level-order-traversal">层序遍历 <a href="https://leetcode.com/problems/binary-tree-level-order-traversal/">LeetCode 102</a></h3>
+
+<h4 id="深度优先-dfs">深度优先（DFS）</h4>
+
+<pre><code class="language-cpp">void traversal(TreeNode *root, int level, vector&lt;vector&lt;int&gt;&gt; &amp;result) {
+    if (!root)
+        return;
+    // 保证每一层只有一个vector
+    if (level &gt; result.size()) {
+        result.push_back(vector&lt;int&gt;());
+    }
+    result[level-1].push_back(root-&gt;val);
+    traversal(root-&gt;left, level+1, result);
+    traversal(root-&gt;right, level+1, result);
+}
+
+vector&lt;vector&lt;int&gt; &gt; levelOrder(TreeNode *root) {
+    vector&lt;vector&lt;int&gt;&gt; result;
+    traversal(root, 1, result);
+    return result;
+}
+</code></pre>
+
+<h4 id="广度优先-bfs">广度优先（BFS）</h4>
+
+<pre><code class="language-cpp">vector&lt;vector&lt;int&gt;&gt; levelOrder(TreeNode* root) {
+    std:queue&lt;TreeNode *&gt; q;
+    TreeNode *p;
+
+    vector&lt;vector&lt;int&gt;&gt; result;
+    if (root == NULL) return result;
+
+    q.push(root);
+
+    while (!q.empty()) {
+        int size = q.size();
+        vector&lt;int&gt; levelResult;
+
+        for (int i = 0; i &lt; size; i++) {
+            p = q.front();
+            q.pop();
+
+            levelResult.push_back(p-&gt;val);
+
+            if (p-&gt;left) {
+                q.push(p-&gt;left);
+            }
+            if (p-&gt;right) {
+                q.push(p-&gt;right);
+            }
+        }
+
+        result.push_back(levelResult);
+    }
+
+    return result;
+}
+</code></pre>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="http://hasan.shaobo.fun/tags/algorithm">algorithm</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+        <li class="next">
+        <a href="http://hasan.shaobo.fun/posts/2019/20191010-tree/">
+        <i class="material-icons">arrow_back</i><span>树</span>
+        </a>
+        </li>
+    
+
+    
+        <li class="pre">
+        <a href="http://hasan.shaobo.fun/posts/2019/20190917-cpp-container/">
+        <span>C&#43;&#43; STL容器</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+<hr>
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/2019/20190527-sortAlgorithm/">九大排序算法</a></li>
+        
+        <li><a href="/posts/2019/20190523-algorithmNote/">算法笔记</a></li>
+        
+    </ul>
+</div>
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
+      
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM annotate aggregate">Django ORM annotate aggregate</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/20191231-books/" title="书籍">书籍</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191231-docker-volumes/" title="获取Docker中磁盘信息">获取Docker中磁盘信息</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191221-bing-dynamic-theme/" title="下载Bing每日壁纸">下载Bing每日壁纸</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191219-python-build-in-function/" title="Python内置函数">Python内置函数</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191218-python-concurrent-programming/" title="Python 并发编程">Python 并发编程</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191216-grpc-basics/" title="gRPC基础">gRPC基础</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191212-not-model-name-tutorials/" title="No module named &#39;tensorflow.examples.tutorials&#39;解决办法">No module named &#39;tensorflow.examples.tutorials&#39;解决办法</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Docker/">Docker(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Python/">Python(5)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/RPC/">RPC(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Tensorflow/">Tensorflow(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Tool/">Tool(6)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Unix/">Unix(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://hasan.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Django/">Django</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Docker/">Docker</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Nginx/">Nginx</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Openssl/">Openssl</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Sha256/">Sha256</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/grpc/">grpc</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/iproute2/">iproute2</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/md5/">md5</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/process/">process</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/psuitl/">psuitl</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/python/">python</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tensorflow/">tensorflow</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tmux/">tmux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tree/">tree</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="http://hasan.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="http://hasan.shaobo.fun/">Hasan By shaobo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

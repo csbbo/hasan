@@ -13,10 +13,10 @@
     
     <item>
       <title>Django ORM annotate aggregate</title>
-      <link>http://hasan.shaobo.fun/posts/20200113-django-complex-query-orm/</link>
+      <link>http://hasan.shaobo.fun/posts/2020/20200113-django-complex-query-orm/</link>
       <pubDate>Mon, 13 Jan 2020 11:03:42 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/20200113-django-complex-query-orm/</guid>
+      <guid>http://hasan.shaobo.fun/posts/2020/20200113-django-complex-query-orm/</guid>
       <description>&lt;p&gt;annotate aggregate&lt;/p&gt;</description>
     </item>
     

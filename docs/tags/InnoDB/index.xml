@@ -13,10 +13,10 @@
     
     <item>
       <title>InnoDB事务及索引原理</title>
-      <link>http://hasan.shaobo.fun/posts/20190913-innodb-index-transaction/</link>
+      <link>http://hasan.shaobo.fun/posts/2019/20190913-innodb-index-transaction/</link>
       <pubDate>Fri, 13 Sep 2019 20:40:13 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/20190913-innodb-index-transaction/</guid>
+      <guid>http://hasan.shaobo.fun/posts/2019/20190913-innodb-index-transaction/</guid>
       <description>&lt;p&gt;InnoDB是MySQL的默认存储引擎（5.1版本及以上），与MyISAM相比最大的特色就是支持事务，这里主要是探究InnoDB事务的实现原理及如何解决并发事务访问带来的问题；以及了解InnoDB下数据的存储方式和索引是怎样利用B+树来提高存储性能的。&lt;/p&gt;</description>
     </item>
     
