@@ -90,7 +90,7 @@
                             </div>
                             
                             <div class="post-content">
-                                MixtureProblem.objects.order_by('-last_modify_time') \ .annotate( label=Coalesce( F('ctfproblem__label'),F('penetrationproblem__lable'), F('reinforceproblem__label')) ).filter(label__contains='web安全')  theory_list.filter(problem_type=TheoryProblemTypeEnum.single_choose).aggregate(Sum('score'))['score__sum']  
+                                <p>annotate aggregate</p>
                             </div>
                             <p class="readmore"><a href="http://hasan.shaobo.fun/posts/20200113-django-complex-query-orm/">阅读全文</a></p>
                         </article>

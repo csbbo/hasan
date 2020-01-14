@@ -99,7 +99,9 @@
                         
                         
                         <div class="post-content">
-                            <pre><code class="language-python">MixtureProblem.objects.order_by('-last_modify_time') \
+                            <p>annotate aggregate</p>
+
+<pre><code class="language-python">MixtureProblem.objects.order_by('-last_modify_time') \
 	.annotate(
 		label=Coalesce(
 		F('ctfproblem__label'),F('penetrationproblem__lable'), F('reinforceproblem__label'))
@@ -108,7 +110,6 @@
 
 <pre><code class="language-python">theory_list.filter(problem_type=TheoryProblemTypeEnum.single_choose).aggregate(Sum('score'))['score__sum']
 </code></pre>
-
                         </div>
 
                         

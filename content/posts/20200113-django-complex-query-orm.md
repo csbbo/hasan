@@ -5,6 +5,9 @@ categories: ["Python"]
 tags: ["Django"]
 ---
 
+annotate aggregate
+<!--more-->
+
 ```python
 MixtureProblem.objects.order_by('-last_modify_time') \
 	.annotate(
