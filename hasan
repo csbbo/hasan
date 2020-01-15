@@ -66,15 +66,22 @@ fi
 # 部署到Github
 if [ $1 == "deploy" ]
 then
+    echo "---------------check the param---------------"
     need_second_param $#
-    books
     commit_msg="$2"
 
+    echo "---------------update books------------------"
+    books
+    
+    echo "---------------update or create docs---------"
     hugo -d docs
+
+    echo "---------------git commit--------------------" 
     git add .
     git commit -m "$commit_msg"
-    git push origin master
 
+    echo "---------------git push----------------------"
+    git push origin master
     echo "Deploy success!"
 
 # 本地运行
@@ -88,6 +95,8 @@ then
     fi
 
     url="http://localhost:"$port
+
+    echo "open in "$url
     open $url #in macOS
     $(hugo server -D -p $port)
 
@@ -106,12 +115,14 @@ then
 
 	hugo new $file_path
 	echo "markdown file "$title
-    echo "Created in the posts folder!"
+    echo "Created in the posts/"$year"/folder!"
 
 # 更新图书库
 elif [ $1 == "books" ]
 then
     books
+
+    echo "Everything is updated"
 
 # 帮助
 elif [ $1 == "help" ]
