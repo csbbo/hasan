@@ -21,10 +21,10 @@ Usage
     bash hasan [command] [param]
 command
     deploy [commit -m content]    # 部署到Github
-    run    # 本地运行
-    new [name]    # 创建新文章
-    books    # 更新图书库
-    help    # 帮助
+    run [default=1313]            # 本地运行
+    new [name]                    # 创建新文章
+    books                         # 更新图书库
+    help                          # 帮助
 EOF
 }
 
