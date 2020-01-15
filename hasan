@@ -2,7 +2,7 @@
 
 error(){
     echo "Command not found!"
-    echo "Run 'hasan --help' for usage."
+    echo "Run 'bash hasan help' for usage."
     exit 1
 }
 
@@ -10,9 +10,22 @@ need_second_param(){
     if [ $1 != 2 ]
     then
         echo "Need second param!"
-        echo "Run 'hasan --help' for usage."
+        echo "Run 'bash hasan help' for usage."
         exit 1
     fi   
+}
+
+help(){
+cat << 'EOF'
+Usage
+    bash hasan [command] [param]
+command
+    deploy [commit -m content]    # 部署到Github
+    run    # 本地运行
+    new [name]    # 创建新文章
+    books    # 更新图书库
+    help    # 帮助
+EOF
 }
 
 books(){
@@ -82,10 +95,14 @@ then
 elif [ $1 == "new" ]
 then
     need_second_param $#
+
+    year=$(date +%Y)
+    folder="posts/"$year
+
     name=$2
 	date=$(date "+%Y%m%d")
 	title=$date"-"$name".md"
-	file_path="posts/2020/"$title
+	file_path=$folder"/"$title
 
 	hugo new $file_path
 	echo "markdown file "$title
@@ -97,12 +114,9 @@ then
     books
 
 # 帮助
-elif [ $1 == "--help" ]
+elif [ $1 == "help" ]
 then
-    echo "pass"
-
+    help
 else
     error
 fi
-
-
