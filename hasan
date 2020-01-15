@@ -82,7 +82,13 @@ then
 
     echo "---------------git push----------------------"
     git push origin master
-    echo "Deploy success!"
+
+    if [ $? -eq 0 ]; then
+        echo "Deploy success!"
+    else
+        echo "Deploy failed!"
+    fi
+    
 
 # 本地运行
 elif [ $1 == "run" ]
