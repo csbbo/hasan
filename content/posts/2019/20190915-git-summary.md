@@ -257,6 +257,10 @@ git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Crese
 
 Git是为Linux源代码托管而开发的，所以Git也继承了开源社区的精神，不支持权限控制。不过，因为Git支持钩子（hook），所以，可以在服务器端编写一系列脚本来控制提交等操作，达到权限控制的目的。[Gitolite](https://github.com/sitaramc/gitolite)就是这个工具。
 
+## Some problems
+
+git默认大小写不敏感，当将一个文件以大写的形式存入版本库后无法重命名为其小写形式，如需要重命名可以先将其从版本库中删除后重新添加。
+
 [参考]
 
 [廖雪峰Git教程](https://www.liaoxuefeng.com/wiki/896043488029600)  
