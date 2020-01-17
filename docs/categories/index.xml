@@ -6,10 +6,28 @@
     <description>Recent content in Categories on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Jan 2020 11:03:42 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jan 2020 10:32:56 +0800</lastBuildDate>
     
 	<atom:link href="http://hasan.shaobo.fun/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux</title>
+      <link>http://hasan.shaobo.fun/categories/Linux/</link>
+      <pubDate>Fri, 17 Jan 2020 10:32:56 +0800</pubDate>
+      
+      <guid>http://hasan.shaobo.fun/categories/Linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tool</title>
+      <link>http://hasan.shaobo.fun/categories/Tool/</link>
+      <pubDate>Fri, 17 Jan 2020 10:32:56 +0800</pubDate>
+      
+      <guid>http://hasan.shaobo.fun/categories/Tool/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Python</title>
@@ -48,29 +66,11 @@
     </item>
     
     <item>
-      <title>Tool</title>
-      <link>http://hasan.shaobo.fun/categories/Tool/</link>
-      <pubDate>Fri, 06 Dec 2019 15:45:55 +0800</pubDate>
-      
-      <guid>http://hasan.shaobo.fun/categories/Tool/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>新手入门</title>
       <link>http://hasan.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/</link>
       <pubDate>Tue, 19 Nov 2019 14:43:10 +0800</pubDate>
       
       <guid>http://hasan.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Unix</title>
-      <link>http://hasan.shaobo.fun/categories/Unix/</link>
-      <pubDate>Mon, 18 Nov 2019 14:21:08 +0800</pubDate>
-      
-      <guid>http://hasan.shaobo.fun/categories/Unix/</guid>
       <description></description>
     </item>
     

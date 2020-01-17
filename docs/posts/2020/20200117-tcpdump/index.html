@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.59.1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Tcpdump快速入门 | Hasan</title>
+    <meta property="og:title" content="Tcpdump快速入门 - Hasan">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2020-01-17T10:32:56&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2020-01-17T10:32:56&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Tcpdump快速入门">
+        
+    <meta name="author" content="shaobo">
+    <meta property="og:url" content="http://hasan.shaobo.fun/posts/2020/20200117-tcpdump/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="http://hasan.shaobo.fun/">
+                        Hasan
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">我欲乘风破浪，又恐黄沙海洋</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="http://hasan.shaobo.fun/">首页</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/archives/" title="归档">归档</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/tool/" title="工具">工具</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/friend/" title="友链">友链</a>
+                    
+                    <a  href="http://hasan.shaobo.fun/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Tcpdump快速入门</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2020-1-17
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/Linux">Linux</a></span>
+                            
+                                <span class="meta-category"><a href="http://hasan.shaobo.fun/categories/Tool">Tool</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#option">Option</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#advanced">Advanced</a></li>
+<li><a href="#instance">Instance</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p><code>TCPDUMP</code>毫无疑问是一个重要的网络分析工具，因为它在一个界面中既提供了功能又满足了简便性。学习tcpdump也更能促进对TCP/IP协议栈的理解。</p>
+
+<p>本教程将向您展示如何以各种方式隔离流量（从IP，端口，协议到应用程序层流量），以确保您尽快找到所需的信息。</p>
+
+<h3 id="option">Option</h3>
+
+<ul>
+<li><strong>-i any</strong> 监听所有的网卡接口，用来查看是否有网络流量</li>
+<li><strong>-i eth0</strong> 只监听eth0网卡接口</li>
+<li><strong>-l</strong> 行可读输出（用于保存时查看或发送至其他命令）</li>
+<li><strong>-D</strong> 显示可用的接口列表</li>
+<li><strong>-n</strong> 不要解析主机名</li>
+<li><strong>-nn</strong> 不要解析主机名或者端口名</li>
+<li><strong>-q</strong> 显示更少的输出(更加quiet)</li>
+<li><strong>-t</strong> 输出可读的时间戳</li>
+<li><strong>-tttt</strong> 输出最大程度可读的时间戳</li>
+<li><strong>-X</strong> 以hex和ASCII两种形式显示包的内容</li>
+<li><strong>-XX</strong> 与 <strong>-X</strong> 类似，增加以太网header的显示</li>
+<li><strong>-v, -vv, -vvv</strong> 显示更加多的包信息</li>
+<li><strong>-c</strong> 只读取x个包，然后停止</li>
+<li><strong>-s</strong> 指定每一个包捕获的长度，单位是byte，使用<code>-s0</code>可以捕获整个包的内容</li>
+<li><strong>-S</strong> 输出绝对的序列号</li>
+<li><strong>-e</strong> 获取以太网header</li>
+<li><strong>-E</strong> 使用提供的秘钥解密IPSEC流量</li>
+</ul>
+
+<p>然我们从一个简单的获取https流量的命令开始</p>
+
+<pre><code>tcpdump -nnSX port 443
+</code></pre>
+
+<p>这将以16进制的形式显示加密后的HTTPS流量，你可以按你的需要来更改端口号</p>
+
+<h3 id="examples">Examples</h3>
+
+<p><strong>捕获所有流量</strong></p>
+
+<pre><code>tcpdump -i any
+</code></pre>
+
+<p><strong>捕获指定网卡流量</strong></p>
+
+<pre><code>tcpdump -i eth0
+</code></pre>
+
+<p><strong>获取指定IP流量</strong></p>
+
+<pre><code>tcpdump host 1.1.1.1
+</code></pre>
+
+<p><strong>通过源/目的IP过滤流量</strong></p>
+
+<pre><code>tcpdump src 1.1.1.1
+tcpdump dst 1.0.0.1
+</code></pre>
+
+<p><strong>通过子网获取数据包</strong></p>
+
+<pre><code>tpcdump net 1.2.3.0/24
+</code></pre>
+
+<p><strong>获取数据包十六进制输出内容</strong></p>
+
+<pre><code>tcpdump -c 1 -X icmp
+</code></pre>
+
+<blockquote>
+<p>当您想查看有问题的数据包的内容时，十六进制输出很有用，而当您隔离一些候选者进行仔细检查时，通常最好使用十六进制输出。</p>
+</blockquote>
+
+<p><strong>显示指定端口的流量信息</strong></p>
+
+<pre><code>tcpdump port 3389
+tcpdump src port 1025
+</code></pre>
+
+<p><strong>显示指定协议的流量信息</strong></p>
+
+<pre><code>tcpdump icmp
+</code></pre>
+
+<blockquote>
+<p>你可以使用tcp,udp,icmp等其他协议</p>
+</blockquote>
+
+<p><strong>显示IPv6流量</strong></p>
+
+<pre><code>tcpdump ip6
+</code></pre>
+
+<p><strong>查找某个端口范围内流量</strong></p>
+
+<pre><code>tcpdump portrange 21-23
+</code></pre>
+
+<p><strong>获取指定数据包大小的流量</strong></p>
+
+<pre><code>tcpdump less 32
+tcpdump geater 64
+tcpdump &lt;= 128
+</code></pre>
+
+<p><strong>保存捕获的数据包流量</strong></p>
+
+<pre><code>tcpdump port 80 -w capture_file
+</code></pre>
+
+<blockquote>
+<p>将数据包捕获保存到文件中以供将来分析通常很有用。 这些文件被称为PCAP（PEE-cap）文件，它们可以由数百种不同的应用程序处理，包括网络分析仪，入侵检测系统，当然也可以由tcpdump本身处理。</p>
+</blockquote>
+
+<p><strong>查看保存后的数据</strong></p>
+
+<pre><code>tcpdump -r capture_file
+</code></pre>
+
+<h3 id="advanced">Advanced</h3>
+
+<p><strong>About the Combinations</strong></p>
+
+<ol>
+<li><p>AND</p>
+
+<p><code>and</code> or <code>&amp;&amp;</code></p></li>
+
+<li><p>OR</p>
+
+<p><code>or</code> or <code>||</code></p></li>
+
+<li><p>EXCEPT</p>
+
+<p><code>not</code> or <code>!</code></p></li>
+</ol>
+
+<p><strong>原生输出</strong></p>
+
+<pre><code>tcpdump -ttnnvvS
+</code></pre>
+
+<p><strong>源IP和目的端口</strong></p>
+
+<pre><code>tcpdump -nnvvS src 10.5.2.3 and dst port 3389
+</code></pre>
+
+<p><strong>源子网目的子网</strong></p>
+
+<pre><code>tcpdump -nvX src net 192.168.0.0/16 and dst net 10.0.0.0/8 or 172.16.0.0/16
+</code></pre>
+
+<p><strong>目的IP非ICMP包</strong></p>
+
+<pre><code>tcpdump dst 192.168.0.2 and src net and not icmp
+</code></pre>
+
+<p><strong>非指定端口的指定主机的流量</strong></p>
+
+<pre><code>tcpdump -vv src mars and not dst port 22
+</code></pre>
+
+<p><strong>复杂分组和特殊字符</strong></p>
+
+<p>tcpdump &lsquo;src 10.0.2.3 and (dst port 3389 or 22)&rsquo;</p>
+
+<blockquote>
+<p>括号在shell中会被解析，可以对括号转义或使用单引号</p>
+</blockquote>
+
+<p>隔离指定TCP标识:</p>
+
+<p>下面的过滤规则中，<strong>tcp[13]</strong> 表示在TCP header中的偏移位置13开始，后面的数字代表了匹配的byte数</p>
+
+<p><strong>RST标志</strong></p>
+
+<pre><code>tcpdump 'tcp[13] &amp; 4!=0'
+tcpdump 'tcp[tcpflags] == tcp-rst'
+</code></pre>
+
+<p><strong>SYN标志</strong></p>
+
+<pre><code>tcpdump 'tcp[13] &amp; 2!=0'
+tcpdump 'tcp[tcpflags] == tcp-syn'
+</code></pre>
+
+<p><strong>SYN and ACK标志</strong></p>
+
+<pre><code>tcpdump 'tcp[13]=18'
+</code></pre>
+
+<p><strong>URG标志</strong></p>
+
+<pre><code>tcpdump 'tcp[13] &amp; 32!=0'
+tcpdump 'tcp[tcpflags] == tcp-urg'
+</code></pre>
+
+<p><strong>ACK标志</strong></p>
+
+<pre><code>tcpdump 'tcp[13] &amp; 16!=0'
+tcpdump 'tcp[tcpflags] == tcp-ack'
+</code></pre>
+
+<p><strong>PSH标志</strong></p>
+
+<pre><code>tcpdump 'tcp[13] &amp; 8!=0'
+tcpdump 'tcp[tcpflags] == tcp-psh'
+</code></pre>
+
+<p><strong>FIN标志</strong></p>
+
+<pre><code>tcpdump 'tcp[13] &amp; 1!=0'
+tcpdump 'tcp[tcpflags] == tcp-fin'
+</code></pre>
+
+<h3 id="instance">Instance</h3>
+
+<p>既然已经解决了理论问题，这里有一些快速的方法可以用来捕捉各种各样的流量</p>
+
+<p><strong>同时设置了SYN and RST标志的包</strong></p>
+
+<pre><code>tcpdump 'tcp[13] = 6'
+</code></pre>
+
+<blockquote>
+<p>事实上正常情况下不会发生</p>
+</blockquote>
+
+<p><strong>过滤HTTP User-Agent</strong></p>
+
+<pre><code>tcpdump -vvAls0 | grep 'User-Agent:'
+</code></pre>
+
+<p><strong>过滤明文HTTP GET请求</strong></p>
+
+<pre><code>tcpdump -vvAls0 | grep 'GET'
+</code></pre>
+
+<p><strong>过滤HTTP HOST</strong></p>
+
+<pre><code>tcpdump -vvAls0 | grep 'Host:'
+</code></pre>
+
+<p><strong>过滤HTTP Cookies</strong></p>
+
+<pre><code>tcpdump -vvAls0 | grep 'Set-Cookie|Host:|Cookie:'
+</code></pre>
+
+<blockquote>
+<p>grep的或操作符可能需要转义</p>
+</blockquote>
+
+<p><strong>通过横幅文本过滤任意端口的SSH连接</strong></p>
+
+<pre><code>tcpdump 'tcp[(tcp[12]&gt;&gt;2):4] = 0x5353482D'
+</code></pre>
+
+<p><strong>过滤DNS流量</strong></p>
+
+<pre><code>tcpdump -vvAs0 port 53
+</code></pre>
+
+<p><strong>过滤FTP流量</strong></p>
+
+<pre><code>tcpdump -vvAs0 port ftp or ftp-data
+</code></pre>
+
+<p><strong>过滤NTP(Network Time Protocol)流量</strong></p>
+
+<pre><code>tcpdump -vvAs0 port 123
+</code></pre>
+
+<p><strong>过滤明文密码</strong></p>
+
+<pre><code>tcpdump port http or port ftp or port smtp or port imap or port pop3 or port telnet -lA | egrep -i -B5 'pass=|pwd=|log=|login=|user=|username=|pw=|passw=|passwd= |password=|pass:|user:|username:|password:|login:|pass |user '
+</code></pre>
+
+<p><strong>过滤恶意包</strong></p>
+
+<pre><code>tcpdump 'ip[6] &amp; 128 != 0'
+</code></pre>
+
+<blockquote>
+<p>IP标头中有一个永远不会被合法应用程序设置的位，我们称之为“邪恶位”。这是一个有趣的过滤器，用于查找切换位置的数据包。</p>
+</blockquote>
+
+<p>[参考]</p>
+
+<p><a href="https://danielmiessler.com/study/tcpdump/#basic-communication">A tcpdump Tutorial with Examples — 50 Ways to Isolate Traffic</a></p>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="http://hasan.shaobo.fun/tags/tcpdump">tcpdump</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+
+    
+        <li class="pre">
+        <a href="http://hasan.shaobo.fun/posts/2020/20200113-django-complex-query-orm/">
+        <span>Django ORM annotate aggregate</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
+      
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM annotate aggregate">Django ORM annotate aggregate</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191231-docker-volumes/" title="获取Docker中磁盘信息">获取Docker中磁盘信息</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191221-bing-dynamic-theme/" title="下载Bing每日壁纸">下载Bing每日壁纸</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191219-python-build-in-function/" title="Python内置函数">Python内置函数</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191218-python-concurrent-programming/" title="Python 并发编程">Python 并发编程</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191216-grpc-basics/" title="gRPC基础">gRPC基础</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/posts/2019/20191212-not-model-name-tutorials/" title="No module named &#39;tensorflow.examples.tutorials&#39;解决办法">No module named &#39;tensorflow.examples.tutorials&#39;解决办法</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Docker/">Docker(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Linux/">Linux(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Python/">Python(5)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/RPC/">RPC(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Tensorflow/">Tensorflow(1)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/Tool/">Tool(7)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+    </li>
+    
+    <li>
+        <a href="http://hasan.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="http://hasan.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Django/">Django</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Docker/">Docker</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Nginx/">Nginx</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Openssl/">Openssl</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Sha256/">Sha256</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/grpc/">grpc</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/iproute2/">iproute2</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/md5/">md5</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/process/">process</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/psuitl/">psuitl</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/python/">python</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tensorflow/">tensorflow</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tmux/">tmux</a>
+    
+    <a href="http://hasan.shaobo.fun/tags/tree/">tree</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="http://hasan.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="http://hasan.shaobo.fun/">Hasan By shaobo</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

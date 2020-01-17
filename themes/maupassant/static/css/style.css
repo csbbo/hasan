@@ -107,12 +107,13 @@ mark {
     background: #fffdd1;
 }
 pre, code {
-    background:#eeeeee;
+    background:#d6d5d5;
     font-family:Menlo, Monaco, Consolas, "Lucida Console", "Courier New", monospace;
-    font-size:.92857em;
+    font-size: 1em;
+    padding-right: 4px;
 }
 pre {
-    margin: 2em 0;
+    margin: 1em 0;
     overflow:auto;
     border: 1px solid #ddd;
     display: block;
@@ -120,7 +121,7 @@ pre {
 code {
     display: inline-block;
     border-radius: 5px;
-    color: #dd4055;
+    color: #131011;
 }
 blockquote {
     display: block;
