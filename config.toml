@@ -27,14 +27,14 @@ disablePathToLower = true
         url = "/archives/"
         weight = 1
     [[menu.main]]
-        identifier = "tool"
-        name = "工具"
-        url = "/tool/"
-        weight = 2
-    [[menu.main]]
         identifier = "friend"
         name = "友链"
         url = "/friend/"
+        weight = 2
+    [[menu.main]]
+        identifier = "tool"
+        name = "其他"
+        url = "/other/"
         weight = 3
     [[menu.main]]
         identifier = "about"

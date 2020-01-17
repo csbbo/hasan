@@ -962,7 +962,8 @@ img.alignright {
     border-bottom: 0.8px solid #505050;
 }
 
-.links{
+/* move to friend single.html */
+/* .links{
     margin-top: 10px;
 }
 .links a{
@@ -978,7 +979,7 @@ img.alignright {
 }
 .links a:hover{
     border: 1px solid #616161;
-}
+} */
 /* for archive page ends*/
 
 /* back-to-top rocket*/
