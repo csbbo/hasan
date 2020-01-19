@@ -46,8 +46,8 @@ if __name__ == '__main__':
     if options.get('-h') is not None or options.get('--help') is not None:
         print("-d   [--date]\n\t 一个数字表示，表示倒数第几天的图片，0表示今天,最大为7即能下载到倒数第八天的的图片")
         print("-n   [--nums]\n\t 一个数字表示，表示要下载的图片数量，最多8张")
-        print("-D   [--dir]\n\t ，图片存放路径，指定的路径不存在则创建，默认将图片下载到当前目录")
-        print("-h   [--help]\n\t ，使用说明")
+        print("-D   [--dir]\n\t 图片存放路径，指定的路径不存在则创建，默认将图片下载到当前目录")
+        print("-h   [--help]\n\t 使用说明")
         sys.exit()
 
     enddate = options.get('-d') if options.get('-d') else 0
