@@ -107,7 +107,7 @@ mark {
     background: #fffdd1;
 }
 pre, code {
-    background:#d6d5d5;
+    background:#e7e6e6;
     font-family:Menlo, Monaco, Consolas, "Lucida Console", "Courier New", monospace;
     font-size: 1em;
     padding-right: 4px;
@@ -121,7 +121,7 @@ pre {
 code {
     display: inline-block;
     border-radius: 5px;
-    color: #131011;
+    color: #65676b;
 }
 blockquote {
     display: block;
@@ -385,8 +385,8 @@ textarea {
 }
 .post-content p code, .comment-content p code {
     display:inline;
-    margin:0 5px;
-    padding:3px 5px;
+    margin:0 3px;
+    padding:1px 3px;
     border: 1px solid #ddd;
 }
 .post-content p {
