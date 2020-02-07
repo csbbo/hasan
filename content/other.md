@@ -12,7 +12,7 @@ type: other
 
 <a class="other-page-tag" href="https://www.aconvert.com/cn/" target="_blank">ACONVERT</a>
 
-<a class="other-page-tag" href="https://hasan.shaobo.fun/posts/2019/20191117-md5-sha256-base64/" target="_blank">Md5 Sha256 Base64 转换</a>
+<a class="other-page-tag" href="/posts/2019/20191117-md5-sha256-base64/" target="_blank">Md5 Sha256 Base64 转换</a>
 
 #### Online Documents
 
@@ -36,4 +36,4 @@ type: other
 
 #### Books
 
-<a class="other-page-tag" href="http://localhost:1313/posts/2019/20191231-books/" target="_blank">图书角</a>
+<a class="other-page-tag" href="/posts/2019/20191231-books/" target="_blank">图书角</a>
