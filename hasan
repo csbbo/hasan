@@ -52,7 +52,7 @@ do
     echo -e "\n### "$files >> $article_path
     for book in $category
     do
-        url="<a href=\"/static/books/"$files"/"$book"\" target=\"_blank\">"${book%.pdf}"</a>\n"
+        url="<a href=\"/books/"$files"/"$book"\" target=\"_blank\">"${book%.pdf}"</a>\n"
         echo -e $url >> $article_path
     done
 done
