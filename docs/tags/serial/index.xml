@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>serial on Hasan</title>
-    <link>http://hasan.shaobo.fun/tags/serial/</link>
+    <link>http://blog.shaobo.fun/tags/serial/</link>
     <description>Recent content in serial on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 30 Jun 2019 20:45:31 +0800</lastBuildDate>
     
-	<atom:link href="http://hasan.shaobo.fun/tags/serial/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://blog.shaobo.fun/tags/serial/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Linux串口通信</title>
-      <link>http://hasan.shaobo.fun/posts/2019/20190630-serial-port/</link>
+      <link>http://blog.shaobo.fun/posts/2019/20190630-serial-port/</link>
       <pubDate>Sun, 30 Jun 2019 20:45:31 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2019/20190630-serial-port/</guid>
+      <guid>http://blog.shaobo.fun/posts/2019/20190630-serial-port/</guid>
       <description>&lt;p&gt;在Linux中,串口是一个字符设备,访问具体的串行端口的编程与读/写文件的操作类似,只需打开相应的设备文件操作即可.串口编程的特殊在于串口通信时相关参数的设置.若在根文件没有串口设备文件可以用mknod命令创建。&lt;/p&gt;</description>
     </item>
     

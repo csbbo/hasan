@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>MySQL on Hasan</title>
-    <link>http://hasan.shaobo.fun/tags/MySQL/</link>
+    <link>http://blog.shaobo.fun/tags/MySQL/</link>
     <description>Recent content in MySQL on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 24 Oct 2019 22:14:19 +0800</lastBuildDate>
     
-	<atom:link href="http://hasan.shaobo.fun/tags/MySQL/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://blog.shaobo.fun/tags/MySQL/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>乐观锁和悲观锁</title>
-      <link>http://hasan.shaobo.fun/posts/2019/20191024-optimistic-lock-pessimistic-lock/</link>
+      <link>http://blog.shaobo.fun/posts/2019/20191024-optimistic-lock-pessimistic-lock/</link>
       <pubDate>Thu, 24 Oct 2019 22:14:19 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2019/20191024-optimistic-lock-pessimistic-lock/</guid>
+      <guid>http://blog.shaobo.fun/posts/2019/20191024-optimistic-lock-pessimistic-lock/</guid>
       <description>&lt;p&gt;乐观锁和悲观锁是两种思想，乐观并发控制(乐观锁)和悲观并发控制（悲观锁）是并发控制主要采用的技术手段，用于解决并发场景下的数据竞争问题。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>InnoDB事务及索引原理</title>
-      <link>http://hasan.shaobo.fun/posts/2019/20190913-innodb-index-transaction/</link>
+      <link>http://blog.shaobo.fun/posts/2019/20190913-innodb-index-transaction/</link>
       <pubDate>Fri, 13 Sep 2019 20:40:13 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2019/20190913-innodb-index-transaction/</guid>
+      <guid>http://blog.shaobo.fun/posts/2019/20190913-innodb-index-transaction/</guid>
       <description>&lt;p&gt;InnoDB是MySQL的默认存储引擎（5.1版本及以上），与MyISAM相比最大的特色就是支持事务，这里主要是探究InnoDB事务的实现原理及如何解决并发事务访问带来的问题；以及了解InnoDB下数据的存储方式和索引是怎样利用B+树来提高存储性能的。&lt;/p&gt;</description>
     </item>
     

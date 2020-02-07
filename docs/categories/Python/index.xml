@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on Hasan</title>
-    <link>http://hasan.shaobo.fun/categories/Python/</link>
+    <link>http://blog.shaobo.fun/categories/Python/</link>
     <description>Recent content in Python on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 13 Jan 2020 11:03:42 +0800</lastBuildDate>
     
-	<atom:link href="http://hasan.shaobo.fun/categories/Python/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://blog.shaobo.fun/categories/Python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Django ORM annotate aggregate</title>
-      <link>http://hasan.shaobo.fun/posts/2020/20200113-django-complex-query-orm/</link>
+      <link>http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/</link>
       <pubDate>Mon, 13 Jan 2020 11:03:42 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2020/20200113-django-complex-query-orm/</guid>
+      <guid>http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/</guid>
       <description>&lt;p&gt;Django ORM中使用annotate aggregate进行复杂查询&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>下载Bing每日壁纸</title>
-      <link>http://hasan.shaobo.fun/posts/2019/20191221-bing-dynamic-theme/</link>
+      <link>http://blog.shaobo.fun/posts/2019/20191221-bing-dynamic-theme/</link>
       <pubDate>Sat, 21 Dec 2019 20:23:46 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2019/20191221-bing-dynamic-theme/</guid>
+      <guid>http://blog.shaobo.fun/posts/2019/20191221-bing-dynamic-theme/</guid>
       <description>&lt;p&gt;Bing首页每日更新的壁纸非常漂亮，爬下来当做桌面壁纸很nice。
 Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取最近8天的壁纸。&lt;/p&gt;
 
@@ -34,29 +34,29 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
     
     <item>
       <title>Python内置函数</title>
-      <link>http://hasan.shaobo.fun/posts/2019/20191219-python-build-in-function/</link>
+      <link>http://blog.shaobo.fun/posts/2019/20191219-python-build-in-function/</link>
       <pubDate>Thu, 19 Dec 2019 10:54:56 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2019/20191219-python-build-in-function/</guid>
+      <guid>http://blog.shaobo.fun/posts/2019/20191219-python-build-in-function/</guid>
       <description>&lt;p&gt;Python 解释器内置了很多函数和类型，您可以在任何时候使用它们。以下按字母表顺序列出它们。
 &lt;br&gt;&lt;br&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Python 并发编程</title>
-      <link>http://hasan.shaobo.fun/posts/2019/20191218-python-concurrent-programming/</link>
+      <link>http://blog.shaobo.fun/posts/2019/20191218-python-concurrent-programming/</link>
       <pubDate>Wed, 18 Dec 2019 19:28:13 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2019/20191218-python-concurrent-programming/</guid>
+      <guid>http://blog.shaobo.fun/posts/2019/20191218-python-concurrent-programming/</guid>
       <description>&lt;p&gt;对于并发编程, Python有多种长期支持的方法, 包括多线程, 调用子进程, 以及各种各样的关于生成器函数的技巧。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Python单例模式实现</title>
-      <link>http://hasan.shaobo.fun/posts/2019/20191205-python-singleton-pattern/</link>
+      <link>http://blog.shaobo.fun/posts/2019/20191205-python-singleton-pattern/</link>
       <pubDate>Thu, 05 Dec 2019 13:46:02 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2019/20191205-python-singleton-pattern/</guid>
+      <guid>http://blog.shaobo.fun/posts/2019/20191205-python-singleton-pattern/</guid>
       <description>&lt;p&gt;单例是一种设计模式，使用该模式的类只会生成一个实例。单例模式保证了在程序不同位置都可以读取到同一对象实例，如果实例不存在则创建，已存在则返回这个实例。&lt;/p&gt;</description>
     </item>
     

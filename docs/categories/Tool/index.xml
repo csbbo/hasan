@@ -2,76 +2,76 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tool on Hasan</title>
-    <link>http://hasan.shaobo.fun/categories/Tool/</link>
+    <link>http://blog.shaobo.fun/categories/Tool/</link>
     <description>Recent content in Tool on Hasan</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 17 Jan 2020 10:32:56 +0800</lastBuildDate>
     
-	<atom:link href="http://hasan.shaobo.fun/categories/Tool/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://blog.shaobo.fun/categories/Tool/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Tcpdump快速入门</title>
-      <link>http://hasan.shaobo.fun/posts/2020/20200117-tcpdump/</link>
+      <link>http://blog.shaobo.fun/posts/2020/20200117-tcpdump/</link>
       <pubDate>Fri, 17 Jan 2020 10:32:56 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2020/20200117-tcpdump/</guid>
+      <guid>http://blog.shaobo.fun/posts/2020/20200117-tcpdump/</guid>
       <description>&lt;p&gt;&lt;code&gt;TCPDUMP&lt;/code&gt;毫无疑问是一个重要的网络分析工具，因为它在一个界面中既提供了功能又满足了简便性。学习tcpdump也更能促进对TCP/IP协议栈的理解。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Openssl生成SSL证书</title>
-      <link>http://hasan.shaobo.fun/posts/2019/20191206-openssl-library/</link>
+      <link>http://blog.shaobo.fun/posts/2019/20191206-openssl-library/</link>
       <pubDate>Fri, 06 Dec 2019 15:45:55 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2019/20191206-openssl-library/</guid>
+      <guid>http://blog.shaobo.fun/posts/2019/20191206-openssl-library/</guid>
       <description>&lt;p&gt;OpenSSL是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及SSL协议，并提供丰富的应用程序供测试或其它目的使用&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Md5 Sha256 Base64 转换</title>
-      <link>http://hasan.shaobo.fun/posts/2019/20191117-md5-sha256-base64/</link>
+      <link>http://blog.shaobo.fun/posts/2019/20191117-md5-sha256-base64/</link>
       <pubDate>Sun, 17 Nov 2019 13:44:09 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2019/20191117-md5-sha256-base64/</guid>
+      <guid>http://blog.shaobo.fun/posts/2019/20191117-md5-sha256-base64/</guid>
       <description>&lt;p&gt;一个Md5 Sha256 Base64在线工具,哈哈哈！！！ 😁😁😁&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Linux三剑客</title>
-      <link>http://hasan.shaobo.fun/posts/2019/20191024-linux-three-musketeers/</link>
+      <link>http://blog.shaobo.fun/posts/2019/20191024-linux-three-musketeers/</link>
       <pubDate>Thu, 24 Oct 2019 22:10:44 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2019/20191024-linux-three-musketeers/</guid>
+      <guid>http://blog.shaobo.fun/posts/2019/20191024-linux-three-musketeers/</guid>
       <description>&lt;p&gt;在Linux系统当中，处理文本有三个常用的模式匹配命令 &lt;strong&gt;awk&lt;/strong&gt; &lt;strong&gt;sed&lt;/strong&gt; &lt;strong&gt;grep&lt;/strong&gt;  ，这三个命令十分灵活，应该熟练掌握。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>HtmlToPdf</title>
-      <link>http://hasan.shaobo.fun/posts/2019/20190707-htmltopdf/</link>
+      <link>http://blog.shaobo.fun/posts/2019/20190707-htmltopdf/</link>
       <pubDate>Sun, 07 Jul 2019 22:40:51 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2019/20190707-htmltopdf/</guid>
+      <guid>http://blog.shaobo.fun/posts/2019/20190707-htmltopdf/</guid>
       <description>&lt;p&gt;最近用html写简历，打印的时候需要将html转成pdf,网上也有网站提供转换功能，但还是自己写一个转换程序更为方便些。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>工欲善其事,必先利其器--tmux</title>
-      <link>http://hasan.shaobo.fun/posts/2019/20190624-tmux/</link>
+      <link>http://blog.shaobo.fun/posts/2019/20190624-tmux/</link>
       <pubDate>Mon, 24 Jun 2019 10:56:41 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2019/20190624-tmux/</guid>
+      <guid>http://blog.shaobo.fun/posts/2019/20190624-tmux/</guid>
       <description>&lt;p&gt;tmux是一个终端多路复用器:它允许在一个屏幕上创建、访问和控制多个终端。tmux可以从屏幕上分离出来，在后台继续运行，然后重新连接。
 可以运行在OpenBSD、FreeBSD、NetBSD、Linux、OS X和Solaris上。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>工欲善其事,必先利其器--vim</title>
-      <link>http://hasan.shaobo.fun/posts/2019/20190623-beautifualVim/</link>
+      <link>http://blog.shaobo.fun/posts/2019/20190623-beautifualVim/</link>
       <pubDate>Sun, 23 Jun 2019 11:37:52 +0800</pubDate>
       
-      <guid>http://hasan.shaobo.fun/posts/2019/20190623-beautifualVim/</guid>
+      <guid>http://blog.shaobo.fun/posts/2019/20190623-beautifualVim/</guid>
       <description>&lt;p&gt;作为Linux下老牌编辑器vim发展至今已有30个年头了,期间各种编辑器兴衰更替,唯独vim做到了长盛不衰.在服务器上vim绝对是一个必备的技能.vim支持纯的键盘操作,能够极大地提高编辑的效率.但是vim对待新手并不友好,操作命令多,学习曲线陡,将很多非服务器端开发者拒之门外.&lt;/p&gt;</description>
     </item>
     
