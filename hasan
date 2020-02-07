@@ -43,7 +43,7 @@ toc: true
 EOF
 ) > $article_path
 
-books_path=$(pwd)"/content/assets/books/"
+books_path=$(pwd)"/static/books/"
 books=$(ls $books_path)
 
 for files in $books
@@ -52,7 +52,7 @@ do
     echo -e "\n### "$files >> $article_path
     for book in $category
     do
-        url="<a href=\"https://hasan.shaobo.fun/assets/books/"$files"/"$book"\" target=\"_blank\">"${book%.pdf}"</a>\n"
+        url="<a href=\"/static/books/"$files"/"$book"\" target=\"_blank\">"${book%.pdf}"</a>\n"
         echo -e $url >> $article_path
     done
 done
