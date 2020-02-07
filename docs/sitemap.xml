@@ -8,11 +8,6 @@
   </url>
   
   <url>
-    <loc>http://blog.shaobo.fun/</loc>
-    <lastmod>2020-01-17T10:32:56+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://blog.shaobo.fun/categories/Linux/</loc>
     <lastmod>2020-01-17T10:32:56+08:00</lastmod>
   </url>
@@ -39,6 +34,11 @@
   
   <url>
     <loc>http://blog.shaobo.fun/categories/Tool/</loc>
+    <lastmod>2020-01-17T10:32:56+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.shaobo.fun/</loc>
     <lastmod>2020-01-17T10:32:56+08:00</lastmod>
   </url>
   

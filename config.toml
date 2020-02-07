@@ -1,16 +1,16 @@
 baseURL = "http://blog.shaobo.fun/"
 languageCode = "en-us"
-title = "Hasan"
+title = "庄周梦蝶"
 theme = "maupassant"
 
 preserveTaxonomyNames = true
 disablePathToLower = true
 
 [author]
-    name = "shaobo"
+    name = "Hasan"
 
 [params]
-    author = "shaobo"
+    author = "Hasan"
     subtitle = "我欲乘风破浪，又恐黄沙海洋"
     busuanzi = true
 

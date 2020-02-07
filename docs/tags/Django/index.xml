@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Django on Hasan</title>
+    <title>Django on 庄周梦蝶</title>
     <link>http://blog.shaobo.fun/tags/Django/</link>
-    <description>Recent content in Django on Hasan</description>
+    <description>Recent content in Django on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 13 Jan 2020 11:03:42 +0800</lastBuildDate>
