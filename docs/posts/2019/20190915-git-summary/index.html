@@ -112,6 +112,7 @@
 <li><a href="#标签">标签</a></li>
 <li><a href="#多个远程仓库">多个远程仓库</a></li>
 <li><a href="#忽略特殊文件">忽略特殊文件</a></li>
+<li><a href="#追踪空目录">追踪空目录</a></li>
 <li><a href="#配置别名">配置别名</a></li>
 </ul></li>
 <li><a href="#搭建git服务器">搭建Git服务器</a></li>
@@ -378,6 +379,10 @@ s 8f33126c feat: add test2.js
 <p>忽略某些文件时，需要编写<code>.gitignore</code>；<br />
 <code>.gitignore</code>文件本身要放到版本库里，并且可以对<code>.gitignore</code>做版本管理！<br />
 <a href="https://github.com">GitHub</a>已经为我们准备了各种<a href="https://github.com/github/gitignore">配置文件</a>，只需要组合一下就可以使用了。</p>
+
+<h3 id="追踪空目录">追踪空目录</h3>
+
+<p>首先需要了解git是不能追踪空的目录的，如果有一个空的目录git会对它视而不见，但这个空目录正是我们想要的特性，这时候<code>.gitkeep</code>就派上用场了，只需在空目录下添加一个<code>.gitkeep</code>该目录就会被加入到git的版本管理系统中。</p>
 
 <h3 id="配置别名">配置别名</h3>
 

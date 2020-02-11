@@ -233,6 +233,10 @@ s 8f33126c feat: add test2.js
 `.gitignore`文件本身要放到版本库里，并且可以对`.gitignore`做版本管理！  
 [GitHub](https://github.com)已经为我们准备了各种[配置文件](https://github.com/github/gitignore)，只需要组合一下就可以使用了。
 
+### 追踪空目录
+
+首先需要了解git是不能追踪空的目录的，如果有一个空的目录git会对它视而不见，但这个空目录正是我们想要的特性，这时候`.gitkeep`就派上用场了，只需在空目录下添加一个`.gitkeep`该目录就会被加入到git的版本管理系统中。
+
 ### 配置别名
 
 ```
