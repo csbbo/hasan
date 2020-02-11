@@ -408,22 +408,27 @@
   </url>
   
   <url>
-    <loc>http://blog.shaobo.fun/other/</loc>
+    <loc>http://blog.shaobo.fun/tab/</loc>
     <lastmod>2019-06-28T11:40:12+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.shaobo.fun/about/</loc>
+    <loc>http://blog.shaobo.fun/tab/other/</loc>
+    <lastmod>2019-06-28T11:40:12+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.shaobo.fun/tab/about/</loc>
     <lastmod>2019-06-28T10:59:30+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.shaobo.fun/friend/</loc>
+    <loc>http://blog.shaobo.fun/tab/friend/</loc>
     <lastmod>2019-06-28T10:16:13+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.shaobo.fun/archives/</loc>
+    <loc>http://blog.shaobo.fun/tab/archives/</loc>
     <lastmod>2019-06-28T09:19:48+08:00</lastmod>
   </url>
   

@@ -24,20 +24,20 @@ disablePathToLower = true
     [[menu.main]]
         identifier = "archives"
         name = "归档"
-        url = "/archives/"
+        url = "/tab/archives/"
         weight = 1
     [[menu.main]]
         identifier = "friend"
         name = "友链"
-        url = "/friend/"
+        url = "/tab/friend/"
         weight = 2
     [[menu.main]]
         identifier = "tool"
         name = "其他"
-        url = "/other/"
+        url = "/tab/other/"
         weight = 3
     [[menu.main]]
         identifier = "about"
         name = "关于"
-        url = "/about/"
+        url = "/tab/about/"
         weight = 4
