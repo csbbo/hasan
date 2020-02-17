@@ -67,7 +67,7 @@ Git鼓励大量使用分支:
 + 创建+切换分支：`git checkout -b <branch>`  
 + 合并某分支到当前分支：`git merge <branch>`  
 + 删除分支：`git branch -d <branch>`
-+ 重命名分支：`git branch -m oldname new name`
++ 重命名分支：`git branch -m old_name new_name`
 
 > switch:我们注意到切换分支使用git checkout <branch>，而前面讲过的撤销修改则是git checkout -- <file>，同一个命令，有两种作用，确实有点令人迷惑。因此，最新版本的Git提供了新的git switch命令来切换分支,上面切换分支命令可以改为`git switch master`、`git switch -c dev`
 
