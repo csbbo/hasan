@@ -14,6 +14,7 @@ type: other
 
 <a class="other-page-tag" href="/posts/2019/20191117-md5-sha256-base64/" target="_blank">Md5 Sha256 Base64 转换</a>
 
+<a class="other-page-tag" href="http://coolaf.com/" target="_blank">MPostJson</a>
 #### Online Documents
 
 <a class="other-page-tag" href="http://gorm.io/zh_CN/docs/index.html" target="_blank">GORM</a>
