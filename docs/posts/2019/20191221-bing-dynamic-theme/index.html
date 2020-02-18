@@ -109,55 +109,49 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
 
 import sys
 import os
-import getopt
+import argparse
 import requests
 import re
 from concurrent.futures import ThreadPoolExecutor
 
-def get_and_save_picture(image, save_path='./'):
-    if os.path.exists(save_path) is False:
-        os.mkdir(save_path)
-    url = 'https://cn.bing.com/'+image['url']
-    name = re.findall(r'/th\?id=OHR\.(.+)_ZH-CN.*', image['url'])[0]
-    filename = save_path+'/'+image['enddate']+'-'+name+'.jpg'
+def get_and_save_picture(url, filename):
     with requests.get(url, stream=True) as r:
         with open(filename, 'wb') as f:
             for d in r.iter_content(128):
                 f.write(d)
 
-def get_picture_info(url, enddate: int = 0, nums: int = 1):
-    url = url+'?format=js&amp;idx='+str(enddate)+'&amp;n='+str(nums)
+def get_picture_info(url, date: int = 0, nums: int = 1):
+    url = url+'?format=js&amp;idx='+str(date)+'&amp;n='+str(nums)
     r = requests.get(url)
     images = r.json().get('images')
     return images
 
 if __name__ == '__main__':
-    options, _ = getopt.getopt(sys.argv[1:], 'd:n:D:h', ['date=', 'nums=', 'dir=', 'help'])
-    options = dict(options)
+    parser = argparse.ArgumentParser(description='Bing Wallpaper Updates Daily')
+    parser.add_argument('file_path', type=str, help='图片存放路径，默认将图片下载到当前目录')
+    parser.add_argument('--date', type=int, default=0, help='表示倒数第几天的图片，0表示今天,最大为7即能下载到倒数第八天的的图片')
+    parser.add_argument('--nums', type=int, default=8, help='表示要下载的图片数量，最多8张')
 
-    if options.get('-h') is not None or options.get('--help') is not None:
-        print(&quot;-d   [--date]\n\t 一个数字表示，表示倒数第几天的图片，0表示今天,最大为7即能下载到倒数第八天的的图片&quot;)
-        print(&quot;-n   [--nums]\n\t 一个数字表示，表示要下载的图片数量，最多8张&quot;)
-        print(&quot;-D   [--dir]\n\t 图片存放路径，指定的路径不存在则创建，默认将图片下载到当前目录&quot;)
-        print(&quot;-h   [--help]\n\t 使用说明&quot;)
-        sys.exit()
+    args = parser.parse_args()
 
-    enddate = options.get('-d') if options.get('-d') else 0
-    enddate = options.get('--date') if options.get('--date') else enddate
-    nums = options.get('-n') if options.get('-n') else 8
-    nums = options.get('--nums') if options.get('--nums') else nums
-    path = options.get('-D') if options.get('-D') else './'
-    path = options.get('--dir') if options.get('--dir') else path
+    if not os.path.exists(args.file_path):
+        os.mkdir(args.file_path)
 
     url = 'https://cn.bing.com/HPImageArchive.aspx'
-    images = get_picture_info(url, enddate=enddate, nums=nums)
+    images = get_picture_info(url, date=args.date, nums=args.nums)
 
     pool = ThreadPoolExecutor(max_workers=8)
     for image in images:
-        print(image['copyright'])
-        pool.submit(get_and_save_picture, image, path)
+        name = re.findall(r'/th\?id=OHR\.(.+)_ZH-CN.*', image['url'])[0]
+        filename = image['enddate']+'-'+name+'.jpg'
 
-    print(&quot;wait...&quot;)
+        print(image['copyright'], 'Save As '+filename)
+
+        save_name = args.file_path+'/'+filename
+        url = 'https://cn.bing.com/'+image['url']
+        pool.submit(get_and_save_picture, url, save_name)
+
+    print(&quot;please wait...&quot;)
 </code></pre>
 
 <p>环境:</p>
