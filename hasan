@@ -28,6 +28,7 @@ command
 EOF
 }
 
+# 图书库创建函数
 books(){
 article_path=$(pwd)"/content/posts/2019/20191231-books.md"
 (
@@ -58,11 +59,41 @@ do
 done
 }
 
+# Small Code创建函数
+smallcode(){
+content=$(pwd)"/content/posts/2020/20200220-small-code.md"
+(
+cat << 'EOF'
+---
+title: "Small Code"
+date: 2020-02-20T11:45:20+08:00
+toc: true
+---
+Small Code ...
+<!--more-->
+EOF
+) > $content
+code_path=$(pwd)"/static/code/"
+code=$(ls $code_path)
+
+for files in $code
+do
+    category=$(ls $code_path$files)
+    echo -e "\n### "$files >> $content
+    for c in $category
+    do
+        url="<a href=\"/code/"$files"/"$c"\" target=\"_blank\">"${c}"</a>\n"
+        echo -e $url >> $content
+    done
+done
+}
+
 if [ $# -lt 1 ]
 then
     error
 fi
 
+# ===========================控制命令======================================
 # 部署到Github
 if [ $1 == "deploy" ]
 then
@@ -76,8 +107,9 @@ then
     echo "---------------update or create docs---------"
     hugo -d docs
 
-    echo "---------------git commit--------------------" 
+    echo "---------------git add-----------------------"
     git add .
+    echo "---------------git commit--------------------"
     git commit -m "$commit_msg"
 
     echo "---------------git push----------------------"
@@ -127,6 +159,13 @@ then
 elif [ $1 == "books" ]
 then
     books
+
+    echo "Everything is updated"
+
+# 更新SmallCode
+elif [ $1 == "codes" ]
+then
+    smallcode
 
     echo "Everything is updated"
 
