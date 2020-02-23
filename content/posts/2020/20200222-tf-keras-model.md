@@ -4,7 +4,6 @@ date: 2020-02-22T18:11:11+08:00
 categories: ["Tensorflow"]
 tags: ["Tensorflow", "python"]
 toc: true
-draft: true
 ---
 使用tf.keras搭建神经网络模型
 
