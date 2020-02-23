@@ -156,4 +156,4 @@ history = model.fit(x_train_scaled, y_train, epochs=10,
 # model.evaluate(x_test_scaled, y_test)
 ```
 
-[requirements.txt]()
+[requirements.txt](/accessory/requirements20200222.txt)
