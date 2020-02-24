@@ -48,8 +48,6 @@ Tf-keras和keras区别:
 - 平方差损失
 - 绝对值损失
 
-### 实战
-
 ### 分类模型
 tf.keras搭建分类模型，数据归一化，深度神经网络与批归一化，激活函数、回调函数使用，dropout防止过拟合
 
@@ -199,7 +197,7 @@ history = model.fit(x_train_scaled, y_train, epochs=10,
 # model.evaluate(x_test_scaled, y_test)
 ```
 
-#### 回归问题
+### 回归模型
 
 回归问题模型搭建，函数式API实现wide&deep模型、子类API实现wide&deep模型、多输入与多输出模型的实现
 
