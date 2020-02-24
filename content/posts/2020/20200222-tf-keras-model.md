@@ -1,16 +1,60 @@
 ---
 title: "TensorFlow搭建神经网络"
 date: 2020-02-22T18:11:11+08:00
-categories: ["Tensorflow"]
+categories: ["Tensorflow笔记"]
 tags: ["Tensorflow", "python"]
 toc: true
 ---
-使用tf.keras搭建神经网络模型
+
+keras是基于python的高级神经网络API，由Francois Chollet编写，支持以Tensorflow、CNTK、Theano为后端运行。
+而Tensorflow-keras是对keras API规范的实现，实现在`tf.keras`空间下与Tensorflow结合也更紧密并且还添加了一些keras没有的特性
 
 <!--more-->
+
+Tf-keras和keras区别:
+
+- Tf-keras全面支持eager model
+    - 只是使用keras.Sequential和keras.Model时没影响
+    - 自定义Model内部运算逻辑会有影响
+        - Tf低层API可以使用keras的model.fit等抽象
+        - 适用与研究人员
+- Tf-keras支持基于tf.data的模型训练
+- Tf-keras支持TPU训练
+- Tf-keras支持tf.distribution中分布式策略
+- 其它特性
+    - Tf-keras可以与Tensorflow中的estimator集成
+    - Tf-keras可以保存为SavedModel
+
+### 分类问题和回归问题
+
+分类问题预测的是类别，输出的是概率分布，如三分类问题输出例子: [0.2,0.7,0.1]
+
+回归问题预测的是值，模型输出是一个实数值
+
+### 目标函数
+
+模型的参数是逐步调整的，而目标函数可以帮助衡量模型的好坏。模型训练其实就是调整参数，使得目标函数逐渐变小的过程。
+
+就分类问题来说我们需要衡量当前预测与目标类别的差距，如
+预测输出: [0.2,0.7,0.1]
+真实类别: 2 -> one_hot -> [0,0,1]
+
+计算目标函数方法
+- 平方差损失 <sup>1</sup>&frasl;<sud>n</sud>&sum;<sup>1</sup>&frasl;<sud>2</sud>(y-Model(x))<sup>2</sup>
+- 交叉熵损失 <sup>1</sup>&frasl;<sud>n</sud>&sum;yln(Model(x))
+
+回归问题中目标函数即计算预测值与真实值的差距， 如
+
+- 平方差损失
+- 绝对值损失
+
+### 实战
+
+### 分类模型
+tf.keras搭建分类模型，数据归一化，深度神经网络与批归一化，激活函数、回调函数使用，dropout防止过拟合
+
 ```python
-#! /usr/bin/python3
-# -*- encode:utf-8 -*-
+# tf_keras_classification_model.py
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -78,19 +122,19 @@ x_test_scaled = scaler.transform(
 # 打印归一化后训练集的最大最小值
 # print(np.max(x_train_scaled), np.min(x_train_scaled))
 
-# ----------------搭建模型-----------------
+# ----------------1.搭建模型-----------------
 model = keras.models.Sequential()
 model.add(keras.layers.Flatten(input_shape=(28, 28)))
 model.add(keras.layers.Dense(300, activation="relu"))
 model.add(keras.layers.Dense(100, activation="relu"))
 model.add(keras.layers.Dense(10, activation="softmax"))
-# 这里用到两个激活函数
+# 这里用到两个激活函数(增加模型表达力)
 # relu: y = max(0,x)
 # softmax: 将向量变成概率分布.  x = [x1, x2, x3],
 #          y = [e^x1/sum, e^x2/sum, e^x3/sum] sum=e^x1/sum+e^x2/sum+e^x3/sum
 # 参数的计算 
 # [None, 784] * (W+b) -> [None, 300] ,W.shape=[784, 300] b=300, param=784*300+300
-# 2-------搭建深度神经网络模型与批归一化--------
+# -------2.搭建深度神经网络模型与批归一化--------
 # model = keras.models.Sequential()
 # model.add(keras.layers.Flatten(input_shape=(28, 28)))
 # for _ in range(20):
@@ -155,4 +199,245 @@ history = model.fit(x_train_scaled, y_train, epochs=10,
 # model.evaluate(x_test_scaled, y_test)
 ```
 
+#### 回归问题
+
+回归问题模型搭建，函数式API实现wide&deep模型、子类API实现wide&deep模型、多输入与多输出模型的实现
+
+```python
+# tf_keras_regression_wide_deep.py
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
+import sklearn
+import pandas as pd
+import os
+import sys
+import time
+import tensorflow as tf
+from tensorflow import keras
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+housing = fetch_california_housing()
+
+# 加利福尼亚房价预测数据集
+x_train_all, x_test, y_train_all, y_test = train_test_split(
+    housing.data, housing.target, random_state = 7)
+x_train, x_valid, y_train, y_valid = train_test_split(
+    x_train_all, y_train_all, random_state = 11)
+# print(x_train.shape, y_train.shape)
+# print(x_valid.shape, y_valid.shape)
+# print(x_test.shape, y_test.shape)
+
+# ----------------归一化-----------------
+scaler = StandardScaler()
+x_train_scaled = scaler.fit_transform(x_train)
+x_valid_scaled = scaler.transform(x_valid)
+x_test_scaled = scaler.transform(x_test)
+
+# ---1.函数式API 功能API实现wide&deep模型----
+# input = keras.layers.Input(shape=x_train.shape[1:])
+# hidden1 = keras.layers.Dense(30, activation='relu')(input)
+# hidden2 = keras.layers.Dense(30, activation='relu')(hidden1)
+
+# concat = keras.layers.concatenate([input, hidden2])
+# output = keras.layers.Dense(1)(concat)
+
+# model = keras.models.Model(inputs = [input],
+#                            outputs = [output])
+
+# ------2.子类API实现实现wide&deep模型-----
+# class WideDeepModel(keras.models.Model):
+#     def __init__(self):
+#         super(WideDeepModel, self).__init__()
+#         """定义模型层次"""
+#         self.hidden1_layer = keras.layers.Dense(30, activation='relu')
+#         self.hidden2_layer = keras.layers.Dense(30, activation='relu')
+#         self.output_layer = keras.layers.Dense(1)
+#     def call(self, input):
+#         """完成模型的正向计算"""
+#         hidden1 = self.hidden1_layer(input)
+#         hidden2 = self.hidden2_layer(hidden1)
+#         concat = keras.layers.concatenate([input, hidden2])
+#         output = self.output_layer(concat)
+#         return output
+# model = WideDeepModel()
+# model.build(input_shape=(None, 8))
+
+# --------------3.普通模型-----------------
+model = keras.models.Sequential([
+    keras.layers.Dense(30, activation='relu',
+                       input_shape=x_train.shape[1:]),
+    keras.layers.Dense(1),
+])
+
+# ---------------4.多输入------------------
+# input_wide = keras.layers.Input(shape=[5])
+# input_deep = keras.layers.Input(shape=[6])
+# hidden1 = keras.layers.Dense(30, activation='relu')(input_deep)
+# hidden2 = keras.layers.Dense(30, activation='relu')(hidden1)
+# concat = keras.layers.concatenate([input_wide, hidden2])
+# output = keras.layers.Dense(1)(concat)
+# output2 = keras.layers.Dense(1)(hidden2) #多输出第二个输出
+# model = keras.models.Model(inputs = [input_wide, input_deep],
+#                             outputs = [output, output2])
+
+# model.summary()
+# ----------------构建图-----------------
+model.compile(loss="mean_squared_error", optimizer="sgd")
+
+# --------------使用回调函数--------------
+callbacks = [
+    keras.callbacks.EarlyStopping(patience=5, min_delta=1e-2)
+]
+
+# ----------------开始训练-----------------
+history = model.fit(x_train_scaled, y_train,
+                    validation_data = (x_valid_scaled, y_valid),
+                    epochs = 100,
+                    callbacks = callbacks)
+
+# ---------开始训练(多输入多输出模型启用)------
+# x_train_scaled_wide = x_train_scaled[:, :5]
+# x_train_scaled_deep = x_train_scaled[:, 2:]
+# x_valid_scaled_wide = x_valid_scaled[:, :5]
+# x_valid_scaled_deep = x_valid_scaled[:, 2:]
+# x_test_scaled_wide = x_test_scaled[:, :5]
+# x_test_scaled_deep = x_test_scaled[:, 2:]
+# history = model.fit([x_train_scaled_wide, x_train_scaled_deep],
+#                     [y_train, y_train],
+#                     validation_data = ([x_valid_scaled_wide, x_valid_scaled_deep],
+#                     [y_valid, y_valid]),
+#                     epochs = 100,
+#                     callbacks = callbacks)
+
+# 打印学习曲线图
+def plot_learning_curves(history):
+    pd.DataFrame(history.history).plot(figsize=(8, 5))
+    plt.grid(True)
+    plt.gca().set_ylim(0, 1)
+    plt.show()
+plot_learning_curves(history)
+
+# 在测试集上进行指标评估
+model.evaluate(x_test_scaled, y_test)
+
+# # 在测试集上进行指标评估(多输入多输出模型启用)
+# model.evaluate([x_test_scaled_wide, x_test_scaled_deep], [y_test, y_test])
+```
+
+### 超参数搜索
+
+超参数就是在神经网络训练中不变的参数，如
+
+- 网络结构参数: 神经网络的层数、每层宽度、每层激活函数
+- 训练参数: batch_size、学习率和衰减算法
+
+而手工去寻找超参数是很耗时的，我们需要一些搜索策略
+
+- 网格搜索
+- 随机搜索
+- 遗传算法
+- 启发式搜索(AutoML研究热点，循环神经网络生成)
+
+```python
+# tf_keras_regression_hp_search_sklearn.py
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
+import sklearn
+import pandas as pd
+import os
+import sys
+import time
+import tensorflow as tf
+from tensorflow import keras
+from sklearn.datasets import fetch_california_housing
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+housing = fetch_california_housing()
+
+# 加利福尼亚房价预测数据集
+x_train_all, x_test, y_train_all, y_test = train_test_split(
+    housing.data, housing.target, random_state = 7)
+x_train, x_valid, y_train, y_valid = train_test_split(
+    x_train_all, y_train_all, random_state = 11)
+
+# ----------------归一化-----------------
+scaler = StandardScaler()
+x_train_scaled = scaler.fit_transform(x_train)
+x_valid_scaled = scaler.transform(x_valid)
+x_test_scaled = scaler.transform(x_test)
+
+# 1.tf.keras model -> sklear model
+# 2.定义参数集合
+# 3.使用RandomizedSearchCV搜索参数
+
+def build_model(hidden_layers=1, layer_size=30, learning_rate = 3e-3):
+    model = keras.models.Sequential()
+    model.add(keras.layers.Dense(layer_size, activation='relu',
+                                    input_shape=x_train.shape[1:]))
+    for _ in range(hidden_layers-1):
+        model.add(keras.layers.Dense(layer_size, activation='relu'))
+    model.add(keras.layers.Dense(1))
+    optimizer = keras.optimizers.SGD(learning_rate)
+    model.compile(loss='mse', optimizer=optimizer)
+    return model
+
+sklearn_model = keras.wrappers.scikit_learn.KerasRegressor(build_model)
+
+callbacks = [
+    keras.callbacks.EarlyStopping(patience=5, min_delta=1e-2)
+]
+history = sklearn_model.fit(x_train_scaled, y_train,
+                    validation_data = (x_valid_scaled, y_valid),
+                    epochs = 100,
+                    callbacks = callbacks)
+
+# 打印学习曲线图
+def plot_learning_curves(history):
+    pd.DataFrame(history.history).plot(figsize=(8, 5))
+    plt.grid(True)
+    plt.gca().set_ylim(0, 1)
+    plt.show()
+plot_learning_curves(history)
+
+# 在测试集上进行指标评估(sklearn没有evaluate函数)
+# model.evaluate(x_test_scaled, y_test)
+
+from scipy.stats import reciprocal
+# f(x) = 1/(x*log(b/a)) a<=x<=b
+
+param_distribution = {
+    'hidden_layers': [1,2,3,4],
+    'layer_size': np.arange(1,100),
+    'learning_rate': reciprocal(1e-4, 1e-2),
+}
+
+from sklearn.model_selection import RandomizedSearchCV
+
+random_search_cv = RandomizedSearchCV(sklearn_model,
+                                      param_distribution,
+                                      n_iter = 10,
+                                      cv = 3,
+                                      n_jobs = 1)
+random_search_cv.fit(x_train_scaled, y_train, epochs=100,
+                        validation_data = (x_valid_scaled, y_valid),
+                        callbacks = callbacks)
+
+print(random_search_cv.best_params_)
+print(random_search_cv.best_score_)
+print(random_search_cv.best_estimator_) # 最好的model
+
+model = random_search_cv.best_estimator_.model
+model.evaluate(x_test_scaled, y_test)
+```
+
+Tensorflow学习笔记系列均使用该环境
+python --version
+3.6.10
 [requirements.txt](/accessory/requirements20200222.txt)
