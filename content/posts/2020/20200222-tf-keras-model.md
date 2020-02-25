@@ -435,6 +435,203 @@ model = random_search_cv.best_estimator_.model
 model.evaluate(x_test_scaled, y_test)
 ```
 
+### 基础API
+
+```python
+# 常量
+
+t = tf.constant([[1., 2., 3.], [4., 5., 6.]])
+print(t)
+# 像numpy一样取值
+print(t[:, 1:])
+print(t[..., 1])
+
+# 运算
+print(t+10)
+print(tf.square(t))
+print(t @ tf.transpose(t))
+
+# 与numpy互转
+print(t.numpy())
+print(np.square(t))
+np_t = np.array([[1., 2., 3.], [4., 5., 6.]])
+print(tf.constant(np_t))
+
+# 0维常量
+t = tf.constant(2.718)
+print(t.numpy())
+print(t.shape)
+
+# 字符串
+t = tf.constant('cafe')
+print(tf.strings.length(t))
+print(tf.strings.length(t, unit='UTF8_CHAR'))
+print(tf.strings.unicode_decode(t, 'UTF8'))
+
+# 字符串数组
+
+t = tf.constant(['cafe', 'coffee', '咖啡'])
+print(tf.strings.length(t, unit='UTF8_CHAR'))
+r = tf.strings.unicode_decode(t, 'UTF8')
+print(r)
+
+# ragged tensor
+r = tf.ragged.constant([[11,12], [21,22,23],[],[41]])
+print(r)
+print(r[1])
+print(r[1:2])
+
+r2 = tf.ragged.constant([[51,52], [], [71]])
+print(tf.concat([r,r2], axis=0))
+print(r2.to_tensor())
+
+# sparse tensor
+
+s = tf.SparseTensor(indices = [[0,1],[1,0],[2,3]],
+                    values = [1., 2., 3.],
+                    dense_shape = [3, 4])
+print(s)
+print(tf.sparse.to_dense(s))
+
+s2 = s * 2.0
+print(s2)
+
+try:
+    s3 = s + 1
+except TypeError as ex:
+    print(ex)
+
+s4 = tf.constant([[10., 20.],
+                   [30., 40.],
+                   [50., 60.],
+                   [70., 80.]])
+print(tf.sparse.sparse_dense_matmul(s, s4))
+
+
+# 变量
+
+v = tf.Variable([[1., 2., 3.], [4., 5., 6.]])
+print(v)
+print(v.value())
+print(v.numpy())
+
+# 赋值
+
+v.assign(2*v)
+print(v.numpy())
+v[0,1].assign(42)
+print(v.numpy())
+v[1].assign([7., 8., 9.])
+print(v.numpy())
+
+
+# 自定义损失函数与DenseLayer
+
+def customized_mse(y_true, y_pred):
+    return tf.reduce_mean(tf.square(y_true - y_pred))
+
+class CostomizedDenseLayer(keras.layers.Layer):
+    def __init__(self, units, activation=None, **kw):
+        self.units = units
+        self.activation = keras.layers.Activation(activation)
+        super(CostomizedDenseLayer, self).__init__(**kw)
+
+    def build(self, input_shape):
+        """构建所需要的参数"""
+        # x*w+b 
+        self.kernel = self.add_weight(name='kernel',
+                                        shape = (input_shape[1], self.units),
+                                        initializer = 'uniform',
+                                        trainable = True)
+        self.bias = self.add_weight(name='bias',
+                                    shape=(self.units),
+                                    initializer = 'zeros',
+                                    trainable = True)
+        super(CostomizedDenseLayer, self).build(input_shape)
+    
+    def call(self, x):
+        """完成正向计算"""
+        return self.activation(x @ self.kernel + self.bias)
+# use
+model = keras.models.Sequentail([
+    CostomizedDenseLayer(30, activation='relu',
+                            input_shape = x_train_shape[1:]),
+    CostomizedDenseLayer(1)
+])
+
+# tf.function python函数转图
+
+def scaled_elu(z, scale=1.0, alpha=1.0):
+    is_position = tf.greater_equal(z, 0.0)
+    return scale * tf.where(is_position, z, alpha * tf.nn.elu(z))
+
+scaled_elu_tf = tf.function(scaled_elu)
+print(scaled_elu_tf.python_function is scaled_elu)
+
+# 函数签名
+@tf.function(input_signature=[tf.TensorSpec([None], tf.int32, name='x')])
+def cube(z):
+    return tf.pow(z, 3)
+
+try:
+    print(cube(tf.constant([1., 2., 3.])))
+except ValueError as ex:
+    print(ex)
+
+print(cube(tf.constant([1,2,3])))
+
+# 图结构
+# ...
+# 近似求导
+
+def f(x):
+    return 3. * x**2 + 2. * x - 1
+
+def aproximate_derivative(f, x, eps=1e-3):
+    return (f(x+eps) - f(x-eps)) / (2. * eps)
+
+print(aproximate_derivative(f, 1.))
+
+def g(x1, x2):
+    return (x1 + 5) * (x2 ** 2)
+
+def aproximate_gradient(g, x1, x2, eps=1e-3):
+    dg_x1 = aproximate_derivative(lambda x: g(x,x2), x1, eps)
+    dg_x2 = aproximate_derivative(lambda x: g(x1, x), x2, eps)
+    return dg_x1, dg_x2
+
+print(aproximate_gradient(g, 2, 3))
+
+# tensorflow求导
+x1 = tf.Variable(2.)
+x2 = tf.Variable(3.)
+
+with tf.GradientTape(persistent=True) as tape:
+    z = g(x1, x2)
+
+dz_x1 = tape.gradient(z, x1)
+dz_x2 = tape.gradient(z, x2)
+dz_x1_x2 = tape.gradient(z, [x1, x2])
+print(dz_x1,dz_x2, dz_x1_x2)
+del tape
+
+# 与optimizer结合
+learning_rate = 0.1
+x = tf.Variable(0.0)
+
+optimizer = keras.optimizer.SGD(lr = learning_rate)
+for _ in range(100):
+    with tf.GradientTape() as tape:
+        z = f(x)
+    dz_dx = tape.gradient(z, x)
+    x.assign_sub(learning_rate * dz_dx)
+    optimizer.apply_gradients([dz_dx, x])
+
+print(x)
+
+# 与tf.keras结合使用
+# ...
+```
 Tensorflow学习笔记系列均使用该环境
 python --version
 3.6.10
