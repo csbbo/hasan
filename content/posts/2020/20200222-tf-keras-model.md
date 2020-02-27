@@ -632,7 +632,8 @@ print(x)
 # 与tf.keras结合使用
 # ...
 ```
-Tensorflow学习笔记系列均使用该环境
+
+Tensorflow学习笔记系列均使用该环境  
 python --version
 3.6.10
 [requirements.txt](/accessory/requirements20200222.txt)
