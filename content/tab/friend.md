@@ -10,3 +10,4 @@ type: friend
 [Julindada](https://julindada.github.io/)
 [飞雪无情](https://www.flysnow.org/)
 [Wang sir~的博客](https://blog.csdn.net/wangxinyao1997)
+[月色的部落格](http://blog.17study.com.cn/)
