@@ -115,6 +115,10 @@ psql exampledb < exampledb.sql
 \e：打开文本编辑器。
 \conninfo：列出当前数据库和连接的信息。
 ```
+
+> 删除PostgreSQL中的所有表,如果所有表都在单个模式中，则此方法可以工作`DROP SCHEMA public CASCADE;
+CREATE SCHEMA public`
+
 ### postgresql数据导入导出
 
 导出数据库

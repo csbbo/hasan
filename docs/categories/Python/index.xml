@@ -6,10 +6,19 @@
     <description>Recent content in Python on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Jan 2020 11:03:42 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 10 Apr 2020 14:12:45 +0800</lastBuildDate>
     
 	<atom:link href="http://blog.shaobo.fun/categories/Python/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Python性能分析</title>
+      <link>http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/</link>
+      <pubDate>Fri, 10 Apr 2020 14:12:45 +0800</pubDate>
+      
+      <guid>http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/</guid>
+      <description>&lt;p&gt;对代码优化的前提是需要了解性能瓶颈在什么地方，程序运行的主要时间和内存是消耗在哪里。line_profiler和memory_profiler就能够很好的帮我们定位到时间和内存都消耗在哪里了。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Django ORM annotate aggregate</title>

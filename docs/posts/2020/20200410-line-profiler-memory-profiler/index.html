@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Linux串口通信 | 庄周梦蝶</title>
-    <meta property="og:title" content="Linux串口通信 - 庄周梦蝶">
+    <title>Python性能分析 | 庄周梦蝶</title>
+    <meta property="og:title" content="Python性能分析 - 庄周梦蝶">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-06-30T20:45:31&#43;08:00">
+    <meta property="article:published_time" content="2020-04-10T14:12:45&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-06-30T20:45:31&#43;08:00">
+    <meta property="article:modified_time" content="2020-04-10T14:12:45&#43;08:00">
         
     <meta name="Keywords" content="">
-    <meta name="description" content="Linux串口通信">
+    <meta name="description" content="Python性能分析">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20190630-serial-port/">
+    <meta property="og:url" content="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -79,16 +79,16 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">Linux串口通信</h1>
+                            <h1 class="post-title">Python性能分析</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019-6-30
+                            2020-4-10
                         </date>
                         
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
+                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/Python">Python</a></span>
                             
                         </div>
                         
@@ -98,356 +98,120 @@
                         </div>
                         
                         
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#line-profiler">line_profiler</a></li>
+<li><a href="#memory-profiler">memory_profiler</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
                         <div class="post-content">
-                            <p>在Linux中,串口是一个字符设备,访问具体的串行端口的编程与读/写文件的操作类似,只需打开相应的设备文件操作即可.串口编程的特殊在于串口通信时相关参数的设置.若在根文件没有串口设备文件可以用mknod命令创建。</p>
+                            <p>对代码优化的前提是需要了解性能瓶颈在什么地方，程序运行的主要时间和内存是消耗在哪里。line_profiler和memory_profiler就能够很好的帮我们定位到时间和内存都消耗在哪里了。</p>
 
-<p>串口作为终端I/O,它的参数设置需要使用<code>struct termios</code>结构体,这个结构体在termio.h文件中定义.</p>
+<h3 id="line-profiler">line_profiler</h3>
 
-<pre><code class="language-c">typedef unsigned char cc_t;
-typedef unsigned int speed_t;
-typedef unsigned int tcflag_t;
-struct termios{
-    tcflag_t c_iflag;   //输入模式标志
-    tcflag_t c_oflag;   //输出模式标志
-    tcflag_t c_cflag;   //控制模式标志
-    tcflag_t c_lflag;   //本地模式标志
-    tcflag_t c_line;    //行规程类型,一般应用程序不使用
-    cc_t c_cc[NCC]; //控制字符
-    speed_t c_ispeed;   //输入数据波特率
-    speed_t c_ospeed;   //输出数据波特率
-}
+<p>line_profiler是一个用于逐行分析函数时间消耗的模块。</p>
+
+<p>安装</p>
+
+<pre><code class="language-python">pip install line_profiler
 </code></pre>
 
-<p>串口的设置主要就是设置这个结构体的各成员值,然后利用该结构体将参数传给硬件驱动程序.tcgetattr()/tcsetattr()函数获取/设置串口参数.</p>
+<p>使用</p>
 
-<pre><code class="language-c">int tcgetattr(int fd,struct termios *termios_p);
-int tcsetattr(int fd,int optional_actions,struct termios *termios_p);
+<p>封装了一个类装饰器</p>
+
+<pre><code class="language-python">class line_profile:
+    &quot;&quot;&quot;
+    put @line_profile on function
+    :param follow 显示调用的函数具体时间消耗
+    &quot;&quot;&quot;
+    def __init__(self, follow=None):
+        self.follow = follow or []
+    
+    def __call__(self, func):
+        @functools.wraps(func)
+        def prof_func(*args, **kw):
+            lp = LineProfiler()
+            list(map(lambda x: lp.add_function(x), self.follow))
+            lp_wrapper = lp(func)
+            result = lp_wrapper(*args, **kw)
+            lp.print_stats()
+            return result
+        return prof_func
 </code></pre>
 
-<p>optional_action参数用于指定新设定参数生效时间,其设定值可以为:</p>
+<pre><code class="language-python"># example.py
+@line_profile()
+def my_func():
+    a = [1] * (10 ** 6)
+    b = [2] * (2 * 10 ** 7)
+    del b
+    return a
 
-<table>
-<thead>
-<tr>
-<th>TCSANOW</th>
-<th>改变立即生效</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>TCSADRAIN</td>
-<td>所有输出都被传输后改变生效</td>
-</tr>
-
-<tr>
-<td>TCSAFLUSH</td>
-<td>所有输出都被传输后改变生效,丢弃所有未读入的输入</td>
-</tr>
-</tbody>
-</table>
-
-<p>1.设置波特率
-使用函数设置波特率,使用波特率常数设置波特率,其定义为字母&rdquo;B+波特率&rdquo;,如B19200就是波特率为19200 bps.</p>
-
-<pre><code class="language-c">int cfsetispeed(struct termios *termios_p,speed_t speed);
-int cfsetospeed(struct termios *termios_p,speed_t speed);
+if __name__ == '__main__':
+    my_func()
 </code></pre>
 
-<p>例:</p>
-
-<pre><code class="language-c">int cfsetispeed(ttys0_opt,B115200);
-int cfsetospeed(ttys0_opt,B115200);
+<pre><code class="language-python">python example.py
 </code></pre>
 
-<p>2.设置控制模式标志
-控制模式标志c_cflag主要用于设置串口对DCD信号状态检测,硬件流控制,字符位宽,停止位和奇偶检验位等,常用标志如下:</p>
+<h3 id="memory-profiler">memory_profiler</h3>
 
-<table>
-<thead>
-<tr>
-<th>CLOCAL</th>
-<th>忽略DCD信号,若不使用MODEM或没有串口/CD脚,则设置此标志</th>
-</tr>
-</thead>
+<p><a href="https://github.com/pythonprofilers/memory_profiler">memory_profiler</a>是一个基于<a href="https://pypi.org/project/psutil/">psutil</a>用于监视进程内存消耗的python模块，并且能够逐行分析程序的内存消耗。</p>
 
-<tbody>
-<tr>
-<td>CREAD</td>
-<td>启用接收装置,可以接收字符</td>
-</tr>
+<p>安装</p>
 
-<tr>
-<td>CRTSCTS</td>
-<td>启用硬件流控制,对于许多三线制的串不应使用,需要设置~CRTCTS</td>
-</tr>
-
-<tr>
-<td>CSIZE</td>
-<td>字符数位掩码,常用CS8</td>
-</tr>
-
-<tr>
-<td>CSTOPB</td>
-<td>使用两个停止位,若用一位应设置~CSTOPB</td>
-</tr>
-
-<tr>
-<td>PARENB</td>
-<td>启用奇偶检验</td>
-</tr>
-</tbody>
-</table>
-
-<p>例如:</p>
-
-<pre><code class="language-c">struct temios ttys0
-ttys0.c_cflag |= CLOCAL | CREAD;
-ttys0.c_cflag &amp;= ~CRTSCTS;
-ttys0.c_cflag &amp;= ~CSIZE;
-ttys0.c_cflag |= CS8;
-ttys0.c_cflag &amp;= ~(PARENB|CSTOPB);
+<pre><code class="language-python">pip install -U memory_profiler
 </code></pre>
 
-<p>3.设置本地模式标志</p>
+<p>使用</p>
 
-<p>本地模式设置标志c_lflag主要用于设置终端与用户的交互方式,常见的设置标志位有ICAN-ON,ECHO和ECHOE等.</p>
+<pre><code># example.py
+@profile
+def my_func():
+    a = [1] * (10 ** 6)
+    b = [2] * (2 * 10 ** 7)
+    del b
+    return a
 
-<p>4.设置输入模式标志</p>
-
-<p>输入模式标志c_iflag主要用于控制串口的输入特性,常用的设置有IXOFF和IXON,分别用于软件流控制.</p>
-
-<p>起用软件流控制:</p>
-
-<pre><code class="language-c">ttys0_opt.c_iflag |= IXOFF|IXON
+if __name__ == '__main__':
+    my_func()
 </code></pre>
 
-<p>5.设置输出模式标志</p>
-
-<p>输出模式标志c_oflag主要用于处理串口在规范模式时输出的特殊字符,而对非规范模式无效.</p>
-
-<p>6.设置控制字符</p>
-
-<p>在非规范模式中,控制字符数组c_cc[]中的变量c_cc[VMIN]和c_cc[VTIME]用于设置read()返回前读到的最少字节数和读超时时间.</p>
-
-<p>7.清空发送/接收缓冲区</p>
-
-<p>为保证读/写操作不被串口缓冲区中原有的数据干扰,可以在读/写数据前用tc_flush()函数清空发送/接收缓冲区.</p>
-
-<p>串口配置函数实例:</p>
-
-<pre><code class="language-c">int set_com_config(int fd,int baud_rate,int data_bits,char parity,int stop_bits)
-{
-	struct termios new_cfg,old_cfg;
-	int speed;
-	/* 保存测试现有串口参数设置 */
-	if(tcgetattr(fd,&amp;old_cfg) != 0){
-		perror(&quot;tcgetattr&quot;);
-		return -1;
-	}
-	/* 设置字符大小 */
-	new_cfg = old_cfg;
-	cfmakeraw(&amp;new_cfg);
-	new_cfg.c_flag &amp;= ~CSIZE;
-	/* 设置串口波特率 */
-	switch(baud_rate){
-		case 2400:
-			speed = B2400;
-			break;
-		case 4800:
-			speed = B4800;
-			break;
-		case 9600:
-			speed = B9600;
-			break;
-		case 19200:
-			speed = B19200;
-			break;
-		case 38400:
-			speed = B38400;
-			break;
-		default:
-		case 115200:
-			speed = B115200;
-			break;
-	}
-	cfsetispeed(&amp;new_cfg,speed);
-	cfsetospeed(&amp;new_cfg,speed);
-	/* 设置停止位 */
-	switch(data_bits){
-		case 7:
-			new_cfg.c_cflag |= CS7;
-			break;
-		default:
-		case 8:
-			new_cfg.c_cflag |= CS8;
-			break;
-	}
-	/* 设置奇偶检验位 */
-	switch(parity){
-		default:
-		case 'n':
-		case 'N':
-			new_cfg.c_flag &amp;= ~PARENB;
-			new_cfg.ciflag |= INPCK;
-			break;
-		case 'o':
-		case 'O':
-			new_cfg.c_cflag |= (PARODD | PARENB);
-			new_cfg.c_iflag |= INPCK;
-			break;
-		case 'e':
-		case 'E':
-			new_cfg.c_cflag |= PARENB;
-			new_cfg.c_cflag &amp;= ~PARODD;
-			new_cfg.c_cflag |= INPCK;
-			break;
-		case 's':
-		case 'S':
-			new_cfg.c_cflag &amp;= ~PARENB;
-			new_cfg.c_cflag &amp;= ~CSTOPB;
-			break;
-	}
-	/* 设置停止位 */
-	switch(stop_bits){
-		default:
-		case 1:
-			new_cfg.c_cflag &amp;= ~CSTOPB;
-			break;
-		case 2:
-			new_cfg.c_cflag |= ~CSTOPB;
-	}
-	/* 设置等待时间和最小接收字符 */
-	new_cfg.c_cc[VTIME] = 0;
-	new_cfg.c_cc[VMIE] = 1;
-	/* 处理接收字符 */
-	tcflush(fd,TCIFLUSH);
-	/* 激活新配置 */
-	if((tcsetattr(fd,TCSANOW,&amp;new_cfg)) != 0){
-		perror(&quot;tcsetattr&quot;);
-		return -1;
-	}
-	return 0;
-}
+<pre><code class="language-python">python -m memory_profiler example.py
 </code></pre>
 
-<p>串口通信实例<br />
-下面给出串口发送和接收的信程序,其中串口在宿主机上运行,串口接收程序在目标机上运行</p>
+<p>或者直接使用以下方式</p>
 
-<pre><code class="language-c">/** serial_port_send.c **/
-#include&lt;stdlib.h&gt;
-#include&lt;stdio.h&gt;
-#include&lt;unistd.h&gt;
-#include&lt;sys/types.h&gt;
-#include&lt;fcntl.h&gt;
-#include&lt;termios.h&gt;
-#include&lt;errno.h&gt;
+<pre><code class="language-python">from memory_profiler import profile
 
-#define BAUDRATE B115200
-#define MODEMDEVICE &quot;/dev/ttyS0&quot;
-#define STOP '@'
-
-int main()
-{
-    int fd,c = 0,res;
-    struct termios oldtio,newtio;
-    char ch;
-    static char s1[20];
-    printf(&quot;Start...\n&quot;);
-    fd = open(MODEMDEVICE,O_RDWR|O_NOCTTY);
-    if(fd&lt;0){
-        perror(MODEMDEVICE);
-        exit(1);
-    }
-    printf(&quot;Open...\n&quot;);
-    tcgetattr(fd,&amp;oldtio);
-    bzero(&amp;newtio,sizeof(newtio)); //清除newtio结构,重新设置通信协议
-    newtio.c_cflag = BAUDRATE|CS8|CLOCAL|CREAD;
-    newtio.c_iflag = IGNPAR;
-    newtio.c_oflag = 0;
-    newtio.c_lflag = ICANON;
-    tcflush(fd,TCOFLUSH);
-    tcsetattr(fd,TCSANOW,&amp;newtio);
-    printf(&quot;Writting..\n&quot;);
-    while(1){
-        while((ch = getchar()) != STOP){
-            s1[0] = ch;
-            res = write(fd,s1,1);
-        }
-        s1[0] = ch;
-        s1[1] = '\n';
-        res = write(fd,s1,2);
-        break;
-    }
-    printf(&quot;Close...\n&quot;);
-    close(fd);
-    tcsetattr(fd,TCSANOW,&amp;oldtio);
-    return 0;
-}
-</code></pre>
-
-<pre><code class="language-c">/** serial_port_rev.c **/
-#include&lt;stdlib.h&gt;
-#include&lt;stdio.h&gt;
-#include&lt;unistd.h&gt;
-#include&lt;sys/types.h&gt;
-#include&lt;sys/stat.h&gt;
-#include&lt;fcntl.h&gt;
-#include&lt;termios.h&gt;
-#include&lt;errno.h&gt;
-
-#define BAUDRATE B115200
-#define MODEMDEVICE &quot;/dev/ttyS0&quot;
-
-int main()
-{
-    int fd,c = 0,res;
-    struct termios oldtio,newtio;
-    char buf[256];
-    printf(&quot;Start...\n&quot;);
-    fd = open(MODEMDEVICE,O_RDWR|O_NOCTTY);
-    if(fd&lt;0){
-        perror(MODEMDEVICE);
-        exit(1);
-    }
-    printf(&quot;open...\n&quot;);
-    tcgetattr(fd,&amp;oldtio);
-    bzero(&amp;newtio,sizeof(newtio)); //清除newtio结构,重新设置通信协议
-    newtio.c_cflag = BAUDRATE|CS8|CLOCAL|CREAD;
-    newtio.c_iflag = IGNPAR;
-    newtio.c_oflag = 0;
-    newtio.c_lflag = ICANON;
-    tcflush(fd,TCIFLUSH);
-    tcsetattr(fd,TCSANOW,&amp;newtio);
-    printf(&quot;Reading...\n&quot;);
-    while(1){
-        res = read(fd,buf,255);
-        buf[res] = 0;
-        printf(&quot;res = %d buf = %s\n&quot;,res,buf);
-        if(buf[0] == '@')
-            break;
-    }
-    printf(&quot;Close...\n&quot;);
-    close(fd);
-    tcsetattr(fd,TCSANOW,&amp;oldtio);
-    return 0;
-}
+@profile
+def my_func():
+    a = [1] * (10 ** 6)
+    b = [2] * (2 * 10 ** 7)
+    del b
+    return a
 </code></pre>
                         </div>
 
                         
 
 
-                        
-                        <div class="post-meta meta-tags">
-                            <ul class="clearfix">
-                                
-                                <li><a href="http://blog.shaobo.fun/tags/Linux">Linux</a></li>
-                                
-                                <li><a href="http://blog.shaobo.fun/tags/serial">serial</a></li>
-                                
-                            </ul>
-                        </div>
                         
                     </article>
                     <div class="nextpre">
@@ -458,17 +222,11 @@ int main()
     <div class="clearfix">
     <ul class="prevnext">
     
-        <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20190630-fileio/">
-        <i class="material-icons">arrow_back</i><span>文件I/O编程</span>
-        </a>
-        </li>
-    
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2019/20190629-tcpip/">
-        <span>Linux网络编程</span><i class="material-icons">arrow_forward</i>
+        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/">
+        <span>TensorFlow搭建神经网络</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
     
@@ -507,16 +265,6 @@ int main()
 }
 </style>
                     
-
-<hr>
-<div class="post-archive">
-    <h2>See Also</h2>
-    <ul class="listing">
-        
-        <li><a href="/posts/2019/20190629-tcpip/">Linux网络编程</a></li>
-        
-    </ul>
-</div>
 
                     
     
