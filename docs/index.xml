@@ -40,6 +40,15 @@
     </item>
     
     <item>
+      <title>分布式系统心跳检查</title>
+      <link>http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/</link>
+      <pubDate>Fri, 07 Feb 2020 23:40:02 +0800</pubDate>
+      
+      <guid>http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/</guid>
+      <description>&lt;p&gt;在分布式系统中经常使用心跳(Heartbeat)来检测Server的健康状况，传统的检测方法是设定一个超时时间T，只要在T之内没有接收到对方的心跳包便认为对方宕机，方法简单粗暴，但使用广泛。从理论上来说，心跳无法真正检测对方是否crash，主要困难在于无法真正区别对方是宕机还是“慢”。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Tcpdump快速入门</title>
       <link>http://blog.shaobo.fun/posts/2020/20200117-tcpdump/</link>
       <pubDate>Fri, 17 Jan 2020 10:32:56 +0800</pubDate>
@@ -392,7 +401,7 @@ QQ: NTk5ODgzNTE5Cg==
       <pubDate>Fri, 28 Jun 2019 10:16:13 +0800</pubDate>
       
       <guid>http://blog.shaobo.fun/tab/friend/</guid>
-      <description>约伊兹的萌狼乡手札 想装大神的技术渣 Staneyffer Julindada 飞雪无情 Wang sir~的博客 Henry Z&amp;rsquo;s</description>
+      <description>约伊兹的萌狼乡手札 想装大神的技术渣 Staneyffer Julindada 飞雪无情 Wang sir~的博客 Henry Z&amp;rsquo;s 月色的部落格</description>
     </item>
     
     <item>

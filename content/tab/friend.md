@@ -11,3 +11,4 @@ type: friend
 [飞雪无情](https://www.flysnow.org/)
 [Wang sir~的博客](https://blog.csdn.net/wangxinyao1997)
 [Henry Z's](https://changchen.me/)
+[月色的部落格](http://blog.17study.com.cn/)
