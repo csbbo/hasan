@@ -19,8 +19,6 @@ line_profiler是一个用于逐行分析函数时间消耗的模块。
 pip install line_profiler
 ```
 
-使用
-
 封装了一个类装饰器
 ```python
 class line_profile:
@@ -43,23 +41,28 @@ class line_profile:
         return prof_func
 ```
 
+使用
+
 ```python
 # example.py
-@line_profile()
-def my_func():
-    a = [1] * (10 ** 6)
-    b = [2] * (2 * 10 ** 7)
-    del b
-    return a
+def do_other_stuff(numbers):
+    s = sum(numbers)
 
-if __name__ == '__main__':
-    my_func()
+@line_profile([do_other_stuff])
+def do_stuff(numbers):
+    do_other_stuff(numbers)
+    s = sum(numbers)
+    l = [numbers[i]/43 for i in range(len(numbers))]
+    m = ['hello'+str(numbers[i]) for i in range(len(numbers))]
 ```
 
 ```python
 python example.py
 ```
 
+运行结果
+![](/assets/2020/0410/line_profile.png)
+<!-- <img src="/assets/2020/0410/line_profile.png" style="margin-left:0px;width:70%"> -->
 ### memory_profiler
 
 [memory_profiler](https://github.com/pythonprofilers/memory_profiler)是一个基于[psutil](https://pypi.org/project/psutil/)用于监视进程内存消耗的python模块，并且能够逐行分析程序的内存消耗。
@@ -72,17 +75,14 @@ pip install -U memory_profiler
 
 使用
 
-```
+```python
 # example.py
-@profile
-def my_func():
-    a = [1] * (10 ** 6)
-    b = [2] * (2 * 10 ** 7)
-    del b
-    return a
-
-if __name__ == '__main__':
-    my_func()
+@profile(precision=4)
+def do_stuff(numbers):
+    do_other_stuff(numbers)
+    s = sum(numbers)
+    l = [numbers[i]/43 for i in range(len(numbers))]
+    m = ['hello'+str(numbers[i]) for i in range(len(numbers))]
 ```
 
 ```python
@@ -101,3 +101,6 @@ def my_func():
     del b
     return a
 ```
+
+运行结果
+![](/assets/2020/0410/memory_profile.png)

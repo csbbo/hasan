@@ -131,8 +131,6 @@
 <pre><code class="language-python">pip install line_profiler
 </code></pre>
 
-<p>使用</p>
-
 <p>封装了一个类装饰器</p>
 
 <pre><code class="language-python">class line_profile:
@@ -155,20 +153,26 @@
         return prof_func
 </code></pre>
 
-<pre><code class="language-python"># example.py
-@line_profile()
-def my_func():
-    a = [1] * (10 ** 6)
-    b = [2] * (2 * 10 ** 7)
-    del b
-    return a
+<p>使用</p>
 
-if __name__ == '__main__':
-    my_func()
+<pre><code class="language-python"># example.py
+def do_other_stuff(numbers):
+    s = sum(numbers)
+
+@line_profile([do_other_stuff])
+def do_stuff(numbers):
+    do_other_stuff(numbers)
+    s = sum(numbers)
+    l = [numbers[i]/43 for i in range(len(numbers))]
+    m = ['hello'+str(numbers[i]) for i in range(len(numbers))]
 </code></pre>
 
 <pre><code class="language-python">python example.py
 </code></pre>
+
+<p>运行结果
+<img src="/assets/2020/0410/line_profile.png" alt="" />
+<!-- <img src="/assets/2020/0410/line_profile.png" style="margin-left:0px;width:70%"> --></p>
 
 <h3 id="memory-profiler">memory_profiler</h3>
 
@@ -181,16 +185,13 @@ if __name__ == '__main__':
 
 <p>使用</p>
 
-<pre><code># example.py
-@profile
-def my_func():
-    a = [1] * (10 ** 6)
-    b = [2] * (2 * 10 ** 7)
-    del b
-    return a
-
-if __name__ == '__main__':
-    my_func()
+<pre><code class="language-python"># example.py
+@profile(precision=4)
+def do_stuff(numbers):
+    do_other_stuff(numbers)
+    s = sum(numbers)
+    l = [numbers[i]/43 for i in range(len(numbers))]
+    m = ['hello'+str(numbers[i]) for i in range(len(numbers))]
 </code></pre>
 
 <pre><code class="language-python">python -m memory_profiler example.py
@@ -207,6 +208,9 @@ def my_func():
     del b
     return a
 </code></pre>
+
+<p>运行结果
+<img src="/assets/2020/0410/memory_profile.png" alt="" /></p>
                         </div>
 
                         
