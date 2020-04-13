@@ -58,12 +58,12 @@
     </item>
     
     <item>
-      <title>Django ORM annotate aggregate</title>
+      <title>Django ORM 查询</title>
       <link>http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/</link>
       <pubDate>Mon, 13 Jan 2020 11:03:42 +0800</pubDate>
       
       <guid>http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/</guid>
-      <description>&lt;p&gt;Django ORM中使用annotate aggregate进行复杂查询&lt;/p&gt;</description>
+      <description>&lt;p&gt;django orm其实还是很简单的，学起来也容易，这篇文章更多也是辅助记忆，方便日后查找。&lt;/p&gt;</description>
     </item>
     
     <item>
