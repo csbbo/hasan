@@ -114,6 +114,7 @@ psql exampledb < exampledb.sql
 \du：列出所有用户。
 \e：打开文本编辑器。
 \conninfo：列出当前数据库和连接的信息。
+\i：执行sql脚本插入数据
 ```
 
 > 删除PostgreSQL中的所有表,如果所有表都在单个模式中，则此方法可以工作`DROP SCHEMA public CASCADE;
