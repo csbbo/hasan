@@ -70,7 +70,7 @@ django orm其实还是很简单的，学起来也容易，这篇文章更多也�
 
 3. annotate相当于group by对数据进行分组,但使用的时候更像作多表连接时将子查询AS为当前对象一个字段。
 
-4. 对查询集(queryset)的某些字段进行聚合操作时(比如Sum, Avg, Max, Count)使用
+4. aggregate对查询集(queryset)的某些字段进行聚合操作时(比如Sum, Avg, Max, Count)使用
 
 5. Subquery,OuterRef子查询
 
