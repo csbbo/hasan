@@ -188,6 +188,9 @@ s 8f33126c feat: add test2.js
 
 使用`wq`保存退出后，进入合并后commit信息编辑页确定合并后提交信息
 
+rebase还有一个常用的场景就是rebase其他分支如`git rebase master`
+
+当出现冲突时挨个文件解决冲突然后`git add .`再`git rebase --continue`直到没有冲突rebase完成
 **分支合并**
 
 有这么一个使用场景:

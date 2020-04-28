@@ -330,7 +330,10 @@ s 8f33126c feat: add test2.js
 
 <p>使用<code>wq</code>保存退出后，进入合并后commit信息编辑页确定合并后提交信息</p>
 
-<p><strong>分支合并</strong></p>
+<p>rebase还有一个常用的场景就是rebase其他分支如<code>git rebase master</code></p>
+
+<p>当出现冲突时挨个文件解决冲突然后<code>git add .</code>再<code>git rebase --continue</code>直到没有冲突rebase完成
+<strong>分支合并</strong></p>
 
 <p>有这么一个使用场景:</p>
 
