@@ -194,8 +194,8 @@ DROP TABLE IF EXISTS backup_tbl;
 
 + Peer authentication failed for user "postgres" 的解决办法
 
-psql的连接建立于Unix Socket上默认使用peer authentication，所以必须要用和 数据库用户 相同的 系统用户 进行登录。
-还有一种方法，将peer authentiction 改为 md5，并给数据库设置密码。修改配置文件
+psql的连接建立于Unix Socket上默认使用peer authentication，所以必须要用和数据库用户相同的系统用户进行登录。
+还有一种方法，将peer authentiction改为md5，并给数据库设置密码。修改配置文件
 **/etc/postgresql/9.5/main/pg_hba.conf**
 ```sql
 local   all             all                                     peer
