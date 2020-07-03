@@ -109,27 +109,26 @@
 <ul>
 <li>
 <ul>
-<li><a href="#添加新用户和新数据库">添加新用户和新数据库</a>
-<ul>
-<li><a href="#第一种方法-使用postgresql控制台">第一种方法，使用PostgreSQL控制台。</a></li>
-<li><a href="#第二种方法-使用shell命令行">第二种方法，使用shell命令行。</a></li>
-</ul></li>
-<li><a href="#登录数据库">登录数据库</a></li>
-<li><a href="#控制台命令">控制台命令</a>
-<ul>
-<li><a href="#postgresql数据导入导出">postgresql数据导入导出</a></li>
-</ul></li>
-<li><a href="#角色属性-role-attributes">角色属性（Role Attributes）</a></li>
 <li><a href="#postgresql-数据类型">PostgreSQL 数据类型</a>
 <ul>
 <li><a href="#数值类型">数值类型</a></li>
 <li><a href="#字符类型">字符类型</a></li>
-<li><a href="#日期-时间类型">日期/时间类型</a></li>
-<li><a href="#布尔类型">布尔类型</a></li>
-<li><a href="#网络地址类型">网络地址类型</a></li>
-<li><a href="#uuid-类型">UUID 类型</a></li>
+</ul></li>
+<li><a href="#角色属性-role-attributes">角色属性（Role Attributes）</a></li>
+<li><a href="#登录数据库">登录数据库</a></li>
+<li><a href="#控制台常用命令">控制台常用命令</a>
+<ul>
+<li><a href="#postgresql数据导入导出">postgresql数据导入导出</a></li>
 </ul></li>
 <li><a href="#数据库操作">数据库操作</a>
+<ul>
+<li><a href="#创建数据库">创建数据库</a>
+<ul>
+<li><a href="#连接数据库">连接数据库</a></li>
+</ul></li>
+<li><a href="#删除数据库">删除数据库</a></li>
+</ul></li>
+<li><a href="#一些sql">一些SQL</a>
 <ul>
 <li><a href="#faq">FAQ</a></li>
 </ul></li>
@@ -146,200 +145,6 @@
 <p>PostgreSQL支持大部分 SQL标准并且提供了许多其他现代特性：复杂查询、外键、触发器、视图、事务完整性、MVCC。同样，PostgreSQL 可以用许多方法扩展，比如，通过增加新的数据类型、函数、操作符、聚集函数、索引。</p>
 
 <p>初次安装postgresql后，默认生成一个名为postgres的数据库和一个名为postgres的数据库用户。这里需要注意的是，同时还生成了一个名为postgres的Linux系统用户。</p>
-
-<h2 id="添加新用户和新数据库">添加新用户和新数据库</h2>
-
-<h3 id="第一种方法-使用postgresql控制台">第一种方法，使用PostgreSQL控制台。</h3>
-
-<p>首先，新建一个Linux新用户，可以取你想要的名字，这里为dbuser。</p>
-
-<pre><code class="language-sql">sudo adduser dbuser
-</code></pre>
-
-<p>然后，切换到postgres用户。</p>
-
-<pre><code class="language-sql">sudo su - postgres
-</code></pre>
-
-<p>下一步，使用psql命令登录PostgreSQL控制台。</p>
-
-<pre><code class="language-sql">psql
-</code></pre>
-
-<p>这时相当于系统用户postgres以同名数据库用户的身份，登录数据库，这是不用输入密码的。如果一切正常，系统提示符会变为&rdquo;postgres=#&ldquo;，表示这时已经进入了数据库控制台。以下的命令都在控制台内完成。</p>
-
-<p>第一件事是使用\password命令，为postgres用户设置一个密码。</p>
-
-<pre><code class="language-sql">\password postgres
-</code></pre>
-
-<p>第二件事是创建数据库用户dbuser（刚才创建的是Linux系统用户），并设置密码。</p>
-
-<pre><code class="language-sql">CREATE USER dbuser WITH PASSWORD 'password';
-</code></pre>
-
-<p>第三件事是创建用户数据库，这里为exampledb，并指定所有者为dbuser。</p>
-
-<pre><code class="language-sql">CREATE DATABASE exampledb OWNER dbuser;
-</code></pre>
-
-<p>第四件事是将exampledb数据库的所有权限都赋予dbuser，否则dbuser只能登录控制台，没有任何数据库操作权限。</p>
-
-<pre><code class="language-sql">GRANT ALL PRIVILEGES ON DATABASE exampledb to dbuser;
-</code></pre>
-
-<p>最后，使用\q命令退出控制台（也可以直接按ctrl+D）。</p>
-
-<pre><code class="language-sql">\q
-</code></pre>
-
-<h3 id="第二种方法-使用shell命令行">第二种方法，使用shell命令行。</h3>
-
-<p>添加新用户和新数据库，除了在PostgreSQL控制台内，还可以在shell命令行下完成。这是因为PostgreSQL提供了命令行程序createuser和createdb。还是以新建用户dbuser和数据库exampledb为例。</p>
-
-<p>首先，创建数据库用户dbuser，并指定其为超级用户。</p>
-
-<pre><code class="language-sql">sudo -u postgres createuser --superuser dbuser
-</code></pre>
-
-<p>然后，登录数据库控制台，设置dbuser用户的密码，完成后退出控制台。</p>
-
-<pre><code class="language-sql">sudo -u postgres psql
-
-\password dbuser
-
-\q
-</code></pre>
-
-<p>接着，在shell命令行下，创建数据库exampledb，并指定所有者为dbuser。</p>
-
-<pre><code class="language-sql">sudo -u postgres createdb -O dbuser exampledb
-</code></pre>
-
-<h2 id="登录数据库">登录数据库</h2>
-
-<pre><code class="language-sql">psql -U dbuser -d exampledb -h 127.0.0.1 -p 5432
-</code></pre>
-
-<p>上面命令的参数含义如下：-U指定用户，-d指定数据库，-h指定服务器，-p指定端口。</p>
-
-<p>输入上面命令以后，系统会提示输入dbuser用户的密码。输入正确，就可以登录控制台了。</p>
-
-<p>psql命令存在简写形式。如果当前Linux系统用户，同时也是PostgreSQL用户，则可以省略用户名（-U参数的部分）。举例来说，我的Linux系统用户名为ruanyf，且PostgreSQL数据库存在同名用户，则我以ruanyf身份登录Linux系统后，可以直接使用下面的命令登录数据库，且不需要密码。</p>
-
-<pre><code class="language-sql">psql exampledb
-</code></pre>
-
-<p>此时，如果PostgreSQL内部还存在与当前系统用户同名的数据库，则连数据库名都可以省略。比如，假定存在一个叫做ruanyf的数据库，则直接键入psql就可以登录该数据库。</p>
-
-<pre><code class="language-sql">psql
-</code></pre>
-
-<p>另外，如果要恢复外部数据，可以使用下面的命令。</p>
-
-<pre><code class="language-sql">psql exampledb &lt; exampledb.sql
-</code></pre>
-
-<h2 id="控制台命令">控制台命令</h2>
-
-<p>除了前面已经用到的\password命令（设置密码）和\q命令（退出）以外，控制台还提供一系列其他命令。</p>
-
-<pre><code class="language-sql">\h：查看SQL命令的解释，比如\h select。
-\?：查看psql命令列表。
-\l：列出所有数据库。
-\c [database_name]：连接其他数据库。
-\d：列出当前数据库的所有表格。
-\d [table_name]：列出某一张表格的结构。
-\du：列出所有用户。
-\e：打开文本编辑器。
-\conninfo：列出当前数据库和连接的信息。
-\i：执行sql脚本插入数据
-</code></pre>
-
-<blockquote>
-<p>删除PostgreSQL中的所有表,如果所有表都在单个模式中，则此方法可以工作<code>DROP SCHEMA public CASCADE;
-CREATE SCHEMA public</code></p>
-</blockquote>
-
-<h3 id="postgresql数据导入导出">postgresql数据导入导出</h3>
-
-<p>导出数据库</p>
-
-<pre><code class="language-sql">pg_dump -U user database &gt; db.sql
-</code></pre>
-
-<p>导出具体表</p>
-
-<pre><code class="language-sql">pg_dump -U user database -t table &gt; table.sql
-</code></pre>
-
-<p>导入数据库</p>
-
-<pre><code class="language-sql">psql -d database -f db.sql user
-</code></pre>
-
-<p>导入具体表</p>
-
-<pre><code class="language-sql">psql -d database -f table.sql user
-</code></pre>
-
-<h2 id="角色属性-role-attributes">角色属性（Role Attributes）</h2>
-
-<p>一个数据库角色可以有一系列属性，这些属性定义了他的权限。</p>
-
-<pre><code class="language-sql">ALTER ROLE &lt;rolename&gt; &lt;attributes&gt;;
-</code></pre>
-
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>说明</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>login</td>
-<td>只有具有 LOGIN 属性的角色可以用做数据库连接的初始角色名。</td>
-</tr>
-
-<tr>
-<td>superuser</td>
-<td>数据库超级用户</td>
-</tr>
-
-<tr>
-<td>createdb</td>
-<td>创建数据库权限</td>
-</tr>
-
-<tr>
-<td>createrole</td>
-<td>允许其创建或删除其他普通的用户角色(超级用户除外)</td>
-</tr>
-
-<tr>
-<td>replication</td>
-<td>做流复制的时候用到的一个用户属性，一般单独设定。</td>
-</tr>
-
-<tr>
-<td>password</td>
-<td>在登录时要求指定密码时才会起作用，比如md5或者password模式，跟客户端的连接认证方式有关</td>
-</tr>
-
-<tr>
-<td>inherit</td>
-<td>用户组对组员的一个继承标志，成员可以继承用户组的权限特性</td>
-</tr>
-
-<tr>
-<td>&hellip;</td>
-<td>&hellip;</td>
-</tr>
-</tbody>
-</table>
 
 <h2 id="postgresql-数据类型">PostgreSQL 数据类型</h2>
 
@@ -462,151 +267,213 @@ CREATE SCHEMA public</code></p>
 </tbody>
 </table>
 
-<h3 id="日期-时间类型">日期/时间类型</h3>
+<blockquote>
+<p>此外还有日期/时间类型、布尔类型、网络地址类型、UUID类型</p>
+</blockquote>
 
-<p>下表列出了 PostgreSQL 支持的日期和时间类型。</p>
+<h2 id="角色属性-role-attributes">角色属性（Role Attributes）</h2>
+
+<p>一个数据库角色可以有一系列属性，这些属性定义了他的权限。</p>
+
+<pre><code class="language-sql">ALTER ROLE &lt;rolename&gt; &lt;attributes&gt;;
+</code></pre>
 
 <table>
 <thead>
 <tr>
-<th>名字</th>
-<th>存储空间</th>
-<th>描述</th>
-<th>最低值</th>
-<th>最高值</th>
-<th>分辨率</th>
+<th>属性</th>
+<th>说明</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
-<td>timestamp [ (p) ] [ without time zone ]</td>
-<td>8 字节</td>
-<td>日期和时间(无时区)</td>
-<td>4713 BC</td>
-<td>294276 AD</td>
-<td>1 毫秒 / 14 位</td>
+<td>login</td>
+<td>只有具有 LOGIN 属性的角色可以用做数据库连接的初始角色名。</td>
 </tr>
 
 <tr>
-<td>timestamp [ (p) ] with time zone</td>
-<td>8 字节</td>
-<td>日期和时间，有时区</td>
-<td>4713 BC</td>
-<td>294276 AD</td>
-<td>1 毫秒 / 14 位</td>
+<td>superuser</td>
+<td>数据库超级用户</td>
 </tr>
 
 <tr>
-<td>date</td>
-<td>4 字节</td>
-<td>只用于日期</td>
-<td>4713 BC</td>
-<td>5874897 AD</td>
-<td>1 天</td>
+<td>createdb</td>
+<td>创建数据库权限</td>
 </tr>
 
 <tr>
-<td>time [ (p) ] [ without time zone ]</td>
-<td>8 字节</td>
-<td>只用于一日内时间</td>
-<td>00:00:00</td>
-<td>24:00:00</td>
-<td>1 毫秒 / 14 位</td>
+<td>createrole</td>
+<td>允许其创建或删除其他普通的用户角色(超级用户除外)</td>
 </tr>
 
 <tr>
-<td>time [ (p) ] with time zone</td>
-<td>12 字节</td>
-<td>只用于一日内时间，带时区</td>
-<td>00:00:00+1459</td>
-<td>24:00:00-1459</td>
-<td>1 毫秒 / 14 位</td>
+<td>replication</td>
+<td>做流复制的时候用到的一个用户属性，一般单独设定。</td>
 </tr>
 
 <tr>
-<td>interval [ fields ] [ (p) ]</td>
-<td>12 字节</td>
-<td>时间间隔</td>
-<td>-178000000 年</td>
-<td>178000000 年</td>
-<td>1 毫秒 / 14 位</td>
+<td>password</td>
+<td>在登录时要求指定密码时才会起作用，比如md5或者password模式，跟客户端的连接认证方式有关</td>
+</tr>
+
+<tr>
+<td>inherit</td>
+<td>用户组对组员的一个继承标志，成员可以继承用户组的权限特性</td>
+</tr>
+
+<tr>
+<td>&hellip;</td>
+<td>&hellip;</td>
 </tr>
 </tbody>
 </table>
 
-<h3 id="布尔类型">布尔类型</h3>
+<!-- ## 添加新用户和新数据库
 
-<p>PostgreSQL 支持标准的 boolean 数据类型。</p>
+### 第一种方法，使用PostgreSQL控制台。
+首先，新建一个Linux新用户，可以取你想要的名字，这里为dbuser。
 
-<p>boolean 有&rdquo;true&rdquo;(真)或&rdquo;false&rdquo;(假)两个状态， 第三种&rdquo;unknown&rdquo;(未知)状态，用 NULL 表示。</p>
+```sql
+sudo adduser dbuser
+```
 
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>存储格式</th>
-<th>描述</th>
-</tr>
-</thead>
+然后，切换到postgres用户。
+```sql
+sudo su - postgres
+```
 
-<tbody>
-<tr>
-<td>boolean</td>
-<td>1 字节</td>
-<td>true/false</td>
-</tr>
-</tbody>
-</table>
+下一步，使用psql命令登录PostgreSQL控制台。
+```sql
+psql
+```
 
-<h3 id="网络地址类型">网络地址类型</h3>
+这时相当于系统用户postgres以同名数据库用户的身份，登录数据库，这是不用输入密码的。如果一切正常，系统提示符会变为"postgres=#"，表示这时已经进入了数据库控制台。以下的命令都在控制台内完成。
 
-<p>PostgreSQL 提供用于存储 IPv4 、IPv6 、MAC 地址的数据类型。</p>
+第一件事是使用\password命令，为postgres用户设置一个密码。
+```sql
+\password postgres
+```
 
-<p>用这些数据类型存储网络地址比用纯文本类型好， 因为这些类型提供输入错误检查和特殊的操作和功能。</p>
+第二件事是创建数据库用户dbuser（刚才创建的是Linux系统用户），并设置密码。
+```sql
+CREATE USER dbuser WITH PASSWORD 'password';
+```
+第三件事是创建用户数据库，这里为exampledb，并指定所有者为dbuser。
+```sql
+CREATE DATABASE exampledb OWNER dbuser;
+```
+第四件事是将exampledb数据库的所有权限都赋予dbuser，否则dbuser只能登录控制台，没有任何数据库操作权限。
+```sql
+GRANT ALL PRIVILEGES ON DATABASE exampledb to dbuser;
+```
 
-<table>
-<thead>
-<tr>
-<th>名字</th>
-<th>存储空间</th>
-<th>描述</th>
-</tr>
-</thead>
+最后，使用\q命令退出控制台（也可以直接按ctrl+D）。
+```sql
+\q
+```
 
-<tbody>
-<tr>
-<td>cidr</td>
-<td>7 或 19 字节</td>
-<td>IPv4 或 IPv6 网络</td>
-</tr>
+### 第二种方法，使用shell命令行。
 
-<tr>
-<td>inet</td>
-<td>7 或 19 字节</td>
-<td>IPv4 或 IPv6 主机和网络</td>
-</tr>
+添加新用户和新数据库，除了在PostgreSQL控制台内，还可以在shell命令行下完成。这是因为PostgreSQL提供了命令行程序createuser和createdb。还是以新建用户dbuser和数据库exampledb为例。
 
-<tr>
-<td>macaddr</td>
-<td>6 字节</td>
-<td>MAC 地址</td>
-</tr>
-</tbody>
-</table>
+首先，创建数据库用户dbuser，并指定其为超级用户。
+```sql
+sudo -u postgres createuser --superuser dbuser
+```
+然后，登录数据库控制台，设置dbuser用户的密码，完成后退出控制台。
+```sql
+sudo -u postgres psql
 
-<h3 id="uuid-类型">UUID 类型</h3>
+\password dbuser
 
-<p>uuid 数据类型用来存储 RFC 4122，ISO/IEF 9834-8:2005 以及相关标准定义的通用唯一标识符（UUID）。 （一些系统认为这个数据类型为全球唯一标识符，或GUID。） 这个标识符是一个由算法产生的 128 位标识符，使它不可能在已知使用相同算法的模块中和其他方式产生的标识符相同。 因此，对分布式系统而言，这种标识符比序列能更好的提供唯一性保证，因为序列只能在单一数据库中保证唯一。</p>
+\q
+```
+接着，在shell命令行下，创建数据库exampledb，并指定所有者为dbuser。
+```sql
+sudo -u postgres createdb -O dbuser exampledb
+``` -->
 
-<p>UUID 被写成一个小写十六进制数字的序列，由分字符分成几组， 特别是一组8位数字+3组4位数字+一组12位数字，总共 32 个数字代表 128 位， 一个这种标准的 UUID 例子如下：</p>
+<h2 id="登录数据库">登录数据库</h2>
 
-<pre><code class="language-sql">a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11
+<p><code>psql --help</code></p>
+
+<p>psql命令存在简写形式。如果当前Linux系统用户，同时也是PostgreSQL用户，则可以省略用户名（-U参数的部分）。举例来说，我的Linux系统用户名为ruanyf，且PostgreSQL数据库存在同名用户，则我以ruanyf身份登录Linux系统后，可以直接使用下面的命令登录数据库，且不需要密码。</p>
+
+<pre><code class="language-sql">psql exampledb
+</code></pre>
+
+<p>此时，如果PostgreSQL内部还存在与当前系统用户同名的数据库，则连数据库名都可以省略。比如，假定存在一个叫做ruanyf的数据库，则直接键入psql就可以登录该数据库。</p>
+
+<pre><code class="language-sql">psql
+</code></pre>
+
+<h2 id="控制台常用命令">控制台常用命令</h2>
+
+<p>除了前面已经用到的\password命令（设置密码）和\q命令（退出）以外，控制台还提供一系列其他命令。</p>
+
+<pre><code class="language-sql">\h：查看SQL命令的解释，比如\h select。
+\?：查看psql命令列表。
+\l：列出所有数据库。
+\c [database_name]：连接其他数据库。
+\d：列出当前数据库的所有表格。
+\d [table_name]：列出某一张表格的结构。
+\du：列出所有用户。
+\e：打开文本编辑器。
+\conninfo：列出当前数据库和连接的信息。
+\i：执行sql脚本插入数据
+</code></pre>
+
+<blockquote>
+<p>删除PostgreSQL中的所有表,如果所有表都在单个模式中，则此方法可以工作<code>DROP SCHEMA public CASCADE;
+CREATE SCHEMA public</code></p>
+</blockquote>
+
+<h3 id="postgresql数据导入导出">postgresql数据导入导出</h3>
+
+<p><code>pg_dump --help</code></p>
+
+<p>导出数据到data.sql</p>
+
+<pre><code class="language-sql">pg_dump -U trainingplatform -d trainingplatform -a --column-inserts -f data.sql
 </code></pre>
 
 <h2 id="数据库操作">数据库操作</h2>
 
 <p>基本的数据库操作，就是使用一般的SQL语言。</p>
+
+<h3 id="创建数据库">创建数据库</h3>
+
+<ol>
+<li><p>标准SQL语句</p>
+
+<pre><code class="language-sql">CREATE DATABASE dbname;
+</code></pre></li>
+
+<li><p>createdb命令</p>
+
+<pre><code class="language-shell">createdb -h localhost -p 5432 -U postgres testdb
+</code></pre>
+
+<h4 id="连接数据库">连接数据库</h4>
+
+<pre><code class="language-shell">psql -h localhost -p 5432 -U postgress testdb
+</code></pre>
+
+<h3 id="删除数据库">删除数据库</h3></li>
+
+<li><p>标准SQL语句</p>
+
+<pre><code class="language-sql">DROP DATABASE [ IF EXISTS ] testdb
+</code></pre></li>
+
+<li><p>dropdb命令</p>
+
+<pre><code class="language-shell">dropdb -h localhost -p 5432 -U postgres testdb
+</code></pre></li>
+</ol>
+
+<h2 id="一些sql">一些SQL</h2>
 
 <pre><code class="language-sql"># 创建新表
 CREATE TABLE user_tbl(name VARCHAR(20), signup_date DATE);

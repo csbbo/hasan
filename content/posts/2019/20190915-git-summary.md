@@ -94,7 +94,7 @@ Git鼓励大量使用分支:
 
 bug分支：
 
-修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；  当手头工作没有完成时，先把工作现场`git stash`一下，然后去修复bug，修复后，再`git stash apply [stash@{0}]`恢复工作现场`git stash list`可以查看多次`stash`指定恢复的`stash`，最后`git stash drop stash@{0}`删掉`stash`内容。
+修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；  当手头工作没有完成时，先把工作现场`git stash`一下`git stash save "save info"`可以自定义stash保存信息，然后去修复bug，修复后，再`git stash apply [stash@{0}]`恢复工作现场`git stash list`可以查看多次`stash`指定恢复的`stash`，最后`git stash drop stash@{0}`删掉`stash`内容而`git stash clear`可以清空stash。
 
 > `git stash`把当前工作区和暂存区内容存储起来(不包括`untrack`,即未被`git`管理的文件)
 

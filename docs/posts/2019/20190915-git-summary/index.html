@@ -231,7 +231,7 @@ Git有什么特点？简单来说就是：高端大气上档次！</p>
 
 <p>bug分支：</p>
 
-<p>修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；  当手头工作没有完成时，先把工作现场<code>git stash</code>一下，然后去修复bug，修复后，再<code>git stash apply [stash@{0}]</code>恢复工作现场<code>git stash list</code>可以查看多次<code>stash</code>指定恢复的<code>stash</code>，最后<code>git stash drop stash@{0}</code>删掉<code>stash</code>内容。</p>
+<p>修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；  当手头工作没有完成时，先把工作现场<code>git stash</code>一下<code>git stash save &quot;save info&quot;</code>可以自定义stash保存信息，然后去修复bug，修复后，再<code>git stash apply [stash@{0}]</code>恢复工作现场<code>git stash list</code>可以查看多次<code>stash</code>指定恢复的<code>stash</code>，最后<code>git stash drop stash@{0}</code>删掉<code>stash</code>内容而<code>git stash clear</code>可以清空stash。</p>
 
 <blockquote>
 <p><code>git stash</code>把当前工作区和暂存区内容存储起来(不包括<code>untrack</code>,即未被<code>git</code>管理的文件)</p>
