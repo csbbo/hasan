@@ -140,7 +140,7 @@ CREATE DATABASE dbname;
 ```shell
 createdb -h localhost -p 5432 -U postgres testdb
 ```
-#### 连接数据库
+### 连接数据库
 ```shell
 psql -h localhost -p 5432 -U postgress testdb
 ```
