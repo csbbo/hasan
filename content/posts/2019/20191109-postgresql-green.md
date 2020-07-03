@@ -66,51 +66,7 @@ inherit | 用户组对组员的一个继承标志，成员可以继承用户组�
 ... | ...
 
 
-<!-- ## 添加新用户和新数据库
-
-### 第一种方法，使用PostgreSQL控制台。
-首先，新建一个Linux新用户，可以取你想要的名字，这里为dbuser。
-
-```sql
-sudo adduser dbuser
-```
-
-然后，切换到postgres用户。
-```sql
-sudo su - postgres
-```
-
-下一步，使用psql命令登录PostgreSQL控制台。
-```sql
-psql
-```
-
-这时相当于系统用户postgres以同名数据库用户的身份，登录数据库，这是不用输入密码的。如果一切正常，系统提示符会变为"postgres=#"，表示这时已经进入了数据库控制台。以下的命令都在控制台内完成。
-
-第一件事是使用\password命令，为postgres用户设置一个密码。
-```sql
-\password postgres
-```
-
-第二件事是创建数据库用户dbuser（刚才创建的是Linux系统用户），并设置密码。
-```sql
-CREATE USER dbuser WITH PASSWORD 'password';
-```
-第三件事是创建用户数据库，这里为exampledb，并指定所有者为dbuser。
-```sql
-CREATE DATABASE exampledb OWNER dbuser;
-```
-第四件事是将exampledb数据库的所有权限都赋予dbuser，否则dbuser只能登录控制台，没有任何数据库操作权限。
-```sql
-GRANT ALL PRIVILEGES ON DATABASE exampledb to dbuser;
-```
-
-最后，使用\q命令退出控制台（也可以直接按ctrl+D）。
-```sql
-\q
-```
-
-### 第二种方法，使用shell命令行。
+## 添加新用户和新数据库
 
 添加新用户和新数据库，除了在PostgreSQL控制台内，还可以在shell命令行下完成。这是因为PostgreSQL提供了命令行程序createuser和createdb。还是以新建用户dbuser和数据库exampledb为例。
 
@@ -129,7 +85,7 @@ sudo -u postgres psql
 接着，在shell命令行下，创建数据库exampledb，并指定所有者为dbuser。
 ```sql
 sudo -u postgres createdb -O dbuser exampledb
-``` -->
+```
 
 ## 登录数据库
 `psql --help`
