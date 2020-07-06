@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 10 Apr 2020 14:12:45 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2020 14:46:00 +0800</lastBuildDate>
     
 	<atom:link href="http://blog.shaobo.fun/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>记一次Evenlet事件</title>
+      <link>http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/</link>
+      <pubDate>Mon, 06 Jul 2020 14:46:00 +0800</pubDate>
+      
+      <guid>http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/</guid>
+      <description>&lt;p&gt;事情的起因是要再项目中使用双向通信，首选是websocket但是由于ie10的不支持选用的socketio(sockerio会根据实际情自动切换websocket和轮询两种办法),而socketio的使用又需要引入evenlet,就这样一步一步的往里陷了。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Python性能分析</title>

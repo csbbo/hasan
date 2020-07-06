@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nil on 庄周梦蝶</title>
+    <link>http://blog.shaobo.fun/categories/nil/</link>
+    <description>Recent content in nil on 庄周梦蝶</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 06 Jul 2020 14:46:00 +0800</lastBuildDate>
+    
+	<atom:link href="http://blog.shaobo.fun/categories/nil/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>记一次Evenlet事件</title>
+      <link>http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/</link>
+      <pubDate>Mon, 06 Jul 2020 14:46:00 +0800</pubDate>
+      
+      <guid>http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/</guid>
+      <description>&lt;p&gt;事情的起因是要再项目中使用双向通信，首选是websocket但是由于ie10的不支持选用的socketio(sockerio会根据实际情自动切换websocket和轮询两种办法),而socketio的使用又需要引入evenlet,就这样一步一步的往里陷了。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
