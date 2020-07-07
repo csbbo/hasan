@@ -23,10 +23,10 @@ proxies:
   # udp: true
   tls: true
   #skip-cert-verify: true
-  # network: ws
-  # # http-opts: 
-  # ws-path: /
-  # ws-headers: 
-  #   Host: sea.shaobo.fun
+  network: ws
+  # http-opts: 
+  ws-path: /
+  ws-headers: 
+    Host: sea.shaobo.fun
 
 cfw-latency-timeout: 5000
