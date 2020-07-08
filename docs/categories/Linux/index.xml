@@ -17,9 +17,12 @@
       <pubDate>Wed, 08 Jul 2020 15:33:57 +0800</pubDate>
       
       <guid>http://blog.shaobo.fun/posts/2020/20200708-io-model/</guid>
-      <description>&lt;p&gt;一个输入操作通常包含两个阶段：
-1. 等待数据准备好
-2. 从内核向进程复制数据&lt;/p&gt;
+      <description>&lt;p&gt;一个输入操作通常包含两个阶段：&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;等待数据准备好&lt;/li&gt;
+&lt;li&gt;从内核向进程复制数据&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;p&gt;对于一个套接字上的输入操作，第一步通常涉及等待数据从网络到达，当所等待的数据到达时，他被复制到内核中的某个缓冲区，第二步就是把数据从内核缓冲区复制到进程缓冲区。&lt;/p&gt;</description>
     </item>
