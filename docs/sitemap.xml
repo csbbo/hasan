@@ -3,17 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://blog.shaobo.fun/categories/</loc>
-    <lastmod>2020-07-06T14:46:00+08:00</lastmod>
+    <loc>http://blog.shaobo.fun/posts/2020/20200708-io-model/</loc>
+    <lastmod>2020-07-08T15:33:57+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.shaobo.fun/tags/evenlet/</loc>
-    <lastmod>2020-07-06T14:46:00+08:00</lastmod>
+    <loc>http://blog.shaobo.fun/categories/</loc>
+    <lastmod>2020-07-08T15:33:57+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.shaobo.fun/categories/Linux/</loc>
+    <lastmod>2020-07-08T15:33:57+08:00</lastmod>
   </url>
   
   <url>
     <loc>http://blog.shaobo.fun/posts/</loc>
+    <lastmod>2020-07-08T15:33:57+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.shaobo.fun/</loc>
+    <lastmod>2020-07-08T15:33:57+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.shaobo.fun/tags/evenlet/</loc>
     <lastmod>2020-07-06T14:46:00+08:00</lastmod>
   </url>
   
@@ -29,11 +44,6 @@
   
   <url>
     <loc>http://blog.shaobo.fun/tags/</loc>
-    <lastmod>2020-07-06T14:46:00+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://blog.shaobo.fun/</loc>
     <lastmod>2020-07-06T14:46:00+08:00</lastmod>
   </url>
   
@@ -88,11 +98,6 @@
   </url>
   
   <url>
-    <loc>http://blog.shaobo.fun/categories/Linux/</loc>
-    <lastmod>2020-01-17T10:32:56+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://blog.shaobo.fun/tags/tcpdump/</loc>
     <lastmod>2020-01-17T10:32:56+08:00</lastmod>
   </url>
@@ -128,12 +133,12 @@
   </url>
   
   <url>
-    <loc>http://blog.shaobo.fun/categories/Docker/</loc>
+    <loc>http://blog.shaobo.fun/tags/Docker/</loc>
     <lastmod>2019-12-31T15:31:28+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.shaobo.fun/tags/Docker/</loc>
+    <loc>http://blog.shaobo.fun/categories/Docker/</loc>
     <lastmod>2019-12-31T15:31:28+08:00</lastmod>
   </url>
   
