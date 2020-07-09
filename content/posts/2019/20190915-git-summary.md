@@ -31,7 +31,7 @@ Git有什么特点？简单来说就是：高端大气上档次！
 ### 查看历史
 
 HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令`git reset --hard commit_id | HEAD^`。
-穿梭前，用`git log`可以查看提交历史，以便确定要回退到哪个版本。要重返未来，用`git reflog`查看命令历史，以便确定要回到未来的哪个版本。
+穿梭前，用`git log`可以查看提交历史(修改log输出格式`git log -4 --pretty=format:"%h %s"`)，以便确定要回退到哪个版本。要重返未来，用`git reflog`查看命令历史，以便确定要回到未来的哪个版本。
 
 ### 丢弃修改
 
@@ -127,7 +127,14 @@ Feature分支:
 
 在本地创建和远程分支对应的分支，使用`git checkout -b branch-name origin/branch-name`，本地和远程分支的名称最好一致；
 
-### Rebase
+
+### 修改commit历史
+
+**修改最后一个提交**
+
+修改最后一个commit信息`git commit --amend`,如果是要修改最后一个commit的内容的话，则需要先`git add .`,只是修改内容不修改提交信息可以不打开编辑会话`git commit --amend --no-edit`
+
+**Rebase**
 
 对于克隆下来的远程分支
 

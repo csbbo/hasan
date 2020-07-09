@@ -108,7 +108,7 @@
 <li><a href="#删除文件">删除文件</a></li>
 <li><a href="#远程仓库">远程仓库</a></li>
 <li><a href="#分支管理">分支管理</a></li>
-<li><a href="#rebase">Rebase</a></li>
+<li><a href="#修改commit历史">修改commit历史</a></li>
 <li><a href="#标签">标签</a></li>
 <li><a href="#多个远程仓库">多个远程仓库</a></li>
 <li><a href="#忽略特殊文件">忽略特殊文件</a></li>
@@ -154,7 +154,7 @@ Git有什么特点？简单来说就是：高端大气上档次！</p>
 <h3 id="查看历史">查看历史</h3>
 
 <p>HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令<code>git reset --hard commit_id | HEAD^</code>。
-穿梭前，用<code>git log</code>可以查看提交历史，以便确定要回退到哪个版本。要重返未来，用<code>git reflog</code>查看命令历史，以便确定要回到未来的哪个版本。</p>
+穿梭前，用<code>git log</code>可以查看提交历史(修改log输出格式<code>git log -4 --pretty=format:&quot;%h %s&quot;</code>)，以便确定要回退到哪个版本。要重返未来，用<code>git reflog</code>查看命令历史，以便确定要回到未来的哪个版本。</p>
 
 <h3 id="丢弃修改">丢弃修改</h3>
 
@@ -270,7 +270,13 @@ Git有什么特点？简单来说就是：高端大气上档次！</p>
 
 <p>在本地创建和远程分支对应的分支，使用<code>git checkout -b branch-name origin/branch-name</code>，本地和远程分支的名称最好一致；</p>
 
-<h3 id="rebase">Rebase</h3>
+<h3 id="修改commit历史">修改commit历史</h3>
+
+<p><strong>修改最后一个提交</strong></p>
+
+<p>修改最后一个commit信息<code>git commit --amend</code>,如果是要修改最后一个commit的内容的话，则需要先<code>git add .</code>,只是修改内容不修改提交信息可以不打开编辑会话<code>git commit --amend --no-edit</code></p>
+
+<p><strong>Rebase</strong></p>
 
 <p>对于克隆下来的远程分支</p>
 
