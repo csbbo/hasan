@@ -66,31 +66,43 @@ inherit | 用户组对组员的一个继承标志，成员可以继承用户组�
 ... | ...
 
 
-## 添加新用户和新数据库
+## 安装(mac)
 
-添加新用户和新数据库，除了在PostgreSQL控制台内，还可以在shell命令行下完成。这是因为PostgreSQL提供了命令行程序createuser和createdb。还是以新建用户dbuser和数据库exampledb为例。
-
-首先，创建数据库用户dbuser，并指定其为超级用户。
-```sql
-sudo -u postgres createuser --superuser dbuser
+安装
 ```
-然后，登录数据库控制台，设置dbuser用户的密码，完成后退出控制台。
-```sql
-sudo -u postgres psql
-
-\password dbuser
-
-\q
-```
-接着，在shell命令行下，创建数据库exampledb，并指定所有者为dbuser。
-```sql
-sudo -u postgres createdb -O dbuser exampledb
+brew install postgresq
 ```
 
-## 登录数据库
-`psql --help`
+初始化
+```
+initdb /usr/local/var/postgre
+```
+> 如果提示dereactory "/usr/local/var/postgres" exists but is not empty则需清空这个目录，`rm -rf /usr/local/var/postgres`
 
-psql命令存在简写形式。如果当前Linux系统用户，同时也是PostgreSQL用户，则可以省略用户名（-U参数的部分）。举例来说，我的Linux系统用户名为ruanyf，且PostgreSQL数据库存在同名用户，则我以ruanyf身份登录Linux系统后，可以直接使用下面的命令登录数据库，且不需要密码。
+启动服务
+```
+pg_ctl -D /usr/local/var/postgres -l logfile start
+```
+> 关闭服务改为stop即可
+
+创建用户
+```
+createuser -d -a -P <trainingplatform>
+```
+
+创建数据库并指定所属用户
+```
+createdb -O <trainingplatform> <trainingplatform>
+```
+
+登录数据库
+```
+psql -U <trainingplatform> -d <trainingplatform>
+```
+
+> `psql --help` 查看psql用法
+
+> psql命令存在简写形式。如果当前Linux系统用户，同时也是PostgreSQL用户，则可以省略用户名（-U参数的部分）。举例来说，我的Linux系统用户名为ruanyf，且PostgreSQL数据库存在同名用户，则我以ruanyf身份登录Linux系统后，可以直接使用下面的命令登录数据库，且不需要密码。
 ```sql
 psql exampledb
 ```
