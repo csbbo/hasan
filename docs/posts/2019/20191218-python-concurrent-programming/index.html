@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -104,22 +104,20 @@
                                 
                                     <div class="toc-title">文章目录</div> 
                                     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#启动与停止线程">启动与停止线程</a></li>
-<li><a href="#线程间通信">线程间通信</a></li>
-<li><a href="#给关键部分加锁">给关键部分加锁</a></li>
-<li><a href="#创建一个线程池">创建一个线程池</a></li>
-<li><a href="#简单的并行编程">简单的并行编程</a></li>
-<li><a href="#定义一个actor任务">定义一个Actor任务</a></li>
-<li><a href="#实现消息发布-订阅模型">实现消息发布/订阅模型</a></li>
-<li><a href="#使用生成器代替线程">使用生成器代替线程</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#启动与停止线程">启动与停止线程</a></li>
+        <li><a href="#线程间通信">线程间通信</a></li>
+        <li><a href="#给关键部分加锁">给关键部分加锁</a></li>
+        <li><a href="#创建一个线程池">创建一个线程池</a></li>
+        <li><a href="#简单的并行编程">简单的并行编程</a></li>
+        <li><a href="#定义一个actor任务">定义一个Actor任务</a></li>
+        <li><a href="#实现消息发布订阅模型">实现消息发布/订阅模型</a></li>
+        <li><a href="#使用生成器代替线程">使用生成器代替线程</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                                 
                                 </div>
@@ -127,384 +125,326 @@
                         
                         <div class="post-content">
                             <p>对于并发编程, Python有多种长期支持的方法, 包括多线程, 调用子进程, 以及各种各样的关于生成器函数的技巧。</p>
-
 <h3 id="启动与停止线程">启动与停止线程</h3>
-
 <p><code>threading</code> 库可以在单独的线程中执行任何的在 Python 中可以调用的对象。你可以创建一个 Thread 对象并将你要执行的对象以 <code>target</code> 参数的形式提供给该对象。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> time
+<span style="color:#f92672">from</span> threading <span style="color:#f92672">import</span> Thread
 
-<pre><code class="language-python">import time
-from threading import Thread
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">countdown</span>(n):
+    <span style="color:#66d9ef">while</span> n <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;T-minus&#39;</span>, n)
+        n <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+        time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">5</span>)
 
-def countdown(n):
-    while n &gt; 0:
-        print('T-minus', n)
-        n -= 1
-        time.sleep(5)
-
-t = Thread(target=countdown, args=(10,))
-t.start()
-</code></pre>
-
-<blockquote>
+t <span style="color:#f92672">=</span> Thread(target<span style="color:#f92672">=</span>countdown, args<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,))
+t<span style="color:#f92672">.</span>start()
+</code></pre></div><blockquote>
 <p>创建好一个线程对象后需要调用 <code>start()</code> 方法才会去执行，python中的线程会在一个单独的系统级线程中执行由操作系统全权管理。<code>join()</code>方法可以将一个线程加入到当前线程并等待它终止。</p>
 </blockquote>
-
 <p>Python解释器直到所有线程都终止前仍保持运行，对于需要长时间运行的线程或者是需要一直运行的后台任务，应该考虑后台线程。</p>
-
-<pre><code class="language-python">t = Thread(target=countdown, args=(10,), daemon=True)
-t.start()
-</code></pre>
-
-<blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">t <span style="color:#f92672">=</span> Thread(target<span style="color:#f92672">=</span>countdown, args<span style="color:#f92672">=</span>(<span style="color:#ae81ff">10</span>,), daemon<span style="color:#f92672">=</span>True)
+t<span style="color:#f92672">.</span>start()
+</code></pre></div><blockquote>
 <p>由于全局解释器锁（GIL）的原因，Python的进程被限制到同一时刻只允许一个线程执行,所以python的线程更适用于处理I/O和其他需要并发执行的阻塞操作（如等待I/O、网络、数据库操作），而不适用需要多处理器并行技术的计算密集型任务。</p>
 </blockquote>
-
 <h3 id="线程间通信">线程间通信</h3>
-
 <p>从一个线程向另一个线程发送数据最安全的方式可能就是使用 queue 库中的队列了。创建一个被多个线程共享的 Queue 对象，这些线程通过使用 put() 和 get() 操作来向队列中添加或者删除元素。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> queue <span style="color:#f92672">import</span> Queue
+<span style="color:#f92672">from</span> threading <span style="color:#f92672">import</span> Thread
 
-<pre><code class="language-python">from queue import Queue
-from threading import Thread
+_sentinel <span style="color:#f92672">=</span> object()
 
-_sentinel = object()
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">producer</span>(out_q):
+    data <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
+        data <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+        out_q<span style="color:#f92672">.</span>put(data)
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;producer put </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> data)
+    out_q<span style="color:#f92672">.</span>put(_sentinel)
 
-def producer(out_q):
-    data = 0
-    for i in range(10):
-        data += 1
-        out_q.put(data)
-        print('producer put %s' % data)
-    out_q.put(_sentinel)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">consumer1</span>(in_q):
+    <span style="color:#66d9ef">while</span> True:
+        data <span style="color:#f92672">=</span> in_q<span style="color:#f92672">.</span>get()
+        <span style="color:#66d9ef">if</span> data <span style="color:#f92672">is</span> _sentinel:
+            in_q<span style="color:#f92672">.</span>put(_sentinel)
+            <span style="color:#66d9ef">break</span>
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;consumer1 get </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> data)
 
-def consumer1(in_q):
-    while True:
-        data = in_q.get()
-        if data is _sentinel:
-            in_q.put(_sentinel)
-            break
-        print('consumer1 get %s' % data)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">consumer2</span>(in_q):
+    <span style="color:#66d9ef">while</span> True:
+        data <span style="color:#f92672">=</span> in_q<span style="color:#f92672">.</span>get()
+        <span style="color:#66d9ef">if</span> data <span style="color:#f92672">is</span> _sentinel:
+            in_q<span style="color:#f92672">.</span>put(_sentinel)
+            <span style="color:#66d9ef">break</span>
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;consumer2 get </span><span style="color:#e6db74">%s</span><span style="color:#e6db74">&#39;</span> <span style="color:#f92672">%</span> data)
 
-def consumer2(in_q):
-    while True:
-        data = in_q.get()
-        if data is _sentinel:
-            in_q.put(_sentinel)
-            break
-        print('consumer2 get %s' % data)
-
-q = Queue()
-t1 = Thread(target=consumer1, args=(q,))
-t2 = Thread(target=consumer2, args=(q,))
-t3 = Thread(target=producer, args=(q,))
-t1.start()
-t2.start()
-t3.start()
-</code></pre>
-
-<blockquote>
+q <span style="color:#f92672">=</span> Queue()
+t1 <span style="color:#f92672">=</span> Thread(target<span style="color:#f92672">=</span>consumer1, args<span style="color:#f92672">=</span>(q,))
+t2 <span style="color:#f92672">=</span> Thread(target<span style="color:#f92672">=</span>consumer2, args<span style="color:#f92672">=</span>(q,))
+t3 <span style="color:#f92672">=</span> Thread(target<span style="color:#f92672">=</span>producer, args<span style="color:#f92672">=</span>(q,))
+t1<span style="color:#f92672">.</span>start()
+t2<span style="color:#f92672">.</span>start()
+t3<span style="color:#f92672">.</span>start()
+</code></pre></div><blockquote>
 <p><code>Queue</code> 对象已经包含了必要的锁，所以你可以通过它在多个线程间安全地共享数据。 当使用队列时，协调生产者和消费者的关闭问题可能会有一些麻烦。一个通用的解决方法是在队列中放置一个特殊的值，当消费者读到这个值的时候，终止执行。</p>
 </blockquote>
-
 <h3 id="给关键部分加锁">给关键部分加锁</h3>
-
 <p>多线程程序中的临界区通过加锁以避免竞争条件。Python中需要使用 <code>threading</code> 库中的 <code>Lock</code> 对象</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SharedCounter</span>:
+    <span style="color:#66d9ef">def</span> __init__(self, initial_value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>):
+        self<span style="color:#f92672">.</span>_value <span style="color:#f92672">=</span> initial_value
+        self<span style="color:#f92672">.</span>_value_lock <span style="color:#f92672">=</span> threading<span style="color:#f92672">.</span>Lock()
 
-<pre><code class="language-python">class SharedCounter:
-    def __init__(self, initial_value = 0):
-        self._value = initial_value
-        self._value_lock = threading.Lock()
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">incr</span>(self,delta<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>):
+        <span style="color:#66d9ef">with</span> self<span style="color:#f92672">.</span>_value_lock:
+             self<span style="color:#f92672">.</span>_value <span style="color:#f92672">+=</span> delta
 
-    def incr(self,delta=1):
-        with self._value_lock:
-             self._value += delta
-
-    def decr(self,delta=1):
-        with self._value_lock:
-             self._value -= delta
-</code></pre>
-
-<blockquote>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decr</span>(self,delta<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>):
+        <span style="color:#66d9ef">with</span> self<span style="color:#f92672">.</span>_value_lock:
+             self<span style="color:#f92672">.</span>_value <span style="color:#f92672">-=</span> delta
+</code></pre></div><blockquote>
 <p><code>Lock</code> 对象和 <code>with</code> 语句块一起使用可以保证互斥执行，就是每次只有一个线程可以执行 <code>with</code> <code>语句包含的代码块。with</code> 语句会在这个代码块执行前自动获取锁，在执行结束后自动释放锁。为了避免出现死锁的情况，使用锁机制的程序应该设定为每个线程一次只允许获取一个锁。</p>
 </blockquote>
-
 <h3 id="创建一个线程池">创建一个线程池</h3>
-
 <p><code>concurrent.futures</code> 函数库有一个 <code>ThreadPoolExecutor</code> 类可以被用来完成这个任务。 下面是一个简单的TCP服务器，使用了一个线程池来响应客户端：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> socket <span style="color:#f92672">import</span> AF_INET, SOCK_STREAM, socket
+<span style="color:#f92672">from</span> concurrent.futures <span style="color:#f92672">import</span> ThreadPoolExecutor
 
-<pre><code class="language-python">from socket import AF_INET, SOCK_STREAM, socket
-from concurrent.futures import ThreadPoolExecutor
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">echo_client</span>(sock, client_addr):
+    <span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">    Handle a client connection
+</span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Got connection from&#39;</span>, client_addr)
+    <span style="color:#66d9ef">while</span> True:
+        msg <span style="color:#f92672">=</span> sock<span style="color:#f92672">.</span>recv(<span style="color:#ae81ff">65536</span>)
+        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> msg:
+            <span style="color:#66d9ef">break</span>
+        sock<span style="color:#f92672">.</span>sendall(msg)
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Client closed connection&#39;</span>)
+    sock<span style="color:#f92672">.</span>close()
 
-def echo_client(sock, client_addr):
-    '''
-    Handle a client connection
-    '''
-    print('Got connection from', client_addr)
-    while True:
-        msg = sock.recv(65536)
-        if not msg:
-            break
-        sock.sendall(msg)
-    print('Client closed connection')
-    sock.close()
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">echo_server</span>(addr):
+    pool <span style="color:#f92672">=</span> ThreadPoolExecutor(<span style="color:#ae81ff">128</span>)
+    sock <span style="color:#f92672">=</span> socket(AF_INET, SOCK_STREAM)
+    sock<span style="color:#f92672">.</span>bind(addr)
+    sock<span style="color:#f92672">.</span>listen(<span style="color:#ae81ff">5</span>)
+    <span style="color:#66d9ef">while</span> True:
+        client_sock, client_addr <span style="color:#f92672">=</span> sock<span style="color:#f92672">.</span>accept()
+        pool<span style="color:#f92672">.</span>submit(echo_client, client_sock, client_addr)
 
-def echo_server(addr):
-    pool = ThreadPoolExecutor(128)
-    sock = socket(AF_INET, SOCK_STREAM)
-    sock.bind(addr)
-    sock.listen(5)
-    while True:
-        client_sock, client_addr = sock.accept()
-        pool.submit(echo_client, client_sock, client_addr)
-
-echo_server(('',15000))
-</code></pre>
-
-<blockquote>
+echo_server((<span style="color:#e6db74">&#39;&#39;</span>,<span style="color:#ae81ff">15000</span>))
+</code></pre></div><blockquote>
 <p>每个客户端请求过来后服务端会开一个线程去执行处理函数<code>echo_client</code>。如果你想手动创建你自己的线程池， 通常可以使用一个Queue来轻松实现。</p>
 </blockquote>
-
 <h3 id="简单的并行编程">简单的并行编程</h3>
-
 <p><code>concurrent.futures</code> 库提供了一个 <code>ProcessPoolExecutor</code>类， 可被用来在一个单独的Python解释器中执行计算密集型函数。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> gzip
+<span style="color:#f92672">import</span> io
+<span style="color:#f92672">import</span> glob
+<span style="color:#f92672">from</span> concurrent <span style="color:#f92672">import</span> futures
 
-<pre><code class="language-python">import gzip
-import io
-import glob
-from concurrent import futures
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">find_robots</span>(filename):
+    <span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">    Find all of the hosts that access robots.txt in a single log file
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
+    robots <span style="color:#f92672">=</span> set()
+    <span style="color:#66d9ef">with</span> gzip<span style="color:#f92672">.</span>open(filename) <span style="color:#66d9ef">as</span> f:
+        <span style="color:#66d9ef">for</span> line <span style="color:#f92672">in</span> io<span style="color:#f92672">.</span>TextIOWrapper(f,encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;ascii&#39;</span>):
+            fields <span style="color:#f92672">=</span> line<span style="color:#f92672">.</span>split()
+            <span style="color:#66d9ef">if</span> fields[<span style="color:#ae81ff">6</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;/robots.txt&#39;</span>:
+                robots<span style="color:#f92672">.</span>add(fields[<span style="color:#ae81ff">0</span>])
+    <span style="color:#66d9ef">return</span> robots
 
-def find_robots(filename):
-    '''
-    Find all of the hosts that access robots.txt in a single log file
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">find_all_robots</span>(logdir):
+    <span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">    Find all hosts across and entire sequence of files
+</span><span style="color:#e6db74">    &#39;&#39;&#39;</span>
+    files <span style="color:#f92672">=</span> glob<span style="color:#f92672">.</span>glob(logdir<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;/*.log.gz&#39;</span>)
+    all_robots <span style="color:#f92672">=</span> set()
+    <span style="color:#66d9ef">with</span> futures<span style="color:#f92672">.</span>ProcessPoolExecutor() <span style="color:#66d9ef">as</span> pool:
+        <span style="color:#66d9ef">for</span> robots <span style="color:#f92672">in</span> pool<span style="color:#f92672">.</span>map(find_robots, files):
+            all_robots<span style="color:#f92672">.</span>update(robots)
+    <span style="color:#66d9ef">return</span> all_robots
 
-    '''
-    robots = set()
-    with gzip.open(filename) as f:
-        for line in io.TextIOWrapper(f,encoding='ascii'):
-            fields = line.split()
-            if fields[6] == '/robots.txt':
-                robots.add(fields[0])
-    return robots
-
-def find_all_robots(logdir):
-    '''
-    Find all hosts across and entire sequence of files
-    '''
-    files = glob.glob(logdir+'/*.log.gz')
-    all_robots = set()
-    with futures.ProcessPoolExecutor() as pool:
-        for robots in pool.map(find_robots, files):
-            all_robots.update(robots)
-    return all_robots
-
-if __name__ == '__main__':
-    robots = find_all_robots('logs')
-    for ipaddr in robots:
-        print(ipaddr)
-</code></pre>
-
-<blockquote>
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    robots <span style="color:#f92672">=</span> find_all_robots(<span style="color:#e6db74">&#39;logs&#39;</span>)
+    <span style="color:#66d9ef">for</span> ipaddr <span style="color:#f92672">in</span> robots:
+        <span style="color:#66d9ef">print</span>(ipaddr)
+</code></pre></div><blockquote>
 <p>提交到池中的工作必须被定义为一个函数。有两种方法去提交。 如果你想让一个列表推导或一个 <code>map()</code> 操作并行执行的话，可使用 <code>pool.map()</code>。</p>
 </blockquote>
-
 <p>另外，你可以使用 <code>pool.submit()</code> 来手动的提交单个任务，如果你手动提交一个任务，结果是一个 <code>Future</code> 实例。 要获取最终结果，你需要调用它的 <code>result()</code> 方法。 它会阻塞进程直到结果被返回来。如果不想阻塞，你还可以使用一个回调函数，例如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">when_done</span>(r):
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Got:&#39;</span>, r<span style="color:#f92672">.</span>result())
 
-<pre><code class="language-python">def when_done(r):
-    print('Got:', r.result())
-
-with ProcessPoolExecutor() as pool:
-     future_result = pool.submit(work, arg)
-     future_result.add_done_callback(when_done)
-</code></pre>
-
-<blockquote>
+<span style="color:#66d9ef">with</span> ProcessPoolExecutor() <span style="color:#66d9ef">as</span> pool:
+     future_result <span style="color:#f92672">=</span> pool<span style="color:#f92672">.</span>submit(work, arg)
+     future_result<span style="color:#f92672">.</span>add_done_callback(when_done)
+</code></pre></div><blockquote>
 <p>回调函数接受一个 Future 实例，被用来获取最终的结果（比如通过调用它的result()方法）。</p>
 </blockquote>
-
 <h3 id="定义一个actor任务">定义一个Actor任务</h3>
-
 <p>actor模式是一种最古老的也是最简单的并行和分布式计算解决方案。 事实上，它天生的简单性是它如此受欢迎的重要原因之一。 简单来讲，一个actor就是一个并发执行的任务，只是简单的执行发送给它的消息任务。 响应这些消息时，它可能还会给其他actor发送更进一步的消息。 actor之间的通信是单向和异步的。因此，消息发送者不知道消息是什么时候被发送， 也不会接收到一个消息已被处理的回应或通知。</p>
-
 <p>结合使用一个线程和一个队列可以很容易的定义actor，例如：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> queue <span style="color:#f92672">import</span> Queue
+<span style="color:#f92672">from</span> threading <span style="color:#f92672">import</span> Thread, Event
 
-<pre><code class="language-python">from queue import Queue
-from threading import Thread, Event
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ActorExit</span>(<span style="color:#a6e22e">Exception</span>):
+    <span style="color:#66d9ef">pass</span>
 
-class ActorExit(Exception):
-    pass
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Actor</span>:
+    <span style="color:#66d9ef">def</span> __init__(self):
+        self<span style="color:#f92672">.</span>_mailbox <span style="color:#f92672">=</span> Queue()
 
-class Actor:
-    def __init__(self):
-        self._mailbox = Queue()
-
-    def send(self, msg):
-        self._mailbox.put(msg)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send</span>(self, msg):
+        self<span style="color:#f92672">.</span>_mailbox<span style="color:#f92672">.</span>put(msg)
     
-    def recv(self):
-        msg = self._mailbox.get()
-        if msg is ActorExit:
-            raise ActorExit()
-        return msg
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">recv</span>(self):
+        msg <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_mailbox<span style="color:#f92672">.</span>get()
+        <span style="color:#66d9ef">if</span> msg <span style="color:#f92672">is</span> ActorExit:
+            <span style="color:#66d9ef">raise</span> ActorExit()
+        <span style="color:#66d9ef">return</span> msg
 
-    def close(self):
-        self.send(ActorExit)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">close</span>(self):
+        self<span style="color:#f92672">.</span>send(ActorExit)
 
-    def start(self):
-        self._terminated = Event()
-        t = Thread(target=self._bootstrap)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">start</span>(self):
+        self<span style="color:#f92672">.</span>_terminated <span style="color:#f92672">=</span> Event()
+        t <span style="color:#f92672">=</span> Thread(target<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>_bootstrap)
 
-        t.daemon = True
-        t.start()
+        t<span style="color:#f92672">.</span>daemon <span style="color:#f92672">=</span> True
+        t<span style="color:#f92672">.</span>start()
 
-    def _bootstrap(self):
-        try:
-            self.run()
-        except ActorExit:
-            pass
-        finally:
-            self._terminated.wait()
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_bootstrap</span>(self):
+        <span style="color:#66d9ef">try</span>:
+            self<span style="color:#f92672">.</span>run()
+        <span style="color:#66d9ef">except</span> ActorExit:
+            <span style="color:#66d9ef">pass</span>
+        <span style="color:#66d9ef">finally</span>:
+            self<span style="color:#f92672">.</span>_terminated<span style="color:#f92672">.</span>wait()
 
-    def join(self):
-        self._terminated.wait()
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">join</span>(self):
+        self<span style="color:#f92672">.</span>_terminated<span style="color:#f92672">.</span>wait()
 
-    def run(self):
-        while True:
-            msg = self.recv()
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run</span>(self):
+        <span style="color:#66d9ef">while</span> True:
+            msg <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>recv()
 
-class PrintActor(Actor):
-    def run(self):
-        while True:
-            msg = self.recv()
-            print('Got:', msg)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PrintActor</span>(Actor):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run</span>(self):
+        <span style="color:#66d9ef">while</span> True:
+            msg <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>recv()
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Got:&#39;</span>, msg)
 
-p = PrintActor()
-p.start()
-p.send('Hello')
-p.send('World')
-p.close()
-p.join()
-</code></pre>
-
-<blockquote>
+p <span style="color:#f92672">=</span> PrintActor()
+p<span style="color:#f92672">.</span>start()
+p<span style="color:#f92672">.</span>send(<span style="color:#e6db74">&#39;Hello&#39;</span>)
+p<span style="color:#f92672">.</span>send(<span style="color:#e6db74">&#39;World&#39;</span>)
+p<span style="color:#f92672">.</span>close()
+p<span style="color:#f92672">.</span>join()
+</code></pre></div><blockquote>
 <p>这个例子中，你使用actor实例的 send() 方法发送消息给它们。 其机制是，这个方法会将消息放入一个队里中， 然后将其转交给处理被接受消息的一个内部线程。 close() 方法通过在队列中放入一个特殊的哨兵值（ActorExit）来关闭这个actor。 用户可以通过继承Actor并定义实现自己处理逻辑run()方法来定义新的actor。 ActorExit 异常的使用就是用户自定义代码可以在需要的时候来捕获终止请求 （异常被get()方法抛出并传播出去）。</p>
 </blockquote>
-
-<h3 id="实现消息发布-订阅模型">实现消息发布/订阅模型</h3>
-
+<h3 id="实现消息发布订阅模型">实现消息发布/订阅模型</h3>
 <p>要实现发布/订阅的消息通信模式， 你通常要引入一个单独的“交换机”或“网关”对象作为所有消息的中介。 也就是说，不直接将消息从一个任务发送到另一个，而是将其发送给交换机， 然后由交换机将它发送给一个或多个被关联任务。下面是一个非常简单的交换机实现例子：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> collections <span style="color:#f92672">import</span> defaultdict
 
-<pre><code class="language-python">from collections import defaultdict
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Exchange</span>:
+    <span style="color:#66d9ef">def</span> __init__(self):
+        self<span style="color:#f92672">.</span>_subscribers <span style="color:#f92672">=</span> set()
 
-class Exchange:
-    def __init__(self):
-        self._subscribers = set()
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">attach</span>(self, task):
+        self<span style="color:#f92672">.</span>_subscribers<span style="color:#f92672">.</span>add(task)
 
-    def attach(self, task):
-        self._subscribers.add(task)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">detach</span>(self, task):
+        self<span style="color:#f92672">.</span>_subscribers<span style="color:#f92672">.</span>remove(task)
 
-    def detach(self, task):
-        self._subscribers.remove(task)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send</span>(self, msg):
+        <span style="color:#66d9ef">for</span> subscriber <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>_subscribers:
+            subscriber<span style="color:#f92672">.</span>send(msg)
 
-    def send(self, msg):
-        for subscriber in self._subscribers:
-            subscriber.send(msg)
+_exchanges <span style="color:#f92672">=</span> defaultdict(Exchange)
 
-_exchanges = defaultdict(Exchange)
-
-def get_exchange(name):
-    return _exchanges[name]
-</code></pre>
-
-<p>一个交换机就是一个普通对象，负责维护一个活跃的订阅者集合，并为绑定、解绑和发送消息提供相应的方法。 每个交换机通过一个名称定位，<code>get_exchange()</code> 通过给定一个名称返回相应的 <code>Exchange</code> 实例。</p>
-
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_exchange</span>(name):
+    <span style="color:#66d9ef">return</span> _exchanges[name]
+</code></pre></div><p>一个交换机就是一个普通对象，负责维护一个活跃的订阅者集合，并为绑定、解绑和发送消息提供相应的方法。 每个交换机通过一个名称定位，<code>get_exchange()</code> 通过给定一个名称返回相应的 <code>Exchange</code> 实例。</p>
 <p>下面是一个简单例子，演示了如何使用一个交换机:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Task</span>:
+    <span style="color:#f92672">...</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send</span>(self, msg):
+        <span style="color:#f92672">...</span>
 
-<pre><code class="language-python">class Task:
-    ...
-    def send(self, msg):
-        ...
+task_a <span style="color:#f92672">=</span> Task()
+task_b <span style="color:#f92672">=</span> Task()
 
-task_a = Task()
-task_b = Task()
+<span style="color:#75715e"># Example of getting an exchange</span>
+exc <span style="color:#f92672">=</span> get_exchange(<span style="color:#e6db74">&#39;name&#39;</span>)
 
-# Example of getting an exchange
-exc = get_exchange('name')
+<span style="color:#75715e"># Examples of subscribing tasks to it</span>
+exc<span style="color:#f92672">.</span>attach(task_a)
+exc<span style="color:#f92672">.</span>attach(task_b)
 
-# Examples of subscribing tasks to it
-exc.attach(task_a)
-exc.attach(task_b)
+<span style="color:#75715e"># Example of sending messages</span>
+exc<span style="color:#f92672">.</span>send(<span style="color:#e6db74">&#39;msg1&#39;</span>)
+exc<span style="color:#f92672">.</span>send(<span style="color:#e6db74">&#39;msg2&#39;</span>)
 
-# Example of sending messages
-exc.send('msg1')
-exc.send('msg2')
-
-# Example of unsubscribing
-exc.detach(task_a)
-exc.detach(task_b)
-</code></pre>
-
-<blockquote>
+<span style="color:#75715e"># Example of unsubscribing</span>
+exc<span style="color:#f92672">.</span>detach(task_a)
+exc<span style="color:#f92672">.</span>detach(task_b)
+</code></pre></div><blockquote>
 <p>尽管对于这个问题有很多的变种，不过万变不离其宗。 消息会被发送给一个交换机，然后交换机会将它们发送给被绑定的订阅者。</p>
 </blockquote>
-
 <h3 id="使用生成器代替线程">使用生成器代替线程</h3>
-
 <p>生成器（协程）替代系统线程来实现并发，首先要对生成器函数和 yield 语句有深刻理解。 yield 语句会让一个生成器挂起它的执行，这样就可以编写一个调度器， 将生成器当做某种“任务”并使用任务协作切换来替换它们的执行。 要演示这种思想，考虑下面两个使用简单的 yield 语句的生成器函数：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">countdown</span>(n):
+    <span style="color:#66d9ef">while</span> n <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;T-minus&#39;</span>, n)
+        <span style="color:#66d9ef">yield</span>
+        n <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Blastoff!&#39;</span>)
 
-<pre><code class="language-python">def countdown(n):
-    while n &gt; 0:
-        print('T-minus', n)
-        yield
-        n -= 1
-    print('Blastoff!')
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">countup</span>(n):
+    x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+    <span style="color:#66d9ef">while</span> x <span style="color:#f92672">&lt;</span> n:
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;Counting up&#39;</span>, x)
+        <span style="color:#66d9ef">yield</span>
+        x <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</code></pre></div><p>这些函数在内部使用yield语句，下面是一个实现了简单任务调度器的代码：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TaskScheduler</span>:
+    <span style="color:#66d9ef">def</span> __init__(self):
+        self<span style="color:#f92672">.</span>_task_queue <span style="color:#f92672">=</span> deque()
 
-def countup(n):
-    x = 0
-    while x &lt; n:
-        print('Counting up', x)
-        yield
-        x += 1
-</code></pre>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">new_task</span>(self, task):
+        <span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">        Admit a newly started task to the scheduler
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+        self<span style="color:#f92672">.</span>_task_queue<span style="color:#f92672">.</span>append(task)
 
-<p>这些函数在内部使用yield语句，下面是一个实现了简单任务调度器的代码：</p>
-
-<pre><code class="language-python">
-class TaskScheduler:
-    def __init__(self):
-        self._task_queue = deque()
-
-    def new_task(self, task):
-        '''
-        Admit a newly started task to the scheduler
-
-        '''
-        self._task_queue.append(task)
-
-    def run(self):
-        '''
-        Run until there are no more tasks
-        '''
-        while self._task_queue:
-            task = self._task_queue.popleft()
-            try:
-                # Run until the next yield statement
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">run</span>(self):
+        <span style="color:#e6db74">&#39;&#39;&#39;
+</span><span style="color:#e6db74">        Run until there are no more tasks
+</span><span style="color:#e6db74">        &#39;&#39;&#39;</span>
+        <span style="color:#66d9ef">while</span> self<span style="color:#f92672">.</span>_task_queue:
+            task <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_task_queue<span style="color:#f92672">.</span>popleft()
+            <span style="color:#66d9ef">try</span>:
+                <span style="color:#75715e"># Run until the next yield statement</span>
                 next(task)
-                self._task_queue.append(task)
-            except StopIteration:
-                # Generator is no longer executing
-                pass
+                self<span style="color:#f92672">.</span>_task_queue<span style="color:#f92672">.</span>append(task)
+            <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">StopIteration</span>:
+                <span style="color:#75715e"># Generator is no longer executing</span>
+                <span style="color:#66d9ef">pass</span>
 
-# Example use
-sched = TaskScheduler()
-sched.new_task(countdown(10))
-sched.new_task(countdown(5))
-sched.new_task(countup(15))
-sched.run()
-</code></pre>
-
-<p>未完待续&hellip;</p>
-
+<span style="color:#75715e"># Example use</span>
+sched <span style="color:#f92672">=</span> TaskScheduler()
+sched<span style="color:#f92672">.</span>new_task(countdown(<span style="color:#ae81ff">10</span>))
+sched<span style="color:#f92672">.</span>new_task(countdown(<span style="color:#ae81ff">5</span>))
+sched<span style="color:#f92672">.</span>new_task(countup(<span style="color:#ae81ff">15</span>))
+sched<span style="color:#f92672">.</span>run()
+</code></pre></div><p>未完待续&hellip;</p>
 <p>[参考]</p>
-
 <p><a href="https://python3-cookbook.readthedocs.io/zh_CN/latest/chapters/p12_concurrency.html">python3-cookbook 并发编程</a></p>
                         </div>
 

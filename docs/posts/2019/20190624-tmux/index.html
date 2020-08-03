@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -101,9 +101,7 @@
                         <div class="post-content">
                             <p>tmux是一个终端多路复用器:它允许在一个屏幕上创建、访问和控制多个终端。tmux可以从屏幕上分离出来，在后台继续运行，然后重新连接。
 可以运行在OpenBSD、FreeBSD、NetBSD、Linux、OS X和Solaris上。</p>
-
 <p>会话（session）指令</p>
-
 <pre><code>tmux new -s demo # 新建一个名称为demo的会话
 tmux detach # 断开当前会话，会话在后台运行
 tmux a # 默认进入第一个会话
@@ -111,10 +109,7 @@ tmux a -t demo # 进入到名称为demo的会话
 tmux kill-session -t demo # 关闭demo会话
 tmux kill-server # 关闭服务器，所有的会话都将关闭
 tmux ls # 查看所有会话，提倡使用简写形式 
-</code></pre>
-
-<p>窗口（window）指令</p>
-
+</code></pre><p>窗口（window）指令</p>
 <pre><code>前缀  指令  描述
 Ctrl+b  c   新建窗口
 Ctrl+b  &amp;   关闭当前窗口（关闭前需输入y or n确认）
@@ -125,18 +120,12 @@ Ctrl+b  w   打开窗口列表，用于且切换窗口
 Ctrl+b  ,   重命名当前窗口
 Ctrl+b  .   修改当前窗口编号（适用于窗口重新排序）
 Ctrl+b  f   快速定位到窗口（输入关键字匹配窗口名称）
-</code></pre>
-
-<p>面板（pane）指令</p>
-
+</code></pre><p>面板（pane）指令</p>
 <pre><code>前缀  指令  描述
 Ctrl+b  &quot;   当前面板上下一分为二，下侧新建面板
 Ctrl+b  %   当前面板左右一分为二，右侧新建面板
 Ctrl+b  x   关闭当前面板（关闭前需输入y or n确认）
-</code></pre>
-
-<p>my <strong>.tmux.conf</strong> (tmux&gt;=2.1)</p>
-
+</code></pre><p>my <strong>.tmux.conf</strong> (tmux&gt;=2.1)</p>
 <pre><code>bind-key l select-pane -R
 bind-key h select-pane -L
 bind-key j select-pane -D
@@ -144,12 +133,8 @@ bind-key k select-pane -U
 set -g mouse on
 set -g prefix C-a
 set -g default-terminal &quot;screen-256color&quot;#开启256 colors支持
-</code></pre>
-
-<p>Github上也已经有人写了一份漂亮而又多功能的<a href="https://github.com/gpakosz/.tmux">tmux配置</a>,只想享受tmux的带来的便利而又懒得编写tmux配置的小伙伴可以去安装它</p>
-
+</code></pre><p>Github上也已经有人写了一份漂亮而又多功能的<a href="https://github.com/gpakosz/.tmux">tmux配置</a>,只想享受tmux的带来的便利而又懒得编写tmux配置的小伙伴可以去安装它</p>
 <p>REMINDING</p>
-
 <p>Tmux中复制,需要先按住shift键再拖动的选择才有效</p>
                         </div>
 

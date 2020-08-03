@@ -30,11 +30,11 @@
     </item>
     
     <item>
-      <title>python</title>
-      <link>http://blog.shaobo.fun/tags/python/</link>
+      <title>Python</title>
+      <link>http://blog.shaobo.fun/tags/Python/</link>
       <pubDate>Sat, 22 Feb 2020 18:11:11 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/tags/python/</guid>
+      <guid>http://blog.shaobo.fun/tags/Python/</guid>
       <description></description>
     </item>
     
@@ -98,15 +98,6 @@
       <pubDate>Tue, 31 Dec 2019 15:31:28 +0800</pubDate>
       
       <guid>http://blog.shaobo.fun/tags/psuitl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Python</title>
-      <link></link>
-      <pubDate>Tue, 31 Dec 2019 15:31:28 +0800</pubDate>
-      
-      <guid></guid>
       <description></description>
     </item>
     
@@ -345,15 +336,6 @@
     </item>
     
     <item>
-      <title>TCP/IP</title>
-      <link>http://blog.shaobo.fun/tags/TCP/IP/</link>
-      <pubDate>Sat, 29 Jun 2019 22:11:05 +0800</pubDate>
-      
-      <guid>http://blog.shaobo.fun/tags/TCP/IP/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>tmux</title>
       <link>http://blog.shaobo.fun/tags/tmux/</link>
       <pubDate>Mon, 24 Jun 2019 10:56:41 +0800</pubDate>
@@ -377,6 +359,15 @@
       <pubDate>Mon, 27 May 2019 20:02:58 +0800</pubDate>
       
       <guid>http://blog.shaobo.fun/tags/sort/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TCP/IP</title>
+      <link>http://blog.shaobo.fun/tags/TCP/IP/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://blog.shaobo.fun/tags/TCP/IP/</guid>
       <description></description>
     </item>
     

@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -100,63 +100,40 @@
                         
                         <div class="post-content">
                             <p>最近用html写简历，打印的时候需要将html转成pdf,网上也有网站提供转换功能，但还是自己写一个转换程序更为方便些。</p>
-
 <h4 id="准备工作">准备工作</h4>
-
 <p>安装pdfkit</p>
-
 <pre><code>pip install pdfkit
-</code></pre>
-
-<p>自己的操作系统上还需要装上wkhtmltopdf</p>
-
+</code></pre><p>自己的操作系统上还需要装上wkhtmltopdf</p>
 <p>我的系统是archlinux</p>
-
 <pre><code>sudo pacman -S wkhtmltopdf
-</code></pre>
-
-<p>然后其他的操作系统也类似</p>
-
+</code></pre><p>然后其他的操作系统也类似</p>
 <p><strong>Ubuntu</strong></p>
-
 <pre><code>sudo apt-get install wkhtmltopdf
-</code></pre>
-
-<p><strong>CentOS</strong></p>
-
+</code></pre><p><strong>CentOS</strong></p>
 <pre><code>sudo yum intsall wkhtmltopdf
-</code></pre>
-
-<p><strong>Mac</strong></p>
-
+</code></pre><p><strong>Mac</strong></p>
 <pre><code>brew install Caskroom/cask/wkhtmltopdf
-</code></pre>
-
-<p><strong>Windows</strong></p>
-
+</code></pre><p><strong>Windows</strong></p>
 <pre><code>下载地址：https://wkhtmltopdf.org/downloads.html
 并配置系统环境变量
-</code></pre>
+</code></pre><p>最后是炒鸡简单Python程序代码</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#75715e">#! /usr/bin/python3</span>
+<span style="color:#75715e"># -*- coding:utf-8 -*-</span>
 
-<p>最后是炒鸡简单Python程序代码</p>
+<span style="color:#f92672">import</span> pdfkit
 
-<pre><code class="language-python3">#! /usr/bin/python3
-# -*- coding:utf-8 -*-
-
-import pdfkit
-
-options={
-   'page-size':'A4',#Letter
-    'margin-top':'0.4in',
-    'margin-right':'0.6in',
-    'margin-bottom':'0.4in',
-    'margin-left':'0.6in',
-    'encoding':&quot;UTF-8&quot;,
-    'no-outline':None
+options<span style="color:#f92672">=</span>{
+   <span style="color:#e6db74">&#39;page-size&#39;</span>:<span style="color:#e6db74">&#39;A4&#39;</span>,<span style="color:#75715e">#Letter</span>
+    <span style="color:#e6db74">&#39;margin-top&#39;</span>:<span style="color:#e6db74">&#39;0.4in&#39;</span>,
+    <span style="color:#e6db74">&#39;margin-right&#39;</span>:<span style="color:#e6db74">&#39;0.6in&#39;</span>,
+    <span style="color:#e6db74">&#39;margin-bottom&#39;</span>:<span style="color:#e6db74">&#39;0.4in&#39;</span>,
+    <span style="color:#e6db74">&#39;margin-left&#39;</span>:<span style="color:#e6db74">&#39;0.6in&#39;</span>,
+    <span style="color:#e6db74">&#39;encoding&#39;</span>:<span style="color:#e6db74">&#34;UTF-8&#34;</span>,
+    <span style="color:#e6db74">&#39;no-outline&#39;</span>:<span style="color:#66d9ef">None</span>
 }  
 
-pdfkit.from_file('./in.html','out.pdf',options=options)
-</code></pre>
+pdfkit<span style="color:#f92672">.</span>from_file(<span style="color:#e6db74">&#39;./in.html&#39;</span>,<span style="color:#e6db74">&#39;out.pdf&#39;</span>,options<span style="color:#f92672">=</span>options)
+</code></pre></div>
                         </div>
 
                         

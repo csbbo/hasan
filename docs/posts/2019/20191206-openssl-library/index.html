@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -104,20 +104,18 @@
                                 
                                     <div class="toc-title">文章目录</div> 
                                     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#对称加密算法">对称加密算法</a></li>
-<li><a href="#非对称加密算法">非对称加密算法</a></li>
-<li><a href="#信息摘要算法">信息摘要算法</a></li>
-<li><a href="#密钥和证书管理">密钥和证书管理</a></li>
-<li><a href="#使用-openssl-生产自签名-ssl-证书">使用 OpenSSL 生产自签名 SSL 证书</a></li>
-<li><a href="#配置nginx使用自签名证书">配置Nginx使用自签名证书</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#对称加密算法">对称加密算法</a></li>
+        <li><a href="#非对称加密算法">非对称加密算法</a></li>
+        <li><a href="#信息摘要算法">信息摘要算法</a></li>
+        <li><a href="#密钥和证书管理">密钥和证书管理</a></li>
+        <li><a href="#使用-openssl-生产自签名-ssl-证书">使用 OpenSSL 生产自签名 SSL 证书</a></li>
+        <li><a href="#配置nginx使用自签名证书">配置Nginx使用自签名证书</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                                 
                                 </div>
@@ -125,105 +123,73 @@
                         
                         <div class="post-content">
                             <p>OpenSSL是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及SSL协议，并提供丰富的应用程序供测试或其它目的使用</p>
-
 <p>虽说我只是单纯的想生成HTTPS证书，但既然入了OpenSSL的坑就多了解一点了</p>
-
 <h3 id="对称加密算法">对称加密算法</h3>
-
 <p>OpenSSL一共提供了8种对称加密算法，其中7种是分组加密算法，仅有的一种流加密算法是RC4。这7种分组加密算法分别是AES、DES、Blowfish、CAST、IDEA、RC2、RC5，都支持电子密码本模式（ECB）、加密分组链接模式（CBC）、加密反馈模式（CFB）和输出反馈模式（OFB）四种常用的分组密码加密模式。其中，AES使用的加密反馈模式（CFB）和输出反馈模式（OFB）分组长度是128位，其它算法使用的则是64位。事实上，DES算法里面不仅仅是常用的DES算法，还支持三个密钥和两个密钥3DES算法。</p>
-
 <h3 id="非对称加密算法">非对称加密算法</h3>
-
 <p>OpenSSL一共实现了4种非对称加密算法，包括DH算法、RSA算法、DSA算法和椭圆曲线算法（EC）。DH算法一般用户密钥交换。RSA算法既可以用于密钥交换，也可以用于数字签名，当然，如果你能够忍受其缓慢的速度，那么也可以用于数据加密。DSA算法则一般只用于数字签名。</p>
-
 <h3 id="信息摘要算法">信息摘要算法</h3>
-
 <p>OpenSSL实现了5种信息摘要算法，分别是MD2、MD5、MDC2、SHA和RIPEMD。SHA算法事实上包括了SHA和SHA1两种信息摘要算法，此外，OpenSSL还实现了DSS标准中规定的两种信息摘要算法DSS和DSS1。</p>
-
 <h3 id="密钥和证书管理">密钥和证书管理</h3>
-
 <p>OpenSSL实现了ASN.1的证书和密钥相关标准，提供了对证书、公钥、私钥、证书请求以及CRL等数据对象的DER、PEM和BASE64的编解码功能。OpenSSL提供了产生各种公开密钥对和对称密钥的方法、函数和应用程序，同时提供了对公钥和私钥的DER编解码功能。并实现了私钥的PKCS#12和PKCS#8的编解码功能。OpenSSL在标准中提供了对私钥的加密保护功能，使得密钥可以安全地进行存储和分发。</p>
-
 <p>OpenSSL提供的CA应用程序就是一个小型的证书管理中心（CA），实现了证书签发的整个流程和证书管理的大部分机制。</p>
-
 <h3 id="使用-openssl-生产自签名-ssl-证书">使用 OpenSSL 生产自签名 SSL 证书</h3>
-
-<p><img src="/assets/article/20191206/gen-certificate.png" style="width:70%"></p>
-
+<!-- raw HTML omitted -->
 <p>在当前路径生成文件夹和文件</p>
-
-<pre><code class="language-shell">mkdir -p demoCA/newcerts &amp;&amp; touch demoCA/index.txt &amp;&amp; echo 01 &gt; demoCA/serial
-</code></pre>
-
-<p>制作CA证书</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mkdir -p demoCA/newcerts <span style="color:#f92672">&amp;&amp;</span> touch demoCA/index.txt <span style="color:#f92672">&amp;&amp;</span> echo <span style="color:#ae81ff">01</span> &gt; demoCA/serial
+</code></pre></div><p>制作CA证书</p>
 <ol>
-<li><p>生成ca.key CA私钥</p>
-
-<pre><code class="language-cpp">openssl genrsa -des3 -out ca.key 2048
-//输入密码A
-</code></pre></li>
-
-<li><p>生成ca.crt CA根证书(公钥)</p>
-
-<pre><code class="language-cpp">openssl req -new -x509 -days 7305 -key ca.key -out ca.crt
-//输入密码A
-//Common Name必填
-</code></pre></li>
+<li>生成ca.key CA私钥</li>
 </ol>
-
-<p>制作网站证书并用CA签名认证</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">openssl genrsa <span style="color:#f92672">-</span>des3 <span style="color:#f92672">-</span>out ca.key <span style="color:#ae81ff">2048</span>
+<span style="color:#75715e">//输入密码A
+</span></code></pre></div><ol start="2">
+<li>生成ca.crt CA根证书(公钥)</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">openssl req <span style="color:#f92672">-</span><span style="color:#66d9ef">new</span> <span style="color:#f92672">-</span>x509 <span style="color:#f92672">-</span>days <span style="color:#ae81ff">7305</span> <span style="color:#f92672">-</span>key ca.key <span style="color:#f92672">-</span>out ca.crt
+<span style="color:#75715e">//输入密码A
+</span><span style="color:#75715e">//Common Name必填
+</span></code></pre></div><p>制作网站证书并用CA签名认证</p>
 <ol>
-<li><p>生成server.key 网站CA私钥</p>
-
-<pre><code class="language-cpp">openssl genrsa -des3 -out server.key 2048
-//输入密码B
-</code></pre></li>
-
-<li><p>生成网站签名请求server.csr</p>
-
-<pre><code class="language-cpp">openssl req -new -key server.key -out server.csr
-//输入密码B
-//Common Name必填
-</code></pre></li>
-
-<li><p>使用CA进行签名</p>
-
-<pre><code class="language-cpp">openssl ca -cert ca.crt -keyfile ca.key -policy policy_anything -days 365 -in server.csr -out server.crt
-//输入密码A
-</code></pre></li>
+<li>生成server.key 网站CA私钥</li>
 </ol>
-
-<blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">openssl genrsa <span style="color:#f92672">-</span>des3 <span style="color:#f92672">-</span>out server.key <span style="color:#ae81ff">2048</span>
+<span style="color:#75715e">//输入密码B
+</span></code></pre></div><ol start="2">
+<li>生成网站签名请求server.csr</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">openssl req <span style="color:#f92672">-</span><span style="color:#66d9ef">new</span> <span style="color:#f92672">-</span>key server.key <span style="color:#f92672">-</span>out server.csr
+<span style="color:#75715e">//输入密码B
+</span><span style="color:#75715e">//Common Name必填
+</span></code></pre></div><ol start="3">
+<li>使用CA进行签名</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">openssl ca <span style="color:#f92672">-</span>cert ca.crt <span style="color:#f92672">-</span>keyfile ca.key <span style="color:#f92672">-</span>policy policy_anything <span style="color:#f92672">-</span>days <span style="color:#ae81ff">365</span> <span style="color:#f92672">-</span>in server.csr <span style="color:#f92672">-</span>out server.crt
+<span style="color:#75715e">//输入密码A
+</span></code></pre></div><blockquote>
 <p>至此自签名证书生成完成，最终需要：server.key 和 server.crt</p>
 </blockquote>
-
 <p>或则可以直接利用server.key生成证书</p>
-
-<pre><code class="language-cpp">openssl genrsa -out server.key 1024
-openssl req -new -key server.key -out server.csr
-openssl x509 -req -in server.csr -out server.crt -signkey server.key -days 3650
-</code></pre>
-
-<h3 id="配置nginx使用自签名证书">配置Nginx使用自签名证书</h3>
-
-<pre><code class="language-cpp">server {
-        listen  80;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">openssl genrsa <span style="color:#f92672">-</span>out server.key <span style="color:#ae81ff">1024</span>
+openssl req <span style="color:#f92672">-</span><span style="color:#66d9ef">new</span> <span style="color:#f92672">-</span>key server.key <span style="color:#f92672">-</span>out server.csr
+openssl x509 <span style="color:#f92672">-</span>req <span style="color:#f92672">-</span>in server.csr <span style="color:#f92672">-</span>out server.crt <span style="color:#f92672">-</span>signkey server.key <span style="color:#f92672">-</span>days <span style="color:#ae81ff">3650</span>
+</code></pre></div><h3 id="配置nginx使用自签名证书">配置Nginx使用自签名证书</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">server {
+        listen  <span style="color:#ae81ff">80</span>;
         server_name     domain;
-        return  301     https://$host$request_uri;
-}
+        <span style="color:#66d9ef">return</span>  <span style="color:#ae81ff">301</span>     https:<span style="color:#75715e">//$host$request_uri;
+</span><span style="color:#75715e"></span>}
 server {
-        listen  443 ssl;
-        ssl_certificate       ssl/nginx.crt; # 前面生成的 crt 证书文件
-        ssl_certificate_key   ssl/nginx.key; # 前面生成的证书私钥
+        listen  <span style="color:#ae81ff">443</span> ssl;
+        ssl_certificate       ssl<span style="color:#f92672">/</span>nginx.crt; <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">前面生成的</span> crt <span style="color:#960050;background-color:#1e0010">证书文件</span>
+        ssl_certificate_key   ssl<span style="color:#f92672">/</span>nginx.key; <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">前面生成的证书私钥</span>
         server_name     domain;
-        location / {
-            root /var/www-html;
+        location <span style="color:#f92672">/</span> {
+            root <span style="color:#f92672">/</span>var<span style="color:#f92672">/</span>www<span style="color:#f92672">-</span>html;
             index  index.html;
         }
 }
-</code></pre>
+</code></pre></div>
                         </div>
 
                         

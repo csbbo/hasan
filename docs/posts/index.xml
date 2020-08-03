@@ -18,12 +18,10 @@
       
       <guid>http://blog.shaobo.fun/posts/2020/20200708-io-model/</guid>
       <description>&lt;p&gt;一个输入操作通常包含两个阶段：&lt;/p&gt;
-
 &lt;ol&gt;
 &lt;li&gt;等待数据准备好&lt;/li&gt;
 &lt;li&gt;从内核向进程复制数据&lt;/li&gt;
 &lt;/ol&gt;
-
 &lt;p&gt;对于一个套接字上的输入操作，第一步通常涉及等待数据从网络到达，当所等待的数据到达时，他被复制到内核中的某个缓冲区，第二步就是把数据从内核缓冲区复制到进程缓冲区。&lt;/p&gt;</description>
     </item>
     
@@ -97,9 +95,7 @@
       <pubDate>Wed, 01 Jan 2020 16:13:16 +0800</pubDate>
       
       <guid>http://blog.shaobo.fun/posts/2020/20200101-resume/</guid>
-      <description>&lt;p&gt;&lt;span class=&#34;preview&#34;&gt;
-个人在线简历！输入密码后才能查看捏😜😜😜。
-&lt;span&gt;&lt;/p&gt;</description>
+      <description>&lt;!-- raw HTML omitted --&gt;</description>
     </item>
     
     <item>
@@ -138,7 +134,7 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
       
       <guid>http://blog.shaobo.fun/posts/2019/20191219-python-build-in-function/</guid>
       <description>&lt;p&gt;Python 解释器内置了很多函数和类型，您可以在任何时候使用它们。以下按字母表顺序列出它们。
-&lt;br&gt;&lt;br&gt;&lt;/p&gt;</description>
+&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -184,7 +180,6 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
       
       <guid>http://blog.shaobo.fun/posts/2019/20191119-docker-rookie/</guid>
       <description>&lt;p&gt;Docker 属于 Linux 容器的一种封装，提供简单易用的容器使用接口。它是目前最流行的 Linux 容器解决方案。&lt;/p&gt;
-
 &lt;p&gt;Docker 将应用程序与该程序的依赖，打包在一个文件里面。运行这个文件，就会生成一个虚拟容器。程序在这个虚拟容器里运行，就好像在真实的物理机上运行一样。有了 Docker，就不用担心环境问题。&lt;/p&gt;</description>
     </item>
     
@@ -249,9 +244,7 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
       
       <guid>http://blog.shaobo.fun/posts/2019/20191010-tree/</guid>
       <description>&lt;p&gt;树（tree）是n个节点的有序集，它或为空树；或为非空树，对于非空树：&lt;/p&gt;
-
 &lt;p&gt;有且仅有一个根节点&lt;/p&gt;
-
 &lt;p&gt;除根节点以外其余节点可分为m（m&amp;gt;0）个互不相交的有限集T1，T2，&amp;hellip;,Tm其中每一个集合本身又是一棵树，并且称为跟的子树。&lt;/p&gt;</description>
     </item>
     
@@ -279,8 +272,8 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
       <pubDate>Sun, 15 Sep 2019 21:13:13 +0800</pubDate>
       
       <guid>http://blog.shaobo.fun/posts/2019/20190915-git-summary/</guid>
-      <description>&lt;p&gt;Linus花了两周时间自己用C写了一个分布式版本控制系统，这就是Git！&lt;br /&gt;
-Git是目前世界上最先进的分布式版本控制系统（没有之一）。&lt;br /&gt;
+      <description>&lt;p&gt;Linus花了两周时间自己用C写了一个分布式版本控制系统，这就是Git！&lt;br&gt;
+Git是目前世界上最先进的分布式版本控制系统（没有之一）。&lt;br&gt;
 Git有什么特点？简单来说就是：高端大气上档次！&lt;/p&gt;</description>
     </item>
     
@@ -335,7 +328,7 @@ Git有什么特点？简单来说就是：高端大气上档次！&lt;/p&gt;</de
       <pubDate>Tue, 02 Jul 2019 16:28:40 +0800</pubDate>
       
       <guid>http://blog.shaobo.fun/posts/2019/20190702-multithreaded-programming/</guid>
-      <description>&lt;p&gt;在Linux 系统下,启动一个新的进程必须分配给它独立的地址空间,建立众多的数据表来维护它的代码段、堆栈段和数据段,这是一种&amp;rdquo;昂贵&amp;rdquo;的多任务工作方式。而运行于一个进程中的多个线程,它们彼此之间使用相同的地址空间,共享大部分数据,启动一个线程所花费的空间远远小于启动一个进程所花费的空间,而且,线程间彼此切换所需的时间也远远小于进程间切换所需要的时间。&lt;/p&gt;</description>
+      <description>&lt;p&gt;在Linux 系统下,启动一个新的进程必须分配给它独立的地址空间,建立众多的数据表来维护它的代码段、堆栈段和数据段,这是一种&amp;quot;昂贵&amp;quot;的多任务工作方式。而运行于一个进程中的多个线程,它们彼此之间使用相同的地址空间,共享大部分数据,启动一个线程所花费的空间远远小于启动一个进程所花费的空间,而且,线程间彼此切换所需的时间也远远小于进程间切换所需要的时间。&lt;/p&gt;</description>
     </item>
     
     <item>

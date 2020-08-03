@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -104,20 +104,17 @@
                                 
                                     <div class="toc-title">文章目录</div> 
                                     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li><a href="#redis数据类型">Redis数据类型</a></li>
-<li><a href="#为什么redis那么快">为什么Redis那么快</a></li>
-<li><a href="#从海量的数据中查询出某一固定前缀的key">从海量的数据中查询出某一固定前缀的Key</a></li>
-<li><a href="#redis分布式锁的实现">Redis分布式锁的实现</a></li>
-<li><a href="#redis异步队列">Redis异步队列</a></li>
-<li><a href="#redis持久化">Redis持久化</a></li>
-<li><a href="#pipeline及主从同步">Pipeline及主从同步</a></li>
-<li><a href="#redis集群">Redis集群</a></li>
-<li><a href="#附录">附录</a></li>
-</ul></li>
-</ul>
+  <ul>
+    <li><a href="#redis数据类型">Redis数据类型</a></li>
+    <li><a href="#为什么redis那么快">为什么Redis那么快</a></li>
+    <li><a href="#从海量的数据中查询出某一固定前缀的key">从海量的数据中查询出某一固定前缀的Key</a></li>
+    <li><a href="#redis分布式锁的实现">Redis分布式锁的实现</a></li>
+    <li><a href="#redis异步队列">Redis异步队列</a></li>
+    <li><a href="#redis持久化">Redis持久化</a></li>
+    <li><a href="#pipeline及主从同步">Pipeline及主从同步</a></li>
+    <li><a href="#redis集群">Redis集群</a></li>
+    <li><a href="#附录">附录</a></li>
+  </ul>
 </nav>
                                 
                                 </div>
@@ -125,82 +122,62 @@
                         
                         <div class="post-content">
                             <p>Redis数据类型丰富，支持数据磁盘持久化存储，支持主从同步，支持分片。由C语言编写性能非常高按官方的数据能达到100000QPS（query per second，每秒查询次数）</p>
-
 <h2 id="redis数据类型">Redis数据类型</h2>
-
 <ul>
 <li>String: 最基本的数据类型，二进制安全（能够包含任何类型数据）其实现依靠地城的动态字符串<strong>sdshdr</strong></li>
 <li>Hash: string组成的字典，适合存储对象</li>
 <li>List: 列表，按string元素插入顺序排序</li>
 <li>Set: string组成的无序集合，通过哈希表实现，不允许重复</li>
 <li>Sorted Set: 通过分数来为集合中的成员从小到大排序</li>
-
-<li><p>用于计数的HyperLogLog，用于支持存储地理位置信息的Geo</p>
-
-<pre><code class="language-c">struct sdshdr {
-//buf中已占用空间长度
-int len;
-
-// buf剩余可用空间长度
-int free;
-
-//数据空间
-char buf[];
-}
-</code></pre></li>
+<li>用于计数的HyperLogLog，用于支持存储地理位置信息的Geo</li>
 </ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> sdshdr {
+    <span style="color:#75715e">//buf中已占用空间长度
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> len;
 
-<blockquote>
+    <span style="color:#75715e">// buf剩余可用空间长度
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> free;
+
+    <span style="color:#75715e">//数据空间
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">char</span> buf[];
+}
+</code></pre></div><blockquote>
 <p>Redis单个操作的是原子性的</p>
 </blockquote>
-
 <h2 id="为什么redis那么快">为什么Redis那么快</h2>
-
 <ul>
 <li>完全基于内存，绝大部分的请求是纯粹的内存操作，执行效率高</li>
 <li>数据结构简单，存储结构就是键值对类似Hash Map查找的时间复杂度为O(1)</li>
 <li>采用单线程，单线程也能处理高并发请求，多核可启动多个实例</li>
 <li>使用多路I/O复用模型（select系统调用），非阻塞I/O</li>
 </ul>
-
 <blockquote>
 <p>这里的单线程是指主线程是单线程，负责I/O事件的处理，请求业务处理，过期键处理，集群协调，被封装成周期性的任务由主线程周期性的处理，对于客户端所有的读写请求都由一个主线程串行的处理，避免了频繁的上下文切换和锁竞争</p>
 </blockquote>
-
 <h2 id="从海量的数据中查询出某一固定前缀的key">从海量的数据中查询出某一固定前缀的Key</h2>
-
 <p>keys指令带来的问题:</p>
-
 <ul>
 <li>keys指令一次性返回所有匹配的key</li>
 <li>键的数量过大会使服务卡顿，对内存消耗和Redis服务都是一个隐患</li>
 </ul>
-
 <p>scan指令可以无阻塞的取出指定模式的key列表:</p>
-
 <ul>
 <li>基于游标的迭代器，需要基于上一次查询的游标延续之前的迭代过程</li>
 <li>以0作为游标开始一次新的迭代，知道命令返回游标0完成一次遍历</li>
 <li>不保证每次执行都返回某个给定数量的元素，支持模糊查询</li>
 <li>一次返回元素数量不可控，只能大概率符合count参数</li>
 </ul>
-
 <h2 id="redis分布式锁的实现">Redis分布式锁的实现</h2>
-
 <p>分布式锁需要解决的问题：</p>
-
 <ul>
 <li>互斥性&ndash;同一时刻只能有一个客户端获取锁</li>
 <li>安全性&ndash;锁只能被持有该锁的客户端删除</li>
 <li>死锁&ndash;服务器宕机导致无法释放锁造成死锁</li>
 <li>容错&ndash;当部分节点宕机，客户端仍能够获取锁和释放锁</li>
 </ul>
-
 <p>setnx实现分布式锁，但setnx不支持传入expire参数，需要使用expire指令设置过期时间释放锁。缺点是该操作不是原子性的，setnx完后服务器挂掉来不及expire释放锁会导致资源一直得不到释放</p>
-
 <p>Redis &gt;= 2.6.12版本开始可以通过set操作设置过期时间，指令格式如下：
 SET key value [EX seconds] [PX milliseconds] [NX|XX]</p>
-
 <ul>
 <li>EX seconds:设置过期时间为seconds秒</li>
 <li>PX milliseconds:设置过期时间为milliseconds秒</li>
@@ -208,94 +185,62 @@ SET key value [EX seconds] [PX milliseconds] [NX|XX]</p>
 <li>XX: 只有键存在时，才对键进行设置</li>
 <li>SET操作成功时返回OK，否则返回nil</li>
 </ul>
-
 <blockquote>
 <p>当大量的key集中过期，由于清除key需要时间，会导致Redis出现卡顿现象，因此在设置key过期时间时候因给每个key加上随机值</p>
 </blockquote>
-
 <h2 id="redis异步队列">Redis异步队列</h2>
-
 <p>使用List作为队列，rpush生产消息，lpop消费消息</p>
-
 <p>缺点：不等待有消息才去消费
 解决方案：1.应用层sleep机制重试 2.blpop key timeout阻塞直到队列有消息或者超时</p>
-
 <p>List作为队列当消息被pop后就没了，只能提供一个消费者消费</p>
-
 <p>pub/sub:主题订阅模式实现一对多的异步队列，发送者(pub)发送消息，订阅者(sub)接收消息，订阅者可以订阅任意数量的频道</p>
-
 <p>缺点：消息发布时无状态的，无法保证消息到达</p>
-
 <h2 id="redis持久化">Redis持久化</h2>
-
 <p><strong>RDB(快照)持久化：保存某个时间点的全量数据快照</strong></p>
-
 <p>主动触发RDB持久化:</p>
-
 <ul>
 <li>SAVE:阻塞Redis的服务进程，直到RDB文件被创建完毕</li>
 <li>BGSAVE:Fork出一个子进程来创建RDB文件，不阻塞服务器进程</li>
 </ul>
-
 <p>自动触发RDB的情况:</p>
-
 <ul>
 <li>根据redis.conf配置里的SAVE m n定时触发，使用的是（bgsave）</li>
 <li>主从复制时，主节点自动触发</li>
 <li>执行Debug Reload</li>
 <li>执行Shutdown且没有开启AOF持久化</li>
 </ul>
-
 <p>缺点:</p>
-
 <ul>
 <li>内存数据全量同步，数据量大导致大量的I/O影响性能</li>
 <li>可能会因为Redis挂掉而丢失从当前到最近一次快照之间的数据</li>
 </ul>
-
 <p>BGSAVE原理:</p>
-
 <p>BGSAVE会先检查是否存在AOF、RDB子进程正在运行，存在则返回错误，没有的话就触发持久化，进行系统调用fork()创建子进程，实现了Copy-on-Write</p>
-
 <p><strong>AOF(Append-Only-File)持久化:保存写状态</strong></p>
-
 <ul>
 <li>记录下除查询以外的所有变更数据库状态的指令</li>
 <li>以append形式追加保存到AOF文件中(增量)</li>
 </ul>
-
 <p>日志重写解决AOF文件不断增大问题</p>
-
 <p><strong>RDB和AOF文件共存情况的恢复流程</strong>(只需重新启动Redis服务)</p>
-
 <p>首先检查是否存在AOF文件，存在则加载AOF文件，启动成功；当AOF不存在检查是否存在RDB文件，存在则加载RDB文件启动成功；都不存在启动失败。</p>
-
 <p><strong>RDB和AOF优缺点</strong></p>
-
 <p>RDB优点:全量数据快照，文件小，恢复快
 RDB缺点:无法保存最近一次快照之后的数据
 AOF优点:可读性高，适合保存增量数据，数据不易丢失
 AOF缺点:文件体积大，恢复时间长</p>
-
 <p><strong>RDB-AOF混合持久化</strong>(Redis &gt;= 4.0)</p>
-
 <p>实际中AOF文件前半段是RDB格式的全量持久化数据，后半段是redis命令格式的增量数据</p>
-
 <h2 id="pipeline及主从同步">Pipeline及主从同步</h2>
-
 <p><strong>Pipeline</strong>:</p>
-
 <ul>
 <li>Pipeline和Linux管道类似</li>
 <li>Redis基于请求响应模型，当个请求需要一一应答</li>
 <li>Pipeline批量执行指令能够节省多次IO往返时间</li>
 <li>有顺序依赖的指令还是建议分批发送</li>
 </ul>
-
 <p><strong>主从同步</strong></p>
-
 <p>全同步过程</p>
-
 <ul>
 <li>Slave发送sync命令到Master</li>
 <li>Master启动一个后台进程，将Redis中的数据快照保存到文件中</li>
@@ -304,40 +249,28 @@ AOF缺点:文件体积大，恢复时间长</p>
 <li>使用新的AOF文件替换掉旧的AOF文件</li>
 <li>Master将这期间收集到的增量写命令发送给Slave端</li>
 </ul>
-
 <blockquote>
 <p>完成同步后所有写操作在Master上进行，所有读操作在Slave上进行</p>
 </blockquote>
-
 <p>增量同步过程</p>
-
 <ul>
 <li>Master接收到用户的操作指令，判断是否要传播到Slave</li>
 <li>将操作记录追加到AOF文件</li>
 <li>将操作传播到其他Slave：1、对齐从库 2、往相应缓存写入指令</li>
 <li>将缓存中的数据发送给Slave</li>
 </ul>
-
 <p>Redis Sentinel</p>
-
 <p>解决主从同步Master宕机后的主从切换问题</p>
-
 <h2 id="redis集群">Redis集群</h2>
-
 <p>如何从海量数据中快速找到所需</p>
-
 <ul>
 <li>分片：按照某种规则去划分数据，分散存储在多个节点</li>
 <li>常规的按照哈希算法划分无法实现节点的动态增减</li>
 </ul>
-
 <p>一致性哈希算法：对2^32取模，将哈希值空间组织成虚拟的圆环</p>
-
 <p>将各个主机进行哈希变换到圆环上，数据的key也使用相同的哈希函数计算出哈细值，然后顺时针方向将数据存储到距离最近的主机上</p>
-
 <h2 id="附录">附录</h2>
-
-<pre><code class="language-redis">String:
+<pre><code class="language-redis" data-lang="redis">String:
 set name &quot;redis&quot;
 get name
 set count 1

@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -93,79 +93,68 @@
                         
                         <div class="post-content">
                             <p>之前接触比较多的加密还是非对称的,都不知道对称加密怎么玩了,莫名的想试下.感谢Python当工具用真的是无往不利,这里用到的库是<a href="https://github.com/pyca/cryptography">cryptography</a>,做的需求是给一篇文章加密,等到使用的时候再解密获取内容.</p>
-
 <h3 id="官方示例">官方示例</h3>
-
-<pre><code class="language-python">&gt;&gt;&gt; from cryptography.fernet import Fernet
-&gt;&gt;&gt; # Put this somewhere safe!
-&gt;&gt;&gt; key = Fernet.generate_key()
-&gt;&gt;&gt; f = Fernet(key)
-&gt;&gt;&gt; token = f.encrypt(b&quot;A really secret message. Not for prying eyes.&quot;)
-&gt;&gt;&gt; token
-'...'
-&gt;&gt;&gt; f.decrypt(token)
-'A really secret message. Not for prying eyes.'
-</code></pre>
-
-<p>cryptography安装</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">from</span> cryptography.fernet <span style="color:#f92672">import</span> Fernet
+<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#75715e"># Put this somewhere safe!</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> key <span style="color:#f92672">=</span> Fernet<span style="color:#f92672">.</span>generate_key()
+<span style="color:#f92672">&gt;&gt;&gt;</span> f <span style="color:#f92672">=</span> Fernet(key)
+<span style="color:#f92672">&gt;&gt;&gt;</span> token <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>encrypt(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;A really secret message. Not for prying eyes.&#34;</span>)
+<span style="color:#f92672">&gt;&gt;&gt;</span> token
+<span style="color:#e6db74">&#39;...&#39;</span>
+<span style="color:#f92672">&gt;&gt;&gt;</span> f<span style="color:#f92672">.</span>decrypt(token)
+<span style="color:#e6db74">&#39;A really secret message. Not for prying eyes.&#39;</span>
+</code></pre></div><p>cryptography安装</p>
 <pre><code>pip install cryptography
-</code></pre>
-
-<ol>
+</code></pre><ol>
 <li>首先导入包Fernet</li>
 <li>实例化Fernet需要唯一的参数key,这个参数要求有点高，不是随便一个字节序列就行，要求32位 + url-safe + base64-encoded 的bytes类型。为了方便，Fernet类内置了生成key的类方法: generate_key()，作为加密解密的钥匙，生成的key要保存好，以供解密的时候使用</li>
 <li>实例化一个Fernet对象。</li>
 <li>接下来就是加密方法: fernet.encrypt(data) 接受一个bytes类型的数据，返回一个加密后的bytes类型数据(人类看不懂)，俗称 token-Fernet。</li>
 <li>解密fernet.decrypt(token)</li>
 </ol>
-
 <h1 id="使用实例">使用实例</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
+<span style="color:#f92672">from</span> cryptography.fernet <span style="color:#f92672">import</span> Fernet
 
-<pre><code class="language-python">import sys
-from cryptography.fernet import Fernet
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">read_article</span>(path):
+    <span style="color:#66d9ef">with</span> open(path, <span style="color:#e6db74">&#39;r&#39;</span>) <span style="color:#66d9ef">as</span> f:
+        article <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>read()
+    <span style="color:#66d9ef">return</span> article
 
-def read_article(path):
-    with open(path, 'r') as f:
-        article = f.read()
-    return article
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    params <span style="color:#f92672">=</span> len(sys<span style="color:#f92672">.</span>argv)
+    <span style="color:#66d9ef">if</span> params <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>: <span style="color:#75715e"># 生成秘钥</span>
+        key <span style="color:#f92672">=</span> Fernet<span style="color:#f92672">.</span>generate_key() <span style="color:#75715e"># 生成加密解密秘钥</span>
+        <span style="color:#66d9ef">print</span>(key)
+    <span style="color:#66d9ef">elif</span> params <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>: <span style="color:#75715e"># 加密</span>
+        path <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>]
+        key <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">2</span>]
+        f <span style="color:#f92672">=</span> Fernet(key)
+        content <span style="color:#f92672">=</span> read_article(path)
+        token <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>encrypt(content<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#39;utf-8&#39;</span>))
+        content <span style="color:#f92672">=</span> str(token,encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span>)
+        <span style="color:#66d9ef">print</span>(content)
+    <span style="color:#66d9ef">elif</span> params <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span>: <span style="color:#75715e"># 解密</span>
+        path <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>]
+        key <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">2</span>]
+        decode <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">3</span>]
+        f <span style="color:#f92672">=</span> Fernet(key)
+        <span style="color:#66d9ef">if</span> decode <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;-d&#39;</span>:
+            content <span style="color:#f92672">=</span> read_article(path)
+            token <span style="color:#f92672">=</span> bytes(content,encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span>)
+            <span style="color:#66d9ef">try</span>:
+                string <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>decrypt(token)<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;utf-8&#39;</span>)
+                <span style="color:#66d9ef">print</span>(string)
+            <span style="color:#66d9ef">except</span>:
+                <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;密码错误!!!&#34;</span>)
+        <span style="color:#66d9ef">else</span>:
+            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;参数错误!!!&#34;</span>)
+    <span style="color:#66d9ef">else</span>: <span style="color:#75715e"># 参数错误</span>
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;生成秘钥: python cripto.py</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;加密: python cripto.py articlepath key&#34;</span>)
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;解密: python cripto.py articlepath key -d&#34;</span>)
 
-if __name__ == '__main__':
-    params = len(sys.argv)
-    if params == 1: # 生成秘钥
-        key = Fernet.generate_key() # 生成加密解密秘钥
-        print(key)
-    elif params == 3: # 加密
-        path = sys.argv[1]
-        key = sys.argv[2]
-        f = Fernet(key)
-        content = read_article(path)
-        token = f.encrypt(content.encode('utf-8'))
-        content = str(token,encoding='utf-8')
-        print(content)
-    elif params == 4: # 解密
-        path = sys.argv[1]
-        key = sys.argv[2]
-        decode = sys.argv[3]
-        f = Fernet(key)
-        if decode == '-d':
-            content = read_article(path)
-            token = bytes(content,encoding='utf-8')
-            try:
-                string = f.decrypt(token).decode('utf-8')
-                print(string)
-            except:
-                print(&quot;密码错误!!!&quot;)
-        else:
-            print(&quot;参数错误!!!&quot;)
-    else: # 参数错误
-        print(&quot;生成秘钥: python cripto.py\n&quot;)
-        print(&quot;加密: python cripto.py articlepath key&quot;)
-        print(&quot;解密: python cripto.py articlepath key -d&quot;)
-
-</code></pre>
-
-<blockquote>
+</code></pre></div><blockquote>
 <p>这就完成了对文档的加密解密了,但内容都在终端输出了可以用<code>&gt;</code>重定向到文件</p>
 </blockquote>
                         </div>

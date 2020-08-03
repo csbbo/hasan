@@ -27,9 +27,7 @@
       
       <guid>http://blog.shaobo.fun/posts/2019/20191010-tree/</guid>
       <description>&lt;p&gt;树（tree）是n个节点的有序集，它或为空树；或为非空树，对于非空树：&lt;/p&gt;
-
 &lt;p&gt;有且仅有一个根节点&lt;/p&gt;
-
 &lt;p&gt;除根节点以外其余节点可分为m（m&amp;gt;0）个互不相交的有限集T1，T2，&amp;hellip;,Tm其中每一个集合本身又是一棵树，并且称为跟的子树。&lt;/p&gt;</description>
     </item>
     

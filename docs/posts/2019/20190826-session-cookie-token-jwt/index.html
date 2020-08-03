@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -93,105 +93,68 @@
                         
                         <div class="post-content">
                             <p>HTTP是无状态协议,而现实的业务场景中又往往需要保持用户的状态,Session和Cookie就是为解决这个问题而出现的。</p>
-
 <h3 id="什么是cookie">什么是Cookie</h3>
-
 <p>Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，实际上Cookie是服务器在本地机器上存储的一小段文本，并随着每次请求发送到服务器。</p>
-
 <p>Cookie技术通过请求和响应报文中写入Cookie信息来控制客户端的状态。Cookie会根据响应报文里的一个叫Set-Cookie的首部字段信息，通知客户端保存Cookie。当下客户端再向服务端发起请求时，客户端会自动在请求报文中加入Cookie值之后发送出去.之后服务端发现客户端发送过来的Cookie后，会检查是那个客户端发送过来的请求，然后对服务器上的记录，最后得到了之前的状态信息。</p>
-
 <h3 id="什么是session">什么是Session</h3>
-
-<p>本来Session 是一个抽象概念，开发者为了实现中断和继续等操作，将user agent和server之间一对一的交互，抽象为&rdquo;会话&rdquo;，进而衍生出&rdquo;会话状态&rdquo;，也就是Session的概念。</p>
-
+<p>本来Session 是一个抽象概念，开发者为了实现中断和继续等操作，将user agent和server之间一对一的交互，抽象为&quot;会话&rdquo;，进而衍生出&quot;会话状态&rdquo;，也就是Session的概念。</p>
 <p>Session的实现一般通过后端存储加Cookie来实现,常说的Session要比Cookie安全是因为敏感信息都存储在后端只将对应的Session ID通过Cookie交给前端存储。</p>
-
 <blockquote>
 <p>目前常用的控制客户端状态的方案是Session+Cookie,仅靠Cookie本身也能通过存储用户信息维持交互状态,只是所有信息都存储在客户端一旦被劫持全部信息都会泄露,并且导致大量数据在网络上传输影响性能。Session的实现不一定只能依靠Cookie,比若说Session ID可以保存在url</p>
 </blockquote>
-
 <h3 id="什么是token">什么是Token</h3>
-
 <p>token也称作令牌，由uid+time+sign[+固定参数]</p>
-
 <p>token的认证方式类似于临时的证书签名, 并且是一种服务端无状态的认证方式, 非常适合于 REST API 的场景. 所谓无状态就是服务端并不会保存身份认证相关的数据。</p>
-
 <ul>
 <li>uid: 用户唯一身份标识</li>
 <li>time: 当前时间的时间戳</li>
 <li>sign: 签名, 使用 hash/encrypt 压缩成定长的十六进制字符串，以防止第三方恶意拼接</li>
 <li>固定参数(可选): 将一些常用的固定参数加入到 token 中是为了避免重复查库</li>
 </ul>
-
 <p>token在客户端一般存放于localStorage，cookie，或sessionStorage中。在服务器一般存于数据库中</p>
-
 <p>token认证流程:</p>
-
 <ul>
 <li>用户登录，成功后服务器返回Token给客户端。</li>
 <li>客户端收到数据后保存在客户端</li>
 <li>客户端再次访问服务器，将token放入headers中</li>
 <li>服务器端采用filter过滤器校验。校验成功则返回请求数据，校验失败则返回错误码</li>
 </ul>
-
 <blockquote>
 <p>token可以抵抗csrf，cookie+session不行。假如用户正在登陆银行网页，同时登陆了攻击者的网页，并且银行网页未对csrf攻击进行防护。攻击者就可以在网页放一个表单，该表单提交src为http://www.bank.com/api/transfer，body为count=1000&amp;to=Tom。倘若是session+cookie，用户打开网页的时候就已经转给Tom1000元了.因为form 发起的POST 请求并不受到浏览器同源策略的限制，因此可以任意地使用其他域的 Cookie 向其他域发送 POST 请求，形成CSRF攻击。在post请求的瞬间，cookie会被浏览器自动添加到请求头中。但token不同，token是开发者为了防范csrf而特别设计的令牌，浏览器不会自动添加到headers里，攻击者也无法访问用户的token，所以提交的表单无法通过服务器过滤，也就无法形成攻击。</p>
-
+</blockquote>
+<blockquote>
 <p>session的状态，一般存于服务器内存或硬盘中，当服务器采用分布式或集群时，session就会面对负载均衡问题。</p>
 </blockquote>
-
 <h3 id="再来说说jwt">再来说说JWT</h3>
-
 <p>JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案。</p>
-
 <h4 id="jwt原理">JWT原理</h4>
-
 <p>JWT 的原理是，服务器认证以后，生成一个 JSON 对象，发回给用户，就像下面这样。</p>
-
 <pre><code>{
   &quot;姓名&quot;: &quot;张三&quot;,
   &quot;角色&quot;: &quot;管理员&quot;,
   &quot;到期时间&quot;: &quot;2018年7月1日0点0分&quot;
 }
-</code></pre>
-
-<p>以后，用户与服务端通信的时候，都要发回这个 JSON 对象。服务器完全只靠这个对象认定用户身份。为了防止用户篡改数据，服务器在生成这个对象的时候，会加上签名（详见后文）。</p>
-
+</code></pre><p>以后，用户与服务端通信的时候，都要发回这个 JSON 对象。服务器完全只靠这个对象认定用户身份。为了防止用户篡改数据，服务器在生成这个对象的时候，会加上签名（详见后文）。</p>
 <p>服务器就不保存任何 session 数据了，也就是说，服务器变成无状态了，从而比较容易实现扩展。</p>
-
 <h4 id="jwt的数据结构">JWT的数据结构</h4>
-
 <p>JWT 的三个部分依次如下。</p>
-
 <ul>
 <li>Header（头部）</li>
 <li>Payload（负载）</li>
 <li>Signature（签名）</li>
 </ul>
-
 <p>写成一行，就是下面的样子。</p>
-
 <pre><code>Header.Payload.Signature
-</code></pre>
-
-<p><strong>Header</strong></p>
-
+</code></pre><p><strong>Header</strong></p>
 <p>Header 部分是一个 JSON 对象，描述 JWT 的元数据，通常是下面的样子。</p>
-
 <pre><code>{
   &quot;alg&quot;: &quot;HS256&quot;,
   &quot;typ&quot;: &quot;JWT&quot;
 }
-</code></pre>
-
-<p>上面代码中，alg属性表示签名的算法（algorithm），默认是 HMAC SHA256（写成 HS256）；typ属性表示这个令牌（token）的类型（type），JWT 令牌统一写为JWT。</p>
-
+</code></pre><p>上面代码中，alg属性表示签名的算法（algorithm），默认是 HMAC SHA256（写成 HS256）；typ属性表示这个令牌（token）的类型（type），JWT 令牌统一写为JWT。</p>
 <p>最后，将上面的 JSON 对象使用 Base64URL 算法（详见后文）转成字符串。</p>
-
 <p><strong>Payload</strong></p>
-
 <p>Payload 部分也是一个 JSON 对象，用来存放实际需要传递的数据。JWT 规定了7个官方字段，供选用。</p>
-
 <ul>
 <li>iss (issuer)：签发人</li>
 <li>exp (expiration time)：过期时间</li>
@@ -201,53 +164,31 @@
 <li>iat (Issued At)：签发时间</li>
 <li>jti (JWT ID)：编号</li>
 </ul>
-
 <p>除了官方字段，你还可以在这个部分定义私有字段，下面就是一个例子。</p>
-
 <pre><code>{
   &quot;sub&quot;: &quot;1234567890&quot;,
   &quot;name&quot;: &quot;John Doe&quot;,
   &quot;admin&quot;: true
 }
-</code></pre>
-
-<p>注意，JWT 默认是不加密的，任何人都可以读到，所以不要把秘密信息放在这个部分。</p>
-
+</code></pre><p>注意，JWT 默认是不加密的，任何人都可以读到，所以不要把秘密信息放在这个部分。</p>
 <p>这个 JSON 对象也要使用 Base64URL 算法转成字符串。</p>
-
 <p><strong>Signature</strong></p>
-
 <p>Signature 部分是对前两部分的签名，防止数据篡改。</p>
-
 <p>首先，需要指定一个密钥（secret）。这个密钥只有服务器才知道，不能泄露给用户。然后，使用 Header 里面指定的签名算法（默认是 HMAC SHA256），按照下面的公式产生签名。</p>
-
 <pre><code>HMACSHA256(
   base64UrlEncode(header) + &quot;.&quot; +
   base64UrlEncode(payload),
   secret)
-</code></pre>
-
-<p>算出签名以后，把 Header、Payload、Signature 三个部分拼成一个字符串，每个部分之间用&rdquo;点&rdquo;（.）分隔，就可以返回给用户。</p>
-
+</code></pre><p>算出签名以后，把 Header、Payload、Signature 三个部分拼成一个字符串，每个部分之间用&quot;点&rdquo;（.）分隔，就可以返回给用户。</p>
 <p><strong>Base64URL</strong></p>
-
 <p>前面提到，Header 和 Payload 串型化的算法是 Base64URL。这个算法跟 Base64 算法基本类似，但有一些小的不同。</p>
-
 <p>JWT 作为一个令牌（token），有些场合可能会放到 URL（比如 api.example.com/?token=xxx）。Base64 有三个字符+、/和=，在 URL 里面有特殊含义，所以要被替换掉：=被省略、+替换成-，/替换成_ 。这就是 Base64URL 算法。</p>
-
 <h4 id="jwt-的使用方式">JWT 的使用方式</h4>
-
 <p>客户端收到服务器返回的 JWT，可以储存在 Cookie 里面，也可以储存在 localStorage。</p>
-
 <p>此后，客户端每次与服务器通信，都要带上这个 JWT。你可以把它放在 Cookie 里面自动发送，但是这样不能跨域，所以更好的做法是放在 HTTP 请求的头信息Authorization字段里面。</p>
-
 <pre><code>Authorization: Bearer &lt;token&gt;
-</code></pre>
-
-<p>另一种做法是，跨域的时候，JWT 就放在 POST 请求的数据体里面。</p>
-
+</code></pre><p>另一种做法是，跨域的时候，JWT 就放在 POST 请求的数据体里面。</p>
 <h4 id="jwt-的几个特点">JWT 的几个特点</h4>
-
 <ol>
 <li>JWT 默认是不加密，但也是可以加密的。生成原始 Token 以后，可以用密钥再加密一次。</li>
 <li>JWT 不加密的情况下，不能将秘密数据写入 JWT。</li>

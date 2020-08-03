@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -100,144 +100,114 @@
                         
                         <div class="post-content">
                             <p>在Linux中,为了保护内核空间,将程序的运行空间分为内核空间和用户空间(内核态和用户态),它们运行在不同的级别上,在逻辑上是相互隔离的,因此用户进程在通常情况下不允许访问内核数据,也无法使用内核函数,它们只能在用户空间操作用户数据,调用用户空间的函数。操作系统为用户提供了两个接口:一个是用户编程接口 API,用户利用这些操作命令来组织和控制任务的执行或管理计算机系统。另一个接口是系统调用,编程人员使用系统调用来请求操作系统提供服务。</p>
-
 <p>用户程序可以通过这组接口来获得操作系统内核提供的服务。而系统调用并不是直接与程序员进行交互的,它仅仅是一个通过软中断机制向内核提交请求,以获得内核服务的接口。进行系统调用时,程序运行空间需要从用户空间进入内核空间,处理后再返回到用户空间。Linux系统调用部分是非常精简的系统调用包括进程控制、文件系统控制、系统控制、内存管理、网络管理 、socket控制、用户管理、进程间通信八个模块。</p>
-
-<p><img src="/assets/article/20190630/system_calls.png" alt="systemcalls" /></p>
-
+<p><img src="/assets/article/20190630/system_calls.png" alt="systemcalls"></p>
 <p>在 Linux 中,用户编程接口(API)遵循了在 UNIX 中最流行的应用编程界面标准——
 POSIX 标准。保证应用程序可以在源代码一级上在多种操作系统上移植运行。</p>
-
 <p>Linux 中文件可以分为 4 种:普通文件、目录文件、链接文件和设备文件。对于 Linux而言,所有对设备和文件的操作都使用文件描述符来进行的。文件描述符是一个非负的整数,它是一个索引值,并指向内核中每个进程打开文件的记录表。当打开一个现存文件或创建一个新文件时,内核就向进程返回一个文件描述符;当需要读写文件时,也需要把文件描述符作为参数传递给相应的函数。通常,一个进程启动时,都会打开3个文件:标准输入、标准输出和标准出错处理。这 3
 个文件分别对应文件描述符为 0、1 和 2(也就是宏替换 STDIN_FILENO、STDOUT_FILENO和STDERR_FILENO)。</p>
-
-<h3 id="基本i-o操作">基本I/O操作</h3>
-
+<h3 id="基本io操作">基本I/O操作</h3>
 <p>Linux 对于输入输出(I/O)操作,通常为五个方面:打开、读取、写入、定位、关闭,
 对应的有五个系统调用,分别是:open、read、write、lseek 和 close这5个函数,也称为不带缓冲区的I/O操作,程序员可以直接操作硬件,这样为开发驱动等底层的系统应用提供了方便。这些函数其原型为:</p>
-
-<pre><code class="language-c">#include&lt;sys/types.h&gt;
-#include&lt;sys/stat.h&gt; /* 声明 mode_t */
-#include&lt;fcntl.h&gt; /* 声明调用 open()时使用的 flag 常量 */
-#include&lt;unistd.h&gt; /*声明 ssize_t */
-int open( const char * pathname, int flags,mode_t mode);
-ssize_t read(int fd, void *buf, size_t nbytes);
-ssize_t write(int fd, const void *buf, size_t nbytes);
-off_t lseek(int fd,off_t offset ,int whence);
-int close(int fd)
-</code></pre>
-
-<p>综合实例:</p>
-
-<pre><code class="language-c">#include &lt;unistd.h&gt;
-#include &lt;sys/types.h&gt;
-#include &lt;sys/stat.h&gt;
-#include &lt;fcntl.h&gt;
-#include &lt;stdio.h&gt;
-int main(void)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/stat.h&gt; /* 声明 mode_t */</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;fcntl.h&gt; /* 声明调用 open()时使用的 flag 常量 */</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;unistd.h&gt; /*声明 ssize_t */</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">open</span>( <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span> pathname, <span style="color:#66d9ef">int</span> flags,mode_t mode);
+ssize_t <span style="color:#a6e22e">read</span>(<span style="color:#66d9ef">int</span> fd, <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>buf, size_t nbytes);
+ssize_t <span style="color:#a6e22e">write</span>(<span style="color:#66d9ef">int</span> fd, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>buf, size_t nbytes);
+off_t <span style="color:#a6e22e">lseek</span>(<span style="color:#66d9ef">int</span> fd,off_t offset ,<span style="color:#66d9ef">int</span> whence);
+<span style="color:#66d9ef">int</span> close(<span style="color:#66d9ef">int</span> fd)
+</code></pre></div><p>综合实例:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/stat.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;fcntl.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
 {
-	int fd,size;
-	char s[]=&quot;This program is used to show how to use open(),write(),read() function.\nHave fun!\n&quot;;
-	char buffer[80];
+	<span style="color:#66d9ef">int</span> fd,size;
+	<span style="color:#66d9ef">char</span> s[]<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;This program is used to show how to use open(),write(),read() function.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Have fun!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+	<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">80</span>];
 
-	/*以可读写的方式打开一个文件,如果不存在则创建该文件*/
-	fd = open( &quot;temp.log&quot;, O_WRONLY|O_CREAT );
-	if ( -1 == fd )
+	<span style="color:#75715e">/*以可读写的方式打开一个文件,如果不存在则创建该文件*/</span>
+	fd <span style="color:#f92672">=</span> open( <span style="color:#e6db74">&#34;temp.log&#34;</span>, O_WRONLY<span style="color:#f92672">|</span>O_CREAT );
+	<span style="color:#66d9ef">if</span> ( <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">==</span> fd )
 	{
-		printf(&quot;Open or create file named \&quot;temp.log\&quot; failed.\n&quot;);
-		return -1;
+		printf(<span style="color:#e6db74">&#34;Open or create file named </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">temp.log</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> failed.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
 	}
-	write( fd, s, sizeof(s) );/*向该文件中写入一个字符串*/
+	write( fd, s, <span style="color:#66d9ef">sizeof</span>(s) );<span style="color:#75715e">/*向该文件中写入一个字符串*/</span>
 	close( fd );
 
-	fd = open( &quot;temp.log&quot;, O_RDONLY );
-	if ( -1 == fd )
+	fd <span style="color:#f92672">=</span> open( <span style="color:#e6db74">&#34;temp.log&#34;</span>, O_RDONLY );
+	<span style="color:#66d9ef">if</span> ( <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">==</span> fd )
 	{
-		printf(&quot;Open file named \&quot;temp.log\&quot; failed.\n&quot;);
-		return -1;
+		printf(<span style="color:#e6db74">&#34;Open file named </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">temp.log</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74"> failed.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
 	}
 
-	/*读取文件内容保存到 buffer 指定的字符串数组中,返回读取的字符个数*/
-	size = read( fd, buffer, sizeof(buffer) );
+	<span style="color:#75715e">/*读取文件内容保存到 buffer 指定的字符串数组中,返回读取的字符个数*/</span>
+	size <span style="color:#f92672">=</span> read( fd, buffer, <span style="color:#66d9ef">sizeof</span>(buffer) );
 	close( fd );
-	printf( &quot;%s&quot;, buffer );
-	return 0;
+	printf( <span style="color:#e6db74">&#34;%s&#34;</span>, buffer );
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
-
-<h3 id="标准i-o操作">标准I/O操作</h3>
-
+</code></pre></div><h3 id="标准io操作">标准I/O操作</h3>
 <p>在高层应用中,不带缓冲区的 I/O 操作效率往往较低,而由用户自行维护缓冲区不仅繁琐,且容易出错。因此 ANSI 制定了一系列基于流缓冲的标准 I/O 函数,它是符合ANSI C的标准I/O处理。如 printf()、fprintf()和 sprintf()。事实上它们代表了对三种不同类型流的相同操作,printf()针对标准流,fprintf()针对文流,sprintf()针对字符流。大部分的标准I/O函数都有针对上述三种不同类型流的版本,其实现功能完全相同。</p>
-
 <p>1.fopen()函数</p>
-
 <p>打开文件有三个标准函数,分别为:fopen,fdopen 和 freopen。它们的函数原型如下所示:</p>
-
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-FILE *fopen(const char *pathname, const char *type);
-FILE *freopen(const char *pathname, const char *type, FILE *fp;
-FILE *fdopen(int filedes, const char *type);
-</code></pre>
-
-<p>2.fclose 函数</p>
-
-<pre><code class="language-c">int fclose(FILE *fp);
-</code></pre>
-
-<p>如果只是希望将缓冲区中的数据写入文件,但因为可能后面还要用到文件指针,不希望这个时候关闭它,可以使用另外一个函数 fflush()</p>
-
-<pre><code class="language-c">int fflush(FILE *fp)
-</code></pre>
-
-<p>3.fread 和 fwrite 函数</p>
-
-<pre><code class="language-c">#include &lt;stdio.h&gt;
-size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
-size_t fwrite(const void *ptr, size_t size, size_t nmemb, FILE *stream);
-</code></pre>
-
-<p>综合实例:</p>
-
-<pre><code class="language-c">/*** writerec.c****/
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-struct record {char name[10];int age;};
-int main()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>FILE <span style="color:#f92672">*</span><span style="color:#a6e22e">fopen</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>pathname, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>type);
+FILE <span style="color:#f92672">*</span>freopen(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>pathname, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>type, FILE <span style="color:#f92672">*</span>fp;
+FILE <span style="color:#f92672">*</span><span style="color:#a6e22e">fdopen</span>(<span style="color:#66d9ef">int</span> filedes, <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>type);
+</code></pre></div><p>2.fclose 函数</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fclose</span>(FILE <span style="color:#f92672">*</span>fp);
+</code></pre></div><p>如果只是希望将缓冲区中的数据写入文件,但因为可能后面还要用到文件指针,不希望这个时候关闭它,可以使用另外一个函数 fflush()</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> fflush(FILE <span style="color:#f92672">*</span>fp)
+</code></pre></div><p>3.fread 和 fwrite 函数</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>size_t <span style="color:#a6e22e">fread</span>(<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>ptr, size_t size, size_t nmemb, FILE <span style="color:#f92672">*</span>stream);
+size_t <span style="color:#a6e22e">fwrite</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>ptr, size_t size, size_t nmemb, FILE <span style="color:#f92672">*</span>stream);
+</code></pre></div><p>综合实例:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/*** writerec.c****/</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> record {<span style="color:#66d9ef">char</span> name[<span style="color:#ae81ff">10</span>];<span style="color:#66d9ef">int</span> age;};
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-	struct record array[2] = {{&quot;Ken&quot;, 24}, {&quot;Knuth&quot;, 28}};
-	FILE *fp = fopen(&quot;recfile&quot;, &quot;w&quot;);
-	if (fp == NULL) {
-		perror(&quot;Open file recfile&quot;);
-		exit(1);
+	<span style="color:#66d9ef">struct</span> record array[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> {{<span style="color:#e6db74">&#34;Ken&#34;</span>, <span style="color:#ae81ff">24</span>}, {<span style="color:#e6db74">&#34;Knuth&#34;</span>, <span style="color:#ae81ff">28</span>}};
+	FILE <span style="color:#f92672">*</span>fp <span style="color:#f92672">=</span> fopen(<span style="color:#e6db74">&#34;recfile&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>);
+	<span style="color:#66d9ef">if</span> (fp <span style="color:#f92672">==</span> NULL) {
+		perror(<span style="color:#e6db74">&#34;Open file recfile&#34;</span>);
+		exit(<span style="color:#ae81ff">1</span>);
 	}
-	fwrite(array, sizeof(struct record), 2, fp);
+	fwrite(array, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">struct</span> record), <span style="color:#ae81ff">2</span>, fp);
 	fclose(fp);
-	return 0;
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
-
-<pre><code class="language-c">/***** readrec.c*****/
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-struct record {
-	char name[10];
-	int age;
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/***** readrec.c*****/</span>
+<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> record {
+	<span style="color:#66d9ef">char</span> name[<span style="color:#ae81ff">10</span>];
+	<span style="color:#66d9ef">int</span> age;
 };
-int main(void)
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
 {
-	struct record array[2];
-	FILE *fp = fopen(&quot;recfile&quot;, &quot;r&quot;);
-	if (fp == NULL) {
-		perror(&quot;Open file recfile&quot;);
-		exit(1);
+	<span style="color:#66d9ef">struct</span> record array[<span style="color:#ae81ff">2</span>];
+	FILE <span style="color:#f92672">*</span>fp <span style="color:#f92672">=</span> fopen(<span style="color:#e6db74">&#34;recfile&#34;</span>, <span style="color:#e6db74">&#34;r&#34;</span>);
+	<span style="color:#66d9ef">if</span> (fp <span style="color:#f92672">==</span> NULL) {
+		perror(<span style="color:#e6db74">&#34;Open file recfile&#34;</span>);
+		exit(<span style="color:#ae81ff">1</span>);
 	}
-	fread(array, sizeof(struct record), 2, fp);
-	printf(&quot;Name1: %s\tAge1: %d\n&quot;, array[0].name, array[0].age);
-	printf(&quot;Name2: %s\tAge2: %d\n&quot;, array[1].name, array[1].age);
+	fread(array, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">struct</span> record), <span style="color:#ae81ff">2</span>, fp);
+	printf(<span style="color:#e6db74">&#34;Name1: %s</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">Age1: %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, array[<span style="color:#ae81ff">0</span>].name, array[<span style="color:#ae81ff">0</span>].age);
+	printf(<span style="color:#e6db74">&#34;Name2: %s</span><span style="color:#ae81ff">\t</span><span style="color:#e6db74">Age2: %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, array[<span style="color:#ae81ff">1</span>].name, array[<span style="color:#ae81ff">1</span>].age);
 	fclose(fp);
-	return 0;
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
+</code></pre></div>
                         </div>
 
                         

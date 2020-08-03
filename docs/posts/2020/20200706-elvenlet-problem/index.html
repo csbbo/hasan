@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -104,16 +104,14 @@
                                 
                                     <div class="toc-title">文章目录</div> 
                                     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#django中使用socketio">Django中使用socketio</a></li>
-<li><a href="#evenlet带来的问题">Evenlet带来的问题</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#django中使用socketio">Django中使用socketio</a></li>
+        <li><a href="#evenlet带来的问题">Evenlet带来的问题</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                                 
                                 </div>
@@ -121,109 +119,86 @@
                         
                         <div class="post-content">
                             <p>事情的起因是要再项目中使用双向通信，首选是websocket但是由于ie10的不支持选用的socketio(sockerio会根据实际情自动切换websocket和轮询两种办法),而socketio的使用又需要引入evenlet,就这样一步一步的往里陷了。</p>
-
 <h3 id="django中使用socketio">Django中使用socketio</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#f92672">import</span> logging
+<span style="color:#f92672">import</span> socketio
+<span style="color:#f92672">import</span> eventlet
 
-<pre><code class="language-python3">import logging
-import socketio
-import eventlet
+logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(__name__)
 
-logger = logging.getLogger(__name__)
-
-eventlet.monkey_patch(thread=False, socket=True, select=True)
-sio = socketio.Server(async_mode=None, cors_allowed_origins='*')
-SID = None
-
-
-@sio.event
-def connect(sid, environ):
-    global SID
-    SID = sid
-    logger.error(f'Client {sid} connected')
+eventlet<span style="color:#f92672">.</span>monkey_patch(thread<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, socket<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, select<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+sio <span style="color:#f92672">=</span> socketio<span style="color:#f92672">.</span>Server(async_mode<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, cors_allowed_origins<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;*&#39;</span>)
+SID <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
 
 
-@sio.event
-def disconnect_request(sid):
-    sio.disconnect(sid)
+<span style="color:#a6e22e">@sio</span><span style="color:#f92672">.</span>event
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">connect</span>(sid, environ):
+    <span style="color:#66d9ef">global</span> SID
+    SID <span style="color:#f92672">=</span> sid
+    logger<span style="color:#f92672">.</span>error(f<span style="color:#e6db74">&#39;Client </span><span style="color:#e6db74">{sid}</span><span style="color:#e6db74"> connected&#39;</span>)
 
 
-@sio.event
-def disconnect(sid):
-    logger.error(f'Client {sid} disconnected')
+<span style="color:#a6e22e">@sio</span><span style="color:#f92672">.</span>event
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">disconnect_request</span>(sid):
+    sio<span style="color:#f92672">.</span>disconnect(sid)
 
 
-def open_virtual_machines(configs, user_id):
-    from virtual_machine.tasks import open_vm_task
-    global SID
-    result_list = []
-    for config in configs:
-        message = open_vm_task.send(str(config.id), config.name, user_id)
-        result_list.append(message)
-    messages = []
-    for msg in result_list:
-        message = msg.get_result(block=True, timeout=300000)
-        messages.append(message)
-    sio.emit('vm_response', {'data': messages})
-    sio.disconnect(SID)
-</code></pre>
+<span style="color:#a6e22e">@sio</span><span style="color:#f92672">.</span>event
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">disconnect</span>(sid):
+    logger<span style="color:#f92672">.</span>error(f<span style="color:#e6db74">&#39;Client </span><span style="color:#e6db74">{sid}</span><span style="color:#e6db74"> disconnected&#39;</span>)
 
-<p>第8行创建一个socketio服务，async_mode=None由sockerio内部算法决定使用异步模式，cors_allowed_origins=&rsquo;*&lsquo;是因为sockio服务也有同源策略这里允许所有来源的地址请求，这也是我碰到的第一个问题导致nginx流量过来时候都没有正常返回，nginx配置如下：</p>
 
-<pre><code class="language-nginx">location /socket.io/ {
-    proxy_pass http://server:8000;
-    proxy_redirect off;
-    proxy_buffering off;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection &quot;Upgrade&quot;;
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">open_virtual_machines</span>(configs, user_id):
+    <span style="color:#f92672">from</span> virtual_machine.tasks <span style="color:#66d9ef">import</span> open_vm_task
+    <span style="color:#66d9ef">global</span> SID
+    result_list <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">for</span> config <span style="color:#f92672">in</span> configs:
+        message <span style="color:#f92672">=</span> open_vm_task<span style="color:#f92672">.</span>send(str(config<span style="color:#f92672">.</span>id), config<span style="color:#f92672">.</span>name, user_id)
+        result_list<span style="color:#f92672">.</span>append(message)
+    messages <span style="color:#f92672">=</span> []
+    <span style="color:#66d9ef">for</span> msg <span style="color:#f92672">in</span> result_list:
+        message <span style="color:#f92672">=</span> msg<span style="color:#f92672">.</span>get_result(block<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">300000</span>)
+        messages<span style="color:#f92672">.</span>append(message)
+    sio<span style="color:#f92672">.</span>emit(<span style="color:#e6db74">&#39;vm_response&#39;</span>, {<span style="color:#e6db74">&#39;data&#39;</span>: messages})
+    sio<span style="color:#f92672">.</span>disconnect(SID)
+</code></pre></div><p>第8行创建一个socketio服务，async_mode=None由sockerio内部算法决定使用异步模式，cors_allowed_origins=&rsquo;*&lsquo;是因为sockio服务也有同源策略这里允许所有来源的地址请求，这也是我碰到的第一个问题导致nginx流量过来时候都没有正常返回，nginx配置如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#66d9ef">location</span> <span style="color:#e6db74">/socket.io/</span> {
+    <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://server:8000</span>;
+    <span style="color:#f92672">proxy_redirect</span> <span style="color:#66d9ef">off</span>;
+    <span style="color:#f92672">proxy_buffering</span> <span style="color:#66d9ef">off</span>;
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> $host;
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
+    <span style="color:#f92672">proxy_http_version</span> <span style="color:#ae81ff">1</span><span style="color:#e6db74">.1</span>;
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Upgrade</span> $http_upgrade;
+    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Connection</span> <span style="color:#e6db74">&#34;Upgrade&#34;</span>;
 }
-</code></pre>
-
-<blockquote>
+</code></pre></div><blockquote>
 <p>这里没什么问题，同官网例子</p>
 </blockquote>
-
 <h3 id="evenlet带来的问题">Evenlet带来的问题</h3>
-
 <p>socketio提供多种async_mode但要样socketio去使用websocket最好就是采用evenlet模式,这里列举一下使用evenlet所需要的环境:</p>
-
-<pre><code class="language-shell">apt install netbase
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">apt install netbase
 pip3 install python-socketio4.5.1
 pip3 install eventlet0.20.1
-</code></pre>
-
-<blockquote>
+</code></pre></div><blockquote>
 <p>单元测试并不使用项目打包后的环境所以缺少新安装的netbase库导致ci一直过不了</p>
 </blockquote>
-
 <p>运行evenlet WSGI服务器</p>
-
 <p>因为一些原因使用的是gunicorn的方式来启动evenlet，而gunicorn的配置如下:</p>
-
-<pre><code class="language-python">bind = &quot;0.0.0.0:8000&quot;
-workers = 1
-errorlog = '/web/log/error.log'
-accesslog = '/web/log/access.log'
-loglevel = 'warning'
-proc_name = 'gunicorn_project'
-timeout = 300
-worker_class = 'eventlet'
-</code></pre>
-
-<p>这里有两个需要关注的问题，一个是<code>worker_class = 'eventlet'</code>工作task改为evenlet,另一个是workers = 1,这里是应为gunicorn负载均衡算法的限制使用了evenlet后只能有一个工作进程，一个eventlet worker可以处理大量并发客户机，每个客户机都由一个greenlet处理(greenlet是一个协程)。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">bind <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0.0.0.0:8000&#34;</span>
+workers <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+errorlog <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/web/log/error.log&#39;</span>
+accesslog <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/web/log/access.log&#39;</span>
+loglevel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;warning&#39;</span>
+proc_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;gunicorn_project&#39;</span>
+timeout <span style="color:#f92672">=</span> <span style="color:#ae81ff">300</span>
+worker_class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;eventlet&#39;</span>
+</code></pre></div><p>这里有两个需要关注的问题，一个是<code>worker_class = 'eventlet'</code>工作task改为evenlet,另一个是workers = 1,这里是应为gunicorn负载均衡算法的限制使用了evenlet后只能有一个工作进程，一个eventlet worker可以处理大量并发客户机，每个客户机都由一个greenlet处理(greenlet是一个协程)。</p>
 <p>在使用中希望执行一个后台任务</p>
-
-<pre><code class="language-python">sio.start_background_task(open_virtual_machines, configs, user.id)
-</code></pre>
-
-<p>但是阻塞了，因为整个django项目还是以多线程方式执行，官方提供一个猴子补丁函数monkey_patch() 它将标准库中的所有阻塞函数替换为等效的异步版本，也就是Django中使用socketio例子中的第7行代码。至此就解决了目前这一路碰到的问题了。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">sio<span style="color:#f92672">.</span>start_background_task(open_virtual_machines, configs, user<span style="color:#f92672">.</span>id)
+</code></pre></div><p>但是阻塞了，因为整个django项目还是以多线程方式执行，官方提供一个猴子补丁函数monkey_patch() 它将标准库中的所有阻塞函数替换为等效的异步版本，也就是Django中使用socketio例子中的第7行代码。至此就解决了目前这一路碰到的问题了。</p>
 <p>[参考]</p>
-
 <p><a href="https://python-socketio.readthedocs.io/en/latest/server.html?highlight=monkey_patch">python-socketio文档</a></p>
                         </div>
 

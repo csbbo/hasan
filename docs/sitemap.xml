@@ -58,7 +58,7 @@
   </url>
   
   <url>
-    <loc>http://blog.shaobo.fun/tags/python/</loc>
+    <loc>http://blog.shaobo.fun/tags/Python/</loc>
     <lastmod>2020-02-22T18:11:11+08:00</lastmod>
   </url>
   
@@ -133,12 +133,12 @@
   </url>
   
   <url>
-    <loc>http://blog.shaobo.fun/categories/Docker/</loc>
+    <loc>http://blog.shaobo.fun/tags/Docker/</loc>
     <lastmod>2019-12-31T15:31:28+08:00</lastmod>
   </url>
   
   <url>
-    <loc>http://blog.shaobo.fun/tags/Docker/</loc>
+    <loc>http://blog.shaobo.fun/categories/Docker/</loc>
     <lastmod>2019-12-31T15:31:28+08:00</lastmod>
   </url>
   
@@ -448,11 +448,6 @@
   </url>
   
   <url>
-    <loc>http://blog.shaobo.fun/tags/TCP/IP/</loc>
-    <lastmod>2019-06-29T22:11:05+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>http://blog.shaobo.fun/tab/</loc>
     <lastmod>2019-06-28T11:40:12+08:00</lastmod>
   </url>
@@ -515,6 +510,10 @@
   <url>
     <loc>http://blog.shaobo.fun/posts/2019/20190523-algorithmNote/</loc>
     <lastmod>2019-05-23T20:04:46+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://blog.shaobo.fun/tags/TCP/IP/</loc>
   </url>
   
 </urlset>

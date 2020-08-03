@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -104,21 +104,19 @@
                                 
                                     <div class="toc-title">文章目录</div> 
                                     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#linux-net-tools-vs-iproute2">Linux net-tools VS iproute2</a></li>
-<li><a href="#ip地址">IP地址</a></li>
-<li><a href="#路由表">路由表</a></li>
-<li><a href="#网络数据">网络数据</a></li>
-<li><a href="#arp条目">ARP条目</a></li>
-<li><a href="#监控netlink消息">监控netlink消息</a></li>
-<li><a href="#激活和停止网络接口">激活和停止网络接口</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#linux-net-tools-vs-iproute2">Linux net-tools VS iproute2</a></li>
+        <li><a href="#ip地址">IP地址</a></li>
+        <li><a href="#路由表">路由表</a></li>
+        <li><a href="#网络数据">网络数据</a></li>
+        <li><a href="#arp条目">ARP条目</a></li>
+        <li><a href="#监控netlink消息">监控netlink消息</a></li>
+        <li><a href="#激活和停止网络接口">激活和停止网络接口</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                                 
                                 </div>
@@ -126,9 +124,7 @@
                         
                         <div class="post-content">
                             <p>iproute2是Linux上有关TCP／IP网络上的流量控制的一系列工具,这一系列的工具包括了ss、route、tc、ip。相比于net-tools中已经被废弃的ifconfig,iproute2套件里提供了许多增强功能的命令。</p>
-
 <h3 id="linux-net-tools-vs-iproute2">Linux net-tools VS iproute2</h3>
-
 <table>
 <thead>
 <tr>
@@ -136,168 +132,111 @@
 <th>iproute2</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>arp -na</td>
 <td>ip neigh</td>
 </tr>
-
 <tr>
 <td>ifconfig</td>
 <td>ip link</td>
 </tr>
-
 <tr>
 <td>ifconfig -a</td>
 <td>ip addr show</td>
 </tr>
-
 <tr>
 <td>ifconfig &ndash;help</td>
 <td>ip help</td>
 </tr>
-
 <tr>
 <td>ifconfig -s</td>
 <td>ip -s link</td>
 </tr>
-
 <tr>
 <td>ifconfig eth0 up</td>
 <td>ip link eth0 up</td>
 </tr>
-
 <tr>
 <td>ipmaddr</td>
 <td>ip maddr</td>
 </tr>
-
 <tr>
 <td>iptunnel</td>
 <td>ip tunnel</td>
 </tr>
-
 <tr>
 <td>netstat</td>
 <td>ss</td>
 </tr>
-
 <tr>
 <td>netstat -i</td>
 <td>ip -s link</td>
 </tr>
-
 <tr>
 <td>netstat -g</td>
 <td>ip maddr</td>
 </tr>
-
 <tr>
 <td>netstat -l</td>
 <td>ss -l</td>
 </tr>
-
 <tr>
 <td>netstat -r</td>
 <td>ip route</td>
 </tr>
-
 <tr>
 <td>route add</td>
 <td>ip route add</td>
 </tr>
-
 <tr>
 <td>route del</td>
 <td>ip route del</td>
 </tr>
-
 <tr>
 <td>route -n</td>
 <td>ip route show</td>
 </tr>
-
 <tr>
 <td>vconfig</td>
 <td>ip link</td>
 </tr>
 </tbody>
 </table>
-
 <h3 id="ip地址">IP地址</h3>
-
 <p>要机器设置一个IP地址</p>
-
-<pre><code class="language-shell">ip addr add 192.168.0.193/24 dev wlan0
-</code></pre>
-
-<blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ip addr add 192.168.0.193/24 dev wlan0
+</code></pre></div><blockquote>
 <p>请注意IP地址要有一个后缀，比如/24。这种用法用于在无类域内路由选择（CIDR）中来显示所用的子网掩码。在这个例子中，子网掩码是255.255.255.0。</p>
 </blockquote>
-
 <p>设置好IP地址后，需要查看是否已经生效</p>
-
-<pre><code class="language-shell">ip addr show wlan0
-</code></pre>
-
-<p>删除IP地址，只需用del代替add</p>
-
-<pre><code class="language-shell">ip addr del 192.168.0.193/24 dev wlan0
-</code></pre>
-
-<h3 id="路由表">路由表</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ip addr show wlan0
+</code></pre></div><p>删除IP地址，只需用del代替add</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ip addr del 192.168.0.193/24 dev wlan0
+</code></pre></div><h3 id="路由表">路由表</h3>
 <p>ip命令的路由对象的参数还可以帮助你查看网络中的路由数据，并设置你的路由表。第一个条目是默认的路由条目，你可以随意改动它。</p>
-
-<pre><code class="language-shell">ip route show
-</code></pre>
-
-<p>查看ip地址路由包来源</p>
-
-<pre><code class="language-shell">ip route get 10.42.0.47
-</code></pre>
-
-<p>更改默认路由</p>
-
-<pre><code class="language-shell">ip route add default via 192.168.0.196
-</code></pre>
-
-<h3 id="网络数据">网络数据</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ip route show
+</code></pre></div><p>查看ip地址路由包来源</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ip route get 10.42.0.47
+</code></pre></div><p>更改默认路由</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ip route add default via 192.168.0.196
+</code></pre></div><h3 id="网络数据">网络数据</h3>
 <p>获取特定网络接口的信息</p>
-
-<pre><code class="language-shell">ip -s -s link ls p2p1
-</code></pre>
-
-<blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ip -s -s link ls p2p1
+</code></pre></div><blockquote>
 <p>使用多个选项-s会给你这个特定接口更详细的信息。特别是在排除网络连接故障时，这会非常有用。</p>
 </blockquote>
-
 <h3 id="arp条目">ARP条目</h3>
-
 <p>ip命令的neigh或者neighbour选项，你可以查看接入你所在的局域网的设备的MAC地址。</p>
-
-<pre><code class="language-shell">ip neigh
-</code></pre>
-
-<h3 id="监控netlink消息">监控netlink消息</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ip neigh
+</code></pre></div><h3 id="监控netlink消息">监控netlink消息</h3>
 <p>ip命令查看netlink消息，monitor选项允许你查看网络设备的状态。比如，所在局域网的一台电脑根据它的状态可以被分类成REACHABLE或者STALE</p>
-
-<pre><code class="language-shell">ip monitor all
-</code></pre>
-
-<h3 id="激活和停止网络接口">激活和停止网络接口</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ip monitor all
+</code></pre></div><h3 id="激活和停止网络接口">激活和停止网络接口</h3>
 <p>使用ip命令的up和down选项来激某个特定的接口</p>
-
-<pre><code class="language-shell">ip link set ppp0 down
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ip link set ppp0 down
 ip link set ppp0 up
-</code></pre>
-
-<p>[参考]</p>
-
+</code></pre></div><p>[参考]</p>
 <p><a href="https://linux.cn/article-3144-1.html">试试Linux下的ip命令，ifconfig已经过时了</a></p>
                         </div>
 

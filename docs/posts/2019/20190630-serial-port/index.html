@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -100,32 +100,24 @@
                         
                         <div class="post-content">
                             <p>在Linux中,串口是一个字符设备,访问具体的串行端口的编程与读/写文件的操作类似,只需打开相应的设备文件操作即可.串口编程的特殊在于串口通信时相关参数的设置.若在根文件没有串口设备文件可以用mknod命令创建。</p>
-
 <p>串口作为终端I/O,它的参数设置需要使用<code>struct termios</code>结构体,这个结构体在termio.h文件中定义.</p>
-
-<pre><code class="language-c">typedef unsigned char cc_t;
-typedef unsigned int speed_t;
-typedef unsigned int tcflag_t;
-struct termios{
-    tcflag_t c_iflag;   //输入模式标志
-    tcflag_t c_oflag;   //输出模式标志
-    tcflag_t c_cflag;   //控制模式标志
-    tcflag_t c_lflag;   //本地模式标志
-    tcflag_t c_line;    //行规程类型,一般应用程序不使用
-    cc_t c_cc[NCC]; //控制字符
-    speed_t c_ispeed;   //输入数据波特率
-    speed_t c_ospeed;   //输出数据波特率
-}
-</code></pre>
-
-<p>串口的设置主要就是设置这个结构体的各成员值,然后利用该结构体将参数传给硬件驱动程序.tcgetattr()/tcsetattr()函数获取/设置串口参数.</p>
-
-<pre><code class="language-c">int tcgetattr(int fd,struct termios *termios_p);
-int tcsetattr(int fd,int optional_actions,struct termios *termios_p);
-</code></pre>
-
-<p>optional_action参数用于指定新设定参数生效时间,其设定值可以为:</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> cc_t;
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> speed_t;
+<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> tcflag_t;
+<span style="color:#66d9ef">struct</span> termios{
+    tcflag_t c_iflag;   <span style="color:#75715e">//输入模式标志
+</span><span style="color:#75715e"></span>    tcflag_t c_oflag;   <span style="color:#75715e">//输出模式标志
+</span><span style="color:#75715e"></span>    tcflag_t c_cflag;   <span style="color:#75715e">//控制模式标志
+</span><span style="color:#75715e"></span>    tcflag_t c_lflag;   <span style="color:#75715e">//本地模式标志
+</span><span style="color:#75715e"></span>    tcflag_t c_line;    <span style="color:#75715e">//行规程类型,一般应用程序不使用
+</span><span style="color:#75715e"></span>    cc_t c_cc[NCC]; <span style="color:#75715e">//控制字符
+</span><span style="color:#75715e"></span>    speed_t c_ispeed;   <span style="color:#75715e">//输入数据波特率
+</span><span style="color:#75715e"></span>    speed_t c_ospeed;   <span style="color:#75715e">//输出数据波特率
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>串口的设置主要就是设置这个结构体的各成员值,然后利用该结构体将参数传给硬件驱动程序.tcgetattr()/tcsetattr()函数获取/设置串口参数.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">tcgetattr</span>(<span style="color:#66d9ef">int</span> fd,<span style="color:#66d9ef">struct</span> termios <span style="color:#f92672">*</span>termios_p);
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">tcsetattr</span>(<span style="color:#66d9ef">int</span> fd,<span style="color:#66d9ef">int</span> optional_actions,<span style="color:#66d9ef">struct</span> termios <span style="color:#f92672">*</span>termios_p);
+</code></pre></div><p>optional_action参数用于指定新设定参数生效时间,其设定值可以为:</p>
 <table>
 <thead>
 <tr>
@@ -133,36 +125,26 @@ int tcsetattr(int fd,int optional_actions,struct termios *termios_p);
 <th>改变立即生效</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>TCSADRAIN</td>
 <td>所有输出都被传输后改变生效</td>
 </tr>
-
 <tr>
 <td>TCSAFLUSH</td>
 <td>所有输出都被传输后改变生效,丢弃所有未读入的输入</td>
 </tr>
 </tbody>
 </table>
-
 <p>1.设置波特率
-使用函数设置波特率,使用波特率常数设置波特率,其定义为字母&rdquo;B+波特率&rdquo;,如B19200就是波特率为19200 bps.</p>
-
-<pre><code class="language-c">int cfsetispeed(struct termios *termios_p,speed_t speed);
-int cfsetospeed(struct termios *termios_p,speed_t speed);
-</code></pre>
-
-<p>例:</p>
-
-<pre><code class="language-c">int cfsetispeed(ttys0_opt,B115200);
-int cfsetospeed(ttys0_opt,B115200);
-</code></pre>
-
-<p>2.设置控制模式标志
+使用函数设置波特率,使用波特率常数设置波特率,其定义为字母&quot;B+波特率&rdquo;,如B19200就是波特率为19200 bps.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">cfsetispeed</span>(<span style="color:#66d9ef">struct</span> termios <span style="color:#f92672">*</span>termios_p,speed_t speed);
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">cfsetospeed</span>(<span style="color:#66d9ef">struct</span> termios <span style="color:#f92672">*</span>termios_p,speed_t speed);
+</code></pre></div><p>例:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">cfsetispeed</span>(ttys0_opt,B115200);
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">cfsetospeed</span>(ttys0_opt,B115200);
+</code></pre></div><p>2.设置控制模式标志
 控制模式标志c_cflag主要用于设置串口对DCD信号状态检测,硬件流控制,字符位宽,停止位和奇偶检验位等,常用标志如下:</p>
-
 <table>
 <thead>
 <tr>
@@ -170,269 +152,241 @@ int cfsetospeed(ttys0_opt,B115200);
 <th>忽略DCD信号,若不使用MODEM或没有串口/CD脚,则设置此标志</th>
 </tr>
 </thead>
-
 <tbody>
 <tr>
 <td>CREAD</td>
 <td>启用接收装置,可以接收字符</td>
 </tr>
-
 <tr>
 <td>CRTSCTS</td>
 <td>启用硬件流控制,对于许多三线制的串不应使用,需要设置~CRTCTS</td>
 </tr>
-
 <tr>
 <td>CSIZE</td>
 <td>字符数位掩码,常用CS8</td>
 </tr>
-
 <tr>
 <td>CSTOPB</td>
 <td>使用两个停止位,若用一位应设置~CSTOPB</td>
 </tr>
-
 <tr>
 <td>PARENB</td>
 <td>启用奇偶检验</td>
 </tr>
 </tbody>
 </table>
-
 <p>例如:</p>
-
-<pre><code class="language-c">struct temios ttys0
-ttys0.c_cflag |= CLOCAL | CREAD;
-ttys0.c_cflag &amp;= ~CRTSCTS;
-ttys0.c_cflag &amp;= ~CSIZE;
-ttys0.c_cflag |= CS8;
-ttys0.c_cflag &amp;= ~(PARENB|CSTOPB);
-</code></pre>
-
-<p>3.设置本地模式标志</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> temios ttys0
+ttys0.c_cflag <span style="color:#f92672">|=</span> CLOCAL <span style="color:#f92672">|</span> CREAD;
+ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>CRTSCTS;
+ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>CSIZE;
+ttys0.c_cflag <span style="color:#f92672">|=</span> CS8;
+ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>(PARENB<span style="color:#f92672">|</span>CSTOPB);
+</code></pre></div><p>3.设置本地模式标志</p>
 <p>本地模式设置标志c_lflag主要用于设置终端与用户的交互方式,常见的设置标志位有ICAN-ON,ECHO和ECHOE等.</p>
-
 <p>4.设置输入模式标志</p>
-
 <p>输入模式标志c_iflag主要用于控制串口的输入特性,常用的设置有IXOFF和IXON,分别用于软件流控制.</p>
-
 <p>起用软件流控制:</p>
-
-<pre><code class="language-c">ttys0_opt.c_iflag |= IXOFF|IXON
-</code></pre>
-
-<p>5.设置输出模式标志</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">ttys0_opt.c_iflag <span style="color:#f92672">|=</span> IXOFF<span style="color:#f92672">|</span>IXON
+</code></pre></div><p>5.设置输出模式标志</p>
 <p>输出模式标志c_oflag主要用于处理串口在规范模式时输出的特殊字符,而对非规范模式无效.</p>
-
 <p>6.设置控制字符</p>
-
 <p>在非规范模式中,控制字符数组c_cc[]中的变量c_cc[VMIN]和c_cc[VTIME]用于设置read()返回前读到的最少字节数和读超时时间.</p>
-
 <p>7.清空发送/接收缓冲区</p>
-
 <p>为保证读/写操作不被串口缓冲区中原有的数据干扰,可以在读/写数据前用tc_flush()函数清空发送/接收缓冲区.</p>
-
 <p>串口配置函数实例:</p>
-
-<pre><code class="language-c">int set_com_config(int fd,int baud_rate,int data_bits,char parity,int stop_bits)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">set_com_config</span>(<span style="color:#66d9ef">int</span> fd,<span style="color:#66d9ef">int</span> baud_rate,<span style="color:#66d9ef">int</span> data_bits,<span style="color:#66d9ef">char</span> parity,<span style="color:#66d9ef">int</span> stop_bits)
 {
-	struct termios new_cfg,old_cfg;
-	int speed;
-	/* 保存测试现有串口参数设置 */
-	if(tcgetattr(fd,&amp;old_cfg) != 0){
-		perror(&quot;tcgetattr&quot;);
-		return -1;
+	<span style="color:#66d9ef">struct</span> termios new_cfg,old_cfg;
+	<span style="color:#66d9ef">int</span> speed;
+	<span style="color:#75715e">/* 保存测试现有串口参数设置 */</span>
+	<span style="color:#66d9ef">if</span>(tcgetattr(fd,<span style="color:#f92672">&amp;</span>old_cfg) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
+		perror(<span style="color:#e6db74">&#34;tcgetattr&#34;</span>);
+		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
 	}
-	/* 设置字符大小 */
-	new_cfg = old_cfg;
-	cfmakeraw(&amp;new_cfg);
-	new_cfg.c_flag &amp;= ~CSIZE;
-	/* 设置串口波特率 */
-	switch(baud_rate){
-		case 2400:
-			speed = B2400;
-			break;
-		case 4800:
-			speed = B4800;
-			break;
-		case 9600:
-			speed = B9600;
-			break;
-		case 19200:
-			speed = B19200;
-			break;
-		case 38400:
-			speed = B38400;
-			break;
-		default:
-		case 115200:
-			speed = B115200;
-			break;
+	<span style="color:#75715e">/* 设置字符大小 */</span>
+	new_cfg <span style="color:#f92672">=</span> old_cfg;
+	cfmakeraw(<span style="color:#f92672">&amp;</span>new_cfg);
+	new_cfg.c_flag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>CSIZE;
+	<span style="color:#75715e">/* 设置串口波特率 */</span>
+	<span style="color:#66d9ef">switch</span>(baud_rate){
+		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2400</span><span style="color:#f92672">:</span>
+			speed <span style="color:#f92672">=</span> B2400;
+			<span style="color:#66d9ef">break</span>;
+		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">4800</span><span style="color:#f92672">:</span>
+			speed <span style="color:#f92672">=</span> B4800;
+			<span style="color:#66d9ef">break</span>;
+		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">9600</span><span style="color:#f92672">:</span>
+			speed <span style="color:#f92672">=</span> B9600;
+			<span style="color:#66d9ef">break</span>;
+		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">19200</span><span style="color:#f92672">:</span>
+			speed <span style="color:#f92672">=</span> B19200;
+			<span style="color:#66d9ef">break</span>;
+		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">38400</span><span style="color:#f92672">:</span>
+			speed <span style="color:#f92672">=</span> B38400;
+			<span style="color:#66d9ef">break</span>;
+		<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">115200</span><span style="color:#f92672">:</span>
+			speed <span style="color:#f92672">=</span> B115200;
+			<span style="color:#66d9ef">break</span>;
 	}
-	cfsetispeed(&amp;new_cfg,speed);
-	cfsetospeed(&amp;new_cfg,speed);
-	/* 设置停止位 */
-	switch(data_bits){
-		case 7:
-			new_cfg.c_cflag |= CS7;
-			break;
-		default:
-		case 8:
-			new_cfg.c_cflag |= CS8;
-			break;
+	cfsetispeed(<span style="color:#f92672">&amp;</span>new_cfg,speed);
+	cfsetospeed(<span style="color:#f92672">&amp;</span>new_cfg,speed);
+	<span style="color:#75715e">/* 设置停止位 */</span>
+	<span style="color:#66d9ef">switch</span>(data_bits){
+		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">7</span><span style="color:#f92672">:</span>
+			new_cfg.c_cflag <span style="color:#f92672">|=</span> CS7;
+			<span style="color:#66d9ef">break</span>;
+		<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">8</span><span style="color:#f92672">:</span>
+			new_cfg.c_cflag <span style="color:#f92672">|=</span> CS8;
+			<span style="color:#66d9ef">break</span>;
 	}
-	/* 设置奇偶检验位 */
-	switch(parity){
-		default:
-		case 'n':
-		case 'N':
-			new_cfg.c_flag &amp;= ~PARENB;
-			new_cfg.ciflag |= INPCK;
-			break;
-		case 'o':
-		case 'O':
-			new_cfg.c_cflag |= (PARODD | PARENB);
-			new_cfg.c_iflag |= INPCK;
-			break;
-		case 'e':
-		case 'E':
-			new_cfg.c_cflag |= PARENB;
-			new_cfg.c_cflag &amp;= ~PARODD;
-			new_cfg.c_cflag |= INPCK;
-			break;
-		case 's':
-		case 'S':
-			new_cfg.c_cflag &amp;= ~PARENB;
-			new_cfg.c_cflag &amp;= ~CSTOPB;
-			break;
+	<span style="color:#75715e">/* 设置奇偶检验位 */</span>
+	<span style="color:#66d9ef">switch</span>(parity){
+		<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;n&#39;</span><span style="color:#f92672">:</span>
+		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;N&#39;</span><span style="color:#f92672">:</span>
+			new_cfg.c_flag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>PARENB;
+			new_cfg.ciflag <span style="color:#f92672">|=</span> INPCK;
+			<span style="color:#66d9ef">break</span>;
+		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;o&#39;</span><span style="color:#f92672">:</span>
+		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;O&#39;</span><span style="color:#f92672">:</span>
+			new_cfg.c_cflag <span style="color:#f92672">|=</span> (PARODD <span style="color:#f92672">|</span> PARENB);
+			new_cfg.c_iflag <span style="color:#f92672">|=</span> INPCK;
+			<span style="color:#66d9ef">break</span>;
+		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;e&#39;</span><span style="color:#f92672">:</span>
+		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;E&#39;</span><span style="color:#f92672">:</span>
+			new_cfg.c_cflag <span style="color:#f92672">|=</span> PARENB;
+			new_cfg.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>PARODD;
+			new_cfg.c_cflag <span style="color:#f92672">|=</span> INPCK;
+			<span style="color:#66d9ef">break</span>;
+		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;s&#39;</span><span style="color:#f92672">:</span>
+		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;S&#39;</span><span style="color:#f92672">:</span>
+			new_cfg.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>PARENB;
+			new_cfg.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>CSTOPB;
+			<span style="color:#66d9ef">break</span>;
 	}
-	/* 设置停止位 */
-	switch(stop_bits){
-		default:
-		case 1:
-			new_cfg.c_cflag &amp;= ~CSTOPB;
-			break;
-		case 2:
-			new_cfg.c_cflag |= ~CSTOPB;
+	<span style="color:#75715e">/* 设置停止位 */</span>
+	<span style="color:#66d9ef">switch</span>(stop_bits){
+		<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
+			new_cfg.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>CSTOPB;
+			<span style="color:#66d9ef">break</span>;
+		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>
+			new_cfg.c_cflag <span style="color:#f92672">|=</span> <span style="color:#f92672">~</span>CSTOPB;
 	}
-	/* 设置等待时间和最小接收字符 */
-	new_cfg.c_cc[VTIME] = 0;
-	new_cfg.c_cc[VMIE] = 1;
-	/* 处理接收字符 */
+	<span style="color:#75715e">/* 设置等待时间和最小接收字符 */</span>
+	new_cfg.c_cc[VTIME] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	new_cfg.c_cc[VMIE] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+	<span style="color:#75715e">/* 处理接收字符 */</span>
 	tcflush(fd,TCIFLUSH);
-	/* 激活新配置 */
-	if((tcsetattr(fd,TCSANOW,&amp;new_cfg)) != 0){
-		perror(&quot;tcsetattr&quot;);
-		return -1;
+	<span style="color:#75715e">/* 激活新配置 */</span>
+	<span style="color:#66d9ef">if</span>((tcsetattr(fd,TCSANOW,<span style="color:#f92672">&amp;</span>new_cfg)) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
+		perror(<span style="color:#e6db74">&#34;tcsetattr&#34;</span>);
+		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
 	}
-	return 0;
+	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
-
-<p>串口通信实例<br />
+</code></pre></div><p>串口通信实例<br>
 下面给出串口发送和接收的信程序,其中串口在宿主机上运行,串口接收程序在目标机上运行</p>
-
-<pre><code class="language-c">/** serial_port_send.c **/
-#include&lt;stdlib.h&gt;
-#include&lt;stdio.h&gt;
-#include&lt;unistd.h&gt;
-#include&lt;sys/types.h&gt;
-#include&lt;fcntl.h&gt;
-#include&lt;termios.h&gt;
-#include&lt;errno.h&gt;
-
-#define BAUDRATE B115200
-#define MODEMDEVICE &quot;/dev/ttyS0&quot;
-#define STOP '@'
-
-int main()
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/** serial_port_send.c **/</span>
+<span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;fcntl.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;termios.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;errno.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define BAUDRATE B115200
+</span><span style="color:#75715e">#define MODEMDEVICE &#34;/dev/ttyS0&#34;
+</span><span style="color:#75715e">#define STOP &#39;@&#39;
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int fd,c = 0,res;
-    struct termios oldtio,newtio;
-    char ch;
-    static char s1[20];
-    printf(&quot;Start...\n&quot;);
-    fd = open(MODEMDEVICE,O_RDWR|O_NOCTTY);
-    if(fd&lt;0){
+    <span style="color:#66d9ef">int</span> fd,c <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,res;
+    <span style="color:#66d9ef">struct</span> termios oldtio,newtio;
+    <span style="color:#66d9ef">char</span> ch;
+    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span> s1[<span style="color:#ae81ff">20</span>];
+    printf(<span style="color:#e6db74">&#34;Start...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    fd <span style="color:#f92672">=</span> open(MODEMDEVICE,O_RDWR<span style="color:#f92672">|</span>O_NOCTTY);
+    <span style="color:#66d9ef">if</span>(fd<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>){
         perror(MODEMDEVICE);
-        exit(1);
+        exit(<span style="color:#ae81ff">1</span>);
     }
-    printf(&quot;Open...\n&quot;);
-    tcgetattr(fd,&amp;oldtio);
-    bzero(&amp;newtio,sizeof(newtio)); //清除newtio结构,重新设置通信协议
-    newtio.c_cflag = BAUDRATE|CS8|CLOCAL|CREAD;
-    newtio.c_iflag = IGNPAR;
-    newtio.c_oflag = 0;
-    newtio.c_lflag = ICANON;
+    printf(<span style="color:#e6db74">&#34;Open...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    tcgetattr(fd,<span style="color:#f92672">&amp;</span>oldtio);
+    bzero(<span style="color:#f92672">&amp;</span>newtio,<span style="color:#66d9ef">sizeof</span>(newtio)); <span style="color:#75715e">//清除newtio结构,重新设置通信协议
+</span><span style="color:#75715e"></span>    newtio.c_cflag <span style="color:#f92672">=</span> BAUDRATE<span style="color:#f92672">|</span>CS8<span style="color:#f92672">|</span>CLOCAL<span style="color:#f92672">|</span>CREAD;
+    newtio.c_iflag <span style="color:#f92672">=</span> IGNPAR;
+    newtio.c_oflag <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    newtio.c_lflag <span style="color:#f92672">=</span> ICANON;
     tcflush(fd,TCOFLUSH);
-    tcsetattr(fd,TCSANOW,&amp;newtio);
-    printf(&quot;Writting..\n&quot;);
-    while(1){
-        while((ch = getchar()) != STOP){
-            s1[0] = ch;
-            res = write(fd,s1,1);
+    tcsetattr(fd,TCSANOW,<span style="color:#f92672">&amp;</span>newtio);
+    printf(<span style="color:#e6db74">&#34;Writting..</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>){
+        <span style="color:#66d9ef">while</span>((ch <span style="color:#f92672">=</span> getchar()) <span style="color:#f92672">!=</span> STOP){
+            s1[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> ch;
+            res <span style="color:#f92672">=</span> write(fd,s1,<span style="color:#ae81ff">1</span>);
         }
-        s1[0] = ch;
-        s1[1] = '\n';
-        res = write(fd,s1,2);
-        break;
+        s1[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> ch;
+        s1[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
+        res <span style="color:#f92672">=</span> write(fd,s1,<span style="color:#ae81ff">2</span>);
+        <span style="color:#66d9ef">break</span>;
     }
-    printf(&quot;Close...\n&quot;);
+    printf(<span style="color:#e6db74">&#34;Close...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
     close(fd);
-    tcsetattr(fd,TCSANOW,&amp;oldtio);
-    return 0;
+    tcsetattr(fd,TCSANOW,<span style="color:#f92672">&amp;</span>oldtio);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
-
-<pre><code class="language-c">/** serial_port_rev.c **/
-#include&lt;stdlib.h&gt;
-#include&lt;stdio.h&gt;
-#include&lt;unistd.h&gt;
-#include&lt;sys/types.h&gt;
-#include&lt;sys/stat.h&gt;
-#include&lt;fcntl.h&gt;
-#include&lt;termios.h&gt;
-#include&lt;errno.h&gt;
-
-#define BAUDRATE B115200
-#define MODEMDEVICE &quot;/dev/ttyS0&quot;
-
-int main()
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/** serial_port_rev.c **/</span>
+<span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/stat.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;fcntl.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;termios.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;errno.h&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">#define BAUDRATE B115200
+</span><span style="color:#75715e">#define MODEMDEVICE &#34;/dev/ttyS0&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-    int fd,c = 0,res;
-    struct termios oldtio,newtio;
-    char buf[256];
-    printf(&quot;Start...\n&quot;);
-    fd = open(MODEMDEVICE,O_RDWR|O_NOCTTY);
-    if(fd&lt;0){
+    <span style="color:#66d9ef">int</span> fd,c <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,res;
+    <span style="color:#66d9ef">struct</span> termios oldtio,newtio;
+    <span style="color:#66d9ef">char</span> buf[<span style="color:#ae81ff">256</span>];
+    printf(<span style="color:#e6db74">&#34;Start...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    fd <span style="color:#f92672">=</span> open(MODEMDEVICE,O_RDWR<span style="color:#f92672">|</span>O_NOCTTY);
+    <span style="color:#66d9ef">if</span>(fd<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>){
         perror(MODEMDEVICE);
-        exit(1);
+        exit(<span style="color:#ae81ff">1</span>);
     }
-    printf(&quot;open...\n&quot;);
-    tcgetattr(fd,&amp;oldtio);
-    bzero(&amp;newtio,sizeof(newtio)); //清除newtio结构,重新设置通信协议
-    newtio.c_cflag = BAUDRATE|CS8|CLOCAL|CREAD;
-    newtio.c_iflag = IGNPAR;
-    newtio.c_oflag = 0;
-    newtio.c_lflag = ICANON;
+    printf(<span style="color:#e6db74">&#34;open...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    tcgetattr(fd,<span style="color:#f92672">&amp;</span>oldtio);
+    bzero(<span style="color:#f92672">&amp;</span>newtio,<span style="color:#66d9ef">sizeof</span>(newtio)); <span style="color:#75715e">//清除newtio结构,重新设置通信协议
+</span><span style="color:#75715e"></span>    newtio.c_cflag <span style="color:#f92672">=</span> BAUDRATE<span style="color:#f92672">|</span>CS8<span style="color:#f92672">|</span>CLOCAL<span style="color:#f92672">|</span>CREAD;
+    newtio.c_iflag <span style="color:#f92672">=</span> IGNPAR;
+    newtio.c_oflag <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+    newtio.c_lflag <span style="color:#f92672">=</span> ICANON;
     tcflush(fd,TCIFLUSH);
-    tcsetattr(fd,TCSANOW,&amp;newtio);
-    printf(&quot;Reading...\n&quot;);
-    while(1){
-        res = read(fd,buf,255);
-        buf[res] = 0;
-        printf(&quot;res = %d buf = %s\n&quot;,res,buf);
-        if(buf[0] == '@')
-            break;
+    tcsetattr(fd,TCSANOW,<span style="color:#f92672">&amp;</span>newtio);
+    printf(<span style="color:#e6db74">&#34;Reading...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>){
+        res <span style="color:#f92672">=</span> read(fd,buf,<span style="color:#ae81ff">255</span>);
+        buf[res] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        printf(<span style="color:#e6db74">&#34;res = %d buf = %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,res,buf);
+        <span style="color:#66d9ef">if</span>(buf[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;@&#39;</span>)
+            <span style="color:#66d9ef">break</span>;
     }
-    printf(&quot;Close...\n&quot;);
+    printf(<span style="color:#e6db74">&#34;Close...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
     close(fd);
-    tcsetattr(fd,TCSANOW,&amp;oldtio);
-    return 0;
+    tcsetattr(fd,TCSANOW,<span style="color:#f92672">&amp;</span>oldtio);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
+</code></pre></div>
                         </div>
 
                         

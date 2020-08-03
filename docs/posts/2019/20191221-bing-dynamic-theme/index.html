@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -101,63 +101,57 @@
                         <div class="post-content">
                             <p>Bing首页每日更新的壁纸非常漂亮，爬下来当做桌面壁纸很nice。
 Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取最近8天的壁纸。</p>
-
 <p>下载<a href="https://cn.bing.com/">https://cn.bing.com/</a>每日更新的壁纸代码如下：</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#! /usr/bin python3</span>
+<span style="color:#75715e"># -*- coding:utf-8 -*-</span>
 
-<pre><code class="language-python">#! /usr/bin python3
-# -*- coding:utf-8 -*-
+<span style="color:#f92672">import</span> sys
+<span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> argparse
+<span style="color:#f92672">import</span> requests
+<span style="color:#f92672">import</span> re
+<span style="color:#f92672">from</span> concurrent.futures <span style="color:#f92672">import</span> ThreadPoolExecutor
 
-import sys
-import os
-import argparse
-import requests
-import re
-from concurrent.futures import ThreadPoolExecutor
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_and_save_picture</span>(url, filename):
+    <span style="color:#66d9ef">with</span> requests<span style="color:#f92672">.</span>get(url, stream<span style="color:#f92672">=</span>True) <span style="color:#66d9ef">as</span> r:
+        <span style="color:#66d9ef">with</span> open(filename, <span style="color:#e6db74">&#39;wb&#39;</span>) <span style="color:#66d9ef">as</span> f:
+            <span style="color:#66d9ef">for</span> d <span style="color:#f92672">in</span> r<span style="color:#f92672">.</span>iter_content(<span style="color:#ae81ff">128</span>):
+                f<span style="color:#f92672">.</span>write(d)
 
-def get_and_save_picture(url, filename):
-    with requests.get(url, stream=True) as r:
-        with open(filename, 'wb') as f:
-            for d in r.iter_content(128):
-                f.write(d)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_picture_info</span>(url, date: int <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, nums: int <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>):
+    url <span style="color:#f92672">=</span> url<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;?format=js&amp;idx=&#39;</span><span style="color:#f92672">+</span>str(date)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&amp;n=&#39;</span><span style="color:#f92672">+</span>str(nums)
+    r <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url)
+    images <span style="color:#f92672">=</span> r<span style="color:#f92672">.</span>json()<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;images&#39;</span>)
+    <span style="color:#66d9ef">return</span> images
 
-def get_picture_info(url, date: int = 0, nums: int = 1):
-    url = url+'?format=js&amp;idx='+str(date)+'&amp;n='+str(nums)
-    r = requests.get(url)
-    images = r.json().get('images')
-    return images
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    parser <span style="color:#f92672">=</span> argparse<span style="color:#f92672">.</span>ArgumentParser(description<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Bing Wallpaper Updates Daily&#39;</span>)
+    parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;file_path&#39;</span>, type<span style="color:#f92672">=</span>str, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;图片存放路径，默认将图片下载到当前目录&#39;</span>)
+    parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--date&#39;</span>, type<span style="color:#f92672">=</span>int, default<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;表示倒数第几天的图片，0表示今天,最大为7即能下载到倒数第八天的的图片&#39;</span>)
+    parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--nums&#39;</span>, type<span style="color:#f92672">=</span>int, default<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;表示要下载的图片数量，最多8张&#39;</span>)
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Bing Wallpaper Updates Daily')
-    parser.add_argument('file_path', type=str, help='图片存放路径，默认将图片下载到当前目录')
-    parser.add_argument('--date', type=int, default=0, help='表示倒数第几天的图片，0表示今天,最大为7即能下载到倒数第八天的的图片')
-    parser.add_argument('--nums', type=int, default=8, help='表示要下载的图片数量，最多8张')
+    args <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>parse_args()
 
-    args = parser.parse_args()
+    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>exists(args<span style="color:#f92672">.</span>file_path):
+        os<span style="color:#f92672">.</span>mkdir(args<span style="color:#f92672">.</span>file_path)
 
-    if not os.path.exists(args.file_path):
-        os.mkdir(args.file_path)
+    url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://cn.bing.com/HPImageArchive.aspx&#39;</span>
+    images <span style="color:#f92672">=</span> get_picture_info(url, date<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>date, nums<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>nums)
 
-    url = 'https://cn.bing.com/HPImageArchive.aspx'
-    images = get_picture_info(url, date=args.date, nums=args.nums)
+    pool <span style="color:#f92672">=</span> ThreadPoolExecutor(max_workers<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>)
+    <span style="color:#66d9ef">for</span> image <span style="color:#f92672">in</span> images:
+        name <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;/th\?id=OHR\.(.+)_ZH-CN.*&#39;</span>, image[<span style="color:#e6db74">&#39;url&#39;</span>])[<span style="color:#ae81ff">0</span>]
+        filename <span style="color:#f92672">=</span> image[<span style="color:#e6db74">&#39;enddate&#39;</span>]<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;-&#39;</span><span style="color:#f92672">+</span>name<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;.jpg&#39;</span>
 
-    pool = ThreadPoolExecutor(max_workers=8)
-    for image in images:
-        name = re.findall(r'/th\?id=OHR\.(.+)_ZH-CN.*', image['url'])[0]
-        filename = image['enddate']+'-'+name+'.jpg'
+        <span style="color:#66d9ef">print</span>(image[<span style="color:#e6db74">&#39;copyright&#39;</span>], <span style="color:#e6db74">&#39;Save As &#39;</span><span style="color:#f92672">+</span>filename)
 
-        print(image['copyright'], 'Save As '+filename)
+        save_name <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span>file_path<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;/&#39;</span><span style="color:#f92672">+</span>filename
+        url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://cn.bing.com/&#39;</span><span style="color:#f92672">+</span>image[<span style="color:#e6db74">&#39;url&#39;</span>]
+        pool<span style="color:#f92672">.</span>submit(get_and_save_picture, url, save_name)
 
-        save_name = args.file_path+'/'+filename
-        url = 'https://cn.bing.com/'+image['url']
-        pool.submit(get_and_save_picture, url, save_name)
-
-    print(&quot;please wait...&quot;)
-</code></pre>
-
-<p>环境:</p>
-
+    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;please wait...&#34;</span>)
+</code></pre></div><p>环境:</p>
 <p><code>python3</code>,<code>requests</code>库</p>
-
 <p>将代码保存为<code>.py</code>文件后直接运行默认下载最新8天的必应壁纸，使用<code>-h</code>或<code>--help</code>参数查看更多用法</p>
                         </div>
 

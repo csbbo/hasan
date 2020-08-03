@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -106,24 +106,18 @@
                                 
                                     <div class="toc-title">文章目录</div> 
                                     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#docker-的用途">Docker 的用途</a></li>
-<li><a href="#docker的安装">Docker的安装</a></li>
-<li><a href="#image文件">image文件</a></li>
-<li><a href="#容器文件">容器文件</a></li>
-<li><a href="#dockerfile制作image">Dockerfile制作image</a></li>
-<li><a href="#docker-compose">Docker Compose</a>
-<ul>
-<li><a href="#安装与卸载">安装与卸载</a></li>
-<li><a href="#compose-模板文件">Compose 模板文件</a></li>
-</ul></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#docker-的用途">Docker 的用途</a></li>
+        <li><a href="#docker的安装">Docker的安装</a></li>
+        <li><a href="#image文件">image文件</a></li>
+        <li><a href="#容器文件">容器文件</a></li>
+        <li><a href="#dockerfile制作image">Dockerfile制作image</a></li>
+        <li><a href="#docker-compose">Docker Compose</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                                 
                                 </div>
@@ -131,21 +125,15 @@
                         
                         <div class="post-content">
                             <p>Docker 属于 Linux 容器的一种封装，提供简单易用的容器使用接口。它是目前最流行的 Linux 容器解决方案。</p>
-
 <p>Docker 将应用程序与该程序的依赖，打包在一个文件里面。运行这个文件，就会生成一个虚拟容器。程序在这个虚拟容器里运行，就好像在真实的物理机上运行一样。有了 Docker，就不用担心环境问题。</p>
-
 <h3 id="docker-的用途">Docker 的用途</h3>
-
 <ul>
 <li>（1）提供一次性的环境。比如，本地测试他人的软件、持续集成的时候提供单元测试和构建的环境。</li>
 <li>（2）提供弹性的云服务。因为 Docker 容器可以随开随关，很适合动态扩容和缩容。</li>
 <li>（3）组建微服务架构。通过多个容器，一台机器可以跑多个服务，因此在本机就可以模拟出微服务架构。</li>
 </ul>
-
 <h3 id="docker的安装">Docker的安装</h3>
-
 <p>Docker CE 的安装请参考官方文档。</p>
-
 <ul>
 <li><a href="https://docs.docker.com/docker-for-mac/install/">Mac</a></li>
 <li><a href="https://docs.docker.com/docker-for-windows/install/">Windows</a></li>
@@ -155,167 +143,93 @@
 <li><a href="https://docs.docker.com/install/linux/docker-ce/fedora/">Fedora</a></li>
 <li><a href="https://docs.docker.com/install/linux/docker-ce/binaries/">其他 Linux 发行版</a></li>
 </ul>
-
 <p>验证安装成功</p>
-
-<pre><code class="language-docker">docker version
-docker info
-</code></pre>
-
-<p>Docker 需要用户具有 sudo 权限，为了避免每次命令都输入sudo，可以把用户加入 Docker 用户组</p>
-
-<pre><code class="language-docker">sudo usermod -aG docker $USER
-</code></pre>
-
-<p>命令行启动</p>
-
-<pre><code class="language-docker">service启动
-sudo service docker start
-systemctl启动
-sudo systemctl start docker
-</code></pre>
-
-<h3 id="image文件">image文件</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker version<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>docker info<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Docker 需要用户具有 sudo 权限，为了避免每次命令都输入sudo，可以把用户加入 Docker 用户组</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">sudo usermod -aG docker $USER<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>命令行启动</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">service启动<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>sudo service docker start<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>systemctl启动<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>sudo systemctl start docker<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="image文件">image文件</h3>
 <p>Docker 把应用程序及其依赖，打包在 image 文件里面。只有通过这个文件，才能生成 Docker 容器。image 文件可以看作是容器的模板。Docker 根据 image 文件生成容器的实例。同一个 image 文件，可以生成多个同时运行的容器实例。</p>
-
 <p>列出所有image文件</p>
-
-<pre><code class="language-docker">docker image ls
-</code></pre>
-
-<p>删除image文件,强制删除加<code>-f</code>参数</p>
-
-<pre><code class="language-docker">docker image rm [imagename]
-</code></pre>
-
-<p>简单实例:</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker image ls<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>删除image文件,强制删除加<code>-f</code>参数</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker image rm <span style="color:#f92672">[</span>imagename<span style="color:#f92672">]</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>简单实例:</p>
 <p>获取hello-world image</p>
-
-<pre><code class="language-docker">docker image pull hello-world
-</code></pre>
-
-<p>运行这个image</p>
-
-<pre><code class="language-docker">docker container run hello-world
-</code></pre>
-
-<blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker image pull hello-world<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>运行这个image</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker container run hello-world<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><blockquote>
 <p><code>docker container run</code>命令具有自动抓取 image 文件的功能。如果发现本地没有指定的 image 文件，就会从仓库自动抓取。因此，前面的<code>docker image pull</code>命令并不是必需的步骤。</p>
 </blockquote>
-
 <p>删除所有image</p>
-
-<pre><code class="language-docker">docker image rm $(docker image ls -q)
-</code></pre>
-
-<p>删除所有dangling image</p>
-
-<pre><code class="language-docker">docker image prune
-</code></pre>
-
-<h3 id="容器文件">容器文件</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker image rm <span style="color:#66d9ef">$(</span>docker image ls -q<span style="color:#66d9ef">)</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>删除所有dangling image</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker image prune<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="容器文件">容器文件</h3>
 <p>image 文件生成的容器实例，本身也是一个文件，称为容器文件。也就是说，一旦容器生成，就会同时存在两个文件： image 文件和容器文件。而且关闭容器并不会删除容器文件，只是容器停止运行而已。</p>
-
 <p>列出正在运行的容器</p>
-
-<pre><code class="language-docker">docker container ls
-</code></pre>
-
-<p>列出所有容器</p>
-
-<pre><code class="language-docker">docker container ls --all
-</code></pre>
-
-<p>终止容器</p>
-
-<pre><code class="language-docker">docker container kill
-</code></pre>
-
-<p>启动一个后台运行容器并命名，端口映射</p>
-
-<pre><code class="language-docker">docker run --name skynginx -p 80:80 -d skynginx
-</code></pre>
-
-<p>容器启动、停止、重启</p>
-
-<pre><code class="language-docker">docker start [containername]
-docker stop [containername]
-docker restart [containername]
-</code></pre>
-
-<p>进入一个正在运行的docker容器</p>
-
-<pre><code class="language-docker">docker exec -it [containername] bash
-</code></pre>
-
-<p>查看 docker 容器的输出</p>
-
-<pre><code class="language-docker">docker container logs [containerID]
-</code></pre>
-
-<p>将文件复制到容器里</p>
-
-<pre><code class="language-docker">docker cp file [containername]:/path/to/file
-</code></pre>
-
-<blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker container ls<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>列出所有容器</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker container ls --all<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>终止容器</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker container kill<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>启动一个后台运行容器并命名，端口映射</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker run --name skynginx -p 80:80 -d skynginx<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>容器启动、停止、重启</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker start <span style="color:#f92672">[</span>containername<span style="color:#f92672">]</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>docker stop <span style="color:#f92672">[</span>containername<span style="color:#f92672">]</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>docker restart <span style="color:#f92672">[</span>containername<span style="color:#f92672">]</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>进入一个正在运行的docker容器</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker exec -it <span style="color:#f92672">[</span>containername<span style="color:#f92672">]</span> bash<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>查看 docker 容器的输出</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker container logs <span style="color:#f92672">[</span>containerID<span style="color:#f92672">]</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>将文件复制到容器里</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker cp file <span style="color:#f92672">[</span>containername<span style="color:#f92672">]</span>:/path/to/file<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><blockquote>
 <p>上面的情况外面的file会替换掉容器里的file</p>
 </blockquote>
-
 <p>可以利用shell组合使用,停止和删除所有容器</p>
-
-<pre><code class="language-docker">停止
-docker stop $(docker container ls -q)
-删除
-docker container rm $(docker container ls -aq)
-或则加-f删除强制删除正在运行的容器
-docker container rm -f $(docker container ls -aq)
-</code></pre>
-
-<p>删除所有停止运行的容器</p>
-
-<pre><code class="language-docker">docker container prune
-</code></pre>
-
-<h3 id="dockerfile制作image">Dockerfile制作image</h3>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">停止<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>docker stop <span style="color:#66d9ef">$(</span>docker container ls -q<span style="color:#66d9ef">)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>删除<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>docker container rm <span style="color:#66d9ef">$(</span>docker container ls -aq<span style="color:#66d9ef">)</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>或则加-f删除强制删除正在运行的容器<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>docker container rm -f <span style="color:#66d9ef">$(</span>docker container ls -aq<span style="color:#66d9ef">)</span><span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>删除所有停止运行的容器</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker container prune<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h3 id="dockerfile制作image">Dockerfile制作image</h3>
 <p>Dockerfile 是一个文本文件，其内包含了一条条的 指令(Instruction)，每一条指令构建一层，各层叠加得到最后的镜像，因此每一条指令的内容，就是描述该层应当如何构建。</p>
-
 <p>在项目的根目录下，新建一个.dockerfile文本文件</p>
-
-<pre><code class="language-docker">resources/
-*.md
-docker-compose.yml
-Dockerfile
-.git
-</code></pre>
-
-<p>上面的文件和路径将不会被打包进image</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">resources/<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>*.md<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>docker-compose.yml<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>Dockerfile<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>.git<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>上面的文件和路径将不会被打包进image</p>
 <p>创建一个Dockerfile文件</p>
-
-<pre><code class="language-docker">FROM ubuntu:18.04
-
-COPY requirements.txt /tmp/requirements.txt
-RUN apt-get update &amp;&amp;\
-    apt-get install -y gcc libpq-dev vim curl git unzip&amp;&amp;\
-    pip3 install -r /tmp/requirements.txt &amp;&amp;\
-    rm /tmp/requirements.txt &amp;&amp;\
-    apt-get autoremove -y gcc git
-
-ADD ./src/training_platform /web
-
-WORKDIR /web
-
-RUN ln -sfv /web/training_platform/settings.py.pro /web/training_platform/settings.py
-
-CMD bash /web/run.sh
-</code></pre>
-
-<ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker"><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> ubuntu:18.04</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> requirements.txt /tmp/requirements.txt<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apt-get update <span style="color:#f92672">&amp;&amp;</span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    apt-get install -y gcc libpq-dev vim curl git unzip<span style="color:#f92672">&amp;&amp;</span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    pip3 install -r /tmp/requirements.txt <span style="color:#f92672">&amp;&amp;</span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    rm /tmp/requirements.txt <span style="color:#f92672">&amp;&amp;</span><span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    apt-get autoremove -y gcc git<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ADD</span> ./src/training_platform /web<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /web</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> ln -sfv /web/training_platform/settings.py.pro /web/training_platform/settings.py<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> bash /web/run.sh<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><ul>
 <li>FROM 指定基础镜像，定制镜像就是就是在一个镜像的基础上对其修改，因此FROM是Dockerfile中必备的指令，并且是第一条指令</li>
 <li>RUN 执行命令行命令，RUN有两种格式1.shell格式<code>RUN &lt;command&gt;</code>2.exec格式<code>RUN [&quot;可执行文件&quot;,&quot;参数1&quot;,&quot;参数2&quot;]</code></li>
 <li>COPY 复制文件同RUN一样有两种格式，COPY &lt;源路径&gt; &lt;目标路径&gt;,&lt;源路径&gt;可以是多个也可以是通配符,&lt;目标路径&gt;不存在时自动创建，可以使容器内绝对路径也可以是相对于工作目录的相对路径</li>
@@ -323,108 +237,70 @@ CMD bash /web/run.sh
 <li>WORK 指定工作目录</li>
 <li>CMD 指定默认的容器主进程的启动命令，需要注意的是容器中的应用都应该以前台执行</li>
 </ul>
-
 <p>创建image文件</p>
-
-<pre><code class="language-docker">docker build -t [imagename]:[tag] .
-</code></pre>
-
-<blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker build -t <span style="color:#f92672">[</span>imagename<span style="color:#f92672">]</span>:<span style="color:#f92672">[</span>tag<span style="color:#f92672">]</span> .<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><blockquote>
 <p><code>-t</code>指定image文件的名字，后面还可以用冒号指定标签，默认标签是<code>latest</code>,最后的点表示上下文路径</p>
 </blockquote>
-
 <p>生成容器</p>
-
-<pre><code class="language-docker">docker container run -p 8000:3000 -it koa-demo:0.0.1 /bin/bash
-</code></pre>
-
-<ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">docker container run -p 8000:3000 -it koa-demo:0.0.1 /bin/bash<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><ul>
 <li>-p参数：表示容器3000端口映射到本机的8000端口</li>
 <li>/bin/bash：容器启动后内部第一个执行的命令</li>
 </ul>
-
 <h3 id="docker-compose">Docker Compose</h3>
-
 <p>Compose 项目是 Docker 官方的开源项目，负责实现对 Docker 容器集群的快速编排。Compose 定位是 「定义和运行多个 Docker 容器的应用（Defining and running multi-container Docker applications）」</p>
-
 <p>Compose 中有两个重要的概念：</p>
-
 <ul>
 <li>服务 (service)：一个应用的容器，实际上可以包括若干运行相同镜像的容器实例。</li>
 <li>项目 (project)：由一组关联的应用容器组成的一个完整业务单元，在 docker-compose.yml 文件中定义。</li>
 </ul>
-
 <p>Compose 的默认管理对象是项目，通过子命令对项目中的一组容器进行便捷地生命周期管理。</p>
-
 <h4 id="安装与卸载">安装与卸载</h4>
-
 <p>Docker Desktop for Mac/Windows 自带 docker-compose 二进制文件，安装 Docker 之后可以直接使用。</p>
-
 <p>Linux上直接下载编译好的二进制文件即可</p>
-
-<pre><code class="language-docker">sudo curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-compose
-sudo curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-compose
-</code></pre>
-
-<p>Compose 项目由 Python 编写，可以用pip安装</p>
-
-<pre><code class="language-docker">sudo pip install -U docker-compose
-</code></pre>
-
-<p>bash补全命令</p>
-
-<pre><code class="language-docker">$ curl -L https://raw.githubusercontent.com/docker/compose/1.24.1/contrib/completion/bash/docker-compose &gt; /etc/bash_completion.d/docker-compose
-</code></pre>
-
-<p>卸载</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">sudo curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-<span style="color:#e6db74">`</span>uname -s<span style="color:#e6db74">`</span>-<span style="color:#e6db74">`</span>uname -m<span style="color:#e6db74">`</span> &gt; /usr/local/bin/docker-compose<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>sudo curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-<span style="color:#e6db74">`</span>uname -s<span style="color:#e6db74">`</span>-<span style="color:#e6db74">`</span>uname -m<span style="color:#e6db74">`</span> &gt; /usr/local/bin/docker-compose<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>Compose 项目由 Python 编写，可以用pip安装</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">sudo pip install -U docker-compose<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>bash补全命令</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">$ curl -L https://raw.githubusercontent.com/docker/compose/1.24.1/contrib/completion/bash/docker-compose &gt; /etc/bash_completion.d/docker-compose<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>卸载</p>
 <p>二进制包方式安装，删除二进制文件即可</p>
-
-<pre><code class="language-docker">sudo rm /usr/local/bin/docker-compose
-</code></pre>
-
-<p>通过pip安装则执行uninstall卸载</p>
-
-<pre><code class="language-docker">sudo pip uninstall docker-compose
-</code></pre>
-
-<h4 id="compose-模板文件">Compose 模板文件</h4>
-
-<pre><code class="language-docker">version: &quot;3&quot;
-services:
-  postgres:
-    image: postgres:11.0-alpine
-    container_name: tp_postgres
-    restart: always
-    ports:
-      - &quot;5432:5432/tcp&quot;
-    environment:
-      POSTGRES_DB: trainingplatform
-      POSTGRES_PASSWORD: &quot;trainingplatform&quot;
-      POSTGRES_USER: trainingplatform
-    volumes:
-      - &quot;./data:/var/lib/postgresql/data&quot;
-  server:
-    image: tp_server:latest
-    container_name: tp_server
-    restart: always
-    depends_on:
-      - postgres
-    volumes:
-      - &quot;./superuser:/web/superuser&quot;
-    healthcheck:
-      test: &quot;curl -fs http://127.0.0.1:8000/api/CSRFTokenAPI || exit 1&quot;
-      interval: 60s
-      timeout: 10s
-</code></pre>
-
-<p>每个服务都必须通过 image 指令指定镜像或 build 指令（需要 Dockerfile）等来自动构建生成镜像。</p>
-
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">sudo rm /usr/local/bin/docker-compose<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>通过pip安装则执行uninstall卸载</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">sudo pip uninstall docker-compose<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><h4 id="compose-模板文件">Compose 模板文件</h4>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-docker" data-lang="docker">version: <span style="color:#e6db74">&#34;3&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>services:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  postgres:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    image: postgres:11.0-alpine<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    container_name: tp_postgres<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    restart: always<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    ports:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      - <span style="color:#e6db74">&#34;5432:5432/tcp&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    environment:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      POSTGRES_DB: trainingplatform<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      POSTGRES_PASSWORD: <span style="color:#e6db74">&#34;trainingplatform&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      POSTGRES_USER: trainingplatform<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    volumes:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      - <span style="color:#e6db74">&#34;./data:/var/lib/postgresql/data&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>  server:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    image: tp_server:latest<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    container_name: tp_server<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    restart: always<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    depends_on:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      - postgres<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    volumes:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      - <span style="color:#e6db74">&#34;./superuser:/web/superuser&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>    healthcheck:<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      test: <span style="color:#e6db74">&#34;curl -fs http://127.0.0.1:8000/api/CSRFTokenAPI || exit 1&#34;</span><span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      interval: 60s<span style="color:#960050;background-color:#1e0010">
+</span><span style="color:#960050;background-color:#1e0010"></span>      timeout: 10s<span style="color:#960050;background-color:#1e0010">
+</span></code></pre></div><p>每个服务都必须通过 image 指令指定镜像或 build 指令（需要 Dockerfile）等来自动构建生成镜像。</p>
 <p>如果使用 build 指令，在 Dockerfile 中设置的选项(例如：CMD, EXPOSE, VOLUME, ENV 等) 将会自动被获取，无需在 docker-compose.yml 中重复设置。</p>
-
 <p>[参考]</p>
-
-<p><a href="https://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html">Docker 入门教程</a><br />
+<p><a href="https://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html">Docker 入门教程</a><br>
 <a href="https://yeasy.gitbooks.io/docker_practice/content/">Docker &ndash; 从入门到实践</a></p>
                         </div>
 

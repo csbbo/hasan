@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -104,20 +104,18 @@
                                 
                                     <div class="toc-title">文章目录</div> 
                                     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#分类问题和回归问题">分类问题和回归问题</a></li>
-<li><a href="#目标函数">目标函数</a></li>
-<li><a href="#分类模型">分类模型</a></li>
-<li><a href="#回归模型">回归模型</a></li>
-<li><a href="#超参数搜索">超参数搜索</a></li>
-<li><a href="#基础api">基础API</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#分类问题和回归问题">分类问题和回归问题</a></li>
+        <li><a href="#目标函数">目标函数</a></li>
+        <li><a href="#分类模型">分类模型</a></li>
+        <li><a href="#回归模型">回归模型</a></li>
+        <li><a href="#超参数搜索">超参数搜索</a></li>
+        <li><a href="#基础api">基础API</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                                 
                                 </div>
@@ -126,645 +124,616 @@
                         <div class="post-content">
                             <p>keras是基于python的高级神经网络API，由Francois Chollet编写，支持以Tensorflow、CNTK、Theano为后端运行。
 而Tensorflow-keras是对keras API规范的实现，实现在<code>tf.keras</code>空间下与Tensorflow结合也更紧密并且还添加了一些keras没有的特性</p>
-
 <p>Tf-keras和keras区别:</p>
-
 <ul>
 <li>Tf-keras全面支持eager model
-
 <ul>
 <li>只是使用keras.Sequential和keras.Model时没影响</li>
 <li>自定义Model内部运算逻辑会有影响
-
 <ul>
 <li>Tf低层API可以使用keras的model.fit等抽象</li>
 <li>适用与研究人员</li>
-</ul></li>
-</ul></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>Tf-keras支持基于tf.data的模型训练</li>
 <li>Tf-keras支持TPU训练</li>
 <li>Tf-keras支持tf.distribution中分布式策略</li>
 <li>其它特性
-
 <ul>
 <li>Tf-keras可以与Tensorflow中的estimator集成</li>
 <li>Tf-keras可以保存为SavedModel</li>
-</ul></li>
 </ul>
-
+</li>
+</ul>
 <h3 id="分类问题和回归问题">分类问题和回归问题</h3>
-
 <p>分类问题预测的是类别，输出的是概率分布，如三分类问题输出例子: [0.2,0.7,0.1]</p>
-
 <p>回归问题预测的是值，模型输出是一个实数值</p>
-
 <h3 id="目标函数">目标函数</h3>
-
 <p>模型的参数是逐步调整的，而目标函数可以帮助衡量模型的好坏。模型训练其实就是调整参数，使得目标函数逐渐变小的过程。</p>
-
 <p>就分类问题来说我们需要衡量当前预测与目标类别的差距，如
 预测输出: [0.2,0.7,0.1]
 真实类别: 2 -&gt; one_hot -&gt; [0,0,1]</p>
-
-<p>计算目标函数方法
-- 平方差损失 <sup>1</sup>&frasl;<sud>n</sud>&sum;<sup>1</sup>&frasl;<sud>2</sud>(y-Model(x))<sup>2</sup>
-- 交叉熵损失 <sup>1</sup>&frasl;<sud>n</sud>&sum;yln(Model(x))</p>
-
+<p>计算目标函数方法</p>
+<ul>
+<li>平方差损失 <!-- raw HTML omitted -->1<!-- raw HTML omitted -->⁄<!-- raw HTML omitted -->n<!-- raw HTML omitted -->∑<!-- raw HTML omitted -->1<!-- raw HTML omitted -->⁄<!-- raw HTML omitted -->2<!-- raw HTML omitted -->(y-Model(x))<!-- raw HTML omitted -->2<!-- raw HTML omitted --></li>
+<li>交叉熵损失 <!-- raw HTML omitted -->1<!-- raw HTML omitted -->⁄<!-- raw HTML omitted -->n<!-- raw HTML omitted -->∑yln(Model(x))</li>
+</ul>
 <p>回归问题中目标函数即计算预测值与真实值的差距， 如</p>
-
 <ul>
 <li>平方差损失</li>
 <li>绝对值损失</li>
 </ul>
-
 <h3 id="分类模型">分类模型</h3>
-
 <p>tf.keras搭建分类模型，数据归一化，深度神经网络与批归一化，激活函数、回调函数使用，dropout防止过拟合</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># tf_keras_classification_model.py</span>
 
-<pre><code class="language-python"># tf_keras_classification_model.py
+<span style="color:#f92672">import</span> matplotlib <span style="color:#f92672">as</span> mpl
+<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+<span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+<span style="color:#f92672">import</span> sklearn
+<span style="color:#f92672">from</span> sklearn.preprocessing <span style="color:#f92672">import</span> StandardScaler
+<span style="color:#f92672">import</span> pandas <span style="color:#f92672">as</span> pd
+<span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> sys
+<span style="color:#f92672">import</span> time
+<span style="color:#f92672">import</span> tensorflow <span style="color:#f92672">as</span> tf
+<span style="color:#f92672">from</span> tensorflow <span style="color:#f92672">import</span> keras
 
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import numpy as np
-import sklearn
-from sklearn.preprocessing import StandardScaler
-import pandas as pd
-import os
-import sys
-import time
-import tensorflow as tf
-from tensorflow import keras
+<span style="color:#75715e"># 加载分类数据集fashion_mnist</span>
+fashion_mnist <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>datasets<span style="color:#f92672">.</span>fashion_mnist
+(x_train_all, y_train_all), (x_test, y_test) <span style="color:#f92672">=</span> fashion_mnist<span style="color:#f92672">.</span>load_data()
+x_valid, x_train <span style="color:#f92672">=</span> x_train_all[:<span style="color:#ae81ff">5000</span>], x_train_all[<span style="color:#ae81ff">5000</span>:]
+y_valid, y_train <span style="color:#f92672">=</span> y_train_all[:<span style="color:#ae81ff">5000</span>], y_train_all[<span style="color:#ae81ff">5000</span>:]
+<span style="color:#75715e"># 打印数据集信息</span>
+<span style="color:#75715e"># print(x_valid.shape, y_valid.shape)</span>
+<span style="color:#75715e"># print(x_train.shape, y_train.shape)</span>
+<span style="color:#75715e"># print(x_test.shape, y_test.shape)</span>
 
-# 加载分类数据集fashion_mnist
-fashion_mnist = keras.datasets.fashion_mnist
-(x_train_all, y_train_all), (x_test, y_test) = fashion_mnist.load_data()
-x_valid, x_train = x_train_all[:5000], x_train_all[5000:]
-y_valid, y_train = y_train_all[:5000], y_train_all[5000:]
-# 打印数据集信息
-# print(x_valid.shape, y_valid.shape)
-# print(x_train.shape, y_train.shape)
-# print(x_test.shape, y_test.shape)
+<span style="color:#75715e"># 打印训练集最大最小值</span>
+<span style="color:#75715e"># print(np.max(x_train), np.min(x_train))</span>
 
-# 打印训练集最大最小值
-# print(np.max(x_train), np.min(x_train))
+<span style="color:#75715e"># 显示一张图片</span>
+<span style="color:#75715e"># def show_single_image(img_arr):</span>
+<span style="color:#75715e">#     plt.imshow(img_arr, cmap=&#34;binary&#34;)</span>
+<span style="color:#75715e">#     plt.show()</span>
+<span style="color:#75715e"># show_single_image(x_train[0])</span>
 
-# 显示一张图片
-# def show_single_image(img_arr):
-#     plt.imshow(img_arr, cmap=&quot;binary&quot;)
-#     plt.show()
-# show_single_image(x_train[0])
+<span style="color:#75715e"># 显示多张图片</span>
+<span style="color:#75715e"># def show_imgs(n_rows, n_cols, x_data, y_data, class_name):</span>
+<span style="color:#75715e">#     assert len(x_data) == len(y_data)</span>
+<span style="color:#75715e">#     assert n_rows * n_cols &lt;= len(x_data)</span>
+<span style="color:#75715e">#     plt.figure(figsize = (n_cols * 1.4, n_rows * 1.6))</span>
+<span style="color:#75715e">#     for row in range(n_rows):</span>
+<span style="color:#75715e">#         for col in range(n_cols):</span>
+<span style="color:#75715e">#             index = n_cols * row + col</span>
+<span style="color:#75715e">#             plt.subplot(n_rows, n_cols, index+1)</span>
+<span style="color:#75715e">#             plt.imshow(x_data[index], cmap=&#34;binary&#34;, interpolation = &#39;nearest&#39;)</span>
+<span style="color:#75715e">#             plt.axis(&#39;off&#39;)</span>
+<span style="color:#75715e">#             plt.title(class_name[y_data[index]])</span>
+<span style="color:#75715e">#     plt.show()</span>
+<span style="color:#75715e"># class_name = [&#39;T-shirt&#39;, &#39;Trouser&#39;, &#39;Pullover&#39;, &#39;Dress&#39;, &#39;Coat&#39;, </span>
+<span style="color:#75715e">#             &#39;Sandal&#39;, &#39;Shirt&#39;, &#39;Sneaker&#39;, &#39;Bag&#39;, &#39;Ankle Bot&#39;]</span>
+<span style="color:#75715e"># show_imgs(3, 5, x_train, y_train, class_name)</span>
 
-# 显示多张图片
-# def show_imgs(n_rows, n_cols, x_data, y_data, class_name):
-#     assert len(x_data) == len(y_data)
-#     assert n_rows * n_cols &lt;= len(x_data)
-#     plt.figure(figsize = (n_cols * 1.4, n_rows * 1.6))
-#     for row in range(n_rows):
-#         for col in range(n_cols):
-#             index = n_cols * row + col
-#             plt.subplot(n_rows, n_cols, index+1)
-#             plt.imshow(x_data[index], cmap=&quot;binary&quot;, interpolation = 'nearest')
-#             plt.axis('off')
-#             plt.title(class_name[y_data[index]])
-#     plt.show()
-# class_name = ['T-shirt', 'Trouser', 'Pullover', 'Dress', 'Coat', 
-#             'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle Bot']
-# show_imgs(3, 5, x_train, y_train, class_name)
+<span style="color:#75715e"># ----------------归一化-----------------</span>
+<span style="color:#75715e"># 归一化处理 (x - u) / std</span>
+<span style="color:#75715e"># 其中u(均值) std(方差) 处理后得到均值是0方差是1标准正态分布</span>
+scaler <span style="color:#f92672">=</span> StandardScaler()
+x_train_scaled <span style="color:#f92672">=</span> scaler<span style="color:#f92672">.</span>fit_transform(
+    x_train<span style="color:#f92672">.</span>astype(np<span style="color:#f92672">.</span>float32)<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>))<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">28</span>)
 
-# ----------------归一化-----------------
-# 归一化处理 (x - u) / std
-# 其中u(均值) std(方差) 处理后得到均值是0方差是1标准正态分布
-scaler = StandardScaler()
-x_train_scaled = scaler.fit_transform(
-    x_train.astype(np.float32).reshape(-1,1)).reshape(-1,28,28)
+x_valid_scaled <span style="color:#f92672">=</span> scaler<span style="color:#f92672">.</span>transform(
+    x_valid<span style="color:#f92672">.</span>astype(np<span style="color:#f92672">.</span>float32)<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>))<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">28</span>)
 
-x_valid_scaled = scaler.transform(
-    x_valid.astype(np.float32).reshape(-1,1)).reshape(-1,28,28)
+x_test_scaled <span style="color:#f92672">=</span> scaler<span style="color:#f92672">.</span>transform(
+    x_test<span style="color:#f92672">.</span>astype(np<span style="color:#f92672">.</span>float32)<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">1</span>))<span style="color:#f92672">.</span>reshape(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">28</span>,<span style="color:#ae81ff">28</span>)
+<span style="color:#75715e"># fit_transform将数据处理为归一化后的数据，fit还有记录均值和方差的功能，验证集和测试集使用的也是训练集的均值和方差。</span>
+<span style="color:#75715e"># 因为要做除法要将数据集中的数据转为np.float32的类型，而fit_transform处理的是二维的数据，所以要先将该数据reshape为二维的，归一化后在reshape回来</span>
 
-x_test_scaled = scaler.transform(
-    x_test.astype(np.float32).reshape(-1,1)).reshape(-1,28,28)
-# fit_transform将数据处理为归一化后的数据，fit还有记录均值和方差的功能，验证集和测试集使用的也是训练集的均值和方差。
-# 因为要做除法要将数据集中的数据转为np.float32的类型，而fit_transform处理的是二维的数据，所以要先将该数据reshape为二维的，归一化后在reshape回来
+<span style="color:#75715e"># 打印归一化后训练集的最大最小值</span>
+<span style="color:#75715e"># print(np.max(x_train_scaled), np.min(x_train_scaled))</span>
 
-# 打印归一化后训练集的最大最小值
-# print(np.max(x_train_scaled), np.min(x_train_scaled))
-
-# ----------------1.搭建模型-----------------
-model = keras.models.Sequential()
-model.add(keras.layers.Flatten(input_shape=(28, 28)))
-model.add(keras.layers.Dense(300, activation=&quot;relu&quot;))
-model.add(keras.layers.Dense(100, activation=&quot;relu&quot;))
-model.add(keras.layers.Dense(10, activation=&quot;softmax&quot;))
-# 这里用到两个激活函数(增加模型表达力)
-# relu: y = max(0,x)
-# softmax: 将向量变成概率分布.  x = [x1, x2, x3],
-#          y = [e^x1/sum, e^x2/sum, e^x3/sum] sum=e^x1/sum+e^x2/sum+e^x3/sum
-# 参数的计算 
-# [None, 784] * (W+b) -&gt; [None, 300] ,W.shape=[784, 300] b=300, param=784*300+300
-# -------2.搭建深度神经网络模型与批归一化--------
-# model = keras.models.Sequential()
-# model.add(keras.layers.Flatten(input_shape=(28, 28)))
-# for _ in range(20):
-#     model.add(keras.layers.Dense(100, activation=&quot;relu&quot;))
-#     model.add(keras.layers.BatchNormalization())
-#     # 更改激活函数，selu自带归一化等同于上面两句
-#     # model.add(keras.layers.Dense(100, activation=&quot;selu&quot;))
-#     &quot;&quot;&quot;
-#     # 把批归一化放在激活函数之前
-#     model.add(keras.layers.Dense(100))
-#     model.add(keras.layers.BatchNormalization())
-#     model.add(keras.layers.Activation('relu))
-#     &quot;&quot;&quot;
-# # dropout防止过拟合一般在最后几层添加，这里每添加一层dropout就是对它上面一层进行dropout
-# model.add(keras.layers.AlphaDropout(rate=0.5)) # rate丢掉单元数目比例一般0.5
-# # AlphaDropout: 1.均值和方差不变 2.归一化性质也不变
-# model.add(keras.layers.Dense(10, activation=&quot;softmax&quot;))
+<span style="color:#75715e"># ----------------1.搭建模型-----------------</span>
+model <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>models<span style="color:#f92672">.</span>Sequential()
+model<span style="color:#f92672">.</span>add(keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Flatten(input_shape<span style="color:#f92672">=</span>(<span style="color:#ae81ff">28</span>, <span style="color:#ae81ff">28</span>)))
+model<span style="color:#f92672">.</span>add(keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(<span style="color:#ae81ff">300</span>, activation<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;relu&#34;</span>))
+model<span style="color:#f92672">.</span>add(keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(<span style="color:#ae81ff">100</span>, activation<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;relu&#34;</span>))
+model<span style="color:#f92672">.</span>add(keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(<span style="color:#ae81ff">10</span>, activation<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;softmax&#34;</span>))
+<span style="color:#75715e"># 这里用到两个激活函数(增加模型表达力)</span>
+<span style="color:#75715e"># relu: y = max(0,x)</span>
+<span style="color:#75715e"># softmax: 将向量变成概率分布.  x = [x1, x2, x3],</span>
+<span style="color:#75715e">#          y = [e^x1/sum, e^x2/sum, e^x3/sum] sum=e^x1/sum+e^x2/sum+e^x3/sum</span>
+<span style="color:#75715e"># 参数的计算 </span>
+<span style="color:#75715e"># [None, 784] * (W+b) -&gt; [None, 300] ,W.shape=[784, 300] b=300, param=784*300+300</span>
+<span style="color:#75715e"># -------2.搭建深度神经网络模型与批归一化--------</span>
+<span style="color:#75715e"># model = keras.models.Sequential()</span>
+<span style="color:#75715e"># model.add(keras.layers.Flatten(input_shape=(28, 28)))</span>
+<span style="color:#75715e"># for _ in range(20):</span>
+<span style="color:#75715e">#     model.add(keras.layers.Dense(100, activation=&#34;relu&#34;))</span>
+<span style="color:#75715e">#     model.add(keras.layers.BatchNormalization())</span>
+<span style="color:#75715e">#     # 更改激活函数，selu自带归一化等同于上面两句</span>
+<span style="color:#75715e">#     # model.add(keras.layers.Dense(100, activation=&#34;selu&#34;))</span>
+<span style="color:#75715e">#     &#34;&#34;&#34;</span>
+<span style="color:#75715e">#     # 把批归一化放在激活函数之前</span>
+<span style="color:#75715e">#     model.add(keras.layers.Dense(100))</span>
+<span style="color:#75715e">#     model.add(keras.layers.BatchNormalization())</span>
+<span style="color:#75715e">#     model.add(keras.layers.Activation(&#39;relu))</span>
+<span style="color:#75715e">#     &#34;&#34;&#34;</span>
+<span style="color:#75715e"># # dropout防止过拟合一般在最后几层添加，这里每添加一层dropout就是对它上面一层进行dropout</span>
+<span style="color:#75715e"># model.add(keras.layers.AlphaDropout(rate=0.5)) # rate丢掉单元数目比例一般0.5</span>
+<span style="color:#75715e"># # AlphaDropout: 1.均值和方差不变 2.归一化性质也不变</span>
+<span style="color:#75715e"># model.add(keras.layers.Dense(10, activation=&#34;softmax&#34;))</span>
 
 
-# ----------------构建图-----------------
-model.compile(loss=&quot;sparse_categorical_crossentropy&quot;, optimizer=&quot;sgd&quot;, metrics=[&quot;accuracy&quot;])
-# sparse作用 index -&gt; one_hot
-# crossentropy 交叉熵损失函数
+<span style="color:#75715e"># ----------------构建图-----------------</span>
+model<span style="color:#f92672">.</span>compile(loss<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sparse_categorical_crossentropy&#34;</span>, optimizer<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sgd&#34;</span>, metrics<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;accuracy&#34;</span>])
+<span style="color:#75715e"># sparse作用 index -&gt; one_hot</span>
+<span style="color:#75715e"># crossentropy 交叉熵损失函数</span>
 
-# 一些其他函数
-# model.layers # 查看模型层数
-# model.summary() # 查看模型概况
+<span style="color:#75715e"># 一些其他函数</span>
+<span style="color:#75715e"># model.layers # 查看模型层数</span>
+<span style="color:#75715e"># model.summary() # 查看模型概况</span>
 
-# --------------使用回调函数--------------
-# EarlyStopping 在模型训练过程中loss不在下降可以提前将它给停下来
-# ModelCheckpoint 模型训练过程中的中间状态，可以每个一段时间将其保存下来
-# TensorBoard 可以查看模型训练过程的参数变化,启用方式&quot;tensorboard --logdir=callbacks&quot;
-logdir = './callbacks'
-if not os.path.exists(logdir):
-    os.mkdir(logdir)
-output_model_file = os.path.join(logdir, 'fashion_mnist_model.h5')
+<span style="color:#75715e"># --------------使用回调函数--------------</span>
+<span style="color:#75715e"># EarlyStopping 在模型训练过程中loss不在下降可以提前将它给停下来</span>
+<span style="color:#75715e"># ModelCheckpoint 模型训练过程中的中间状态，可以每个一段时间将其保存下来</span>
+<span style="color:#75715e"># TensorBoard 可以查看模型训练过程的参数变化,启用方式&#34;tensorboard --logdir=callbacks&#34;</span>
+logdir <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;./callbacks&#39;</span>
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>exists(logdir):
+    os<span style="color:#f92672">.</span>mkdir(logdir)
+output_model_file <span style="color:#f92672">=</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(logdir, <span style="color:#e6db74">&#39;fashion_mnist_model.h5&#39;</span>)
 
-callbacks = [
-    keras.callbacks.TensorBoard(logdir),
-    keras.callbacks.ModelCheckpoint(output_model_file, save_best_only=True),
-    keras.callbacks.EarlyStopping(patience=5, min_delta=1e-3)
+callbacks <span style="color:#f92672">=</span> [
+    keras<span style="color:#f92672">.</span>callbacks<span style="color:#f92672">.</span>TensorBoard(logdir),
+    keras<span style="color:#f92672">.</span>callbacks<span style="color:#f92672">.</span>ModelCheckpoint(output_model_file, save_best_only<span style="color:#f92672">=</span>True),
+    keras<span style="color:#f92672">.</span>callbacks<span style="color:#f92672">.</span>EarlyStopping(patience<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, min_delta<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-3</span>)
 ]
 
 
-# ----------------开始训练-----------------
-history = model.fit(x_train_scaled, y_train, epochs=10,
-                    validation_data=(x_valid_scaled, y_valid),
-                    callbacks=callbacks)
-# epochs遍历训练集次数
-# validation_data每隔一段时间就对验证集做一个验证
-# history返回数据集中间运行结果
+<span style="color:#75715e"># ----------------开始训练-----------------</span>
+history <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>fit(x_train_scaled, y_train, epochs<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>,
+                    validation_data<span style="color:#f92672">=</span>(x_valid_scaled, y_valid),
+                    callbacks<span style="color:#f92672">=</span>callbacks)
+<span style="color:#75715e"># epochs遍历训练集次数</span>
+<span style="color:#75715e"># validation_data每隔一段时间就对验证集做一个验证</span>
+<span style="color:#75715e"># history返回数据集中间运行结果</span>
 
-# 用图打印出history.history运行过程中间一些指标的值
-# def plot_learning_curves(history):
-#     pd.DataFrame(history.history).plot(figsize=(8,5))
-#     plt.grid(True)
-#     plt.gca().set_ylim(0,1)
-#     plt.show()
-# plot_learning_curves(history)
+<span style="color:#75715e"># 用图打印出history.history运行过程中间一些指标的值</span>
+<span style="color:#75715e"># def plot_learning_curves(history):</span>
+<span style="color:#75715e">#     pd.DataFrame(history.history).plot(figsize=(8,5))</span>
+<span style="color:#75715e">#     plt.grid(True)</span>
+<span style="color:#75715e">#     plt.gca().set_ylim(0,1)</span>
+<span style="color:#75715e">#     plt.show()</span>
+<span style="color:#75715e"># plot_learning_curves(history)</span>
 
-# 在测试集上进行指标评估
-# model.evaluate(x_test_scaled, y_test)
-</code></pre>
-
-<h3 id="回归模型">回归模型</h3>
-
+<span style="color:#75715e"># 在测试集上进行指标评估</span>
+<span style="color:#75715e"># model.evaluate(x_test_scaled, y_test)</span>
+</code></pre></div><h3 id="回归模型">回归模型</h3>
 <p>回归问题模型搭建，函数式API实现wide&amp;deep模型、子类API实现wide&amp;deep模型、多输入与多输出模型的实现</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># tf_keras_regression_wide_deep.py</span>
 
-<pre><code class="language-python"># tf_keras_regression_wide_deep.py
+<span style="color:#f92672">import</span> matplotlib <span style="color:#f92672">as</span> mpl
+<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+<span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+<span style="color:#f92672">import</span> sklearn
+<span style="color:#f92672">import</span> pandas <span style="color:#f92672">as</span> pd
+<span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> sys
+<span style="color:#f92672">import</span> time
+<span style="color:#f92672">import</span> tensorflow <span style="color:#f92672">as</span> tf
+<span style="color:#f92672">from</span> tensorflow <span style="color:#f92672">import</span> keras
+<span style="color:#f92672">from</span> sklearn.datasets <span style="color:#f92672">import</span> fetch_california_housing
+<span style="color:#f92672">from</span> sklearn.model_selection <span style="color:#f92672">import</span> train_test_split
+<span style="color:#f92672">from</span> sklearn.preprocessing <span style="color:#f92672">import</span> StandardScaler
 
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import numpy as np
-import sklearn
-import pandas as pd
-import os
-import sys
-import time
-import tensorflow as tf
-from tensorflow import keras
-from sklearn.datasets import fetch_california_housing
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+housing <span style="color:#f92672">=</span> fetch_california_housing()
 
-housing = fetch_california_housing()
+<span style="color:#75715e"># 加利福尼亚房价预测数据集</span>
+x_train_all, x_test, y_train_all, y_test <span style="color:#f92672">=</span> train_test_split(
+    housing<span style="color:#f92672">.</span>data, housing<span style="color:#f92672">.</span>target, random_state <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>)
+x_train, x_valid, y_train, y_valid <span style="color:#f92672">=</span> train_test_split(
+    x_train_all, y_train_all, random_state <span style="color:#f92672">=</span> <span style="color:#ae81ff">11</span>)
+<span style="color:#75715e"># print(x_train.shape, y_train.shape)</span>
+<span style="color:#75715e"># print(x_valid.shape, y_valid.shape)</span>
+<span style="color:#75715e"># print(x_test.shape, y_test.shape)</span>
 
-# 加利福尼亚房价预测数据集
-x_train_all, x_test, y_train_all, y_test = train_test_split(
-    housing.data, housing.target, random_state = 7)
-x_train, x_valid, y_train, y_valid = train_test_split(
-    x_train_all, y_train_all, random_state = 11)
-# print(x_train.shape, y_train.shape)
-# print(x_valid.shape, y_valid.shape)
-# print(x_test.shape, y_test.shape)
+<span style="color:#75715e"># ----------------归一化-----------------</span>
+scaler <span style="color:#f92672">=</span> StandardScaler()
+x_train_scaled <span style="color:#f92672">=</span> scaler<span style="color:#f92672">.</span>fit_transform(x_train)
+x_valid_scaled <span style="color:#f92672">=</span> scaler<span style="color:#f92672">.</span>transform(x_valid)
+x_test_scaled <span style="color:#f92672">=</span> scaler<span style="color:#f92672">.</span>transform(x_test)
 
-# ----------------归一化-----------------
-scaler = StandardScaler()
-x_train_scaled = scaler.fit_transform(x_train)
-x_valid_scaled = scaler.transform(x_valid)
-x_test_scaled = scaler.transform(x_test)
+<span style="color:#75715e"># ---1.函数式API 功能API实现wide&amp;deep模型----</span>
+<span style="color:#75715e"># input = keras.layers.Input(shape=x_train.shape[1:])</span>
+<span style="color:#75715e"># hidden1 = keras.layers.Dense(30, activation=&#39;relu&#39;)(input)</span>
+<span style="color:#75715e"># hidden2 = keras.layers.Dense(30, activation=&#39;relu&#39;)(hidden1)</span>
 
-# ---1.函数式API 功能API实现wide&amp;deep模型----
-# input = keras.layers.Input(shape=x_train.shape[1:])
-# hidden1 = keras.layers.Dense(30, activation='relu')(input)
-# hidden2 = keras.layers.Dense(30, activation='relu')(hidden1)
+<span style="color:#75715e"># concat = keras.layers.concatenate([input, hidden2])</span>
+<span style="color:#75715e"># output = keras.layers.Dense(1)(concat)</span>
 
-# concat = keras.layers.concatenate([input, hidden2])
-# output = keras.layers.Dense(1)(concat)
+<span style="color:#75715e"># model = keras.models.Model(inputs = [input],</span>
+<span style="color:#75715e">#                            outputs = [output])</span>
 
-# model = keras.models.Model(inputs = [input],
-#                            outputs = [output])
+<span style="color:#75715e"># ------2.子类API实现实现wide&amp;deep模型-----</span>
+<span style="color:#75715e"># class WideDeepModel(keras.models.Model):</span>
+<span style="color:#75715e">#     def __init__(self):</span>
+<span style="color:#75715e">#         super(WideDeepModel, self).__init__()</span>
+<span style="color:#75715e">#         &#34;&#34;&#34;定义模型层次&#34;&#34;&#34;</span>
+<span style="color:#75715e">#         self.hidden1_layer = keras.layers.Dense(30, activation=&#39;relu&#39;)</span>
+<span style="color:#75715e">#         self.hidden2_layer = keras.layers.Dense(30, activation=&#39;relu&#39;)</span>
+<span style="color:#75715e">#         self.output_layer = keras.layers.Dense(1)</span>
+<span style="color:#75715e">#     def call(self, input):</span>
+<span style="color:#75715e">#         &#34;&#34;&#34;完成模型的正向计算&#34;&#34;&#34;</span>
+<span style="color:#75715e">#         hidden1 = self.hidden1_layer(input)</span>
+<span style="color:#75715e">#         hidden2 = self.hidden2_layer(hidden1)</span>
+<span style="color:#75715e">#         concat = keras.layers.concatenate([input, hidden2])</span>
+<span style="color:#75715e">#         output = self.output_layer(concat)</span>
+<span style="color:#75715e">#         return output</span>
+<span style="color:#75715e"># model = WideDeepModel()</span>
+<span style="color:#75715e"># model.build(input_shape=(None, 8))</span>
 
-# ------2.子类API实现实现wide&amp;deep模型-----
-# class WideDeepModel(keras.models.Model):
-#     def __init__(self):
-#         super(WideDeepModel, self).__init__()
-#         &quot;&quot;&quot;定义模型层次&quot;&quot;&quot;
-#         self.hidden1_layer = keras.layers.Dense(30, activation='relu')
-#         self.hidden2_layer = keras.layers.Dense(30, activation='relu')
-#         self.output_layer = keras.layers.Dense(1)
-#     def call(self, input):
-#         &quot;&quot;&quot;完成模型的正向计算&quot;&quot;&quot;
-#         hidden1 = self.hidden1_layer(input)
-#         hidden2 = self.hidden2_layer(hidden1)
-#         concat = keras.layers.concatenate([input, hidden2])
-#         output = self.output_layer(concat)
-#         return output
-# model = WideDeepModel()
-# model.build(input_shape=(None, 8))
-
-# --------------3.普通模型-----------------
-model = keras.models.Sequential([
-    keras.layers.Dense(30, activation='relu',
-                       input_shape=x_train.shape[1:]),
-    keras.layers.Dense(1),
+<span style="color:#75715e"># --------------3.普通模型-----------------</span>
+model <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>models<span style="color:#f92672">.</span>Sequential([
+    keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(<span style="color:#ae81ff">30</span>, activation<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;relu&#39;</span>,
+                       input_shape<span style="color:#f92672">=</span>x_train<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>:]),
+    keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(<span style="color:#ae81ff">1</span>),
 ])
 
-# ---------------4.多输入------------------
-# input_wide = keras.layers.Input(shape=[5])
-# input_deep = keras.layers.Input(shape=[6])
-# hidden1 = keras.layers.Dense(30, activation='relu')(input_deep)
-# hidden2 = keras.layers.Dense(30, activation='relu')(hidden1)
-# concat = keras.layers.concatenate([input_wide, hidden2])
-# output = keras.layers.Dense(1)(concat)
-# output2 = keras.layers.Dense(1)(hidden2) #多输出第二个输出
-# model = keras.models.Model(inputs = [input_wide, input_deep],
-#                             outputs = [output, output2])
+<span style="color:#75715e"># ---------------4.多输入------------------</span>
+<span style="color:#75715e"># input_wide = keras.layers.Input(shape=[5])</span>
+<span style="color:#75715e"># input_deep = keras.layers.Input(shape=[6])</span>
+<span style="color:#75715e"># hidden1 = keras.layers.Dense(30, activation=&#39;relu&#39;)(input_deep)</span>
+<span style="color:#75715e"># hidden2 = keras.layers.Dense(30, activation=&#39;relu&#39;)(hidden1)</span>
+<span style="color:#75715e"># concat = keras.layers.concatenate([input_wide, hidden2])</span>
+<span style="color:#75715e"># output = keras.layers.Dense(1)(concat)</span>
+<span style="color:#75715e"># output2 = keras.layers.Dense(1)(hidden2) #多输出第二个输出</span>
+<span style="color:#75715e"># model = keras.models.Model(inputs = [input_wide, input_deep],</span>
+<span style="color:#75715e">#                             outputs = [output, output2])</span>
 
-# model.summary()
-# ----------------构建图-----------------
-model.compile(loss=&quot;mean_squared_error&quot;, optimizer=&quot;sgd&quot;)
+<span style="color:#75715e"># model.summary()</span>
+<span style="color:#75715e"># ----------------构建图-----------------</span>
+model<span style="color:#f92672">.</span>compile(loss<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;mean_squared_error&#34;</span>, optimizer<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sgd&#34;</span>)
 
-# --------------使用回调函数--------------
-callbacks = [
-    keras.callbacks.EarlyStopping(patience=5, min_delta=1e-2)
+<span style="color:#75715e"># --------------使用回调函数--------------</span>
+callbacks <span style="color:#f92672">=</span> [
+    keras<span style="color:#f92672">.</span>callbacks<span style="color:#f92672">.</span>EarlyStopping(patience<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, min_delta<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-2</span>)
 ]
 
-# ----------------开始训练-----------------
-history = model.fit(x_train_scaled, y_train,
-                    validation_data = (x_valid_scaled, y_valid),
-                    epochs = 100,
-                    callbacks = callbacks)
+<span style="color:#75715e"># ----------------开始训练-----------------</span>
+history <span style="color:#f92672">=</span> model<span style="color:#f92672">.</span>fit(x_train_scaled, y_train,
+                    validation_data <span style="color:#f92672">=</span> (x_valid_scaled, y_valid),
+                    epochs <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>,
+                    callbacks <span style="color:#f92672">=</span> callbacks)
 
-# ---------开始训练(多输入多输出模型启用)------
-# x_train_scaled_wide = x_train_scaled[:, :5]
-# x_train_scaled_deep = x_train_scaled[:, 2:]
-# x_valid_scaled_wide = x_valid_scaled[:, :5]
-# x_valid_scaled_deep = x_valid_scaled[:, 2:]
-# x_test_scaled_wide = x_test_scaled[:, :5]
-# x_test_scaled_deep = x_test_scaled[:, 2:]
-# history = model.fit([x_train_scaled_wide, x_train_scaled_deep],
-#                     [y_train, y_train],
-#                     validation_data = ([x_valid_scaled_wide, x_valid_scaled_deep],
-#                     [y_valid, y_valid]),
-#                     epochs = 100,
-#                     callbacks = callbacks)
+<span style="color:#75715e"># ---------开始训练(多输入多输出模型启用)------</span>
+<span style="color:#75715e"># x_train_scaled_wide = x_train_scaled[:, :5]</span>
+<span style="color:#75715e"># x_train_scaled_deep = x_train_scaled[:, 2:]</span>
+<span style="color:#75715e"># x_valid_scaled_wide = x_valid_scaled[:, :5]</span>
+<span style="color:#75715e"># x_valid_scaled_deep = x_valid_scaled[:, 2:]</span>
+<span style="color:#75715e"># x_test_scaled_wide = x_test_scaled[:, :5]</span>
+<span style="color:#75715e"># x_test_scaled_deep = x_test_scaled[:, 2:]</span>
+<span style="color:#75715e"># history = model.fit([x_train_scaled_wide, x_train_scaled_deep],</span>
+<span style="color:#75715e">#                     [y_train, y_train],</span>
+<span style="color:#75715e">#                     validation_data = ([x_valid_scaled_wide, x_valid_scaled_deep],</span>
+<span style="color:#75715e">#                     [y_valid, y_valid]),</span>
+<span style="color:#75715e">#                     epochs = 100,</span>
+<span style="color:#75715e">#                     callbacks = callbacks)</span>
 
-# 打印学习曲线图
-def plot_learning_curves(history):
-    pd.DataFrame(history.history).plot(figsize=(8, 5))
-    plt.grid(True)
-    plt.gca().set_ylim(0, 1)
-    plt.show()
+<span style="color:#75715e"># 打印学习曲线图</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plot_learning_curves</span>(history):
+    pd<span style="color:#f92672">.</span>DataFrame(history<span style="color:#f92672">.</span>history)<span style="color:#f92672">.</span>plot(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span>))
+    plt<span style="color:#f92672">.</span>grid(True)
+    plt<span style="color:#f92672">.</span>gca()<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
+    plt<span style="color:#f92672">.</span>show()
 plot_learning_curves(history)
 
-# 在测试集上进行指标评估
-model.evaluate(x_test_scaled, y_test)
+<span style="color:#75715e"># 在测试集上进行指标评估</span>
+model<span style="color:#f92672">.</span>evaluate(x_test_scaled, y_test)
 
-# # 在测试集上进行指标评估(多输入多输出模型启用)
-# model.evaluate([x_test_scaled_wide, x_test_scaled_deep], [y_test, y_test])
-</code></pre>
-
-<h3 id="超参数搜索">超参数搜索</h3>
-
+<span style="color:#75715e"># # 在测试集上进行指标评估(多输入多输出模型启用)</span>
+<span style="color:#75715e"># model.evaluate([x_test_scaled_wide, x_test_scaled_deep], [y_test, y_test])</span>
+</code></pre></div><h3 id="超参数搜索">超参数搜索</h3>
 <p>超参数就是在神经网络训练中不变的参数，如</p>
-
 <ul>
 <li>网络结构参数: 神经网络的层数、每层宽度、每层激活函数</li>
 <li>训练参数: batch_size、学习率和衰减算法</li>
 </ul>
-
 <p>而手工去寻找超参数是很耗时的，我们需要一些搜索策略</p>
-
 <ul>
 <li>网格搜索</li>
 <li>随机搜索</li>
 <li>遗传算法</li>
+<li>启发式搜索(AutoML研究热点，循环神经网络生成)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># tf_keras_regression_hp_search_sklearn.py</span>
 
-<li><p>启发式搜索(AutoML研究热点，循环神经网络生成)</p>
+<span style="color:#f92672">import</span> matplotlib <span style="color:#f92672">as</span> mpl
+<span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+<span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+<span style="color:#f92672">import</span> sklearn
+<span style="color:#f92672">import</span> pandas <span style="color:#f92672">as</span> pd
+<span style="color:#f92672">import</span> os
+<span style="color:#f92672">import</span> sys
+<span style="color:#f92672">import</span> time
+<span style="color:#f92672">import</span> tensorflow <span style="color:#f92672">as</span> tf
+<span style="color:#f92672">from</span> tensorflow <span style="color:#f92672">import</span> keras
+<span style="color:#f92672">from</span> sklearn.datasets <span style="color:#f92672">import</span> fetch_california_housing
+<span style="color:#f92672">from</span> sklearn.model_selection <span style="color:#f92672">import</span> train_test_split
+<span style="color:#f92672">from</span> sklearn.preprocessing <span style="color:#f92672">import</span> StandardScaler
 
-<pre><code class="language-python"># tf_keras_regression_hp_search_sklearn.py
+housing <span style="color:#f92672">=</span> fetch_california_housing()
 
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import numpy as np
-import sklearn
-import pandas as pd
-import os
-import sys
-import time
-import tensorflow as tf
-from tensorflow import keras
-from sklearn.datasets import fetch_california_housing
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+<span style="color:#75715e"># 加利福尼亚房价预测数据集</span>
+x_train_all, x_test, y_train_all, y_test <span style="color:#f92672">=</span> train_test_split(
+    housing<span style="color:#f92672">.</span>data, housing<span style="color:#f92672">.</span>target, random_state <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>)
+x_train, x_valid, y_train, y_valid <span style="color:#f92672">=</span> train_test_split(
+    x_train_all, y_train_all, random_state <span style="color:#f92672">=</span> <span style="color:#ae81ff">11</span>)
 
-housing = fetch_california_housing()
+<span style="color:#75715e"># ----------------归一化-----------------</span>
+scaler <span style="color:#f92672">=</span> StandardScaler()
+x_train_scaled <span style="color:#f92672">=</span> scaler<span style="color:#f92672">.</span>fit_transform(x_train)
+x_valid_scaled <span style="color:#f92672">=</span> scaler<span style="color:#f92672">.</span>transform(x_valid)
+x_test_scaled <span style="color:#f92672">=</span> scaler<span style="color:#f92672">.</span>transform(x_test)
 
-# 加利福尼亚房价预测数据集
-x_train_all, x_test, y_train_all, y_test = train_test_split(
-housing.data, housing.target, random_state = 7)
-x_train, x_valid, y_train, y_valid = train_test_split(
-x_train_all, y_train_all, random_state = 11)
+<span style="color:#75715e"># 1.tf.keras model -&gt; sklear model</span>
+<span style="color:#75715e"># 2.定义参数集合</span>
+<span style="color:#75715e"># 3.使用RandomizedSearchCV搜索参数</span>
 
-# ----------------归一化-----------------
-scaler = StandardScaler()
-x_train_scaled = scaler.fit_transform(x_train)
-x_valid_scaled = scaler.transform(x_valid)
-x_test_scaled = scaler.transform(x_test)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">build_model</span>(hidden_layers<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, layer_size<span style="color:#f92672">=</span><span style="color:#ae81ff">30</span>, learning_rate <span style="color:#f92672">=</span> <span style="color:#ae81ff">3e-3</span>):
+    model <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>models<span style="color:#f92672">.</span>Sequential()
+    model<span style="color:#f92672">.</span>add(keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(layer_size, activation<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;relu&#39;</span>,
+                                    input_shape<span style="color:#f92672">=</span>x_train<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">1</span>:]))
+    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(hidden_layers<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+        model<span style="color:#f92672">.</span>add(keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(layer_size, activation<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;relu&#39;</span>))
+    model<span style="color:#f92672">.</span>add(keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Dense(<span style="color:#ae81ff">1</span>))
+    optimizer <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>optimizers<span style="color:#f92672">.</span>SGD(learning_rate)
+    model<span style="color:#f92672">.</span>compile(loss<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;mse&#39;</span>, optimizer<span style="color:#f92672">=</span>optimizer)
+    <span style="color:#66d9ef">return</span> model
 
-# 1.tf.keras model -&gt; sklear model
-# 2.定义参数集合
-# 3.使用RandomizedSearchCV搜索参数
+sklearn_model <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>wrappers<span style="color:#f92672">.</span>scikit_learn<span style="color:#f92672">.</span>KerasRegressor(build_model)
 
-def build_model(hidden_layers=1, layer_size=30, learning_rate = 3e-3):
-model = keras.models.Sequential()
-model.add(keras.layers.Dense(layer_size, activation='relu',
-                                input_shape=x_train.shape[1:]))
-for _ in range(hidden_layers-1):
-    model.add(keras.layers.Dense(layer_size, activation='relu'))
-model.add(keras.layers.Dense(1))
-optimizer = keras.optimizers.SGD(learning_rate)
-model.compile(loss='mse', optimizer=optimizer)
-return model
-
-sklearn_model = keras.wrappers.scikit_learn.KerasRegressor(build_model)
-
-callbacks = [
-keras.callbacks.EarlyStopping(patience=5, min_delta=1e-2)
+callbacks <span style="color:#f92672">=</span> [
+    keras<span style="color:#f92672">.</span>callbacks<span style="color:#f92672">.</span>EarlyStopping(patience<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>, min_delta<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-2</span>)
 ]
-history = sklearn_model.fit(x_train_scaled, y_train,
-                validation_data = (x_valid_scaled, y_valid),
-                epochs = 100,
-                callbacks = callbacks)
+history <span style="color:#f92672">=</span> sklearn_model<span style="color:#f92672">.</span>fit(x_train_scaled, y_train,
+                    validation_data <span style="color:#f92672">=</span> (x_valid_scaled, y_valid),
+                    epochs <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>,
+                    callbacks <span style="color:#f92672">=</span> callbacks)
 
-# 打印学习曲线图
-def plot_learning_curves(history):
-pd.DataFrame(history.history).plot(figsize=(8, 5))
-plt.grid(True)
-plt.gca().set_ylim(0, 1)
-plt.show()
+<span style="color:#75715e"># 打印学习曲线图</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">plot_learning_curves</span>(history):
+    pd<span style="color:#f92672">.</span>DataFrame(history<span style="color:#f92672">.</span>history)<span style="color:#f92672">.</span>plot(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">5</span>))
+    plt<span style="color:#f92672">.</span>grid(True)
+    plt<span style="color:#f92672">.</span>gca()<span style="color:#f92672">.</span>set_ylim(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>)
+    plt<span style="color:#f92672">.</span>show()
 plot_learning_curves(history)
 
-# 在测试集上进行指标评估(sklearn没有evaluate函数)
-# model.evaluate(x_test_scaled, y_test)
+<span style="color:#75715e"># 在测试集上进行指标评估(sklearn没有evaluate函数)</span>
+<span style="color:#75715e"># model.evaluate(x_test_scaled, y_test)</span>
 
-from scipy.stats import reciprocal
-# f(x) = 1/(x*log(b/a)) a&lt;=x&lt;=b
+<span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> reciprocal
+<span style="color:#75715e"># f(x) = 1/(x*log(b/a)) a&lt;=x&lt;=b</span>
 
-param_distribution = {
-'hidden_layers': [1,2,3,4],
-'layer_size': np.arange(1,100),
-'learning_rate': reciprocal(1e-4, 1e-2),
+param_distribution <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#39;hidden_layers&#39;</span>: [<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">4</span>],
+    <span style="color:#e6db74">&#39;layer_size&#39;</span>: np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">100</span>),
+    <span style="color:#e6db74">&#39;learning_rate&#39;</span>: reciprocal(<span style="color:#ae81ff">1e-4</span>, <span style="color:#ae81ff">1e-2</span>),
 }
 
-from sklearn.model_selection import RandomizedSearchCV
+<span style="color:#f92672">from</span> sklearn.model_selection <span style="color:#f92672">import</span> RandomizedSearchCV
 
-random_search_cv = RandomizedSearchCV(sklearn_model,
-                                  param_distribution,
-                                  n_iter = 10,
-                                  cv = 3,
-                                  n_jobs = 1)
-random_search_cv.fit(x_train_scaled, y_train, epochs=100,
-                    validation_data = (x_valid_scaled, y_valid),
-                    callbacks = callbacks)
+random_search_cv <span style="color:#f92672">=</span> RandomizedSearchCV(sklearn_model,
+                                      param_distribution,
+                                      n_iter <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>,
+                                      cv <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>,
+                                      n_jobs <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>)
+random_search_cv<span style="color:#f92672">.</span>fit(x_train_scaled, y_train, epochs<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>,
+                        validation_data <span style="color:#f92672">=</span> (x_valid_scaled, y_valid),
+                        callbacks <span style="color:#f92672">=</span> callbacks)
 
-print(random_search_cv.best_params_)
-print(random_search_cv.best_score_)
-print(random_search_cv.best_estimator_) # 最好的model
+<span style="color:#66d9ef">print</span>(random_search_cv<span style="color:#f92672">.</span>best_params_)
+<span style="color:#66d9ef">print</span>(random_search_cv<span style="color:#f92672">.</span>best_score_)
+<span style="color:#66d9ef">print</span>(random_search_cv<span style="color:#f92672">.</span>best_estimator_) <span style="color:#75715e"># 最好的model</span>
 
-model = random_search_cv.best_estimator_.model
-model.evaluate(x_test_scaled, y_test)
-</code></pre></li>
-</ul>
+model <span style="color:#f92672">=</span> random_search_cv<span style="color:#f92672">.</span>best_estimator_<span style="color:#f92672">.</span>model
+model<span style="color:#f92672">.</span>evaluate(x_test_scaled, y_test)
+</code></pre></div><h3 id="基础api">基础API</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 常量</span>
 
-<h3 id="基础api">基础API</h3>
+t <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>constant([[<span style="color:#ae81ff">1.</span>, <span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">3.</span>], [<span style="color:#ae81ff">4.</span>, <span style="color:#ae81ff">5.</span>, <span style="color:#ae81ff">6.</span>]])
+<span style="color:#66d9ef">print</span>(t)
+<span style="color:#75715e"># 像numpy一样取值</span>
+<span style="color:#66d9ef">print</span>(t[:, <span style="color:#ae81ff">1</span>:])
+<span style="color:#66d9ef">print</span>(t[<span style="color:#f92672">...</span>, <span style="color:#ae81ff">1</span>])
 
-<pre><code class="language-python"># 常量
+<span style="color:#75715e"># 运算</span>
+<span style="color:#66d9ef">print</span>(t<span style="color:#f92672">+</span><span style="color:#ae81ff">10</span>)
+<span style="color:#66d9ef">print</span>(tf<span style="color:#f92672">.</span>square(t))
+<span style="color:#66d9ef">print</span>(t <span style="color:#960050;background-color:#1e0010">@</span> tf<span style="color:#f92672">.</span>transpose(t))
 
-t = tf.constant([[1., 2., 3.], [4., 5., 6.]])
-print(t)
-# 像numpy一样取值
-print(t[:, 1:])
-print(t[..., 1])
+<span style="color:#75715e"># 与numpy互转</span>
+<span style="color:#66d9ef">print</span>(t<span style="color:#f92672">.</span>numpy())
+<span style="color:#66d9ef">print</span>(np<span style="color:#f92672">.</span>square(t))
+np_t <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">1.</span>, <span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">3.</span>], [<span style="color:#ae81ff">4.</span>, <span style="color:#ae81ff">5.</span>, <span style="color:#ae81ff">6.</span>]])
+<span style="color:#66d9ef">print</span>(tf<span style="color:#f92672">.</span>constant(np_t))
 
-# 运算
-print(t+10)
-print(tf.square(t))
-print(t @ tf.transpose(t))
+<span style="color:#75715e"># 0维常量</span>
+t <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>constant(<span style="color:#ae81ff">2.718</span>)
+<span style="color:#66d9ef">print</span>(t<span style="color:#f92672">.</span>numpy())
+<span style="color:#66d9ef">print</span>(t<span style="color:#f92672">.</span>shape)
 
-# 与numpy互转
-print(t.numpy())
-print(np.square(t))
-np_t = np.array([[1., 2., 3.], [4., 5., 6.]])
-print(tf.constant(np_t))
+<span style="color:#75715e"># 字符串</span>
+t <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>constant(<span style="color:#e6db74">&#39;cafe&#39;</span>)
+<span style="color:#66d9ef">print</span>(tf<span style="color:#f92672">.</span>strings<span style="color:#f92672">.</span>length(t))
+<span style="color:#66d9ef">print</span>(tf<span style="color:#f92672">.</span>strings<span style="color:#f92672">.</span>length(t, unit<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;UTF8_CHAR&#39;</span>))
+<span style="color:#66d9ef">print</span>(tf<span style="color:#f92672">.</span>strings<span style="color:#f92672">.</span>unicode_decode(t, <span style="color:#e6db74">&#39;UTF8&#39;</span>))
 
-# 0维常量
-t = tf.constant(2.718)
-print(t.numpy())
-print(t.shape)
+<span style="color:#75715e"># 字符串数组</span>
 
-# 字符串
-t = tf.constant('cafe')
-print(tf.strings.length(t))
-print(tf.strings.length(t, unit='UTF8_CHAR'))
-print(tf.strings.unicode_decode(t, 'UTF8'))
+t <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>constant([<span style="color:#e6db74">&#39;cafe&#39;</span>, <span style="color:#e6db74">&#39;coffee&#39;</span>, <span style="color:#e6db74">&#39;咖啡&#39;</span>])
+<span style="color:#66d9ef">print</span>(tf<span style="color:#f92672">.</span>strings<span style="color:#f92672">.</span>length(t, unit<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;UTF8_CHAR&#39;</span>))
+r <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>strings<span style="color:#f92672">.</span>unicode_decode(t, <span style="color:#e6db74">&#39;UTF8&#39;</span>)
+<span style="color:#66d9ef">print</span>(r)
 
-# 字符串数组
+<span style="color:#75715e"># ragged tensor</span>
+r <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>ragged<span style="color:#f92672">.</span>constant([[<span style="color:#ae81ff">11</span>,<span style="color:#ae81ff">12</span>], [<span style="color:#ae81ff">21</span>,<span style="color:#ae81ff">22</span>,<span style="color:#ae81ff">23</span>],[],[<span style="color:#ae81ff">41</span>]])
+<span style="color:#66d9ef">print</span>(r)
+<span style="color:#66d9ef">print</span>(r[<span style="color:#ae81ff">1</span>])
+<span style="color:#66d9ef">print</span>(r[<span style="color:#ae81ff">1</span>:<span style="color:#ae81ff">2</span>])
 
-t = tf.constant(['cafe', 'coffee', '咖啡'])
-print(tf.strings.length(t, unit='UTF8_CHAR'))
-r = tf.strings.unicode_decode(t, 'UTF8')
-print(r)
+r2 <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>ragged<span style="color:#f92672">.</span>constant([[<span style="color:#ae81ff">51</span>,<span style="color:#ae81ff">52</span>], [], [<span style="color:#ae81ff">71</span>]])
+<span style="color:#66d9ef">print</span>(tf<span style="color:#f92672">.</span>concat([r,r2], axis<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>))
+<span style="color:#66d9ef">print</span>(r2<span style="color:#f92672">.</span>to_tensor())
 
-# ragged tensor
-r = tf.ragged.constant([[11,12], [21,22,23],[],[41]])
-print(r)
-print(r[1])
-print(r[1:2])
+<span style="color:#75715e"># sparse tensor</span>
 
-r2 = tf.ragged.constant([[51,52], [], [71]])
-print(tf.concat([r,r2], axis=0))
-print(r2.to_tensor())
+s <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>SparseTensor(indices <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>],[<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">0</span>],[<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>]],
+                    values <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1.</span>, <span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">3.</span>],
+                    dense_shape <span style="color:#f92672">=</span> [<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>])
+<span style="color:#66d9ef">print</span>(s)
+<span style="color:#66d9ef">print</span>(tf<span style="color:#f92672">.</span>sparse<span style="color:#f92672">.</span>to_dense(s))
 
-# sparse tensor
+s2 <span style="color:#f92672">=</span> s <span style="color:#f92672">*</span> <span style="color:#ae81ff">2.0</span>
+<span style="color:#66d9ef">print</span>(s2)
 
-s = tf.SparseTensor(indices = [[0,1],[1,0],[2,3]],
-                    values = [1., 2., 3.],
-                    dense_shape = [3, 4])
-print(s)
-print(tf.sparse.to_dense(s))
+<span style="color:#66d9ef">try</span>:
+    s3 <span style="color:#f92672">=</span> s <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">except</span> <span style="color:#a6e22e">TypeError</span> <span style="color:#66d9ef">as</span> ex:
+    <span style="color:#66d9ef">print</span>(ex)
 
-s2 = s * 2.0
-print(s2)
-
-try:
-    s3 = s + 1
-except TypeError as ex:
-    print(ex)
-
-s4 = tf.constant([[10., 20.],
-                   [30., 40.],
-                   [50., 60.],
-                   [70., 80.]])
-print(tf.sparse.sparse_dense_matmul(s, s4))
+s4 <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>constant([[<span style="color:#ae81ff">10.</span>, <span style="color:#ae81ff">20.</span>],
+                   [<span style="color:#ae81ff">30.</span>, <span style="color:#ae81ff">40.</span>],
+                   [<span style="color:#ae81ff">50.</span>, <span style="color:#ae81ff">60.</span>],
+                   [<span style="color:#ae81ff">70.</span>, <span style="color:#ae81ff">80.</span>]])
+<span style="color:#66d9ef">print</span>(tf<span style="color:#f92672">.</span>sparse<span style="color:#f92672">.</span>sparse_dense_matmul(s, s4))
 
 
-# 变量
+<span style="color:#75715e"># 变量</span>
 
-v = tf.Variable([[1., 2., 3.], [4., 5., 6.]])
-print(v)
-print(v.value())
-print(v.numpy())
+v <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>Variable([[<span style="color:#ae81ff">1.</span>, <span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">3.</span>], [<span style="color:#ae81ff">4.</span>, <span style="color:#ae81ff">5.</span>, <span style="color:#ae81ff">6.</span>]])
+<span style="color:#66d9ef">print</span>(v)
+<span style="color:#66d9ef">print</span>(v<span style="color:#f92672">.</span>value())
+<span style="color:#66d9ef">print</span>(v<span style="color:#f92672">.</span>numpy())
 
-# 赋值
+<span style="color:#75715e"># 赋值</span>
 
-v.assign(2*v)
-print(v.numpy())
-v[0,1].assign(42)
-print(v.numpy())
-v[1].assign([7., 8., 9.])
-print(v.numpy())
+v<span style="color:#f92672">.</span>assign(<span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>v)
+<span style="color:#66d9ef">print</span>(v<span style="color:#f92672">.</span>numpy())
+v[<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>assign(<span style="color:#ae81ff">42</span>)
+<span style="color:#66d9ef">print</span>(v<span style="color:#f92672">.</span>numpy())
+v[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>assign([<span style="color:#ae81ff">7.</span>, <span style="color:#ae81ff">8.</span>, <span style="color:#ae81ff">9.</span>])
+<span style="color:#66d9ef">print</span>(v<span style="color:#f92672">.</span>numpy())
 
 
-# 自定义损失函数与DenseLayer
+<span style="color:#75715e"># 自定义损失函数与DenseLayer</span>
 
-def customized_mse(y_true, y_pred):
-    return tf.reduce_mean(tf.square(y_true - y_pred))
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">customized_mse</span>(y_true, y_pred):
+    <span style="color:#66d9ef">return</span> tf<span style="color:#f92672">.</span>reduce_mean(tf<span style="color:#f92672">.</span>square(y_true <span style="color:#f92672">-</span> y_pred))
 
-class CostomizedDenseLayer(keras.layers.Layer):
-    def __init__(self, units, activation=None, **kw):
-        self.units = units
-        self.activation = keras.layers.Activation(activation)
-        super(CostomizedDenseLayer, self).__init__(**kw)
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CostomizedDenseLayer</span>(keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Layer):
+    <span style="color:#66d9ef">def</span> __init__(self, units, activation<span style="color:#f92672">=</span>None, <span style="color:#f92672">**</span>kw):
+        self<span style="color:#f92672">.</span>units <span style="color:#f92672">=</span> units
+        self<span style="color:#f92672">.</span>activation <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>layers<span style="color:#f92672">.</span>Activation(activation)
+        super(CostomizedDenseLayer, self)<span style="color:#f92672">.</span>__init__(<span style="color:#f92672">**</span>kw)
 
-    def build(self, input_shape):
-        &quot;&quot;&quot;构建所需要的参数&quot;&quot;&quot;
-        # x*w+b 
-        self.kernel = self.add_weight(name='kernel',
-                                        shape = (input_shape[1], self.units),
-                                        initializer = 'uniform',
-                                        trainable = True)
-        self.bias = self.add_weight(name='bias',
-                                    shape=(self.units),
-                                    initializer = 'zeros',
-                                    trainable = True)
-        super(CostomizedDenseLayer, self).build(input_shape)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">build</span>(self, input_shape):
+        <span style="color:#e6db74">&#34;&#34;&#34;构建所需要的参数&#34;&#34;&#34;</span>
+        <span style="color:#75715e"># x*w+b </span>
+        self<span style="color:#f92672">.</span>kernel <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>add_weight(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;kernel&#39;</span>,
+                                        shape <span style="color:#f92672">=</span> (input_shape[<span style="color:#ae81ff">1</span>], self<span style="color:#f92672">.</span>units),
+                                        initializer <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;uniform&#39;</span>,
+                                        trainable <span style="color:#f92672">=</span> True)
+        self<span style="color:#f92672">.</span>bias <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>add_weight(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;bias&#39;</span>,
+                                    shape<span style="color:#f92672">=</span>(self<span style="color:#f92672">.</span>units),
+                                    initializer <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;zeros&#39;</span>,
+                                    trainable <span style="color:#f92672">=</span> True)
+        super(CostomizedDenseLayer, self)<span style="color:#f92672">.</span>build(input_shape)
     
-    def call(self, x):
-        &quot;&quot;&quot;完成正向计算&quot;&quot;&quot;
-        return self.activation(x @ self.kernel + self.bias)
-# use
-model = keras.models.Sequentail([
-    CostomizedDenseLayer(30, activation='relu',
-                            input_shape = x_train_shape[1:]),
-    CostomizedDenseLayer(1)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">call</span>(self, x):
+        <span style="color:#e6db74">&#34;&#34;&#34;完成正向计算&#34;&#34;&#34;</span>
+        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>activation(x <span style="color:#960050;background-color:#1e0010">@</span> self<span style="color:#f92672">.</span>kernel <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>bias)
+<span style="color:#75715e"># use</span>
+model <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>models<span style="color:#f92672">.</span>Sequentail([
+    CostomizedDenseLayer(<span style="color:#ae81ff">30</span>, activation<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;relu&#39;</span>,
+                            input_shape <span style="color:#f92672">=</span> x_train_shape[<span style="color:#ae81ff">1</span>:]),
+    CostomizedDenseLayer(<span style="color:#ae81ff">1</span>)
 ])
 
-# tf.function python函数转图
+<span style="color:#75715e"># tf.function python函数转图</span>
 
-def scaled_elu(z, scale=1.0, alpha=1.0):
-    is_position = tf.greater_equal(z, 0.0)
-    return scale * tf.where(is_position, z, alpha * tf.nn.elu(z))
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">scaled_elu</span>(z, scale<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>, alpha<span style="color:#f92672">=</span><span style="color:#ae81ff">1.0</span>):
+    is_position <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>greater_equal(z, <span style="color:#ae81ff">0.0</span>)
+    <span style="color:#66d9ef">return</span> scale <span style="color:#f92672">*</span> tf<span style="color:#f92672">.</span>where(is_position, z, alpha <span style="color:#f92672">*</span> tf<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>elu(z))
 
-scaled_elu_tf = tf.function(scaled_elu)
-print(scaled_elu_tf.python_function is scaled_elu)
+scaled_elu_tf <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>function(scaled_elu)
+<span style="color:#66d9ef">print</span>(scaled_elu_tf<span style="color:#f92672">.</span>python_function <span style="color:#f92672">is</span> scaled_elu)
 
-# 函数签名
-@tf.function(input_signature=[tf.TensorSpec([None], tf.int32, name='x')])
-def cube(z):
-    return tf.pow(z, 3)
+<span style="color:#75715e"># 函数签名</span>
+<span style="color:#a6e22e">@tf.function</span>(input_signature<span style="color:#f92672">=</span>[tf<span style="color:#f92672">.</span>TensorSpec([None], tf<span style="color:#f92672">.</span>int32, name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;x&#39;</span>)])
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">cube</span>(z):
+    <span style="color:#66d9ef">return</span> tf<span style="color:#f92672">.</span>pow(z, <span style="color:#ae81ff">3</span>)
 
-try:
-    print(cube(tf.constant([1., 2., 3.])))
-except ValueError as ex:
-    print(ex)
+<span style="color:#66d9ef">try</span>:
+    <span style="color:#66d9ef">print</span>(cube(tf<span style="color:#f92672">.</span>constant([<span style="color:#ae81ff">1.</span>, <span style="color:#ae81ff">2.</span>, <span style="color:#ae81ff">3.</span>])))
+<span style="color:#66d9ef">except</span> <span style="color:#a6e22e">ValueError</span> <span style="color:#66d9ef">as</span> ex:
+    <span style="color:#66d9ef">print</span>(ex)
 
-print(cube(tf.constant([1,2,3])))
+<span style="color:#66d9ef">print</span>(cube(tf<span style="color:#f92672">.</span>constant([<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>])))
 
-# 图结构
-# ...
-# 近似求导
+<span style="color:#75715e"># 图结构</span>
+<span style="color:#75715e"># ...</span>
+<span style="color:#75715e"># 近似求导</span>
 
-def f(x):
-    return 3. * x**2 + 2. * x - 1
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(x):
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">3.</span> <span style="color:#f92672">*</span> x<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2.</span> <span style="color:#f92672">*</span> x <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
 
-def aproximate_derivative(f, x, eps=1e-3):
-    return (f(x+eps) - f(x-eps)) / (2. * eps)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">aproximate_derivative</span>(f, x, eps<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-3</span>):
+    <span style="color:#66d9ef">return</span> (f(x<span style="color:#f92672">+</span>eps) <span style="color:#f92672">-</span> f(x<span style="color:#f92672">-</span>eps)) <span style="color:#f92672">/</span> (<span style="color:#ae81ff">2.</span> <span style="color:#f92672">*</span> eps)
 
-print(aproximate_derivative(f, 1.))
+<span style="color:#66d9ef">print</span>(aproximate_derivative(f, <span style="color:#ae81ff">1.</span>))
 
-def g(x1, x2):
-    return (x1 + 5) * (x2 ** 2)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">g</span>(x1, x2):
+    <span style="color:#66d9ef">return</span> (x1 <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>) <span style="color:#f92672">*</span> (x2 <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>)
 
-def aproximate_gradient(g, x1, x2, eps=1e-3):
-    dg_x1 = aproximate_derivative(lambda x: g(x,x2), x1, eps)
-    dg_x2 = aproximate_derivative(lambda x: g(x1, x), x2, eps)
-    return dg_x1, dg_x2
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">aproximate_gradient</span>(g, x1, x2, eps<span style="color:#f92672">=</span><span style="color:#ae81ff">1e-3</span>):
+    dg_x1 <span style="color:#f92672">=</span> aproximate_derivative(<span style="color:#66d9ef">lambda</span> x: g(x,x2), x1, eps)
+    dg_x2 <span style="color:#f92672">=</span> aproximate_derivative(<span style="color:#66d9ef">lambda</span> x: g(x1, x), x2, eps)
+    <span style="color:#66d9ef">return</span> dg_x1, dg_x2
 
-print(aproximate_gradient(g, 2, 3))
+<span style="color:#66d9ef">print</span>(aproximate_gradient(g, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>))
 
-# tensorflow求导
-x1 = tf.Variable(2.)
-x2 = tf.Variable(3.)
+<span style="color:#75715e"># tensorflow求导</span>
+x1 <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>Variable(<span style="color:#ae81ff">2.</span>)
+x2 <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>Variable(<span style="color:#ae81ff">3.</span>)
 
-with tf.GradientTape(persistent=True) as tape:
-    z = g(x1, x2)
+<span style="color:#66d9ef">with</span> tf<span style="color:#f92672">.</span>GradientTape(persistent<span style="color:#f92672">=</span>True) <span style="color:#66d9ef">as</span> tape:
+    z <span style="color:#f92672">=</span> g(x1, x2)
 
-dz_x1 = tape.gradient(z, x1)
-dz_x2 = tape.gradient(z, x2)
-dz_x1_x2 = tape.gradient(z, [x1, x2])
-print(dz_x1,dz_x2, dz_x1_x2)
-del tape
+dz_x1 <span style="color:#f92672">=</span> tape<span style="color:#f92672">.</span>gradient(z, x1)
+dz_x2 <span style="color:#f92672">=</span> tape<span style="color:#f92672">.</span>gradient(z, x2)
+dz_x1_x2 <span style="color:#f92672">=</span> tape<span style="color:#f92672">.</span>gradient(z, [x1, x2])
+<span style="color:#66d9ef">print</span>(dz_x1,dz_x2, dz_x1_x2)
+<span style="color:#66d9ef">del</span> tape
 
-# 与optimizer结合
-learning_rate = 0.1
-x = tf.Variable(0.0)
+<span style="color:#75715e"># 与optimizer结合</span>
+learning_rate <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.1</span>
+x <span style="color:#f92672">=</span> tf<span style="color:#f92672">.</span>Variable(<span style="color:#ae81ff">0.0</span>)
 
-optimizer = keras.optimizer.SGD(lr = learning_rate)
-for _ in range(100):
-    with tf.GradientTape() as tape:
-        z = f(x)
-    dz_dx = tape.gradient(z, x)
-    x.assign_sub(learning_rate * dz_dx)
-    optimizer.apply_gradients([dz_dx, x])
+optimizer <span style="color:#f92672">=</span> keras<span style="color:#f92672">.</span>optimizer<span style="color:#f92672">.</span>SGD(lr <span style="color:#f92672">=</span> learning_rate)
+<span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">100</span>):
+    <span style="color:#66d9ef">with</span> tf<span style="color:#f92672">.</span>GradientTape() <span style="color:#66d9ef">as</span> tape:
+        z <span style="color:#f92672">=</span> f(x)
+    dz_dx <span style="color:#f92672">=</span> tape<span style="color:#f92672">.</span>gradient(z, x)
+    x<span style="color:#f92672">.</span>assign_sub(learning_rate <span style="color:#f92672">*</span> dz_dx)
+    optimizer<span style="color:#f92672">.</span>apply_gradients([dz_dx, x])
 
-print(x)
+<span style="color:#66d9ef">print</span>(x)
 
-# 与tf.keras结合使用
-# ...
-</code></pre>
-
-<p>Tensorflow学习笔记系列均使用该环境<br />
+<span style="color:#75715e"># 与tf.keras结合使用</span>
+<span style="color:#75715e"># ...</span>
+</code></pre></div><p>Tensorflow学习笔记系列均使用该环境<br>
 python &ndash;version
 3.6.10
 <a href="/accessory/requirements20200222.txt">requirements.txt</a></p>

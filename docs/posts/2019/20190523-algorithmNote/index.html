@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -104,17 +104,15 @@
                                 
                                     <div class="toc-title">文章目录</div> 
                                     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#huffmantree">HuffmanTree</a></li>
-<li><a href="#欧几里得算法">欧几里得算法</a></li>
-<li><a href="#杨辉三角">杨辉三角</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#huffmantree">HuffmanTree</a></li>
+        <li><a href="#欧几里得算法">欧几里得算法</a></li>
+        <li><a href="#杨辉三角">杨辉三角</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                                 
                                 </div>
@@ -122,185 +120,158 @@
                         
                         <div class="post-content">
                             <p>记录一下几个比较经典的算法。</p>
-
 <h3 id="huffmantree">HuffmanTree</h3>
-
 <blockquote>
 <p><a href="https://zh.wikipedia.org/wiki/%E9%9C%8D%E5%A4%AB%E6%9B%BC%E7%BC%96%E7%A0%81">哈弗曼编码</a>:使用变长编码表对应原符号进行编码，其中变长编码表是通过一种评估原符号出现几率的方法得到的，出现几率高的使用较短的编码，反之出现几率低的则使用较长的编码，这便使编码后的字符串的平均长度、期望值降低，从而达到无损压缩数据的目的。</p>
 </blockquote>
-
-<p>使用01进行哈弗曼编码时任何一个编码都不能是另一个编码的前缀，满足这样性质的编码称为前缀码(Preix Code)<br />
+<p>使用01进行哈弗曼编码时任何一个编码都不能是另一个编码的前缀，满足这样性质的编码称为前缀码(Preix Code)<br>
 最优编码问题，给出n个字符的频率，每个字符赋予一个01编码串，使得任意一个字符的编码不是另一个字符的前缀，而且编码后的总长度尽量小</p>
-
 <p>Huffman算法:把每个字符看做单节点子树放在一个树的集合中，每棵子树的权值等于相应字符的频率。每次取出权值最小的两棵子树合并成一棵新树，并重新放到集合中。新树的权值等于两棵子树的权值之和。</p>
-
 <p>下面证明算法的正确性:</p>
-
 <p>结论 1: 设x和y是频率最小的两个字符,则存在前缀码使得x和y具有相同的码长，且仅有最后一位编码不同，也就是说第一步贪心算法选择保留最优解。
 证明: 假设深度最大节点为a，则a一定有一个兄弟节点b。不妨设f(x)&lt;=f(y),f(a)&lt;=f(b),则f(x)&lt;=f(a),f(y)&lt;=f(b)。如果x不是a,则交换x和a;如果y不是b则交换y和b,这样得到新编码的树不会比。
 结论 2: 设T是加权字符集C的最优编码树，x和y是树T中两个叶子节点，且互为兄弟节点，z是他们的父节点。若把z看成是具有频率f(z)=f(x)+f(y)的字符，则树T`=T-{x,y}是字符集C`=C-{x,y}U{z}的一棵最优编码树。换句话说，原问题最优解包含子问题最优解。
 证明: 设T`的编码长度为L，其中字符{x,}的深度为h，则把字符{x,y}拆成两个后,长度变为L-(f(x)+f(y))<em>h+(f(x)+f(y))</em>(h+1)=L+f(x)+f(y)。因此T`必须是C`的最优编码树,T才是C的最优编码树。</p>
-
-<pre><code class="language-c">#include&lt;cstdio&gt;
-#include&lt;deque&gt;
-#include&lt;algorithm&gt;
-
-struct Node{
-    unsigned int weight;
-    Node *left;
-    Node *right;
-    Node(int x):weight(x),left(NULL),right(NULL){}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;deque&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">struct</span> Node{
+    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> weight;
+    Node <span style="color:#f92672">*</span>left;
+    Node <span style="color:#f92672">*</span>right;
+    Node(<span style="color:#66d9ef">int</span> x)<span style="color:#f92672">:</span>weight(x),left(NULL),right(NULL){}
 };
 
 
 
-bool isFirst = true;   //输出时判断是否第一个
+<span style="color:#66d9ef">bool</span> isFirst <span style="color:#f92672">=</span> true;   <span style="color:#75715e">//输出时判断是否第一个
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">compare</span>(Node<span style="color:#f92672">*</span> a,Node<span style="color:#f92672">*</span> b);  <span style="color:#75715e">//定义排序规则
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printHuffmanLeaf</span>(Node<span style="color:#f92672">*</span> root);  <span style="color:#75715e">//输出编码后的叶子,从左至右
+</span><span style="color:#75715e"></span>Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuffman</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arr,<span style="color:#66d9ef">int</span> len);    <span style="color:#75715e">//构造哈夫曼树
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+    <span style="color:#66d9ef">int</span> arr[<span style="color:#ae81ff">8</span>]<span style="color:#f92672">=</span>{<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">29</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">14</span>,<span style="color:#ae81ff">23</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">11</span>};  <span style="color:#75715e">//测试数据,根据权值进行哈夫曼编码
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> len <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(arr)<span style="color:#f92672">/</span><span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>);
 
-bool compare(Node* a,Node* b);  //定义排序规则
-void printHuffmanLeaf(Node* root);  //输出编码后的叶子,从左至右
-Node* encodingHuffman(int* arr,int len);    //构造哈夫曼树
-
-int main(){
-    int arr[8]={5,29,7,8,14,23,3,11};  //测试数据,根据权值进行哈夫曼编码
-    const int len = sizeof(arr)/sizeof(unsigned int);
-
-    Node* ptr = encodingHuffman(arr,len);
-    printf(&quot;[&quot;);
+    Node<span style="color:#f92672">*</span> ptr <span style="color:#f92672">=</span> encodingHuffman(arr,len);
+    printf(<span style="color:#e6db74">&#34;[&#34;</span>);
     printHuffmanLeaf(ptr);
-    printf(&quot;]\n&quot;);
-    return 0;
+    printf(<span style="color:#e6db74">&#34;]</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
 
-bool compare(Node* a,Node* b){
-    return a-&gt;weight &lt; b-&gt;weight;   //按从小到大顺序来排
-}
+<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">compare</span>(Node<span style="color:#f92672">*</span> a,Node<span style="color:#f92672">*</span> b){
+    <span style="color:#66d9ef">return</span> a<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">&lt;</span> b<span style="color:#f92672">-&gt;</span>weight;   <span style="color:#75715e">//按从小到大顺序来排
+</span><span style="color:#75715e"></span>}
 
-void printHuffmanLeaf(Node* root){
-    if(root-&gt;left==NULL &amp;&amp; root-&gt;right==NULL){
-        if(isFirst)
-            isFirst=false;
-        else
-            printf(&quot;,&quot;);
-        printf(&quot;%d&quot;,root-&gt;weight);
-        return ;
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printHuffmanLeaf</span>(Node<span style="color:#f92672">*</span> root){
+    <span style="color:#66d9ef">if</span>(root<span style="color:#f92672">-&gt;</span>left<span style="color:#f92672">==</span>NULL <span style="color:#f92672">&amp;&amp;</span> root<span style="color:#f92672">-&gt;</span>right<span style="color:#f92672">==</span>NULL){
+        <span style="color:#66d9ef">if</span>(isFirst)
+            isFirst<span style="color:#f92672">=</span>false;
+        <span style="color:#66d9ef">else</span>
+            printf(<span style="color:#e6db74">&#34;,&#34;</span>);
+        printf(<span style="color:#e6db74">&#34;%d&#34;</span>,root<span style="color:#f92672">-&gt;</span>weight);
+        <span style="color:#66d9ef">return</span> ;
     }
-    printHuffmanLeaf(root-&gt;left);   //递归输出左边叶子节点
-    printHuffmanLeaf(root-&gt;right);  //递归输出右边叶子节点
-}
+    printHuffmanLeaf(root<span style="color:#f92672">-&gt;</span>left);   <span style="color:#75715e">//递归输出左边叶子节点
+</span><span style="color:#75715e"></span>    printHuffmanLeaf(root<span style="color:#f92672">-&gt;</span>right);  <span style="color:#75715e">//递归输出右边叶子节点
+</span><span style="color:#75715e"></span>}
 
-Node* encodingHuffman(int* arr,int len){
-    std::deque&lt;Node*&gt; huffmanTree;   //用于构造哈夫曼树的队列
-    for(int i=0;i&lt;len;++i){     //初始化队列
-        Node* ptr = new Node(arr[i]);
+Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuffman</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arr,<span style="color:#66d9ef">int</span> len){
+    std<span style="color:#f92672">::</span>deque<span style="color:#f92672">&lt;</span>Node<span style="color:#f92672">*&gt;</span> huffmanTree;   <span style="color:#75715e">//用于构造哈夫曼树的队列
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>len;<span style="color:#f92672">++</span>i){     <span style="color:#75715e">//初始化队列
+</span><span style="color:#75715e"></span>        Node<span style="color:#f92672">*</span> ptr <span style="color:#f92672">=</span> new Node(arr[i]);
         huffmanTree.push_back(ptr);
     }
-    for(int i=0;i&lt;len-1;i++){
-        std::sort(huffmanTree.begin(),huffmanTree.end(),compare);    //每次构造完新的哈夫曼树后从新排序
-        Node* ptr = new Node(huffmanTree[0]-&gt;weight + huffmanTree[1]-&gt;weight);  //新哈夫曼树的权值等于当前最小两棵哈夫曼树权值和(每个节点看做一棵小的哈夫曼树)
-        ptr-&gt;left = huffmanTree[0];     //新节点的左子树等于最小哈夫曼树
-        ptr-&gt;right = huffmanTree[1];    //新节点的右子树等于次小哈夫曼树
-        huffmanTree.pop_front();        //最小两棵哈夫曼树出队
-        huffmanTree.pop_front();
-        huffmanTree.push_back(ptr);     //新哈夫曼树入队
-    }
-    return huffmanTree.front();         //返回第一棵哈夫曼树,此时也仅剩一棵了
-}
-</code></pre>
-
-<p>时间复杂度分析:可以看出来本例算法时间主要用在哈弗曼编码函数encodingHuffuman()第二个for循环中,循环每次只需要将队列的前两个合成一棵哈夫曼树所以其时间复杂度为O(n),每次插入新的哈夫曼树后需要重新排序，其时间复杂度是logn,总的时间复杂度为O(nlogn)</p>
-
-<hr />
-
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>len<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;i<span style="color:#f92672">++</span>){
+        std<span style="color:#f92672">::</span>sort(huffmanTree.begin(),huffmanTree.end(),compare);    <span style="color:#75715e">//每次构造完新的哈夫曼树后从新排序
+</span><span style="color:#75715e"></span>        Node<span style="color:#f92672">*</span> ptr <span style="color:#f92672">=</span> new Node(huffmanTree[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">+</span> huffmanTree[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">-&gt;</span>weight);  <span style="color:#75715e">//新哈夫曼树的权值等于当前最小两棵哈夫曼树权值和(每个节点看做一棵小的哈夫曼树)
+</span><span style="color:#75715e"></span>        ptr<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> huffmanTree[<span style="color:#ae81ff">0</span>];     <span style="color:#75715e">//新节点的左子树等于最小哈夫曼树
+</span><span style="color:#75715e"></span>        ptr<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> huffmanTree[<span style="color:#ae81ff">1</span>];    <span style="color:#75715e">//新节点的右子树等于次小哈夫曼树
+</span><span style="color:#75715e"></span>        huffmanTree.pop_front();        <span style="color:#75715e">//最小两棵哈夫曼树出队
+</span><span style="color:#75715e"></span>        huffmanTree.pop_front();
+        huffmanTree.push_back(ptr);     <span style="color:#75715e">//新哈夫曼树入队
+</span><span style="color:#75715e"></span>    }
+    <span style="color:#66d9ef">return</span> huffmanTree.front();         <span style="color:#75715e">//返回第一棵哈夫曼树,此时也仅剩一棵了
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>时间复杂度分析:可以看出来本例算法时间主要用在哈弗曼编码函数encodingHuffuman()第二个for循环中,循环每次只需要将队列的前两个合成一棵哈夫曼树所以其时间复杂度为O(n),每次插入新的哈夫曼树后需要重新排序，其时间复杂度是logn,总的时间复杂度为O(nlogn)</p>
+<hr>
 <h3 id="欧几里得算法">欧几里得算法</h3>
-
 <blockquote>
-<p>欧几里得算法其实就是<a href="https://zh.wikipedia.org/wiki/%E8%BC%BE%E8%BD%89%E7%9B%B8%E9%99%A4%E6%B3%95">辗转相除法</a>,是求最大公约数的算法。<br />
+<p>欧几里得算法其实就是<a href="https://zh.wikipedia.org/wiki/%E8%BC%BE%E8%BD%89%E7%9B%B8%E9%99%A4%E6%B3%95">辗转相除法</a>,是求最大公约数的算法。<br>
 辗转相除法基于如下原理：两个整数的最大公约数等于其中较小的数和两数的差的最大公约数。(a&gt;b当a&gt;2b需要重复多次a-b操作,所以欧几里得算法也是，两个整数的最大公约数等于其中较小的数和两数的余数的最大公约数)</p>
 </blockquote>
-
-<pre><code class="language-c">gcd(a,b){
-    if(a&lt;b)
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">gcd(a,b){
+    <span style="color:#66d9ef">if</span>(a<span style="color:#f92672">&lt;</span>b)
         swap(a,b);
-    return b==0 ? a:gcd(b,a%b);
+    <span style="color:#66d9ef">return</span> b<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> a:gcd(b,a<span style="color:#f92672">%</span>b);
 }
-</code></pre>
-
-<p>辗转相除法的计算过程可以用图形演示。[24]假设我们要在a×b的矩形地面上铺正方形瓷砖，并且正好铺满，其中a大于b。我们先尝试用b×b的瓷砖，但是留下了r0×b的部分，其中r0&lt;b。我们接着尝试用r0×r0的正方形瓷砖铺，又留下了r1×r0的部分，然后再使用r1×r1的正方形铺……直到全部铺满为止，即到某步时正方形刚好覆盖剩余的面积为止。此时用到的最小的正方形的边长就是原来矩形的两条边长的最大公约数。在图中，最小的正方形面积是21×21（红色），而原先的矩形（绿色）边长是1071×462，所以21是1071和462的最大公约数。</p>
-
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Euclidean_algorithm_1071_462.gif/51px-Euclidean_algorithm_1071_462.gif" alt="" /></p>
-
-<hr />
-
+</code></pre></div><p>辗转相除法的计算过程可以用图形演示。[24]假设我们要在a×b的矩形地面上铺正方形瓷砖，并且正好铺满，其中a大于b。我们先尝试用b×b的瓷砖，但是留下了r0×b的部分，其中r0&lt;b。我们接着尝试用r0×r0的正方形瓷砖铺，又留下了r1×r0的部分，然后再使用r1×r1的正方形铺……直到全部铺满为止，即到某步时正方形刚好覆盖剩余的面积为止。此时用到的最小的正方形的边长就是原来矩形的两条边长的最大公约数。在图中，最小的正方形面积是21×21（红色），而原先的矩形（绿色）边长是1071×462，所以21是1071和462的最大公约数。</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Euclidean_algorithm_1071_462.gif/51px-Euclidean_algorithm_1071_462.gif" alt=""></p>
+<hr>
 <h3 id="杨辉三角">杨辉三角</h3>
-
 <blockquote>
 <p><a href="https://zh.wikipedia.org/wiki/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%E5%BD%A2">杨辉三角</a>，是二项式系数在三角形中的一种几何排列。</p>
 </blockquote>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span>
+              <span style="color:#75715e">１</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>　　　　　　　<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">１</span>
+　　　　　　<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">２</span>　<span style="color:#ae81ff">１</span>
+　　　　　<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">３</span>　<span style="color:#ae81ff">３</span>　<span style="color:#ae81ff">１</span>
+　　　　<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">４</span>　<span style="color:#ae81ff">６</span>　<span style="color:#ae81ff">４</span>　<span style="color:#ae81ff">１</span>
+　　　<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">５</span>　<span style="color:#ae81ff">10</span>　<span style="color:#ae81ff">10</span>　<span style="color:#ae81ff">５</span>　<span style="color:#ae81ff">１</span>
+　　<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">６</span>　<span style="color:#ae81ff">15</span>　<span style="color:#ae81ff">20</span>　<span style="color:#ae81ff">15</span>　<span style="color:#ae81ff">６</span>　<span style="color:#ae81ff">１</span>
+　<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">７</span>　<span style="color:#ae81ff">21</span>　<span style="color:#ae81ff">35</span>　<span style="color:#ae81ff">35</span>　<span style="color:#ae81ff">21</span>　<span style="color:#ae81ff">７</span>　<span style="color:#ae81ff">１</span>
+<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">８</span>　<span style="color:#ae81ff">28</span>　<span style="color:#ae81ff">56</span>　<span style="color:#ae81ff">70</span>　<span style="color:#ae81ff">56</span>　<span style="color:#ae81ff">28</span>　<span style="color:#ae81ff">８</span>　<span style="color:#ae81ff">１</span>
 
-<pre><code class="language-c">#include
-              １
-　　　　　　　１　１
-　　　　　　１　２　１
-　　　　　１　３　３　１
-　　　　１　４　６　４　１
-　　　１　５　10　10　５　１
-　　１　６　15　20　15　６　１
-　１　７　21　35　35　21　７　１
-１　８　28　56　70　56　28　８　１
+</code></pre></div><p>(a+b)<!-- raw HTML omitted -->n<!-- raw HTML omitted --> 展开，将得到一个关于x的多项式:<br>
+(a+b)<!-- raw HTML omitted -->0<!-- raw HTML omitted --> = 1<br>
+(a+b)<!-- raw HTML omitted -->1<!-- raw HTML omitted --> = a+b<br>
+(a+b)<!-- raw HTML omitted -->2<!-- raw HTML omitted --> = a<!-- raw HTML omitted -->2<!-- raw HTML omitted --> + 2ab + b<!-- raw HTML omitted -->2<!-- raw HTML omitted --><br>
+(a+b)<!-- raw HTML omitted -->3<!-- raw HTML omitted --> = a<!-- raw HTML omitted -->3<!-- raw HTML omitted --> + 3a<!-- raw HTML omitted -->2<!-- raw HTML omitted -->b + 3ab<!-- raw HTML omitted -->2<!-- raw HTML omitted -->  + b<!-- raw HTML omitted -->3<!-- raw HTML omitted --><br>
+(a+b)<!-- raw HTML omitted -->3<!-- raw HTML omitted --> = a<!-- raw HTML omitted -->4<!-- raw HTML omitted --> + 4a<!-- raw HTML omitted -->3<!-- raw HTML omitted -->b + 6a<!-- raw HTML omitted -->2<!-- raw HTML omitted -->b<!-- raw HTML omitted -->2<!-- raw HTML omitted --> + 4ab<!-- raw HTML omitted -->3<!-- raw HTML omitted --> + b<!-- raw HTML omitted -->4<!-- raw HTML omitted --></p>
+<p>系数正好和杨辉三角一致,而(a+b)<!-- raw HTML omitted -->n<!-- raw HTML omitted --> =  ∑<!-- raw HTML omitted -->n<!-- raw HTML omitted --><!-- raw HTML omitted -->k=0<!-- raw HTML omitted --> C<!-- raw HTML omitted -->k<!-- raw HTML omitted --><!-- raw HTML omitted -->n<!-- raw HTML omitted -->a<!-- raw HTML omitted -->n-k<!-- raw HTML omitted -->b<!-- raw HTML omitted -->k<!-- raw HTML omitted --><br>
+组合数公式: <code>C = n!/k!(n-k)!</code><br>
+(<!-- raw HTML omitted --><a href="http://www.w3school.com.cn/tags/html_ref_symbols.html">特殊符号</a><!-- raw HTML omitted -->)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#ae81ff">１</span>
+<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">１</span>
+<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">２</span>　<span style="color:#ae81ff">１</span>
+<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">３</span>　<span style="color:#ae81ff">３</span>　<span style="color:#ae81ff">１</span>
+<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">４</span>　<span style="color:#ae81ff">６</span>　<span style="color:#ae81ff">４</span>　<span style="color:#ae81ff">１</span>
+<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">５</span>　<span style="color:#ae81ff">10</span>　<span style="color:#ae81ff">10</span>　<span style="color:#ae81ff">５</span>　<span style="color:#ae81ff">１</span>
+<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">６</span>　<span style="color:#ae81ff">15</span>　<span style="color:#ae81ff">20</span>　<span style="color:#ae81ff">15</span>　<span style="color:#ae81ff">６</span>　<span style="color:#ae81ff">１</span>
+<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">７</span>　<span style="color:#ae81ff">21</span>　<span style="color:#ae81ff">35</span>　<span style="color:#ae81ff">35</span>　<span style="color:#ae81ff">21</span>　<span style="color:#ae81ff">７</span>　<span style="color:#ae81ff">１</span>
+<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">８</span>　<span style="color:#ae81ff">28</span>　<span style="color:#ae81ff">56</span>　<span style="color:#ae81ff">70</span>　<span style="color:#ae81ff">56</span>　<span style="color:#ae81ff">28</span>　<span style="color:#ae81ff">８</span>　<span style="color:#ae81ff">１</span>
 
-</code></pre>
+</code></pre></div><p>把杨辉三角左对齐一下不难发现，从第二行开始元素x[i][j]的值等于x[i-1][j-1]+x[i-1][j],构造一个n次方的杨辉三角</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span>using namespace std;
 
-<p>(a+b)<sup>n</sup> 展开，将得到一个关于x的多项式:<br />
-(a+b)<sup>0</sup> = 1<br />
-(a+b)<sup>1</sup> = a+b<br />
-(a+b)<sup>2</sup> = a<sup>2</sup> + 2ab + b<sup>2</sup><br />
-(a+b)<sup>3</sup> = a<sup>3</sup> + 3a<sup>2</sup>b + 3ab<sup>2</sup>  + b<sup>3</sup><br />
-(a+b)<sup>3</sup> = a<sup>4</sup> + 4a<sup>3</sup>b + 6a<sup>2</sup>b<sup>2</sup> + 4ab<sup>3</sup> + b<sup>4</sup></p>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+    <span style="color:#66d9ef">int</span> n;
+    scanf(<span style="color:#e6db74">&#34;%d&#34;</span>,<span style="color:#f92672">&amp;</span>n);
+    <span style="color:#66d9ef">int</span> triangle[n<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][n<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
+    memset(triangle,<span style="color:#ae81ff">0</span>,<span style="color:#66d9ef">sizeof</span>(triangle));
 
-<p>系数正好和杨辉三角一致,而(a+b)<sup>n</sup> =  &sum;<sup>n</sup><sub>k=0</sub> C<sup>k</sup><sub>n</sub>a<sup>n-k</sup>b<sup>k</sup><br />
-组合数公式: <code>C = n!/k!(n-k)!</code><br />
-(<i><a href="http://www.w3school.com.cn/tags/html_ref_symbols.html">特殊符号</a></i>)</p>
-
-<pre><code class="language-c">１
-１　１
-１　２　１
-１　３　３　１
-１　４　６　４　１
-１　５　10　10　５　１
-１　６　15　20　15　６　１
-１　７　21　35　35　21　７　１
-１　８　28　56　70　56　28　８　１
-
-</code></pre>
-
-<p>把杨辉三角左对齐一下不难发现，从第二行开始元素x[i][j]的值等于x[i-1][j-1]+x[i-1][j],构造一个n次方的杨辉三角</p>
-
-<pre><code class="language-c">#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-using namespace std;
-
-int main(){
-    int n;
-    scanf(&quot;%d&quot;,&amp;n);
-    int triangle[n+1][n+1];
-    memset(triangle,0,sizeof(triangle));
-
-    for(int i=0;i&lt;=n;i++){  //构造杨辉三角
-        triangle[i][0] = 1;
-        for(int j=1;j&lt;=i;j++){
-            triangle[i][j] = triangle[i-1][j-1] + triangle[i-1][j];
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;=</span>n;i<span style="color:#f92672">++</span>){  <span style="color:#75715e">//构造杨辉三角
+</span><span style="color:#75715e"></span>        triangle[i][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;j<span style="color:#f92672">&lt;=</span>i;j<span style="color:#f92672">++</span>){
+            triangle[i][j] <span style="color:#f92672">=</span> triangle[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> triangle[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j];
         }
     }
 
-    for(int i=0;i&lt;=n;i++){  //输出
-        for(int j=0;j&lt;=i;j++){
-            printf(&quot;%3d &quot;,triangle[i][j]);
+    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;=</span>n;i<span style="color:#f92672">++</span>){  <span style="color:#75715e">//输出
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;j<span style="color:#f92672">&lt;=</span>i;j<span style="color:#f92672">++</span>){
+            printf(<span style="color:#e6db74">&#34;%3d &#34;</span>,triangle[i][j]);
         }
-        printf(&quot;\n&quot;);
+        printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
     }
-    return 0;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre>
+</code></pre></div>
                         </div>
 
                         

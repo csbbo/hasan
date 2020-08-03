@@ -3,7 +3,7 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="generator" content="Hugo 0.59.1" />
+    <meta name="generator" content="Hugo 0.74.3" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -104,16 +104,14 @@
                                 
                                     <div class="toc-title">文章目录</div> 
                                     <nav id="TableOfContents">
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><a href="#line-profiler">line_profiler</a></li>
-<li><a href="#memory-profiler">memory_profiler</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#line_profiler">line_profiler</a></li>
+        <li><a href="#memory_profiler">memory_profiler</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
                                 
                                 </div>
@@ -121,96 +119,68 @@
                         
                         <div class="post-content">
                             <p>对代码优化的前提是需要了解性能瓶颈在什么地方，程序运行的主要时间和内存是消耗在哪里。line_profiler和memory_profiler就能够很好的帮我们定位到时间和内存都消耗在哪里了。</p>
-
-<h3 id="line-profiler">line_profiler</h3>
-
+<h3 id="line_profiler">line_profiler</h3>
 <p>line_profiler是一个用于逐行分析函数时间消耗的模块。</p>
-
 <p>安装</p>
-
-<pre><code class="language-python">pip install line_profiler
-</code></pre>
-
-<p>封装了一个类装饰器</p>
-
-<pre><code class="language-python">class line_profile:
-    &quot;&quot;&quot;
-    put @line_profile on function
-    :param follow 显示调用的函数具体时间消耗
-    &quot;&quot;&quot;
-    def __init__(self, follow=None):
-        self.follow = follow or []
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pip install line_profiler
+</code></pre></div><p>封装了一个类装饰器</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">line_profile</span>:
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    put @line_profile on function
+</span><span style="color:#e6db74">    :param follow 显示调用的函数具体时间消耗
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    <span style="color:#66d9ef">def</span> __init__(self, follow<span style="color:#f92672">=</span>None):
+        self<span style="color:#f92672">.</span>follow <span style="color:#f92672">=</span> follow <span style="color:#f92672">or</span> []
     
-    def __call__(self, func):
-        @functools.wraps(func)
-        def prof_func(*args, **kw):
-            lp = LineProfiler()
-            list(map(lambda x: lp.add_function(x), self.follow))
-            lp_wrapper = lp(func)
-            result = lp_wrapper(*args, **kw)
-            lp.print_stats()
-            return result
-        return prof_func
-</code></pre>
+    <span style="color:#66d9ef">def</span> __call__(self, func):
+        <span style="color:#a6e22e">@functools.wraps</span>(func)
+        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">prof_func</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kw):
+            lp <span style="color:#f92672">=</span> LineProfiler()
+            list(map(<span style="color:#66d9ef">lambda</span> x: lp<span style="color:#f92672">.</span>add_function(x), self<span style="color:#f92672">.</span>follow))
+            lp_wrapper <span style="color:#f92672">=</span> lp(func)
+            result <span style="color:#f92672">=</span> lp_wrapper(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kw)
+            lp<span style="color:#f92672">.</span>print_stats()
+            <span style="color:#66d9ef">return</span> result
+        <span style="color:#66d9ef">return</span> prof_func
+</code></pre></div><p>使用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># example.py</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_other_stuff</span>(numbers):
+    s <span style="color:#f92672">=</span> sum(numbers)
 
-<p>使用</p>
-
-<pre><code class="language-python"># example.py
-def do_other_stuff(numbers):
-    s = sum(numbers)
-
-@line_profile([do_other_stuff])
-def do_stuff(numbers):
+<span style="color:#a6e22e">@line_profile</span>([do_other_stuff])
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_stuff</span>(numbers):
     do_other_stuff(numbers)
-    s = sum(numbers)
-    l = [numbers[i]/43 for i in range(len(numbers))]
-    m = ['hello'+str(numbers[i]) for i in range(len(numbers))]
-</code></pre>
-
-<pre><code class="language-python">python example.py
-</code></pre>
-
-<p>运行结果
-<img src="/assets/2020/0410/line_profile.png" alt="" />
-<!-- <img src="/assets/2020/0410/line_profile.png" style="margin-left:0px;width:70%"> --></p>
-
-<h3 id="memory-profiler">memory_profiler</h3>
-
+    s <span style="color:#f92672">=</span> sum(numbers)
+    l <span style="color:#f92672">=</span> [numbers[i]<span style="color:#f92672">/</span><span style="color:#ae81ff">43</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(numbers))]
+    m <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;hello&#39;</span><span style="color:#f92672">+</span>str(numbers[i]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(numbers))]
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">python example<span style="color:#f92672">.</span>py
+</code></pre></div><p>运行结果
+<img src="/assets/2020/0410/line_profile.png" alt=""></p>
+<!-- raw HTML omitted -->
+<h3 id="memory_profiler">memory_profiler</h3>
 <p><a href="https://github.com/pythonprofilers/memory_profiler">memory_profiler</a>是一个基于<a href="https://pypi.org/project/psutil/">psutil</a>用于监视进程内存消耗的python模块，并且能够逐行分析程序的内存消耗。</p>
-
 <p>安装</p>
-
-<pre><code class="language-python">pip install -U memory_profiler
-</code></pre>
-
-<p>使用</p>
-
-<pre><code class="language-python"># example.py
-@profile(precision=4)
-def do_stuff(numbers):
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pip install <span style="color:#f92672">-</span>U memory_profiler
+</code></pre></div><p>使用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># example.py</span>
+<span style="color:#a6e22e">@profile</span>(precision<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>)
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_stuff</span>(numbers):
     do_other_stuff(numbers)
-    s = sum(numbers)
-    l = [numbers[i]/43 for i in range(len(numbers))]
-    m = ['hello'+str(numbers[i]) for i in range(len(numbers))]
-</code></pre>
+    s <span style="color:#f92672">=</span> sum(numbers)
+    l <span style="color:#f92672">=</span> [numbers[i]<span style="color:#f92672">/</span><span style="color:#ae81ff">43</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(numbers))]
+    m <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;hello&#39;</span><span style="color:#f92672">+</span>str(numbers[i]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(numbers))]
+</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">python <span style="color:#f92672">-</span>m memory_profiler example<span style="color:#f92672">.</span>py
+</code></pre></div><p>或者直接使用以下方式</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> memory_profiler <span style="color:#f92672">import</span> profile
 
-<pre><code class="language-python">python -m memory_profiler example.py
-</code></pre>
-
-<p>或者直接使用以下方式</p>
-
-<pre><code class="language-python">from memory_profiler import profile
-
-@profile
-def my_func():
-    a = [1] * (10 ** 6)
-    b = [2] * (2 * 10 ** 7)
-    del b
-    return a
-</code></pre>
-
-<p>运行结果
-<img src="/assets/2020/0410/memory_profile.png" alt="" /></p>
+<span style="color:#a6e22e">@profile</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">my_func</span>():
+    a <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> (<span style="color:#ae81ff">10</span> <span style="color:#f92672">**</span> <span style="color:#ae81ff">6</span>)
+    b <span style="color:#f92672">=</span> [<span style="color:#ae81ff">2</span>] <span style="color:#f92672">*</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">**</span> <span style="color:#ae81ff">7</span>)
+    <span style="color:#66d9ef">del</span> b
+    <span style="color:#66d9ef">return</span> a
+</code></pre></div><p>运行结果
+<img src="/assets/2020/0410/memory_profile.png" alt=""></p>
                         </div>
 
                         
