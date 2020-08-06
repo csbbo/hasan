@@ -20,7 +20,7 @@
     <meta name="description" content="Python字符串加密解密">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20190831-cryptography/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20190831-cryptography/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -94,15 +94,15 @@
                         <div class="post-content">
                             <p>之前接触比较多的加密还是非对称的,都不知道对称加密怎么玩了,莫名的想试下.感谢Python当工具用真的是无往不利,这里用到的库是<a href="https://github.com/pyca/cryptography">cryptography</a>,做的需求是给一篇文章加密,等到使用的时候再解密获取内容.</p>
 <h3 id="官方示例">官方示例</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#f92672">from</span> cryptography.fernet <span style="color:#f92672">import</span> Fernet
-<span style="color:#f92672">&gt;&gt;&gt;</span> <span style="color:#75715e"># Put this somewhere safe!</span>
-<span style="color:#f92672">&gt;&gt;&gt;</span> key <span style="color:#f92672">=</span> Fernet<span style="color:#f92672">.</span>generate_key()
-<span style="color:#f92672">&gt;&gt;&gt;</span> f <span style="color:#f92672">=</span> Fernet(key)
-<span style="color:#f92672">&gt;&gt;&gt;</span> token <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>encrypt(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;A really secret message. Not for prying eyes.&#34;</span>)
-<span style="color:#f92672">&gt;&gt;&gt;</span> token
-<span style="color:#e6db74">&#39;...&#39;</span>
-<span style="color:#f92672">&gt;&gt;&gt;</span> f<span style="color:#f92672">.</span>decrypt(token)
-<span style="color:#e6db74">&#39;A really secret message. Not for prying eyes.&#39;</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">&gt;&gt;&gt;</span> <span style="color:#000;font-weight:bold">from</span> <span style="color:#555">cryptography.fernet</span> <span style="color:#000;font-weight:bold">import</span> Fernet
+<span style="color:#000;font-weight:bold">&gt;&gt;&gt;</span> <span style="color:#998;font-style:italic"># Put this somewhere safe!</span>
+<span style="color:#000;font-weight:bold">&gt;&gt;&gt;</span> key <span style="color:#000;font-weight:bold">=</span> Fernet<span style="color:#000;font-weight:bold">.</span>generate_key()
+<span style="color:#000;font-weight:bold">&gt;&gt;&gt;</span> f <span style="color:#000;font-weight:bold">=</span> Fernet(key)
+<span style="color:#000;font-weight:bold">&gt;&gt;&gt;</span> token <span style="color:#000;font-weight:bold">=</span> f<span style="color:#000;font-weight:bold">.</span>encrypt(<span style="color:#d14">b</span><span style="color:#d14">&#34;A really secret message. Not for prying eyes.&#34;</span>)
+<span style="color:#000;font-weight:bold">&gt;&gt;&gt;</span> token
+<span style="color:#d14">&#39;...&#39;</span>
+<span style="color:#000;font-weight:bold">&gt;&gt;&gt;</span> f<span style="color:#000;font-weight:bold">.</span>decrypt(token)
+<span style="color:#d14">&#39;A really secret message. Not for prying eyes.&#39;</span>
 </code></pre></div><p>cryptography安装</p>
 <pre><code>pip install cryptography
 </code></pre><ol>
@@ -113,46 +113,46 @@
 <li>解密fernet.decrypt(token)</li>
 </ol>
 <h1 id="使用实例">使用实例</h1>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
-<span style="color:#f92672">from</span> cryptography.fernet <span style="color:#f92672">import</span> Fernet
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">import</span> <span style="color:#555">sys</span>
+<span style="color:#000;font-weight:bold">from</span> <span style="color:#555">cryptography.fernet</span> <span style="color:#000;font-weight:bold">import</span> Fernet
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">read_article</span>(path):
-    <span style="color:#66d9ef">with</span> open(path, <span style="color:#e6db74">&#39;r&#39;</span>) <span style="color:#66d9ef">as</span> f:
-        article <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>read()
-    <span style="color:#66d9ef">return</span> article
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">read_article</span>(path):
+    <span style="color:#000;font-weight:bold">with</span> <span style="color:#0086b3">open</span>(path, <span style="color:#d14">&#39;r&#39;</span>) <span style="color:#000;font-weight:bold">as</span> f:
+        article <span style="color:#000;font-weight:bold">=</span> f<span style="color:#000;font-weight:bold">.</span>read()
+    <span style="color:#000;font-weight:bold">return</span> article
 
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
-    params <span style="color:#f92672">=</span> len(sys<span style="color:#f92672">.</span>argv)
-    <span style="color:#66d9ef">if</span> params <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>: <span style="color:#75715e"># 生成秘钥</span>
-        key <span style="color:#f92672">=</span> Fernet<span style="color:#f92672">.</span>generate_key() <span style="color:#75715e"># 生成加密解密秘钥</span>
-        <span style="color:#66d9ef">print</span>(key)
-    <span style="color:#66d9ef">elif</span> params <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>: <span style="color:#75715e"># 加密</span>
-        path <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>]
-        key <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">2</span>]
-        f <span style="color:#f92672">=</span> Fernet(key)
-        content <span style="color:#f92672">=</span> read_article(path)
-        token <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>encrypt(content<span style="color:#f92672">.</span>encode(<span style="color:#e6db74">&#39;utf-8&#39;</span>))
-        content <span style="color:#f92672">=</span> str(token,encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span>)
-        <span style="color:#66d9ef">print</span>(content)
-    <span style="color:#66d9ef">elif</span> params <span style="color:#f92672">==</span> <span style="color:#ae81ff">4</span>: <span style="color:#75715e"># 解密</span>
-        path <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>]
-        key <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">2</span>]
-        decode <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">3</span>]
-        f <span style="color:#f92672">=</span> Fernet(key)
-        <span style="color:#66d9ef">if</span> decode <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;-d&#39;</span>:
-            content <span style="color:#f92672">=</span> read_article(path)
-            token <span style="color:#f92672">=</span> bytes(content,encoding<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;utf-8&#39;</span>)
-            <span style="color:#66d9ef">try</span>:
-                string <span style="color:#f92672">=</span> f<span style="color:#f92672">.</span>decrypt(token)<span style="color:#f92672">.</span>decode(<span style="color:#e6db74">&#39;utf-8&#39;</span>)
-                <span style="color:#66d9ef">print</span>(string)
-            <span style="color:#66d9ef">except</span>:
-                <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;密码错误!!!&#34;</span>)
-        <span style="color:#66d9ef">else</span>:
-            <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;参数错误!!!&#34;</span>)
-    <span style="color:#66d9ef">else</span>: <span style="color:#75715e"># 参数错误</span>
-        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;生成秘钥: python cripto.py</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>)
-        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;加密: python cripto.py articlepath key&#34;</span>)
-        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;解密: python cripto.py articlepath key -d&#34;</span>)
+<span style="color:#000;font-weight:bold">if</span> __name__ <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;__main__&#39;</span>:
+    params <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">len</span>(sys<span style="color:#000;font-weight:bold">.</span>argv)
+    <span style="color:#000;font-weight:bold">if</span> params <span style="color:#000;font-weight:bold">==</span> <span style="color:#099">1</span>: <span style="color:#998;font-style:italic"># 生成秘钥</span>
+        key <span style="color:#000;font-weight:bold">=</span> Fernet<span style="color:#000;font-weight:bold">.</span>generate_key() <span style="color:#998;font-style:italic"># 生成加密解密秘钥</span>
+        <span style="color:#000;font-weight:bold">print</span>(key)
+    <span style="color:#000;font-weight:bold">elif</span> params <span style="color:#000;font-weight:bold">==</span> <span style="color:#099">3</span>: <span style="color:#998;font-style:italic"># 加密</span>
+        path <span style="color:#000;font-weight:bold">=</span> sys<span style="color:#000;font-weight:bold">.</span>argv[<span style="color:#099">1</span>]
+        key <span style="color:#000;font-weight:bold">=</span> sys<span style="color:#000;font-weight:bold">.</span>argv[<span style="color:#099">2</span>]
+        f <span style="color:#000;font-weight:bold">=</span> Fernet(key)
+        content <span style="color:#000;font-weight:bold">=</span> read_article(path)
+        token <span style="color:#000;font-weight:bold">=</span> f<span style="color:#000;font-weight:bold">.</span>encrypt(content<span style="color:#000;font-weight:bold">.</span>encode(<span style="color:#d14">&#39;utf-8&#39;</span>))
+        content <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">str</span>(token,encoding<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;utf-8&#39;</span>)
+        <span style="color:#000;font-weight:bold">print</span>(content)
+    <span style="color:#000;font-weight:bold">elif</span> params <span style="color:#000;font-weight:bold">==</span> <span style="color:#099">4</span>: <span style="color:#998;font-style:italic"># 解密</span>
+        path <span style="color:#000;font-weight:bold">=</span> sys<span style="color:#000;font-weight:bold">.</span>argv[<span style="color:#099">1</span>]
+        key <span style="color:#000;font-weight:bold">=</span> sys<span style="color:#000;font-weight:bold">.</span>argv[<span style="color:#099">2</span>]
+        decode <span style="color:#000;font-weight:bold">=</span> sys<span style="color:#000;font-weight:bold">.</span>argv[<span style="color:#099">3</span>]
+        f <span style="color:#000;font-weight:bold">=</span> Fernet(key)
+        <span style="color:#000;font-weight:bold">if</span> decode <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;-d&#39;</span>:
+            content <span style="color:#000;font-weight:bold">=</span> read_article(path)
+            token <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">bytes</span>(content,encoding<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;utf-8&#39;</span>)
+            <span style="color:#000;font-weight:bold">try</span>:
+                string <span style="color:#000;font-weight:bold">=</span> f<span style="color:#000;font-weight:bold">.</span>decrypt(token)<span style="color:#000;font-weight:bold">.</span>decode(<span style="color:#d14">&#39;utf-8&#39;</span>)
+                <span style="color:#000;font-weight:bold">print</span>(string)
+            <span style="color:#000;font-weight:bold">except</span>:
+                <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#34;密码错误!!!&#34;</span>)
+        <span style="color:#000;font-weight:bold">else</span>:
+            <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#34;参数错误!!!&#34;</span>)
+    <span style="color:#000;font-weight:bold">else</span>: <span style="color:#998;font-style:italic"># 参数错误</span>
+        <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#34;生成秘钥: python cripto.py</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>)
+        <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#34;加密: python cripto.py articlepath key&#34;</span>)
+        <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#34;解密: python cripto.py articlepath key -d&#34;</span>)
 
 </code></pre></div><blockquote>
 <p>这就完成了对文档的加密解密了,但内容都在终端输出了可以用<code>&gt;</code>重定向到文件</p>
@@ -166,7 +166,7 @@
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/crypto">crypto</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/crypto">crypto</a></li>
                                 
                             </ul>
                         </div>
@@ -181,7 +181,7 @@
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20190913-innodb-index-transaction/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190913-innodb-index-transaction/">
         <i class="material-icons">arrow_back</i><span>InnoDB事务及索引原理</span>
         </a>
         </li>
@@ -189,7 +189,7 @@
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2019/20190826-session-cookie-token-jwt/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190826-session-cookie-token-jwt/">
         <span>Session Cookie Token JWT</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -249,10 +249,10 @@
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -262,43 +262,43 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -311,43 +311,43 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -357,87 +357,87 @@
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -447,7 +447,7 @@
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -464,7 +464,7 @@
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>PostgreSQL on 庄周梦蝶</title>
-    <link>http://blog.shaobo.fun/tags/PostgreSQL/</link>
+    <link>https://blog.shaobo.fun/tags/PostgreSQL/</link>
     <description>Recent content in PostgreSQL on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 09 Nov 2019 16:55:31 +0800</lastBuildDate>
     
-	<atom:link href="http://blog.shaobo.fun/tags/PostgreSQL/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.shaobo.fun/tags/PostgreSQL/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>PostgreSQL新手入门</title>
-      <link>http://blog.shaobo.fun/posts/2019/20191109-postgresql-green/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20191109-postgresql-green/</link>
       <pubDate>Sat, 09 Nov 2019 16:55:31 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20191109-postgresql-green/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20191109-postgresql-green/</guid>
       <description>&lt;p&gt;PostgreSQL被誉为“世界上功能最强大的开源数据库”，是以加州大学伯克利分校计算机系开发的POSTGRES 4.2为基础的对象关系型数据库管理系统。&lt;/p&gt;</description>
     </item>
     

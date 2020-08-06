@@ -20,7 +20,7 @@
     <meta name="description" content="C&#43;&#43; STL容器">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20190917-cpp-container/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20190917-cpp-container/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -162,13 +162,13 @@
 <li>迭代器提供了逆向遍历，可以通过迭代器来实现逆向遍历，当然上面两种方式也可以</li>
 </ul>
 <p><strong>迭代器遍历</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;iterator&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">for</span>(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>iterator it <span style="color:#f92672">=</span> v1.begin(); it <span style="color:#f92672">!=</span> v1.end(); it<span style="color:#f92672">++</span>) {
-    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>it <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;iterator&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#000;font-weight:bold">for</span>(vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;::</span>iterator it <span style="color:#000;font-weight:bold">=</span> v1.begin(); it <span style="color:#000;font-weight:bold">!=</span> v1.end(); it<span style="color:#000;font-weight:bold">++</span>) {
+    cout <span style="color:#000;font-weight:bold">&lt;&lt;</span> <span style="color:#000;font-weight:bold">*</span>it <span style="color:#000;font-weight:bold">&lt;&lt;</span> <span style="color:#d14">&#34; &#34;</span>;
 }
-<span style="color:#66d9ef">for</span>(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>reverse_iterator it <span style="color:#f92672">=</span> v1.rbegin(); it <span style="color:#f92672">!=</span> v1.rend(); it<span style="color:#f92672">++</span>){
-    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>it <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+<span style="color:#000;font-weight:bold">for</span>(vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;::</span>reverse_iterator it <span style="color:#000;font-weight:bold">=</span> v1.rbegin(); it <span style="color:#000;font-weight:bold">!=</span> v1.rend(); it<span style="color:#000;font-weight:bold">++</span>){
+    cout <span style="color:#000;font-weight:bold">&lt;&lt;</span> <span style="color:#000;font-weight:bold">*</span>it <span style="color:#000;font-weight:bold">&lt;&lt;</span> <span style="color:#d14">&#34; &#34;</span>;
 }
 </code></pre></div><p><strong>插入删除:</strong></p>
 <ul>
@@ -176,11 +176,11 @@
 <li>Vector提供了<code>insert</code>函数，结合迭代器位置插入指定的元素。在指定的位置插入元素10的拷贝<code>v1.insert(v1.begin() + 3,10);</code>在指定的位置插入3个元素11的拷贝<code>v1.insert(v1.begin(),3,11);</code></li>
 </ul>
 <p><strong>例子</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;vector&gt; </span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> coll; 
-coll.push_back(i);  <span style="color:#75715e">//所有序列容器都提供该函数
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>coll.size();<span style="color:#f92672">++</span>i){   <span style="color:#75715e">//所有容器都提供该函数
-</span><span style="color:#75715e"></span>    cout<span style="color:#f92672">&lt;&lt;</span>coll[i]<span style="color:#f92672">&lt;&lt;</span>endl;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;vector&gt; </span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span> coll; 
+coll.push_back(i);  <span style="color:#998;font-style:italic">//所有序列容器都提供该函数
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">&lt;</span>coll.size();<span style="color:#000;font-weight:bold">++</span>i){   <span style="color:#998;font-style:italic">//所有容器都提供该函数
+</span><span style="color:#998;font-style:italic"></span>    cout<span style="color:#000;font-weight:bold">&lt;&lt;</span>coll[i]<span style="color:#000;font-weight:bold">&lt;&lt;</span>endl;
 } 
 </code></pre></div><h3 id="deque">Deque</h3>
 <p>deque是一个双端数组容器:可以在头部和尾部操作元素。</p>
@@ -196,9 +196,9 @@ coll.push_back(i);  <span style="color:#75715e">//所有序列容器都提供该
 </blockquote>
 <h3 id="array">Array</h3>
 <p>数组容器，可以使用迭代器操作</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;array&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>array<span style="color:#f92672">&lt;</span>string,<span style="color:#ae81ff">5</span><span style="color:#f92672">&gt;</span> coll <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;hello&#34;</span>,<span style="color:#e6db74">&#34;world&#34;</span>};
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;array&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;string&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>array<span style="color:#000;font-weight:bold">&lt;</span>string,<span style="color:#099">5</span><span style="color:#000;font-weight:bold">&gt;</span> coll <span style="color:#000;font-weight:bold">=</span> {<span style="color:#d14">&#34;hello&#34;</span>,<span style="color:#d14">&#34;world&#34;</span>};
 coll.size()
 </code></pre></div><h3 id="list">List</h3>
 <p>List可以在头部和尾部插入和删除元素，不能随机访问元素，也就是迭代器只能++,不能一次性跳转</p>
@@ -209,16 +209,16 @@ coll.size()
 <li><code>remove(value)</code>是通过值来删除</li>
 </ul>
 <p>删除例子</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">//删除某个元素
-</span><span style="color:#75715e"></span>l.erase(l.begin());
-<span style="color:#75715e">//删除某个区间
-</span><span style="color:#75715e"></span>list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;::</span>iterator it <span style="color:#f92672">=</span> l.begin();
-it<span style="color:#f92672">++</span>;
-it<span style="color:#f92672">++</span>;
-it<span style="color:#f92672">++</span>;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#998;font-style:italic">//删除某个元素
+</span><span style="color:#998;font-style:italic"></span>l.erase(l.begin());
+<span style="color:#998;font-style:italic">//删除某个区间
+</span><span style="color:#998;font-style:italic"></span>list<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;::</span>iterator it <span style="color:#000;font-weight:bold">=</span> l.begin();
+it<span style="color:#000;font-weight:bold">++</span>;
+it<span style="color:#000;font-weight:bold">++</span>;
+it<span style="color:#000;font-weight:bold">++</span>;
 l.erase(l.begin(), it);
-<span style="color:#75715e">//移除值为100的所有元素
-</span><span style="color:#75715e"></span>l.remove(<span style="color:#ae81ff">100</span>);
+<span style="color:#998;font-style:italic">//移除值为100的所有元素
+</span><span style="color:#998;font-style:italic"></span>l.remove(<span style="color:#099">100</span>);
 </code></pre></div><p><strong>List的插入</strong></p>
 <ul>
 <li><code>l.insert(iterater_pos,num)</code>在pos位置插入元素num</li>
@@ -226,32 +226,32 @@ l.erase(l.begin(), it);
 <li><code>l.insert(iterater_pos,beg,end)</code>在pos位置插入区间为[beg,end)的元素</li>
 </ul>
 <p>例子</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>lsit<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;</span> coll;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;list&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>lsit<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">char</span><span style="color:#000;font-weight:bold">&gt;</span> coll;
 coll.push_back();
-<span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> elem : coll){
-    cout<span style="color:#f92672">&lt;&lt;</span>elem<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#39; &#39;</span>;
+<span style="color:#000;font-weight:bold">for</span>(<span style="color:#000;font-weight:bold">auto</span><span style="color:#000;font-weight:bold">&amp;</span> <span style="color:#900;font-weight:bold">elem</span> : coll){
+    cout<span style="color:#000;font-weight:bold">&lt;&lt;</span>elem<span style="color:#000;font-weight:bold">&lt;&lt;</span><span style="color:#d14">&#39; &#39;</span>;
 }
-<span style="color:#66d9ef">while</span>(<span style="color:#f92672">!</span>coll.empty()){
-    cout<span style="color:#f92672">&lt;&lt;</span>coll.front()<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#39; &#39;</span>;<span style="color:#75715e">//coll.front()返回第一个元素
-</span><span style="color:#75715e"></span>    coll.pop_front();
+<span style="color:#000;font-weight:bold">while</span>(<span style="color:#000;font-weight:bold">!</span>coll.empty()){
+    cout<span style="color:#000;font-weight:bold">&lt;&lt;</span>coll.front()<span style="color:#000;font-weight:bold">&lt;&lt;</span><span style="color:#d14">&#39; &#39;</span>;<span style="color:#998;font-style:italic">//coll.front()返回第一个元素
+</span><span style="color:#998;font-style:italic"></span>    coll.pop_front();
 }
 </code></pre></div><h3 id="forward-list">Forward List</h3>
 <p>Forward List是一个受限的list,不支持任何后退移动或效率低下的操作,
 因此它不提供push_back()和size()</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;forward_list&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>forward_list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span> coll <span style="color:#f92672">=</span> {<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">11</span>,<span style="color:#ae81ff">13</span>,<span style="color:#ae81ff">17</span>};
-coll.resize(<span style="color:#ae81ff">9</span>);
-coll.resize(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">99</span>);
-<span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> elem : coll){
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;forward_list&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>forward_list<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">long</span><span style="color:#000;font-weight:bold">&gt;</span> coll <span style="color:#000;font-weight:bold">=</span> {<span style="color:#099">2</span>,<span style="color:#099">3</span>,<span style="color:#099">5</span>,<span style="color:#099">7</span>,<span style="color:#099">11</span>,<span style="color:#099">13</span>,<span style="color:#099">17</span>};
+coll.resize(<span style="color:#099">9</span>);
+coll.resize(<span style="color:#099">10</span>,<span style="color:#099">99</span>);
+<span style="color:#000;font-weight:bold">for</span>(<span style="color:#000;font-weight:bold">auto</span> <span style="color:#900;font-weight:bold">elem</span> : coll){
 }
 </code></pre></div><h2 id="堆栈容器">堆栈容器</h2>
 <p>堆栈容器其实就是一个容器适配器为序列容器提供了一种不同的接口，常见的容器适配器有:栈、队列、优先队列。</p>
 <h3 id="stack">Stack</h3>
 <p>在<stack>头文件中,class stack定义如下</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">namespace</span> std{
-    <span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T,<span style="color:#66d9ef">typename</span> Container <span style="color:#f92672">=</span> deque<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span>
-    <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">stack</span>;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#000;font-weight:bold">namespace</span> std{
+    <span style="color:#000;font-weight:bold">template</span> <span style="color:#000;font-weight:bold">&lt;</span><span style="color:#000;font-weight:bold">typename</span> T,<span style="color:#000;font-weight:bold">typename</span> Container <span style="color:#000;font-weight:bold">=</span> deque<span style="color:#000;font-weight:bold">&lt;</span>T<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">&gt;</span>
+    <span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">stack</span>;
 }
 </code></pre></div><p>Stack的实现只是单纯的把各项操作转化为内部容器的对应调用,所以可以使用sequence容器支持stack;只要他们提供<code>back()</code>,<code>push_back()</code>,<code>pop_back()</code>,例如:<code>std::stack&lt;int,std::vector&lt;int&gt;&gt; st;</code></p>
 <p>基本操作:</p>
@@ -263,9 +263,9 @@ coll.resize(<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">99
 <blockquote>
 <p>stack中没有元素会导致<code>top()</code>和<code>pop</code>的不明确行为可以用<code>size()</code>,<code>empty()</code>检验容器是否为空</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stack&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>stack<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> st;
-st.push(<span style="color:#ae81ff">1</span>)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stack&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>stack<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span> st;
+st.push(<span style="color:#099">1</span>)
 st.top()
 st.pop()
 </code></pre></div><h3 id="queue">Queue</h3>
@@ -279,9 +279,9 @@ st.pop()
 <li>back()取队尾元素</li>
 </ul>
 <p>例子</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;queue&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> q;
-q.push(<span style="color:#ae81ff">1</span>)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;queue&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>queue<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span> q;
+q.push(<span style="color:#099">1</span>)
 q.front()
 q.back()
 q.pop()
@@ -302,46 +302,46 @@ q.pop()
 <li><code>priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt;&gt;</code>定义<code>int</code>型的最小值队列</li>
 </ul>
 <p>例子</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;queue&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>priority_queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> p1;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;queue&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>priority_queue<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span> p1;
 
-<span style="color:#75715e">//给默认的最大优先级队列入栈
-</span><span style="color:#75715e"></span>p1.push(<span style="color:#ae81ff">33</span>);
-p1.push(<span style="color:#ae81ff">11</span>);
-p1.push(<span style="color:#ae81ff">55</span>);
-p1.push(<span style="color:#ae81ff">22</span>);
-<span style="color:#75715e">//最大优先级的队首元素
-</span><span style="color:#75715e"></span>p1.top()
-<span style="color:#75715e">//队首出栈
-</span><span style="color:#75715e"></span>p1.pop()
+<span style="color:#998;font-style:italic">//给默认的最大优先级队列入栈
+</span><span style="color:#998;font-style:italic"></span>p1.push(<span style="color:#099">33</span>);
+p1.push(<span style="color:#099">11</span>);
+p1.push(<span style="color:#099">55</span>);
+p1.push(<span style="color:#099">22</span>);
+<span style="color:#998;font-style:italic">//最大优先级的队首元素
+</span><span style="color:#998;font-style:italic"></span>p1.top()
+<span style="color:#998;font-style:italic">//队首出栈
+</span><span style="color:#998;font-style:italic"></span>p1.pop()
 </code></pre></div><p>其内部排序值大的先入队</p>
 <h2 id="关联容器">关联容器</h2>
 <p>关联容器和顺序容器有着根本的不同:关联容器中的元素是按关键字来保存和访问的，与之相对，顺序容器中的元素是按它们在容器中的位置来顺序保存和访问的。</p>
 <h3 id="set和multiset">Set和Multiset</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;set&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>multiset<span style="color:#f92672">&lt;</span>string<span style="color:#f92672">&gt;</span> cities{<span style="color:#75715e">//multiset允许重复
-</span><span style="color:#75715e"></span>    <span style="color:#e6db74">&#34;beijing&#34;</span>,<span style="color:#e6db74">&#34;shanghai&#34;</span>,<span style="color:#e6db74">&#34;tianjing&#34;</span>,<span style="color:#e6db74">&#34;shenzheng&#34;</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;set&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>multiset<span style="color:#000;font-weight:bold">&lt;</span>string<span style="color:#000;font-weight:bold">&gt;</span> cities{<span style="color:#998;font-style:italic">//multiset允许重复
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#d14">&#34;beijing&#34;</span>,<span style="color:#d14">&#34;shanghai&#34;</span>,<span style="color:#d14">&#34;tianjing&#34;</span>,<span style="color:#d14">&#34;shenzheng&#34;</span>
 };
-<span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> elem : cities){}
-cities.insert({<span style="color:#e6db74">&#34;hangzou&#34;</span>,<span style="color:#e6db74">&#34;wuhan&#34;</span>,<span style="color:#e6db74">&#34;chongqing&#34;</span>});
+<span style="color:#000;font-weight:bold">for</span>(<span style="color:#000;font-weight:bold">const</span> <span style="color:#000;font-weight:bold">auto</span><span style="color:#000;font-weight:bold">&amp;</span> <span style="color:#900;font-weight:bold">elem</span> : cities){}
+cities.insert({<span style="color:#d14">&#34;hangzou&#34;</span>,<span style="color:#d14">&#34;wuhan&#34;</span>,<span style="color:#d14">&#34;chongqing&#34;</span>});
 </code></pre></div><h3 id="map和multimap">Map和Multimap</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;map&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>multimap<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>,string<span style="color:#f92672">&gt;</span> coll;
-coll <span style="color:#f92672">=</span> {
-{<span style="color:#ae81ff">5</span>,<span style="color:#e6db74">&#34;tagge&#34;</span>},
-{<span style="color:#ae81ff">2</span>,<span style="color:#e6db74">&#34;a&#34;</span>},
-{<span style="color:#ae81ff">4</span>,<span style="color:#e6db74">&#34;of&#34;</span>}
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;map&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>multimap<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span>,string<span style="color:#000;font-weight:bold">&gt;</span> coll;
+coll <span style="color:#000;font-weight:bold">=</span> {
+{<span style="color:#099">5</span>,<span style="color:#d14">&#34;tagge&#34;</span>},
+{<span style="color:#099">2</span>,<span style="color:#d14">&#34;a&#34;</span>},
+{<span style="color:#099">4</span>,<span style="color:#d14">&#34;of&#34;</span>}
 };
-<span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">auto</span> elem : coll){
-    cout<span style="color:#f92672">&lt;&lt;</span>elem.second;
-    cout<span style="color:#f92672">&lt;&lt;</span>elem.first;
+<span style="color:#000;font-weight:bold">for</span>(<span style="color:#000;font-weight:bold">auto</span> <span style="color:#900;font-weight:bold">elem</span> : coll){
+    cout<span style="color:#000;font-weight:bold">&lt;&lt;</span>elem.second;
+    cout<span style="color:#000;font-weight:bold">&lt;&lt;</span>elem.first;
 }
 </code></pre></div><h3 id="迭代器">迭代器</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">char</span><span style="color:#f92672">&gt;::</span>const_iterator pos;<span style="color:#75715e">//只读模式,去掉const读写模式
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span>(pos <span style="color:#f92672">=</span> coll.begin();pos <span style="color:#f92672">!=</span> coll.end();<span style="color:#f92672">++</span>pos){<span style="color:#75715e">//这里前置++比后置++效率高
-</span><span style="color:#75715e"></span>    cout<span style="color:#f92672">&lt;&lt;*</span>pos<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#39; &#39;</span>;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">list<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">char</span><span style="color:#000;font-weight:bold">&gt;::</span>const_iterator pos;<span style="color:#998;font-style:italic">//只读模式,去掉const读写模式
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">for</span>(pos <span style="color:#000;font-weight:bold">=</span> coll.begin();pos <span style="color:#000;font-weight:bold">!=</span> coll.end();<span style="color:#000;font-weight:bold">++</span>pos){<span style="color:#998;font-style:italic">//这里前置++比后置++效率高
+</span><span style="color:#998;font-style:italic"></span>    cout<span style="color:#000;font-weight:bold">&lt;&lt;*</span>pos<span style="color:#000;font-weight:bold">&lt;&lt;</span><span style="color:#d14">&#39; &#39;</span>;
 }
-cbegin() <span style="color:#960050;background-color:#1e0010">和</span> cend()<span style="color:#960050;background-color:#1e0010">返回类型</span>cont<span style="color:#f92672">::</span>const_iterator对象
+cbegin() <span style="color:#a61717;background-color:#e3d2d2">和</span> cend()<span style="color:#a61717;background-color:#e3d2d2">返回类型</span>cont<span style="color:#000;font-weight:bold">::</span>const_iterator对象
 </code></pre></div>
                         </div>
 
@@ -352,9 +352,9 @@ cbegin() <span style="color:#960050;background-color:#1e0010">和</span> cend()<
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/c&#43;&#43;">c&#43;&#43;</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/c&#43;&#43;">c&#43;&#43;</a></li>
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/Vector">Vector</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/Vector">Vector</a></li>
                                 
                             </ul>
                         </div>
@@ -369,7 +369,7 @@ cbegin() <span style="color:#960050;background-color:#1e0010">和</span> cend()<
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20191009-binary-tree-traversal/">
+        <a href="https://blog.shaobo.fun/posts/2019/20191009-binary-tree-traversal/">
         <i class="material-icons">arrow_back</i><span>二叉树遍历</span>
         </a>
         </li>
@@ -377,7 +377,7 @@ cbegin() <span style="color:#960050;background-color:#1e0010">和</span> cend()<
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2019/20190915-git-summary/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190915-git-summary/">
         <span>分布式版本控制系统--Git</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -437,10 +437,10 @@ cbegin() <span style="color:#960050;background-color:#1e0010">和</span> cend()<
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -450,43 +450,43 @@ cbegin() <span style="color:#960050;background-color:#1e0010">和</span> cend()<
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -499,43 +499,43 @@ cbegin() <span style="color:#960050;background-color:#1e0010">和</span> cend()<
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -545,87 +545,87 @@ cbegin() <span style="color:#960050;background-color:#1e0010">和</span> cend()<
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -635,7 +635,7 @@ cbegin() <span style="color:#960050;background-color:#1e0010">和</span> cend()<
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -652,7 +652,7 @@ cbegin() <span style="color:#960050;background-color:#1e0010">和</span> cend()<
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

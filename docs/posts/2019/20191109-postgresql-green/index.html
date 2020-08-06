@@ -20,7 +20,7 @@
     <meta name="description" content="PostgreSQL新手入门">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20191109-postgresql-green/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20191109-postgresql-green/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -88,9 +88,9 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a></span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8">新手入门</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8">新手入门</a></span>
                             
                         </div>
                         
@@ -247,7 +247,7 @@
 </blockquote>
 <h2 id="角色属性role-attributes">角色属性（Role Attributes）</h2>
 <p>一个数据库角色可以有一系列属性，这些属性定义了他的权限。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">ROLE</span> <span style="color:#f92672">&lt;</span>rolename<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&lt;</span>attributes<span style="color:#f92672">&gt;</span>;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">ALTER</span> <span style="color:#000;font-weight:bold">ROLE</span> <span style="color:#000;font-weight:bold">&lt;</span>rolename<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">&lt;</span>attributes<span style="color:#000;font-weight:bold">&gt;</span>;
 </code></pre></div><table>
 <thead>
 <tr>
@@ -315,83 +315,83 @@
 <blockquote>
 <p>psql命令存在简写形式。如果当前Linux系统用户，同时也是PostgreSQL用户，则可以省略用户名（-U参数的部分）。举例来说，我的Linux系统用户名为ruanyf，且PostgreSQL数据库存在同名用户，则我以ruanyf身份登录Linux系统后，可以直接使用下面的命令登录数据库，且不需要密码。</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">psql exampledb
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">psql exampledb
 </code></pre></div><p>此时，如果PostgreSQL内部还存在与当前系统用户同名的数据库，则连数据库名都可以省略。比如，假定存在一个叫做ruanyf的数据库，则直接键入psql就可以登录该数据库。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">psql
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">psql
 </code></pre></div><h2 id="控制台常用命令">控制台常用命令</h2>
 <p>除了前面已经用到的\password命令（设置密码）和\q命令（退出）以外，控制台还提供一系列其他命令。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#960050;background-color:#1e0010">\</span>h<span style="color:#960050;background-color:#1e0010">：查看</span>SQL命令的解释<span style="color:#960050;background-color:#1e0010">，比如\</span>h <span style="color:#66d9ef">select</span><span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#f92672">?</span><span style="color:#960050;background-color:#1e0010">：查看</span>psql命令列表<span style="color:#960050;background-color:#1e0010">。</span>
-<span style="color:#960050;background-color:#1e0010">\</span>l<span style="color:#960050;background-color:#1e0010">：列出所有数据库。</span>
-<span style="color:#960050;background-color:#1e0010">\</span><span style="color:#66d9ef">c</span> [database_name]<span style="color:#960050;background-color:#1e0010">：连接其他数据库。</span>
-<span style="color:#960050;background-color:#1e0010">\</span>d<span style="color:#960050;background-color:#1e0010">：列出当前数据库的所有表格。</span>
-<span style="color:#960050;background-color:#1e0010">\</span>d [<span style="color:#66d9ef">table_name</span>]<span style="color:#960050;background-color:#1e0010">：列出某一张表格的结构。</span>
-<span style="color:#960050;background-color:#1e0010">\</span>du<span style="color:#960050;background-color:#1e0010">：列出所有用户。</span>
-<span style="color:#960050;background-color:#1e0010">\</span>e<span style="color:#960050;background-color:#1e0010">：打开文本编辑器。</span>
-<span style="color:#960050;background-color:#1e0010">\</span>conninfo<span style="color:#960050;background-color:#1e0010">：列出当前数据库和连接的信息。</span>
-<span style="color:#960050;background-color:#1e0010">\</span>i<span style="color:#960050;background-color:#1e0010">：执行</span>sql脚本插入数据
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#a61717;background-color:#e3d2d2">\</span>h<span style="color:#a61717;background-color:#e3d2d2">：查看</span>SQL命令的解释<span style="color:#a61717;background-color:#e3d2d2">，比如\</span>h <span style="color:#000;font-weight:bold">select</span><span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#a61717;background-color:#e3d2d2">\</span><span style="color:#000;font-weight:bold">?</span><span style="color:#a61717;background-color:#e3d2d2">：查看</span>psql命令列表<span style="color:#a61717;background-color:#e3d2d2">。</span>
+<span style="color:#a61717;background-color:#e3d2d2">\</span>l<span style="color:#a61717;background-color:#e3d2d2">：列出所有数据库。</span>
+<span style="color:#a61717;background-color:#e3d2d2">\</span><span style="color:#000;font-weight:bold">c</span> [database_name]<span style="color:#a61717;background-color:#e3d2d2">：连接其他数据库。</span>
+<span style="color:#a61717;background-color:#e3d2d2">\</span>d<span style="color:#a61717;background-color:#e3d2d2">：列出当前数据库的所有表格。</span>
+<span style="color:#a61717;background-color:#e3d2d2">\</span>d [<span style="color:#000;font-weight:bold">table_name</span>]<span style="color:#a61717;background-color:#e3d2d2">：列出某一张表格的结构。</span>
+<span style="color:#a61717;background-color:#e3d2d2">\</span>du<span style="color:#a61717;background-color:#e3d2d2">：列出所有用户。</span>
+<span style="color:#a61717;background-color:#e3d2d2">\</span>e<span style="color:#a61717;background-color:#e3d2d2">：打开文本编辑器。</span>
+<span style="color:#a61717;background-color:#e3d2d2">\</span>conninfo<span style="color:#a61717;background-color:#e3d2d2">：列出当前数据库和连接的信息。</span>
+<span style="color:#a61717;background-color:#e3d2d2">\</span>i<span style="color:#a61717;background-color:#e3d2d2">：执行</span>sql脚本插入数据
 </code></pre></div><blockquote>
 <p>删除PostgreSQL中的所有表,如果所有表都在单个模式中，则此方法可以工作<code>DROP SCHEMA public CASCADE; CREATE SCHEMA public</code></p>
 </blockquote>
 <h3 id="postgresql数据导入导出">postgresql数据导入导出</h3>
 <p><code>pg_dump --help</code></p>
 <p>导出数据到data.sql</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">pg_dump <span style="color:#f92672">-</span>U trainingplatform <span style="color:#f92672">-</span>d trainingplatform <span style="color:#f92672">-</span>a <span style="color:#75715e">--column-inserts -f data.sql
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql">pg_dump <span style="color:#000;font-weight:bold">-</span>U trainingplatform <span style="color:#000;font-weight:bold">-</span>d trainingplatform <span style="color:#000;font-weight:bold">-</span>a <span style="color:#998;font-style:italic">--column-inserts -f data.sql
 </span></code></pre></div><h2 id="数据库操作">数据库操作</h2>
 <p>基本的数据库操作，就是使用一般的SQL语言。</p>
 <h3 id="创建数据库">创建数据库</h3>
 <ol>
 <li>标准SQL语句</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">DATABASE</span> dbname;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">CREATE</span> <span style="color:#000;font-weight:bold">DATABASE</span> dbname;
 </code></pre></div><ol start="2">
 <li>createdb命令</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">createdb -h localhost -p <span style="color:#ae81ff">5432</span> -U postgres testdb
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">createdb -h localhost -p <span style="color:#099">5432</span> -U postgres testdb
 </code></pre></div><h3 id="连接数据库">连接数据库</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">psql -h localhost -p <span style="color:#ae81ff">5432</span> -U postgress testdb
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">psql -h localhost -p <span style="color:#099">5432</span> -U postgress testdb
 </code></pre></div><h3 id="删除数据库">删除数据库</h3>
 <ol>
 <li>标准SQL语句</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">DATABASE</span> [ <span style="color:#66d9ef">IF</span> <span style="color:#66d9ef">EXISTS</span> ] testdb
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">DROP</span> <span style="color:#000;font-weight:bold">DATABASE</span> [ <span style="color:#000;font-weight:bold">IF</span> <span style="color:#000;font-weight:bold">EXISTS</span> ] testdb
 </code></pre></div><ol start="2">
 <li>dropdb命令</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">dropdb -h localhost -p <span style="color:#ae81ff">5432</span> -U postgres testdb
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">dropdb -h localhost -p <span style="color:#099">5432</span> -U postgres testdb
 </code></pre></div><h2 id="一些sql">一些SQL</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">创建新表</span>
-<span style="color:#66d9ef">CREATE</span> <span style="color:#66d9ef">TABLE</span> user_tbl(name VARCHAR(<span style="color:#ae81ff">20</span>), signup_date DATE);
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">#</span> <span style="color:#a61717;background-color:#e3d2d2">创建新表</span>
+<span style="color:#000;font-weight:bold">CREATE</span> <span style="color:#000;font-weight:bold">TABLE</span> user_tbl(name <span style="color:#0086b3">VARCHAR</span>(<span style="color:#099">20</span>), signup_date <span style="color:#0086b3">DATE</span>);
 
-<span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">插入数据</span>
-<span style="color:#66d9ef">INSERT</span> <span style="color:#66d9ef">INTO</span> user_tbl(name, signup_date) <span style="color:#66d9ef">VALUES</span>(<span style="color:#e6db74">&#39;张三&#39;</span>, <span style="color:#e6db74">&#39;2013-12-22&#39;</span>);
+<span style="color:#000;font-weight:bold">#</span> <span style="color:#a61717;background-color:#e3d2d2">插入数据</span>
+<span style="color:#000;font-weight:bold">INSERT</span> <span style="color:#000;font-weight:bold">INTO</span> user_tbl(name, signup_date) <span style="color:#000;font-weight:bold">VALUES</span>(<span style="color:#d14">&#39;张三&#39;</span>, <span style="color:#d14">&#39;2013-12-22&#39;</span>);
 
-<span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">选择记录</span>
-<span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">FROM</span> user_tbl;
+<span style="color:#000;font-weight:bold">#</span> <span style="color:#a61717;background-color:#e3d2d2">选择记录</span>
+<span style="color:#000;font-weight:bold">SELECT</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#000;font-weight:bold">FROM</span> user_tbl;
 
-<span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">更新数据</span>
-<span style="color:#66d9ef">UPDATE</span> user_tbl <span style="color:#66d9ef">set</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;李四&#39;</span> <span style="color:#66d9ef">WHERE</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;张三&#39;</span>;
+<span style="color:#000;font-weight:bold">#</span> <span style="color:#a61717;background-color:#e3d2d2">更新数据</span>
+<span style="color:#000;font-weight:bold">UPDATE</span> user_tbl <span style="color:#000;font-weight:bold">set</span> name <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;李四&#39;</span> <span style="color:#000;font-weight:bold">WHERE</span> name <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;张三&#39;</span>;
 
-<span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">删除记录</span>
-<span style="color:#66d9ef">DELETE</span> <span style="color:#66d9ef">FROM</span> user_tbl <span style="color:#66d9ef">WHERE</span> name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;李四&#39;</span> ;
+<span style="color:#000;font-weight:bold">#</span> <span style="color:#a61717;background-color:#e3d2d2">删除记录</span>
+<span style="color:#000;font-weight:bold">DELETE</span> <span style="color:#000;font-weight:bold">FROM</span> user_tbl <span style="color:#000;font-weight:bold">WHERE</span> name <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;李四&#39;</span> ;
 
-<span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">添加栏位</span>
-<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> user_tbl <span style="color:#66d9ef">ADD</span> email VARCHAR(<span style="color:#ae81ff">40</span>);
+<span style="color:#000;font-weight:bold">#</span> <span style="color:#a61717;background-color:#e3d2d2">添加栏位</span>
+<span style="color:#000;font-weight:bold">ALTER</span> <span style="color:#000;font-weight:bold">TABLE</span> user_tbl <span style="color:#000;font-weight:bold">ADD</span> email <span style="color:#0086b3">VARCHAR</span>(<span style="color:#099">40</span>);
 
-<span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">更新结构</span>
-<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> user_tbl <span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">COLUMN</span> signup_date <span style="color:#66d9ef">SET</span> <span style="color:#66d9ef">NOT</span> <span style="color:#66d9ef">NULL</span>;
+<span style="color:#000;font-weight:bold">#</span> <span style="color:#a61717;background-color:#e3d2d2">更新结构</span>
+<span style="color:#000;font-weight:bold">ALTER</span> <span style="color:#000;font-weight:bold">TABLE</span> user_tbl <span style="color:#000;font-weight:bold">ALTER</span> <span style="color:#000;font-weight:bold">COLUMN</span> signup_date <span style="color:#000;font-weight:bold">SET</span> <span style="color:#000;font-weight:bold">NOT</span> <span style="color:#000;font-weight:bold">NULL</span>;
 
-<span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">更名栏位</span>
-<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> user_tbl <span style="color:#66d9ef">RENAME</span> <span style="color:#66d9ef">COLUMN</span> signup_date <span style="color:#66d9ef">TO</span> signup;
+<span style="color:#000;font-weight:bold">#</span> <span style="color:#a61717;background-color:#e3d2d2">更名栏位</span>
+<span style="color:#000;font-weight:bold">ALTER</span> <span style="color:#000;font-weight:bold">TABLE</span> user_tbl <span style="color:#000;font-weight:bold">RENAME</span> <span style="color:#000;font-weight:bold">COLUMN</span> signup_date <span style="color:#000;font-weight:bold">TO</span> signup;
 
-<span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">删除栏位</span>
-<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> user_tbl <span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">COLUMN</span> email;
+<span style="color:#000;font-weight:bold">#</span> <span style="color:#a61717;background-color:#e3d2d2">删除栏位</span>
+<span style="color:#000;font-weight:bold">ALTER</span> <span style="color:#000;font-weight:bold">TABLE</span> user_tbl <span style="color:#000;font-weight:bold">DROP</span> <span style="color:#000;font-weight:bold">COLUMN</span> email;
 
-<span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">表格更名</span>
-<span style="color:#66d9ef">ALTER</span> <span style="color:#66d9ef">TABLE</span> user_tbl <span style="color:#66d9ef">RENAME</span> <span style="color:#66d9ef">TO</span> backup_tbl;
+<span style="color:#000;font-weight:bold">#</span> <span style="color:#a61717;background-color:#e3d2d2">表格更名</span>
+<span style="color:#000;font-weight:bold">ALTER</span> <span style="color:#000;font-weight:bold">TABLE</span> user_tbl <span style="color:#000;font-weight:bold">RENAME</span> <span style="color:#000;font-weight:bold">TO</span> backup_tbl;
 
-<span style="color:#f92672">#</span> <span style="color:#960050;background-color:#1e0010">删除表格</span>
-<span style="color:#66d9ef">DROP</span> <span style="color:#66d9ef">TABLE</span> <span style="color:#66d9ef">IF</span> <span style="color:#66d9ef">EXISTS</span> backup_tbl;
+<span style="color:#000;font-weight:bold">#</span> <span style="color:#a61717;background-color:#e3d2d2">删除表格</span>
+<span style="color:#000;font-weight:bold">DROP</span> <span style="color:#000;font-weight:bold">TABLE</span> <span style="color:#000;font-weight:bold">IF</span> <span style="color:#000;font-weight:bold">EXISTS</span> backup_tbl;
 </code></pre></div><h3 id="faq">FAQ</h3>
 <ul>
 <li>Peer authentication failed for user &ldquo;postgres&rdquo; 的解决办法</li>
@@ -399,9 +399,9 @@
 <p>psql的连接建立于Unix Socket上默认使用peer authentication，所以必须要用和数据库用户相同的系统用户进行登录。
 还有一种方法，将peer authentiction改为md5，并给数据库设置密码。修改配置文件
 <strong>/etc/postgresql/9.5/main/pg_hba.conf</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">local</span>   <span style="color:#66d9ef">all</span>             <span style="color:#66d9ef">all</span>                                     peer
-<span style="color:#960050;background-color:#1e0010">修改为</span>
-<span style="color:#66d9ef">local</span>   <span style="color:#66d9ef">all</span>             <span style="color:#66d9ef">all</span>                                     md5
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#000;font-weight:bold">local</span>   <span style="color:#000;font-weight:bold">all</span>             <span style="color:#000;font-weight:bold">all</span>                                     peer
+<span style="color:#a61717;background-color:#e3d2d2">修改为</span>
+<span style="color:#000;font-weight:bold">local</span>   <span style="color:#000;font-weight:bold">all</span>             <span style="color:#000;font-weight:bold">all</span>                                     md5
 </code></pre></div><p>[参考]</p>
 <p><a href="http://www.ruanyifeng.com/blog/2013/12/getting_started_with_postgresql.html">PostgreSQL新手入门</a><br>
 <a href="https://www.runoob.com/postgresql/postgresql-data-type.html">PostgreSQL 数据类型</a></p>
@@ -414,7 +414,7 @@
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/PostgreSQL">PostgreSQL</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/PostgreSQL">PostgreSQL</a></li>
                                 
                             </ul>
                         </div>
@@ -429,7 +429,7 @@
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20191117-md5-sha256-base64/">
+        <a href="https://blog.shaobo.fun/posts/2019/20191117-md5-sha256-base64/">
         <i class="material-icons">arrow_back</i><span>Md5 Sha256 Base64 转换</span>
         </a>
         </li>
@@ -437,7 +437,7 @@
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2019/20191024-optimistic-lock-pessimistic-lock/">
+        <a href="https://blog.shaobo.fun/posts/2019/20191024-optimistic-lock-pessimistic-lock/">
         <span>乐观锁和悲观锁</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -497,10 +497,10 @@
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -510,43 +510,43 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -559,43 +559,43 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -605,87 +605,87 @@
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -695,7 +695,7 @@
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -712,7 +712,7 @@
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

@@ -20,7 +20,7 @@
     <meta name="description" content="Linux网络编程">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20190629-tcpip/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20190629-tcpip/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -88,7 +88,7 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
                             
                         </div>
                         
@@ -226,99 +226,99 @@ Socket 也是一种文件描述符。 Socket 也具有一个类似于打开文�
 <li>网络地址</li>
 </ol>
 <p>结构体sockaddr:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> sockaddr {
-    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> sa_family; <span style="color:#75715e">/* 地址族, AF_xxx */</span>
-    <span style="color:#66d9ef">char</span> sa_data[<span style="color:#ae81ff">14</span>]; <span style="color:#75715e">/* 14 字节的协议地址 */</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#000;font-weight:bold">struct</span> sockaddr {
+    <span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">short</span> sa_family; <span style="color:#998;font-style:italic">/* 地址族, AF_xxx */</span>
+    <span style="color:#458;font-weight:bold">char</span> sa_data[<span style="color:#099">14</span>]; <span style="color:#998;font-style:italic">/* 14 字节的协议地址 */</span>
 };
 </code></pre></div><p>结构体sockaddr_in:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> sockaddr_in {
-    <span style="color:#66d9ef">short</span> <span style="color:#66d9ef">int</span> sin_family; <span style="color:#75715e">/* 地址族 */</span>
-    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> <span style="color:#66d9ef">int</span> sin_port; <span style="color:#75715e">/* 端口号 */</span>
-    <span style="color:#66d9ef">struct</span> in_addr sin_addr<span style="color:#75715e">/* IP 地址 */</span>
-    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> sin_zero[<span style="color:#ae81ff">8</span>]; <span style="color:#75715e">/* 填充 0 以保持与 struct sockaddr 同样大小 */</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#000;font-weight:bold">struct</span> sockaddr_in {
+    <span style="color:#458;font-weight:bold">short</span> <span style="color:#458;font-weight:bold">int</span> sin_family; <span style="color:#998;font-style:italic">/* 地址族 */</span>
+    <span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">short</span> <span style="color:#458;font-weight:bold">int</span> sin_port; <span style="color:#998;font-style:italic">/* 端口号 */</span>
+    <span style="color:#000;font-weight:bold">struct</span> in_addr sin_addr<span style="color:#998;font-style:italic">/* IP 地址 */</span>
+    <span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">char</span> sin_zero[<span style="color:#099">8</span>]; <span style="color:#998;font-style:italic">/* 填充 0 以保持与 struct sockaddr 同样大小 */</span>
 };
 </code></pre></div><ol start="2">
 <li>IP 地址转换</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> inet_aton(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>cp,<span style="color:#66d9ef">struct</span> in_addr <span style="color:#f92672">*</span>inp)
-<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>inet_ntoa(<span style="color:#66d9ef">struct</span> in_addr in)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#458;font-weight:bold">int</span> inet_aton(<span style="color:#000;font-weight:bold">const</span> <span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>cp,<span style="color:#000;font-weight:bold">struct</span> in_addr <span style="color:#000;font-weight:bold">*</span>inp)
+<span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>inet_ntoa(<span style="color:#000;font-weight:bold">struct</span> in_addr in)
 </code></pre></div><ol start="3">
 <li>IP和域名的转换</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> hostent <span style="color:#f92672">*</span><span style="color:#a6e22e">gethostbyname</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>hostname);
-<span style="color:#66d9ef">struct</span> hostent <span style="color:#f92672">*</span><span style="color:#a6e22e">gethostbyaddr</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>addr,<span style="color:#66d9ef">int</span> len,<span style="color:#66d9ef">int</span> type);
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> hostent{
-    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>h_name; <span style="color:#75715e">/*主机的正式名称 */</span>
-    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>h_aliases; <span style="color:#75715e">/*主机的别名 */</span>
-    <span style="color:#66d9ef">int</span> h_addrtype; <span style="color:#75715e">/*主机的地址类型 AF_INET*/</span>
-    <span style="color:#66d9ef">int</span> h_length; <span style="color:#75715e">/*主机的地址长度对于IP4是4字节32位*/</span>
-    <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>h_addr_list; <span style="color:#75715e">/* 主机的 IP 地址列表 */</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#000;font-weight:bold">struct</span> hostent <span style="color:#000;font-weight:bold">*</span><span style="color:#900;font-weight:bold">gethostbyname</span>(<span style="color:#000;font-weight:bold">const</span> <span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>hostname);
+<span style="color:#000;font-weight:bold">struct</span> hostent <span style="color:#000;font-weight:bold">*</span><span style="color:#900;font-weight:bold">gethostbyaddr</span>(<span style="color:#000;font-weight:bold">const</span> <span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>addr,<span style="color:#458;font-weight:bold">int</span> len,<span style="color:#458;font-weight:bold">int</span> type);
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#000;font-weight:bold">struct</span> hostent{
+    <span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>h_name; <span style="color:#998;font-style:italic">/*主机的正式名称 */</span>
+    <span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>h_aliases; <span style="color:#998;font-style:italic">/*主机的别名 */</span>
+    <span style="color:#458;font-weight:bold">int</span> h_addrtype; <span style="color:#998;font-style:italic">/*主机的地址类型 AF_INET*/</span>
+    <span style="color:#458;font-weight:bold">int</span> h_length; <span style="color:#998;font-style:italic">/*主机的地址长度对于IP4是4字节32位*/</span>
+    <span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">**</span>h_addr_list; <span style="color:#998;font-style:italic">/* 主机的 IP 地址列表 */</span>
 } ;
 </code></pre></div><ol start="4">
 <li>字节顺序转换</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">htonl</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">int</span> hostlong);
-<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">htons</span>(unisgned <span style="color:#66d9ef">short</span> <span style="color:#66d9ef">int</span> hostshort);
-<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">ntohl</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">int</span> netlong);
-<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">ntohs</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">short</span> <span style="color:#66d9ef">int</span> netshort);
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">long</span> <span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">htonl</span>(<span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">long</span> <span style="color:#458;font-weight:bold">int</span> hostlong);
+<span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">short</span> <span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">htons</span>(unisgned <span style="color:#458;font-weight:bold">short</span> <span style="color:#458;font-weight:bold">int</span> hostshort);
+<span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">long</span> <span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">ntohl</span>(<span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">long</span> <span style="color:#458;font-weight:bold">int</span> netlong);
+<span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">short</span> <span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">ntohs</span>(<span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">short</span> <span style="color:#458;font-weight:bold">int</span> netshort);
 </code></pre></div><ol start="5">
 <li>服务信息函数</li>
 </ol>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getsockname</span>(<span style="color:#66d9ef">int</span> sockfd,<span style="color:#66d9ef">struct</span> sockaddr <span style="color:#f92672">*</span>localaddr,<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>addrlen);
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getpeername</span>(<span style="color:#66d9ef">int</span> sockfd,<span style="color:#66d9ef">struct</span> sockaddr <span style="color:#f92672">*</span>peeraddr, <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>addrlen);
-<span style="color:#66d9ef">struct</span> servent <span style="color:#f92672">*</span><span style="color:#a6e22e">getservbyname</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>servname,<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>protoname);
-<span style="color:#66d9ef">struct</span> servent <span style="color:#f92672">*</span><span style="color:#a6e22e">getservbyport</span>(<span style="color:#66d9ef">int</span> port,<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>protoname);
-<span style="color:#66d9ef">struct</span> servent {
-    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s_name; <span style="color:#75715e">/* 正式服务名 */</span>
-    <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>s_aliases; <span style="color:#75715e">/* 别名列表 */</span>
-    <span style="color:#66d9ef">int</span> s_port; <span style="color:#75715e">/* 端口号 */</span>
-    <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>s_proto; <span style="color:#75715e">/* 使用的协议 */</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">getsockname</span>(<span style="color:#458;font-weight:bold">int</span> sockfd,<span style="color:#000;font-weight:bold">struct</span> sockaddr <span style="color:#000;font-weight:bold">*</span>localaddr,<span style="color:#458;font-weight:bold">int</span> <span style="color:#000;font-weight:bold">*</span>addrlen);
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">getpeername</span>(<span style="color:#458;font-weight:bold">int</span> sockfd,<span style="color:#000;font-weight:bold">struct</span> sockaddr <span style="color:#000;font-weight:bold">*</span>peeraddr, <span style="color:#458;font-weight:bold">int</span> <span style="color:#000;font-weight:bold">*</span>addrlen);
+<span style="color:#000;font-weight:bold">struct</span> servent <span style="color:#000;font-weight:bold">*</span><span style="color:#900;font-weight:bold">getservbyname</span>(<span style="color:#000;font-weight:bold">const</span> <span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>servname,<span style="color:#000;font-weight:bold">const</span> <span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>protoname);
+<span style="color:#000;font-weight:bold">struct</span> servent <span style="color:#000;font-weight:bold">*</span><span style="color:#900;font-weight:bold">getservbyport</span>(<span style="color:#458;font-weight:bold">int</span> port,<span style="color:#000;font-weight:bold">const</span> <span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>protoname);
+<span style="color:#000;font-weight:bold">struct</span> servent {
+    <span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>s_name; <span style="color:#998;font-style:italic">/* 正式服务名 */</span>
+    <span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">**</span>s_aliases; <span style="color:#998;font-style:italic">/* 别名列表 */</span>
+    <span style="color:#458;font-weight:bold">int</span> s_port; <span style="color:#998;font-style:italic">/* 端口号 */</span>
+    <span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>s_proto; <span style="color:#998;font-style:italic">/* 使用的协议 */</span>
 }
 </code></pre></div><h4 id="socket基础编程">socket基础编程</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/**hostname_ip.c**/</span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;stdio.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;stdlib.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;errno.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;sys/types.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;sys/socket.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;unistd.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;netinet/in.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;netdb.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;arpa/inet.h&#34;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc ,<span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>argv) {
-    <span style="color:#66d9ef">struct</span> sockaddr_in addr;
-    <span style="color:#66d9ef">struct</span> hostent <span style="color:#f92672">*</span>host;
-    <span style="color:#66d9ef">char</span> <span style="color:#f92672">**</span>alias;
-    <span style="color:#66d9ef">if</span>(argc<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">2</span>){
-        fprintf(stderr,<span style="color:#e6db74">&#34;Usage:%s hostname|ip..</span><span style="color:#ae81ff">\n\a</span><span style="color:#e6db74">&#34;</span>,argv[<span style="color:#ae81ff">0</span>]); 
-        exit(<span style="color:#ae81ff">1</span>);
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#998;font-style:italic">/**hostname_ip.c**/</span>
+<span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&#34;stdio.h&#34;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&#34;stdlib.h&#34;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&#34;errno.h&#34;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&#34;sys/types.h&#34;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&#34;sys/socket.h&#34;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&#34;unistd.h&#34;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&#34;netinet/in.h&#34;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&#34;netdb.h&#34;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&#34;arpa/inet.h&#34;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>(<span style="color:#458;font-weight:bold">int</span> argc ,<span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">**</span>argv) {
+    <span style="color:#000;font-weight:bold">struct</span> sockaddr_in addr;
+    <span style="color:#000;font-weight:bold">struct</span> hostent <span style="color:#000;font-weight:bold">*</span>host;
+    <span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">**</span>alias;
+    <span style="color:#000;font-weight:bold">if</span>(argc<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#099">2</span>){
+        fprintf(stderr,<span style="color:#d14">&#34;Usage:%s hostname|ip..</span><span style="color:#d14">\n\a</span><span style="color:#d14">&#34;</span>,argv[<span style="color:#099">0</span>]); 
+        exit(<span style="color:#099">1</span>);
     }
-    argv<span style="color:#f92672">++</span>;
-    <span style="color:#66d9ef">for</span>(;<span style="color:#f92672">*</span>argv<span style="color:#f92672">!=</span>NULL;argv<span style="color:#f92672">++</span>) {
-        <span style="color:#66d9ef">if</span>(inet_aton(<span style="color:#f92672">*</span>argv,<span style="color:#f92672">&amp;</span>addr.sin_addr)<span style="color:#f92672">!=</span><span style="color:#ae81ff">0</span>) {
-            host<span style="color:#f92672">=</span>gethostbyaddr((<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>addr.sin_addr,<span style="color:#ae81ff">4</span>,AF_INET);
-			printf(<span style="color:#e6db74">&#34;Address information of Ip %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,<span style="color:#f92672">*</span>argv);
+    argv<span style="color:#000;font-weight:bold">++</span>;
+    <span style="color:#000;font-weight:bold">for</span>(;<span style="color:#000;font-weight:bold">*</span>argv<span style="color:#000;font-weight:bold">!=</span><span style="color:#0086b3">NULL</span>;argv<span style="color:#000;font-weight:bold">++</span>) {
+        <span style="color:#000;font-weight:bold">if</span>(inet_aton(<span style="color:#000;font-weight:bold">*</span>argv,<span style="color:#000;font-weight:bold">&amp;</span>addr.sin_addr)<span style="color:#000;font-weight:bold">!=</span><span style="color:#099">0</span>) {
+            host<span style="color:#000;font-weight:bold">=</span>gethostbyaddr((<span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>)<span style="color:#000;font-weight:bold">&amp;</span>addr.sin_addr,<span style="color:#099">4</span>,AF_INET);
+			printf(<span style="color:#d14">&#34;Address information of Ip %s</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>,<span style="color:#000;font-weight:bold">*</span>argv);
         }
-        <span style="color:#66d9ef">else</span> {
-            host<span style="color:#f92672">=</span>gethostbyname(<span style="color:#f92672">*</span>argv);
-            printf(<span style="color:#e6db74">&#34;Address information of host %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,<span style="color:#f92672">*</span>argv);
+        <span style="color:#000;font-weight:bold">else</span> {
+            host<span style="color:#000;font-weight:bold">=</span>gethostbyname(<span style="color:#000;font-weight:bold">*</span>argv);
+            printf(<span style="color:#d14">&#34;Address information of host %s</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>,<span style="color:#000;font-weight:bold">*</span>argv);
         }
-        <span style="color:#66d9ef">if</span>(host<span style="color:#f92672">==</span>NULL) {
-            fprintf(stderr,<span style="color:#e6db74">&#34;No address information of %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,<span style="color:#f92672">*</span>argv);
-			<span style="color:#66d9ef">continue</span>;
+        <span style="color:#000;font-weight:bold">if</span>(host<span style="color:#000;font-weight:bold">==</span><span style="color:#0086b3">NULL</span>) {
+            fprintf(stderr,<span style="color:#d14">&#34;No address information of %s</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>,<span style="color:#000;font-weight:bold">*</span>argv);
+			<span style="color:#000;font-weight:bold">continue</span>;
         }
-		<span style="color:#66d9ef">else</span>{
-			printf(<span style="color:#e6db74">&#34;Official host name %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,host<span style="color:#f92672">-&gt;</span>h_name);
-			printf(<span style="color:#e6db74">&#34;Name aliases:&#34;</span>);
-			<span style="color:#66d9ef">for</span>(alias<span style="color:#f92672">=</span>host<span style="color:#f92672">-&gt;</span>h_aliases;<span style="color:#f92672">*</span>alias<span style="color:#f92672">!=</span>NULL;alias<span style="color:#f92672">++</span>){
-				printf(<span style="color:#e6db74">&#34;%s ,&#34;</span>,<span style="color:#f92672">*</span>alias);
+		<span style="color:#000;font-weight:bold">else</span>{
+			printf(<span style="color:#d14">&#34;Official host name %s</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>,host<span style="color:#000;font-weight:bold">-&gt;</span>h_name);
+			printf(<span style="color:#d14">&#34;Name aliases:&#34;</span>);
+			<span style="color:#000;font-weight:bold">for</span>(alias<span style="color:#000;font-weight:bold">=</span>host<span style="color:#000;font-weight:bold">-&gt;</span>h_aliases;<span style="color:#000;font-weight:bold">*</span>alias<span style="color:#000;font-weight:bold">!=</span><span style="color:#0086b3">NULL</span>;alias<span style="color:#000;font-weight:bold">++</span>){
+				printf(<span style="color:#d14">&#34;%s ,&#34;</span>,<span style="color:#000;font-weight:bold">*</span>alias);
 			}
-			printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">Ip address:&#34;</span>);
-			<span style="color:#66d9ef">for</span>(alias<span style="color:#f92672">=</span>host<span style="color:#f92672">-&gt;</span>h_addr_list;<span style="color:#f92672">*</span>alias<span style="color:#f92672">!=</span>NULL;alias<span style="color:#f92672">++</span>){
-				printf(<span style="color:#e6db74">&#34;%s ,&#34;</span>,inet_ntoa(<span style="color:#f92672">*</span>(<span style="color:#66d9ef">struct</span> in_addr <span style="color:#f92672">*</span>) (<span style="color:#f92672">*</span>alias)));
+			printf(<span style="color:#d14">&#34;</span><span style="color:#d14">\n</span><span style="color:#d14">Ip address:&#34;</span>);
+			<span style="color:#000;font-weight:bold">for</span>(alias<span style="color:#000;font-weight:bold">=</span>host<span style="color:#000;font-weight:bold">-&gt;</span>h_addr_list;<span style="color:#000;font-weight:bold">*</span>alias<span style="color:#000;font-weight:bold">!=</span><span style="color:#0086b3">NULL</span>;alias<span style="color:#000;font-weight:bold">++</span>){
+				printf(<span style="color:#d14">&#34;%s ,&#34;</span>,inet_ntoa(<span style="color:#000;font-weight:bold">*</span>(<span style="color:#000;font-weight:bold">struct</span> in_addr <span style="color:#000;font-weight:bold">*</span>) (<span style="color:#000;font-weight:bold">*</span>alias)));
 			}
-			printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+			printf(<span style="color:#d14">&#34;</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
 		}
     }
 }
@@ -327,226 +327,226 @@ Socket 也是一种文件描述符。 Socket 也具有一个类似于打开文�
 <p><img src="/assets/article/20190629/tcp_communication_process.png" alt="TCPcommunicationprocess"></p>
 <p>服务器首先启动,通过调用socket()建立一个套接字,然后调用 bind()将该套接字和本地网络地址联系在一起,再调用listen()使套接字做好侦听的准备,并规定它的请求队列的长度,之后就调用accept()来接收连接。客户在建立套接字后就可调用connect()和服务器建立连接。连接一旦建立,客户机和服务器之间就可以通过调用read()和write()来发送和接收数据。最后,待数据传送结束后,双方调用close()关闭套接字。</p>
 <p>TCPServer程序设计:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/** tcpserver.c **/</span>
-<span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;errno.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;netdb.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;netinet/in.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/socket.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;arpa/inet.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc,<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>argv[])
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#998;font-style:italic">/** tcpserver.c **/</span>
+<span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdlib.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;errno.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;string.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;netdb.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/types.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;netinet/in.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/socket.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;arpa/inet.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>(<span style="color:#458;font-weight:bold">int</span> argc,<span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>argv[])
 {
-	<span style="color:#66d9ef">int</span> sockfd,new_fd;
-	<span style="color:#66d9ef">struct</span> sockaddr_in server_addr;
-	<span style="color:#66d9ef">struct</span> sockaddr_in client_addr;
-	<span style="color:#66d9ef">int</span> sin_size,portnumber;
-	<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> hello[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello I&#39;m tcpserver&#34;</span>;
-	<span style="color:#66d9ef">if</span>(argc <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span>){
-		fprintf(stderr,<span style="color:#e6db74">&#34;Usage:%s protnumber</span><span style="color:#ae81ff">\a\n</span><span style="color:#e6db74">&#34;</span>,argv[<span style="color:#ae81ff">0</span>]);
-		exit(<span style="color:#ae81ff">1</span>);
+	<span style="color:#458;font-weight:bold">int</span> sockfd,new_fd;
+	<span style="color:#000;font-weight:bold">struct</span> sockaddr_in server_addr;
+	<span style="color:#000;font-weight:bold">struct</span> sockaddr_in client_addr;
+	<span style="color:#458;font-weight:bold">int</span> sin_size,portnumber;
+	<span style="color:#000;font-weight:bold">const</span> <span style="color:#458;font-weight:bold">char</span> hello[] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;Hello I&#39;m tcpserver&#34;</span>;
+	<span style="color:#000;font-weight:bold">if</span>(argc <span style="color:#000;font-weight:bold">!=</span> <span style="color:#099">2</span>){
+		fprintf(stderr,<span style="color:#d14">&#34;Usage:%s protnumber</span><span style="color:#d14">\a\n</span><span style="color:#d14">&#34;</span>,argv[<span style="color:#099">0</span>]);
+		exit(<span style="color:#099">1</span>);
 	}
-	<span style="color:#66d9ef">if</span>((portnumber<span style="color:#f92672">=</span>atoi(argv[<span style="color:#ae81ff">1</span>]))<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>){	<span style="color:#75715e">//ascii to integer
-</span><span style="color:#75715e"></span>		fprintf(stderr,<span style="color:#e6db74">&#34;Usage:%s portnumber</span><span style="color:#ae81ff">\a\n</span><span style="color:#e6db74">&#34;</span>,argv[<span style="color:#ae81ff">0</span>]);
-		exit(<span style="color:#ae81ff">1</span>);
-	}
-
-	<span style="color:#66d9ef">if</span>((sockfd<span style="color:#f92672">=</span>socket(AF_INET,SOCK_STREAM,<span style="color:#ae81ff">0</span>))<span style="color:#f92672">==-</span><span style="color:#ae81ff">1</span>){ <span style="color:#75715e">/*服务器端开始建立 socket 描述符*/</span>
-		fprintf(stderr,<span style="color:#e6db74">&#34;Socket error:%s portnumber</span><span style="color:#ae81ff">\a\n</span><span style="color:#e6db74">&#34;</span>,strerror(errno));
-		exit(<span style="color:#ae81ff">1</span>);
-	}
-        <span style="color:#75715e">/*服务器端填充 sockaddr 结构*/</span>
-	bzero(<span style="color:#f92672">&amp;</span>server_addr,<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">struct</span> sockaddr_in));
-	server_addr.sin_family <span style="color:#f92672">=</span> AF_INET;
-	server_addr.sin_addr.s_addr <span style="color:#f92672">=</span> htonl(INADDR_ANY);
-	server_addr.sin_port <span style="color:#f92672">=</span> htons(portnumber);
-
-        <span style="color:#75715e">/*捆绑 sockfd 描述符*/</span>
-	<span style="color:#66d9ef">if</span>(bind(sockfd,(<span style="color:#66d9ef">struct</span> sockaddr <span style="color:#f92672">*</span>)(<span style="color:#f92672">&amp;</span>server_addr),<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">struct</span> sockaddr)) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>){
-		fprintf(stderr,<span style="color:#e6db74">&#34;Bind error:%s</span><span style="color:#ae81ff">\n\a</span><span style="color:#e6db74">&#34;</span>,strerror(errno));
-		exit(<span style="color:#ae81ff">1</span>);
+	<span style="color:#000;font-weight:bold">if</span>((portnumber<span style="color:#000;font-weight:bold">=</span>atoi(argv[<span style="color:#099">1</span>]))<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#099">0</span>){	<span style="color:#998;font-style:italic">//ascii to integer
+</span><span style="color:#998;font-style:italic"></span>		fprintf(stderr,<span style="color:#d14">&#34;Usage:%s portnumber</span><span style="color:#d14">\a\n</span><span style="color:#d14">&#34;</span>,argv[<span style="color:#099">0</span>]);
+		exit(<span style="color:#099">1</span>);
 	}
 
-        <span style="color:#75715e">/*监听 sockfd 描述符*/</span>
-	<span style="color:#66d9ef">if</span>(listen(sockfd,<span style="color:#ae81ff">5</span>) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>){<span style="color:#75715e">//请求允许最大连接数目
-</span><span style="color:#75715e"></span>		fprintf(stderr,<span style="color:#e6db74">&#34;Listen error: %s</span><span style="color:#ae81ff">\n\a</span><span style="color:#e6db74">&#34;</span>,strerror(errno));
-		exit(<span style="color:#ae81ff">1</span>);
+	<span style="color:#000;font-weight:bold">if</span>((sockfd<span style="color:#000;font-weight:bold">=</span>socket(AF_INET,SOCK_STREAM,<span style="color:#099">0</span>))<span style="color:#000;font-weight:bold">==-</span><span style="color:#099">1</span>){ <span style="color:#998;font-style:italic">/*服务器端开始建立 socket 描述符*/</span>
+		fprintf(stderr,<span style="color:#d14">&#34;Socket error:%s portnumber</span><span style="color:#d14">\a\n</span><span style="color:#d14">&#34;</span>,strerror(errno));
+		exit(<span style="color:#099">1</span>);
+	}
+        <span style="color:#998;font-style:italic">/*服务器端填充 sockaddr 结构*/</span>
+	bzero(<span style="color:#000;font-weight:bold">&amp;</span>server_addr,<span style="color:#000;font-weight:bold">sizeof</span>(<span style="color:#000;font-weight:bold">struct</span> sockaddr_in));
+	server_addr.sin_family <span style="color:#000;font-weight:bold">=</span> AF_INET;
+	server_addr.sin_addr.s_addr <span style="color:#000;font-weight:bold">=</span> htonl(INADDR_ANY);
+	server_addr.sin_port <span style="color:#000;font-weight:bold">=</span> htons(portnumber);
+
+        <span style="color:#998;font-style:italic">/*捆绑 sockfd 描述符*/</span>
+	<span style="color:#000;font-weight:bold">if</span>(bind(sockfd,(<span style="color:#000;font-weight:bold">struct</span> sockaddr <span style="color:#000;font-weight:bold">*</span>)(<span style="color:#000;font-weight:bold">&amp;</span>server_addr),<span style="color:#000;font-weight:bold">sizeof</span>(<span style="color:#000;font-weight:bold">struct</span> sockaddr)) <span style="color:#000;font-weight:bold">==</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>){
+		fprintf(stderr,<span style="color:#d14">&#34;Bind error:%s</span><span style="color:#d14">\n\a</span><span style="color:#d14">&#34;</span>,strerror(errno));
+		exit(<span style="color:#099">1</span>);
 	}
 
-	<span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>){
-                <span style="color:#75715e">/*服务器阻塞,直到客户程序建立连接*/</span>
-		sin_size <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">struct</span> sockaddr_in);
-		<span style="color:#66d9ef">if</span>((new_fd <span style="color:#f92672">=</span> accept(sockfd,(<span style="color:#66d9ef">struct</span> sockaddr<span style="color:#f92672">*</span>)(<span style="color:#f92672">&amp;</span>client_addr),<span style="color:#f92672">&amp;</span>sin_size))<span style="color:#f92672">==-</span><span style="color:#ae81ff">1</span>){
-			fprintf(stderr,<span style="color:#e6db74">&#34;Accept error:%s </span><span style="color:#ae81ff">\n\a</span><span style="color:#e6db74">&#34;</span>,strerror(errno));
-			exit(<span style="color:#ae81ff">1</span>);
+        <span style="color:#998;font-style:italic">/*监听 sockfd 描述符*/</span>
+	<span style="color:#000;font-weight:bold">if</span>(listen(sockfd,<span style="color:#099">5</span>) <span style="color:#000;font-weight:bold">==</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>){<span style="color:#998;font-style:italic">//请求允许最大连接数目
+</span><span style="color:#998;font-style:italic"></span>		fprintf(stderr,<span style="color:#d14">&#34;Listen error: %s</span><span style="color:#d14">\n\a</span><span style="color:#d14">&#34;</span>,strerror(errno));
+		exit(<span style="color:#099">1</span>);
+	}
+
+	<span style="color:#000;font-weight:bold">while</span>(<span style="color:#099">1</span>){
+                <span style="color:#998;font-style:italic">/*服务器阻塞,直到客户程序建立连接*/</span>
+		sin_size <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">sizeof</span>(<span style="color:#000;font-weight:bold">struct</span> sockaddr_in);
+		<span style="color:#000;font-weight:bold">if</span>((new_fd <span style="color:#000;font-weight:bold">=</span> accept(sockfd,(<span style="color:#000;font-weight:bold">struct</span> sockaddr<span style="color:#000;font-weight:bold">*</span>)(<span style="color:#000;font-weight:bold">&amp;</span>client_addr),<span style="color:#000;font-weight:bold">&amp;</span>sin_size))<span style="color:#000;font-weight:bold">==-</span><span style="color:#099">1</span>){
+			fprintf(stderr,<span style="color:#d14">&#34;Accept error:%s </span><span style="color:#d14">\n\a</span><span style="color:#d14">&#34;</span>,strerror(errno));
+			exit(<span style="color:#099">1</span>);
 		}
-		fprintf(stderr,<span style="color:#e6db74">&#34;Server get connection from %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,inet_ntoa(client_addr.sin_addr));
-		<span style="color:#66d9ef">if</span>(write(new_fd,hello,strlen(hello))<span style="color:#f92672">==-</span><span style="color:#ae81ff">1</span>){
-			fprintf(stderr,<span style="color:#e6db74">&#34;Write Error: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,strerror(errno));
-			exit(<span style="color:#ae81ff">1</span>);
+		fprintf(stderr,<span style="color:#d14">&#34;Server get connection from %s</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>,inet_ntoa(client_addr.sin_addr));
+		<span style="color:#000;font-weight:bold">if</span>(write(new_fd,hello,strlen(hello))<span style="color:#000;font-weight:bold">==-</span><span style="color:#099">1</span>){
+			fprintf(stderr,<span style="color:#d14">&#34;Write Error: %s</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>,strerror(errno));
+			exit(<span style="color:#099">1</span>);
 		}
-		close(new_fd); <span style="color:#75715e">/*这个通信已经结束*/</span>
-                <span style="color:#75715e">/*循环下一个*/</span>
+		close(new_fd); <span style="color:#998;font-style:italic">/*这个通信已经结束*/</span>
+                <span style="color:#998;font-style:italic">/*循环下一个*/</span>
 	}
 	close(sockfd);
-	exit(<span style="color:#ae81ff">0</span>);
+	exit(<span style="color:#099">0</span>);
 }
 </code></pre></div><p>TCP Client程序设计:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/** tcpclient.c **/</span>
-<span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;errno.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;netdb.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;netinet/in.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/socket.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc,<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>argv[])
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#998;font-style:italic">/** tcpclient.c **/</span>
+<span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdlib.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;errno.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;string.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;netdb.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/types.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;netinet/in.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/socket.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>(<span style="color:#458;font-weight:bold">int</span> argc,<span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>argv[])
 {
-	<span style="color:#66d9ef">int</span> sockfd;
-	<span style="color:#66d9ef">char</span> buffer[<span style="color:#ae81ff">1024</span>];
-	<span style="color:#66d9ef">struct</span> sockaddr_in server_addr;
-	<span style="color:#66d9ef">struct</span> hostent <span style="color:#f92672">*</span>host;
-	<span style="color:#66d9ef">int</span> portnumber,nbytes;
-	<span style="color:#66d9ef">if</span>(argc <span style="color:#f92672">!=</span> <span style="color:#ae81ff">3</span>){
-		fprintf(stderr,<span style="color:#e6db74">&#34;Usage:%s hostname protnumber</span><span style="color:#ae81ff">\a\n</span><span style="color:#e6db74">&#34;</span>,argv[<span style="color:#ae81ff">0</span>]);
-		exit(<span style="color:#ae81ff">1</span>);
+	<span style="color:#458;font-weight:bold">int</span> sockfd;
+	<span style="color:#458;font-weight:bold">char</span> buffer[<span style="color:#099">1024</span>];
+	<span style="color:#000;font-weight:bold">struct</span> sockaddr_in server_addr;
+	<span style="color:#000;font-weight:bold">struct</span> hostent <span style="color:#000;font-weight:bold">*</span>host;
+	<span style="color:#458;font-weight:bold">int</span> portnumber,nbytes;
+	<span style="color:#000;font-weight:bold">if</span>(argc <span style="color:#000;font-weight:bold">!=</span> <span style="color:#099">3</span>){
+		fprintf(stderr,<span style="color:#d14">&#34;Usage:%s hostname protnumber</span><span style="color:#d14">\a\n</span><span style="color:#d14">&#34;</span>,argv[<span style="color:#099">0</span>]);
+		exit(<span style="color:#099">1</span>);
 	}
-	<span style="color:#66d9ef">if</span>((host<span style="color:#f92672">=</span>gethostbyname(argv[<span style="color:#ae81ff">1</span>]))<span style="color:#f92672">==</span>NULL){
-		fprintf(stderr,<span style="color:#e6db74">&#34;Usage:%s hostname protnumber2</span><span style="color:#ae81ff">\a\n</span><span style="color:#e6db74">&#34;</span>,argv[<span style="color:#ae81ff">0</span>]);
-		exit(<span style="color:#ae81ff">1</span>);
+	<span style="color:#000;font-weight:bold">if</span>((host<span style="color:#000;font-weight:bold">=</span>gethostbyname(argv[<span style="color:#099">1</span>]))<span style="color:#000;font-weight:bold">==</span><span style="color:#0086b3">NULL</span>){
+		fprintf(stderr,<span style="color:#d14">&#34;Usage:%s hostname protnumber2</span><span style="color:#d14">\a\n</span><span style="color:#d14">&#34;</span>,argv[<span style="color:#099">0</span>]);
+		exit(<span style="color:#099">1</span>);
 	}
-	<span style="color:#66d9ef">if</span>((sockfd<span style="color:#f92672">=</span>socket(AF_INET,SOCK_STREAM,<span style="color:#ae81ff">0</span>))<span style="color:#f92672">==-</span><span style="color:#ae81ff">1</span>){
-		fprintf(stderr,<span style="color:#e6db74">&#34;Socket error:%s portnumber</span><span style="color:#ae81ff">\a\n</span><span style="color:#e6db74">&#34;</span>,strerror(errno));
-		exit(<span style="color:#ae81ff">1</span>);
+	<span style="color:#000;font-weight:bold">if</span>((sockfd<span style="color:#000;font-weight:bold">=</span>socket(AF_INET,SOCK_STREAM,<span style="color:#099">0</span>))<span style="color:#000;font-weight:bold">==-</span><span style="color:#099">1</span>){
+		fprintf(stderr,<span style="color:#d14">&#34;Socket error:%s portnumber</span><span style="color:#d14">\a\n</span><span style="color:#d14">&#34;</span>,strerror(errno));
+		exit(<span style="color:#099">1</span>);
 	}
-	<span style="color:#66d9ef">if</span>((portnumber<span style="color:#f92672">=</span>atoi(argv[<span style="color:#ae81ff">2</span>]))<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>){	<span style="color:#75715e">//ascii to integer
-</span><span style="color:#75715e"></span>		fprintf(stderr,<span style="color:#e6db74">&#34;Usage:%s portnumber</span><span style="color:#ae81ff">\a\n</span><span style="color:#e6db74">&#34;</span>,argv[<span style="color:#ae81ff">0</span>]);
-		exit(<span style="color:#ae81ff">1</span>);
-	}
-
-	server_addr.sin_family <span style="color:#f92672">=</span> AF_INET;
-	server_addr.sin_port <span style="color:#f92672">=</span> htons(portnumber);
-	server_addr.sin_addr <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>((<span style="color:#66d9ef">struct</span> in_addr <span style="color:#f92672">*</span>)host<span style="color:#f92672">-&gt;</span>h_addr);
-
-        <span style="color:#75715e">/*客户程序发起连接请求*/</span>
-	<span style="color:#66d9ef">if</span>(connect(sockfd,(<span style="color:#66d9ef">struct</span> sockaddr <span style="color:#f92672">*</span>)(<span style="color:#f92672">&amp;</span>server_addr),<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">struct</span> sockaddr)) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>){
-		fprintf(stderr,<span style="color:#e6db74">&#34;Connect Error: %s </span><span style="color:#ae81ff">\a\n</span><span style="color:#e6db74">&#34;</span>,strerror(errno));
-		exit(<span style="color:#ae81ff">1</span>);
+	<span style="color:#000;font-weight:bold">if</span>((portnumber<span style="color:#000;font-weight:bold">=</span>atoi(argv[<span style="color:#099">2</span>]))<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#099">0</span>){	<span style="color:#998;font-style:italic">//ascii to integer
+</span><span style="color:#998;font-style:italic"></span>		fprintf(stderr,<span style="color:#d14">&#34;Usage:%s portnumber</span><span style="color:#d14">\a\n</span><span style="color:#d14">&#34;</span>,argv[<span style="color:#099">0</span>]);
+		exit(<span style="color:#099">1</span>);
 	}
 
-        <span style="color:#75715e">/*连接成功了*/</span>
-	<span style="color:#66d9ef">if</span>((nbytes<span style="color:#f92672">=</span>read(sockfd,buffer,<span style="color:#ae81ff">1024</span>))<span style="color:#f92672">==-</span><span style="color:#ae81ff">1</span>){
-		fprintf(stderr,<span style="color:#e6db74">&#34;Read Error: %s </span><span style="color:#ae81ff">\a\n</span><span style="color:#e6db74">&#34;</span>,strerror(errno));
-		exit(<span style="color:#ae81ff">1</span>);
+	server_addr.sin_family <span style="color:#000;font-weight:bold">=</span> AF_INET;
+	server_addr.sin_port <span style="color:#000;font-weight:bold">=</span> htons(portnumber);
+	server_addr.sin_addr <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">*</span>((<span style="color:#000;font-weight:bold">struct</span> in_addr <span style="color:#000;font-weight:bold">*</span>)host<span style="color:#000;font-weight:bold">-&gt;</span>h_addr);
+
+        <span style="color:#998;font-style:italic">/*客户程序发起连接请求*/</span>
+	<span style="color:#000;font-weight:bold">if</span>(connect(sockfd,(<span style="color:#000;font-weight:bold">struct</span> sockaddr <span style="color:#000;font-weight:bold">*</span>)(<span style="color:#000;font-weight:bold">&amp;</span>server_addr),<span style="color:#000;font-weight:bold">sizeof</span>(<span style="color:#000;font-weight:bold">struct</span> sockaddr)) <span style="color:#000;font-weight:bold">==</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>){
+		fprintf(stderr,<span style="color:#d14">&#34;Connect Error: %s </span><span style="color:#d14">\a\n</span><span style="color:#d14">&#34;</span>,strerror(errno));
+		exit(<span style="color:#099">1</span>);
 	}
-	buffer[nbytes] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
-	printf(<span style="color:#e6db74">&#34;I have received:%s </span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,buffer);
-	close(sockfd); <span style="color:#75715e">/*结束通信*/</span>
-	exit(<span style="color:#ae81ff">0</span>);
+
+        <span style="color:#998;font-style:italic">/*连接成功了*/</span>
+	<span style="color:#000;font-weight:bold">if</span>((nbytes<span style="color:#000;font-weight:bold">=</span>read(sockfd,buffer,<span style="color:#099">1024</span>))<span style="color:#000;font-weight:bold">==-</span><span style="color:#099">1</span>){
+		fprintf(stderr,<span style="color:#d14">&#34;Read Error: %s </span><span style="color:#d14">\a\n</span><span style="color:#d14">&#34;</span>,strerror(errno));
+		exit(<span style="color:#099">1</span>);
+	}
+	buffer[nbytes] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;\0&#39;</span>;
+	printf(<span style="color:#d14">&#34;I have received:%s </span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>,buffer);
+	close(sockfd); <span style="color:#998;font-style:italic">/*结束通信*/</span>
+	exit(<span style="color:#099">0</span>);
 }
 </code></pre></div><h2 id="udp通信编程">UDP通信编程</h2>
 <p>UDP 是非连接的、不保证可靠性的、传递数据报的传输协议。由于UDP不提供可靠性保证,使得它具有较少的传输时延,因而UDP协议常常用在一些对速度要求较高的场合。UDP 连接的通信过程如图所示。</p>
 <p><img src="/assets/article/20190629/udp_communication_process.png" alt="UDPcommunicationprocess"></p>
 <p>在服务器端,服务器首先创建一个 UDP 数据报类型的套接字,然后服务器就调用bind()函数,给此 UDP 套接字绑定一个端口。由于不需要建立连接,因此服务器端就可以通过调用 recvfrom()函数在指定的端口上等待客户端发送来的 UDP 数据报。在客户端,同样要先通过 socket()函数创建一个数据报套接字,然后有操作系统为这个套接字来分配端口号。此后客户端就可以使用 sendto()函数向一个指定的地址发送一个UDP 数据报。服务器端接收到套接字后,从 recvfrom()中返回,在对数据报进行处理之后,再用 sendto()函数将处理的结果返回客户端。 UDP 中使用的函数基本和上节相同。</p>
 <p>UDP服务器端程序设计:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/** udpserver.c **/</span>
-<span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/socket.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;netinet/in.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#define MAXLINE 80
-</span><span style="color:#75715e">#define SERV_PORT 8888
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">do_echo</span>(<span style="color:#66d9ef">int</span> sockfd,<span style="color:#66d9ef">struct</span> sockaddr <span style="color:#f92672">*</span>pcliaddr,socklen_t clilen)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#998;font-style:italic">/** udpserver.c **/</span>
+<span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/types.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/socket.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;string.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;netinet/in.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdlib.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#999;font-weight:bold;font-style:italic">#define MAXLINE 80
+</span><span style="color:#999;font-weight:bold;font-style:italic">#define SERV_PORT 8888
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">do_echo</span>(<span style="color:#458;font-weight:bold">int</span> sockfd,<span style="color:#000;font-weight:bold">struct</span> sockaddr <span style="color:#000;font-weight:bold">*</span>pcliaddr,socklen_t clilen)
 {
-	<span style="color:#66d9ef">int</span> n;
+	<span style="color:#458;font-weight:bold">int</span> n;
 	socklen_t len;
-	<span style="color:#66d9ef">char</span> mesg[<span style="color:#ae81ff">80</span>];
-	<span style="color:#66d9ef">for</span>(;;){
-		len <span style="color:#f92672">=</span> clilen;
-		n <span style="color:#f92672">=</span> recvfrom(sockfd,mesg,MAXLINE,<span style="color:#ae81ff">0</span>,pcliaddr,<span style="color:#f92672">&amp;</span>len); <span style="color:#75715e">/* 等待接收数据 */</span>
-		sendto(sockfd,mesg,n,<span style="color:#ae81ff">0</span>,pcliaddr,len); <span style="color:#75715e">/* 将接收到的数据发送回去 */</span>
-		mesg[n] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#458;font-weight:bold">char</span> mesg[<span style="color:#099">80</span>];
+	<span style="color:#000;font-weight:bold">for</span>(;;){
+		len <span style="color:#000;font-weight:bold">=</span> clilen;
+		n <span style="color:#000;font-weight:bold">=</span> recvfrom(sockfd,mesg,MAXLINE,<span style="color:#099">0</span>,pcliaddr,<span style="color:#000;font-weight:bold">&amp;</span>len); <span style="color:#998;font-style:italic">/* 等待接收数据 */</span>
+		sendto(sockfd,mesg,n,<span style="color:#099">0</span>,pcliaddr,len); <span style="color:#998;font-style:italic">/* 将接收到的数据发送回去 */</span>
+		mesg[n] <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
 		fputs(mesg,stdout);
 	}
 }
 
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>()
 {
-	<span style="color:#66d9ef">int</span> sockfd;
-	<span style="color:#66d9ef">struct</span> sockaddr_in servaddr,cliaddr;
-	sockfd <span style="color:#f92672">=</span> socket(AF_INET,SOCK_DGRAM,<span style="color:#ae81ff">0</span>); <span style="color:#75715e">/* 创建 socket */</span>
-	bzero(<span style="color:#f92672">&amp;</span>servaddr,<span style="color:#66d9ef">sizeof</span>(servaddr)); <span style="color:#75715e">/* 初始化 servaddr */</span>
-	servaddr.sin_family <span style="color:#f92672">=</span> AF_INET;
-	servaddr.sin_addr.s_addr <span style="color:#f92672">=</span> htonl(INADDR_ANY); <span style="color:#75715e">/*定义为 INADDR_ANY*/</span>
-	servaddr.sin_port <span style="color:#f92672">=</span> htons(SERV_PORT);
-	<span style="color:#66d9ef">if</span>(bind(sockfd,(<span style="color:#66d9ef">struct</span> sockaddr <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>servaddr,<span style="color:#66d9ef">sizeof</span>(servaddr))<span style="color:#f92672">==-</span><span style="color:#ae81ff">1</span>) <span style="color:#75715e">/* 绑定 IP 地址和端口*/</span>
+	<span style="color:#458;font-weight:bold">int</span> sockfd;
+	<span style="color:#000;font-weight:bold">struct</span> sockaddr_in servaddr,cliaddr;
+	sockfd <span style="color:#000;font-weight:bold">=</span> socket(AF_INET,SOCK_DGRAM,<span style="color:#099">0</span>); <span style="color:#998;font-style:italic">/* 创建 socket */</span>
+	bzero(<span style="color:#000;font-weight:bold">&amp;</span>servaddr,<span style="color:#000;font-weight:bold">sizeof</span>(servaddr)); <span style="color:#998;font-style:italic">/* 初始化 servaddr */</span>
+	servaddr.sin_family <span style="color:#000;font-weight:bold">=</span> AF_INET;
+	servaddr.sin_addr.s_addr <span style="color:#000;font-weight:bold">=</span> htonl(INADDR_ANY); <span style="color:#998;font-style:italic">/*定义为 INADDR_ANY*/</span>
+	servaddr.sin_port <span style="color:#000;font-weight:bold">=</span> htons(SERV_PORT);
+	<span style="color:#000;font-weight:bold">if</span>(bind(sockfd,(<span style="color:#000;font-weight:bold">struct</span> sockaddr <span style="color:#000;font-weight:bold">*</span>)<span style="color:#000;font-weight:bold">&amp;</span>servaddr,<span style="color:#000;font-weight:bold">sizeof</span>(servaddr))<span style="color:#000;font-weight:bold">==-</span><span style="color:#099">1</span>) <span style="color:#998;font-style:italic">/* 绑定 IP 地址和端口*/</span>
 	{
-		perror(<span style="color:#e6db74">&#34;bind error&#34;</span>);
-		exit(<span style="color:#ae81ff">1</span>);
+		perror(<span style="color:#d14">&#34;bind error&#34;</span>);
+		exit(<span style="color:#099">1</span>);
 	}
-	do_echo(sockfd,(<span style="color:#66d9ef">struct</span> sockaddr <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>cliaddr,<span style="color:#66d9ef">sizeof</span>(cliaddr));
-	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+	do_echo(sockfd,(<span style="color:#000;font-weight:bold">struct</span> sockaddr <span style="color:#000;font-weight:bold">*</span>)<span style="color:#000;font-weight:bold">&amp;</span>cliaddr,<span style="color:#000;font-weight:bold">sizeof</span>(cliaddr));
+	<span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
 }
 </code></pre></div><p>UDP客户端程序设计:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/** udpclient.c **/</span>
-<span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/socket.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;netinet/in.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;arpa/inet.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#define MAXLINE 80
-</span><span style="color:#75715e">#define SERV_PORT 8888
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">do_cli</span>(FILE <span style="color:#f92672">*</span>fp,<span style="color:#66d9ef">int</span> sockfd,<span style="color:#66d9ef">struct</span> sockaddr <span style="color:#f92672">*</span>pservaddr,socklen_t servlen)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#998;font-style:italic">/** udpclient.c **/</span>
+<span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/types.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/socket.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;string.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;netinet/in.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdlib.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;arpa/inet.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;unistd.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#999;font-weight:bold;font-style:italic">#define MAXLINE 80
+</span><span style="color:#999;font-weight:bold;font-style:italic">#define SERV_PORT 8888
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">do_cli</span>(FILE <span style="color:#000;font-weight:bold">*</span>fp,<span style="color:#458;font-weight:bold">int</span> sockfd,<span style="color:#000;font-weight:bold">struct</span> sockaddr <span style="color:#000;font-weight:bold">*</span>pservaddr,socklen_t servlen)
 {
-	<span style="color:#66d9ef">int</span> n;
-	<span style="color:#66d9ef">char</span> sendline[MAXLINE],recvline[MAXLINE<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
-	<span style="color:#66d9ef">if</span>(connect(sockfd,(<span style="color:#66d9ef">struct</span> sockaddr <span style="color:#f92672">*</span>)pservaddr,servlen)<span style="color:#f92672">==-</span><span style="color:#ae81ff">1</span>){ <span style="color:#75715e">/* 连接服务器 */</span>
-		perror(<span style="color:#e6db74">&#34;conect error&#34;</span>);
-		exit(<span style="color:#ae81ff">1</span>);
+	<span style="color:#458;font-weight:bold">int</span> n;
+	<span style="color:#458;font-weight:bold">char</span> sendline[MAXLINE],recvline[MAXLINE<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>];
+	<span style="color:#000;font-weight:bold">if</span>(connect(sockfd,(<span style="color:#000;font-weight:bold">struct</span> sockaddr <span style="color:#000;font-weight:bold">*</span>)pservaddr,servlen)<span style="color:#000;font-weight:bold">==-</span><span style="color:#099">1</span>){ <span style="color:#998;font-style:italic">/* 连接服务器 */</span>
+		perror(<span style="color:#d14">&#34;conect error&#34;</span>);
+		exit(<span style="color:#099">1</span>);
 	}
-	<span style="color:#66d9ef">while</span>(fgets(sendline,MAXLINE,fp) <span style="color:#f92672">!=</span> NULL){
-		write(sockfd,sendline,strlen(sendline)); <span style="color:#75715e">/*读一行并发送到服务器*/</span>
-		n <span style="color:#f92672">=</span> read(sockfd,recvline,MAXLINE); <span style="color:#75715e">/* 接收从服务器来的数据 */</span>
-		<span style="color:#66d9ef">if</span>(n <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>){
-			perror(<span style="color:#e6db74">&#34;read error&#34;</span>);
-			exit(<span style="color:#ae81ff">1</span>);
+	<span style="color:#000;font-weight:bold">while</span>(fgets(sendline,MAXLINE,fp) <span style="color:#000;font-weight:bold">!=</span> <span style="color:#0086b3">NULL</span>){
+		write(sockfd,sendline,strlen(sendline)); <span style="color:#998;font-style:italic">/*读一行并发送到服务器*/</span>
+		n <span style="color:#000;font-weight:bold">=</span> read(sockfd,recvline,MAXLINE); <span style="color:#998;font-style:italic">/* 接收从服务器来的数据 */</span>
+		<span style="color:#000;font-weight:bold">if</span>(n <span style="color:#000;font-weight:bold">==</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>){
+			perror(<span style="color:#d14">&#34;read error&#34;</span>);
+			exit(<span style="color:#099">1</span>);
 		}
-		recvline[n] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+		recvline[n] <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
 		fputs(recvline,stdout);
 	}
 }
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc,<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>argv[])
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>(<span style="color:#458;font-weight:bold">int</span> argc,<span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>argv[])
 {
-	<span style="color:#66d9ef">int</span> sockfd;
-	<span style="color:#66d9ef">struct</span> sockaddr_in servaddr;
-	<span style="color:#66d9ef">if</span>(argc <span style="color:#f92672">!=</span> <span style="color:#ae81ff">2</span>){
-		printf(<span style="color:#e6db74">&#34;Usage:udpclient&lt;IPaddress&gt;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-		exit(<span style="color:#ae81ff">1</span>);
+	<span style="color:#458;font-weight:bold">int</span> sockfd;
+	<span style="color:#000;font-weight:bold">struct</span> sockaddr_in servaddr;
+	<span style="color:#000;font-weight:bold">if</span>(argc <span style="color:#000;font-weight:bold">!=</span> <span style="color:#099">2</span>){
+		printf(<span style="color:#d14">&#34;Usage:udpclient&lt;IPaddress&gt;</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
+		exit(<span style="color:#099">1</span>);
 	}
-	bzero(<span style="color:#f92672">&amp;</span>servaddr,<span style="color:#66d9ef">sizeof</span>(servaddr));
-	servaddr.sin_family <span style="color:#f92672">=</span> AF_INET;
-	servaddr.sin_port <span style="color:#f92672">=</span> htons(SERV_PORT);
-	<span style="color:#66d9ef">if</span>(inet_pton(AF_INET,argv[<span style="color:#ae81ff">1</span>],<span style="color:#f92672">&amp;</span>servaddr.sin_addr)<span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">0</span>)
+	bzero(<span style="color:#000;font-weight:bold">&amp;</span>servaddr,<span style="color:#000;font-weight:bold">sizeof</span>(servaddr));
+	servaddr.sin_family <span style="color:#000;font-weight:bold">=</span> AF_INET;
+	servaddr.sin_port <span style="color:#000;font-weight:bold">=</span> htons(SERV_PORT);
+	<span style="color:#000;font-weight:bold">if</span>(inet_pton(AF_INET,argv[<span style="color:#099">1</span>],<span style="color:#000;font-weight:bold">&amp;</span>servaddr.sin_addr)<span style="color:#000;font-weight:bold">&lt;=</span><span style="color:#099">0</span>)
 	{
-		printf(<span style="color:#e6db74">&#34;[%s]is not a valid IPaddress</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,argv[<span style="color:#ae81ff">1</span>]);
-		exit(<span style="color:#ae81ff">1</span>);
+		printf(<span style="color:#d14">&#34;[%s]is not a valid IPaddress</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>,argv[<span style="color:#099">1</span>]);
+		exit(<span style="color:#099">1</span>);
 	}
-	sockfd <span style="color:#f92672">=</span> socket(AF_INET,SOCK_DGRAM,<span style="color:#ae81ff">0</span>);
-	do_cli(stdin,sockfd,(<span style="color:#66d9ef">struct</span> sockaddr <span style="color:#f92672">*</span>)<span style="color:#f92672">&amp;</span>servaddr,<span style="color:#66d9ef">sizeof</span>(servaddr));
-	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+	sockfd <span style="color:#000;font-weight:bold">=</span> socket(AF_INET,SOCK_DGRAM,<span style="color:#099">0</span>);
+	do_cli(stdin,sockfd,(<span style="color:#000;font-weight:bold">struct</span> sockaddr <span style="color:#000;font-weight:bold">*</span>)<span style="color:#000;font-weight:bold">&amp;</span>servaddr,<span style="color:#000;font-weight:bold">sizeof</span>(servaddr));
+	<span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
 }
 </code></pre></div>
                         </div>
@@ -558,9 +558,9 @@ Socket 也是一种文件描述符。 Socket 也具有一个类似于打开文�
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/Linux">Linux</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/Linux">Linux</a></li>
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/TCP/IP">TCP/IP</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/TCP/IP">TCP/IP</a></li>
                                 
                             </ul>
                         </div>
@@ -575,7 +575,7 @@ Socket 也是一种文件描述符。 Socket 也具有一个类似于打开文�
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20190630-serial-port/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190630-serial-port/">
         <i class="material-icons">arrow_back</i><span>Linux串口通信</span>
         </a>
         </li>
@@ -583,7 +583,7 @@ Socket 也是一种文件描述符。 Socket 也具有一个类似于打开文�
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2019/20190624-tmux/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190624-tmux/">
         <span>工欲善其事,必先利其器--tmux</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -643,10 +643,10 @@ Socket 也是一种文件描述符。 Socket 也具有一个类似于打开文�
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -656,43 +656,43 @@ Socket 也是一种文件描述符。 Socket 也具有一个类似于打开文�
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -705,43 +705,43 @@ Socket 也是一种文件描述符。 Socket 也具有一个类似于打开文�
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -751,87 +751,87 @@ Socket 也是一种文件描述符。 Socket 也具有一个类似于打开文�
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -841,7 +841,7 @@ Socket 也是一种文件描述符。 Socket 也具有一个类似于打开文�
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -858,7 +858,7 @@ Socket 也是一种文件描述符。 Socket 也具有一个类似于打开文�
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

@@ -20,7 +20,7 @@
     <meta name="description" content="九大排序算法">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20190527-sortAlgorithm/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20190527-sortAlgorithm/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -88,7 +88,7 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95">算法</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95">算法</a></span>
                             
                         </div>
                         
@@ -147,16 +147,16 @@
 <blockquote>
 <p>插入排序是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。插入排序在实现上，通常采用in-place排序（即只需用到O(1)的额外空间的排序），因而在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">InsertSort</span>(<span style="color:#66d9ef">int</span> arr[],<span style="color:#66d9ef">int</span> len){
-    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;i<span style="color:#f92672">&lt;</span>len;i<span style="color:#f92672">++</span>){
-        <span style="color:#66d9ef">int</span> key<span style="color:#f92672">=</span>arr[i];     <span style="color:#75715e">//当前要插入值
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span>i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
-        <span style="color:#66d9ef">while</span>(key<span style="color:#f92672">&lt;</span>arr[j] <span style="color:#f92672">&amp;&amp;</span> j<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>){      <span style="color:#75715e">//从后往前比对，比当前值大都往后挪
-</span><span style="color:#75715e"></span>            arr[j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span>arr[j];            <span style="color:#75715e">//后一个等于前一个
-</span><span style="color:#75715e"></span>            j<span style="color:#f92672">--</span>;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">InsertSort</span>(<span style="color:#458;font-weight:bold">int</span> arr[],<span style="color:#458;font-weight:bold">int</span> len){
+    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> i<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>;i<span style="color:#000;font-weight:bold">&lt;</span>len;i<span style="color:#000;font-weight:bold">++</span>){
+        <span style="color:#458;font-weight:bold">int</span> key<span style="color:#000;font-weight:bold">=</span>arr[i];     <span style="color:#998;font-style:italic">//当前要插入值
+</span><span style="color:#998;font-style:italic"></span>        <span style="color:#458;font-weight:bold">int</span> j<span style="color:#000;font-weight:bold">=</span>i<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>;
+        <span style="color:#000;font-weight:bold">while</span>(key<span style="color:#000;font-weight:bold">&lt;</span>arr[j] <span style="color:#000;font-weight:bold">&amp;&amp;</span> j<span style="color:#000;font-weight:bold">&gt;=</span><span style="color:#099">0</span>){      <span style="color:#998;font-style:italic">//从后往前比对，比当前值大都往后挪
+</span><span style="color:#998;font-style:italic"></span>            arr[j<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>]<span style="color:#000;font-weight:bold">=</span>arr[j];            <span style="color:#998;font-style:italic">//后一个等于前一个
+</span><span style="color:#998;font-style:italic"></span>            j<span style="color:#000;font-weight:bold">--</span>;
         }
-        arr[j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span>key;                   <span style="color:#75715e">//找到合适位置后插入
-</span><span style="color:#75715e"></span>    }
+        arr[j<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>]<span style="color:#000;font-weight:bold">=</span>key;                   <span style="color:#998;font-style:italic">//找到合适位置后插入
+</span><span style="color:#998;font-style:italic"></span>    }
 }
 </code></pre></div><p>时间复杂度分析:</p>
 <p>最好情况就是，序列已经是升序排列了，在这种情况下，需要进行的比较操作需n-1次即可。最坏情况就是，序列是降序排列，那么此时需要进行的比较共有1/2n(n-1)次。插入排序的赋值操作是比较操作的次数减去n-1次，（因为n-1次循环中，每一次循环的比较都比赋值多一个，多在最后那一次比较并不带来赋值）。平均来说插入排序算法复杂度为(O(n<sup>2</sup>))。</p>
@@ -173,21 +173,21 @@
 <blockquote>
 <p>折半插入排序是对插入排序的一种改进，由于插入排序过程中就是不断依次将元素插入前面已经排好的序列中。而前半部分已经是排好序的数列，所以在查找的过程中采用这半查找来加快查找插入点的速度</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">BinaryInsertSort</span>(<span style="color:#66d9ef">int</span> arr[],<span style="color:#66d9ef">int</span> len){
-    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;i<span style="color:#f92672">&lt;</span>len;i<span style="color:#f92672">++</span>){
-        <span style="color:#66d9ef">int</span> key<span style="color:#f92672">=</span>arr[i];     <span style="color:#75715e">//当前要插入值
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">int</span> low<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>,high<span style="color:#f92672">=</span>i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; <span style="color:#75715e">//查找区间0~i-1
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">while</span>(low<span style="color:#f92672">&lt;=</span>high){
-            <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> (low<span style="color:#f92672">+</span>high)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>;
-            <span style="color:#66d9ef">if</span>(key<span style="color:#f92672">&lt;</span>arr[m])
-                high <span style="color:#f92672">=</span> m<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>; <span style="color:#75715e">//插入点在前半段
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">else</span>
-                low <span style="color:#f92672">=</span> m<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;  <span style="color:#75715e">//插入点在后半段
-</span><span style="color:#75715e"></span>        }
-        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span>i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;j<span style="color:#f92672">&gt;=</span>high<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;j<span style="color:#f92672">--</span>)
-            arr[j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> arr[j];
-        arr[high<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span>key;                   <span style="color:#75715e">//找到合适位置后插入
-</span><span style="color:#75715e"></span>    }
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">BinaryInsertSort</span>(<span style="color:#458;font-weight:bold">int</span> arr[],<span style="color:#458;font-weight:bold">int</span> len){
+    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> i<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>;i<span style="color:#000;font-weight:bold">&lt;</span>len;i<span style="color:#000;font-weight:bold">++</span>){
+        <span style="color:#458;font-weight:bold">int</span> key<span style="color:#000;font-weight:bold">=</span>arr[i];     <span style="color:#998;font-style:italic">//当前要插入值
+</span><span style="color:#998;font-style:italic"></span>        <span style="color:#458;font-weight:bold">int</span> low<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>,high<span style="color:#000;font-weight:bold">=</span>i<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>; <span style="color:#998;font-style:italic">//查找区间0~i-1
+</span><span style="color:#998;font-style:italic"></span>        <span style="color:#000;font-weight:bold">while</span>(low<span style="color:#000;font-weight:bold">&lt;=</span>high){
+            <span style="color:#458;font-weight:bold">int</span> m <span style="color:#000;font-weight:bold">=</span> (low<span style="color:#000;font-weight:bold">+</span>high)<span style="color:#000;font-weight:bold">/</span><span style="color:#099">2</span>;
+            <span style="color:#000;font-weight:bold">if</span>(key<span style="color:#000;font-weight:bold">&lt;</span>arr[m])
+                high <span style="color:#000;font-weight:bold">=</span> m<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>; <span style="color:#998;font-style:italic">//插入点在前半段
+</span><span style="color:#998;font-style:italic"></span>            <span style="color:#000;font-weight:bold">else</span>
+                low <span style="color:#000;font-weight:bold">=</span> m<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>;  <span style="color:#998;font-style:italic">//插入点在后半段
+</span><span style="color:#998;font-style:italic"></span>        }
+        <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> j<span style="color:#000;font-weight:bold">=</span>i<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>;j<span style="color:#000;font-weight:bold">&gt;=</span>high<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>;j<span style="color:#000;font-weight:bold">--</span>)
+            arr[j<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">=</span> arr[j];
+        arr[high<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>]<span style="color:#000;font-weight:bold">=</span>key;                   <span style="color:#998;font-style:italic">//找到合适位置后插入
+</span><span style="color:#998;font-style:italic"></span>    }
 }
 </code></pre></div><p>复杂度分析:</p>
 <p>在平均的情况下，折半插入排序只是减少了关键字的比较次数，而记录的移动次数不变因此时间复杂度仍然为O(n<sup>2</sup>),空间复杂度同插入排序</p>
@@ -200,21 +200,21 @@
 <blockquote>
 <p>希尔排序又称缩小增量排序，是插入排序中的一种。希尔排序实际是分组插入排序，将整个待排序列每次按照不同的增量分组。当经过几次分组后整个序列基本有序时，再对全体记录进行一次插入排序。</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">ShellSort</span>(<span style="color:#66d9ef">int</span> arr[],<span style="color:#66d9ef">int</span> len){
-    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> d<span style="color:#f92672">=</span>len<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>;d<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>;d <span style="color:#f92672">=</span> d<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>){
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">ShellSort</span>(<span style="color:#458;font-weight:bold">int</span> arr[],<span style="color:#458;font-weight:bold">int</span> len){
+    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> d<span style="color:#000;font-weight:bold">=</span>len<span style="color:#000;font-weight:bold">/</span><span style="color:#099">2</span>;d<span style="color:#000;font-weight:bold">&gt;</span><span style="color:#099">0</span>;d <span style="color:#000;font-weight:bold">=</span> d<span style="color:#000;font-weight:bold">/</span><span style="color:#099">2</span>){
 
-        <span style="color:#75715e">/*
-</span><span style="color:#75715e">            按照增量进行插入排序
-</span><span style="color:#75715e">            插入排序中每次相差1的比较和赋值改为d
-</span><span style="color:#75715e">        */</span>
-        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>d;i<span style="color:#f92672">&lt;</span>len;i<span style="color:#f92672">++</span>){
-        <span style="color:#66d9ef">int</span> key<span style="color:#f92672">=</span>arr[i];    
-        <span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span>i<span style="color:#f92672">-</span>d;
-        <span style="color:#66d9ef">while</span>(key<span style="color:#f92672">&lt;</span>arr[j] <span style="color:#f92672">&amp;&amp;</span> j<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>){   
-            arr[j<span style="color:#f92672">+</span>d]<span style="color:#f92672">=</span>arr[j];     
-            j <span style="color:#f92672">=</span> j<span style="color:#f92672">-</span>d;
+        <span style="color:#998;font-style:italic">/*
+</span><span style="color:#998;font-style:italic">            按照增量进行插入排序
+</span><span style="color:#998;font-style:italic">            插入排序中每次相差1的比较和赋值改为d
+</span><span style="color:#998;font-style:italic">        */</span>
+        <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> i<span style="color:#000;font-weight:bold">=</span>d;i<span style="color:#000;font-weight:bold">&lt;</span>len;i<span style="color:#000;font-weight:bold">++</span>){
+        <span style="color:#458;font-weight:bold">int</span> key<span style="color:#000;font-weight:bold">=</span>arr[i];    
+        <span style="color:#458;font-weight:bold">int</span> j<span style="color:#000;font-weight:bold">=</span>i<span style="color:#000;font-weight:bold">-</span>d;
+        <span style="color:#000;font-weight:bold">while</span>(key<span style="color:#000;font-weight:bold">&lt;</span>arr[j] <span style="color:#000;font-weight:bold">&amp;&amp;</span> j<span style="color:#000;font-weight:bold">&gt;=</span><span style="color:#099">0</span>){   
+            arr[j<span style="color:#000;font-weight:bold">+</span>d]<span style="color:#000;font-weight:bold">=</span>arr[j];     
+            j <span style="color:#000;font-weight:bold">=</span> j<span style="color:#000;font-weight:bold">-</span>d;
         }
-        arr[j<span style="color:#f92672">+</span>d]<span style="color:#f92672">=</span>key;    
+        arr[j<span style="color:#000;font-weight:bold">+</span>d]<span style="color:#000;font-weight:bold">=</span>key;    
     }
     }
 }
@@ -234,19 +234,19 @@
 <blockquote>
 <p>冒泡排序是一种简单的交换排序方法，他通过两两比较相邻记录的关键字，如果发生逆序，则进行交换，从而使关键字小的记录如气泡一般逐渐往上漂浮(左移)，或者使关键字大的记录如石块一样向下坠落(右移)</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">BubbleSort</span>(<span style="color:#66d9ef">int</span> arr[],<span style="color:#66d9ef">int</span> len)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">BubbleSort</span>(<span style="color:#458;font-weight:bold">int</span> arr[],<span style="color:#458;font-weight:bold">int</span> len)
 {
-    <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> len<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
-    <span style="color:#66d9ef">bool</span> flag <span style="color:#f92672">=</span> true;   <span style="color:#75715e">//flag用来判断一趟排序是否交换
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">while</span>((m<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>) <span style="color:#f92672">&amp;&amp;</span> flag){ <span style="color:#75715e">//若本趟排序没有发生交换则表明数据已经有序不再往后执行排序
-</span><span style="color:#75715e"></span>        flag <span style="color:#f92672">=</span> false;
-        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;j<span style="color:#f92672">&lt;</span>m;j<span style="color:#f92672">++</span>){
-            <span style="color:#66d9ef">if</span>(arr[j] <span style="color:#f92672">&gt;</span> arr[j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]){
-                flag<span style="color:#f92672">=</span>true;
-                swap(arr[j],arr[j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]);
+    <span style="color:#458;font-weight:bold">int</span> m <span style="color:#000;font-weight:bold">=</span> len<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>;
+    <span style="color:#458;font-weight:bold">bool</span> flag <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">true</span>;   <span style="color:#998;font-style:italic">//flag用来判断一趟排序是否交换
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">while</span>((m<span style="color:#000;font-weight:bold">&gt;</span><span style="color:#099">0</span>) <span style="color:#000;font-weight:bold">&amp;&amp;</span> flag){ <span style="color:#998;font-style:italic">//若本趟排序没有发生交换则表明数据已经有序不再往后执行排序
+</span><span style="color:#998;font-style:italic"></span>        flag <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">false</span>;
+        <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> j<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>;j<span style="color:#000;font-weight:bold">&lt;</span>m;j<span style="color:#000;font-weight:bold">++</span>){
+            <span style="color:#000;font-weight:bold">if</span>(arr[j] <span style="color:#000;font-weight:bold">&gt;</span> arr[j<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>]){
+                flag<span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">true</span>;
+                swap(arr[j],arr[j<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>]);
             }
         }
-        m<span style="color:#f92672">--</span>;
+        m<span style="color:#000;font-weight:bold">--</span>;
     }
 }
 </code></pre></div><p>复杂度分析:</p>
@@ -262,57 +262,57 @@
 </blockquote>
 <p>算法步骤: 在待排序的n个记录中取任一记录(这里选最后一个)作为枢纽(pivot)，经过一趟排序后把所有关键字小于key的记录交换到前面，大于key的交换到后面形成两个子表，key放到分界处，然后分别对左右子表重复上诉操作，直至每一个字表只有一个记录时，排序完成。</p>
 <p><strong>递归法</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">QSort</span>(<span style="color:#66d9ef">int</span> arr[],<span style="color:#66d9ef">int</span> start,<span style="color:#66d9ef">int</span> end)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">QSort</span>(<span style="color:#458;font-weight:bold">int</span> arr[],<span style="color:#458;font-weight:bold">int</span> start,<span style="color:#458;font-weight:bold">int</span> end)
 {
-    <span style="color:#66d9ef">if</span> (start <span style="color:#f92672">&gt;=</span> end)
-        <span style="color:#66d9ef">return</span>;
-    <span style="color:#66d9ef">int</span> key <span style="color:#f92672">=</span> arr[end];
-    <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> start, right <span style="color:#f92672">=</span> end <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
-    <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;</span> right) { <span style="color:#75715e">//在整个范围内搜寻比枢纽元值小或大的元素，然后将左侧元素与右侧元素交换
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">while</span> (arr[left] <span style="color:#f92672">&lt;</span> key <span style="color:#f92672">&amp;&amp;</span> left <span style="color:#f92672">&lt;</span> right) <span style="color:#75715e">//试图在左侧找到一个比枢纽元更大的元素
-</span><span style="color:#75715e"></span>            left<span style="color:#f92672">++</span>;
-        <span style="color:#66d9ef">while</span> (arr[right] <span style="color:#f92672">&gt;=</span> key <span style="color:#f92672">&amp;&amp;</span> left <span style="color:#f92672">&lt;</span> right) <span style="color:#75715e">//试图在右侧找到一个比枢纽元更小的元素
-</span><span style="color:#75715e"></span>            right<span style="color:#f92672">--</span>;
-        swap(arr[left], arr[right]); <span style="color:#75715e">//交换元素
-</span><span style="color:#75715e"></span>    }   <span style="color:#75715e">// 每次执行完后left == right
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (arr[left] <span style="color:#f92672">&gt;=</span> arr[end])
+    <span style="color:#000;font-weight:bold">if</span> (start <span style="color:#000;font-weight:bold">&gt;=</span> end)
+        <span style="color:#000;font-weight:bold">return</span>;
+    <span style="color:#458;font-weight:bold">int</span> key <span style="color:#000;font-weight:bold">=</span> arr[end];
+    <span style="color:#458;font-weight:bold">int</span> left <span style="color:#000;font-weight:bold">=</span> start, right <span style="color:#000;font-weight:bold">=</span> end <span style="color:#000;font-weight:bold">-</span> <span style="color:#099">1</span>;
+    <span style="color:#000;font-weight:bold">while</span> (left <span style="color:#000;font-weight:bold">&lt;</span> right) { <span style="color:#998;font-style:italic">//在整个范围内搜寻比枢纽元值小或大的元素，然后将左侧元素与右侧元素交换
+</span><span style="color:#998;font-style:italic"></span>        <span style="color:#000;font-weight:bold">while</span> (arr[left] <span style="color:#000;font-weight:bold">&lt;</span> key <span style="color:#000;font-weight:bold">&amp;&amp;</span> left <span style="color:#000;font-weight:bold">&lt;</span> right) <span style="color:#998;font-style:italic">//试图在左侧找到一个比枢纽元更大的元素
+</span><span style="color:#998;font-style:italic"></span>            left<span style="color:#000;font-weight:bold">++</span>;
+        <span style="color:#000;font-weight:bold">while</span> (arr[right] <span style="color:#000;font-weight:bold">&gt;=</span> key <span style="color:#000;font-weight:bold">&amp;&amp;</span> left <span style="color:#000;font-weight:bold">&lt;</span> right) <span style="color:#998;font-style:italic">//试图在右侧找到一个比枢纽元更小的元素
+</span><span style="color:#998;font-style:italic"></span>            right<span style="color:#000;font-weight:bold">--</span>;
+        swap(arr[left], arr[right]); <span style="color:#998;font-style:italic">//交换元素
+</span><span style="color:#998;font-style:italic"></span>    }   <span style="color:#998;font-style:italic">// 每次执行完后left == right
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">if</span> (arr[left] <span style="color:#000;font-weight:bold">&gt;=</span> arr[end])
         swap(arr[left], arr[end]);
-    <span style="color:#66d9ef">else</span>
-        left<span style="color:#f92672">++</span>;     <span style="color:#75715e">//++前left可能是指向第一个记录
-</span><span style="color:#75715e"></span>    QSort(arr, start, left <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
-    QSort(arr, left <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, end);
+    <span style="color:#000;font-weight:bold">else</span>
+        left<span style="color:#000;font-weight:bold">++</span>;     <span style="color:#998;font-style:italic">//++前left可能是指向第一个记录
+</span><span style="color:#998;font-style:italic"></span>    QSort(arr, start, left <span style="color:#000;font-weight:bold">-</span> <span style="color:#099">1</span>);
+    QSort(arr, left <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">1</span>, end);
 }
 </code></pre></div><p><strong>迭代法</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Range</span> {
-    <span style="color:#66d9ef">int</span> start, end;
-    Range(<span style="color:#66d9ef">int</span> s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">int</span> e <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) {
-        start <span style="color:#f92672">=</span> s, end <span style="color:#f92672">=</span> e;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#000;font-weight:bold">struct</span> <span style="color:#458;font-weight:bold">Range</span> {
+    <span style="color:#458;font-weight:bold">int</span> start, end;
+    Range(<span style="color:#458;font-weight:bold">int</span> s <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>, <span style="color:#458;font-weight:bold">int</span> e <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>) {
+        start <span style="color:#000;font-weight:bold">=</span> s, end <span style="color:#000;font-weight:bold">=</span> e;
     }
 };
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">quick_sort</span>(<span style="color:#66d9ef">int</span> arr[], <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> len) {
-    <span style="color:#66d9ef">if</span> (len <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>)
-        <span style="color:#66d9ef">return</span>; <span style="color:#75715e">// 避免len等于负值时越界
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// r[]模拟堆栈,p为数量,r[p++]为push,r[--p]为pop且取得元素
-</span><span style="color:#75715e"></span>    Range r[len];
-    <span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-    r[p<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> Range(<span style="color:#ae81ff">0</span>, len <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
-    <span style="color:#66d9ef">while</span> (p) {
-        Range range <span style="color:#f92672">=</span> r[<span style="color:#f92672">--</span>p];
-        <span style="color:#66d9ef">if</span> (range.start <span style="color:#f92672">&gt;=</span> range.end)
-            <span style="color:#66d9ef">continue</span>;
-        <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> arr[range.end];
-        <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> range.start, right <span style="color:#f92672">=</span> range.end <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
-        <span style="color:#66d9ef">while</span> (left <span style="color:#f92672">&lt;</span> right) {
-            <span style="color:#66d9ef">while</span> (arr[left] <span style="color:#f92672">&lt;</span> mid <span style="color:#f92672">&amp;&amp;</span> left <span style="color:#f92672">&lt;</span> right) left<span style="color:#f92672">++</span>;
-            <span style="color:#66d9ef">while</span> (arr[right] <span style="color:#f92672">&gt;=</span> mid <span style="color:#f92672">&amp;&amp;</span> left <span style="color:#f92672">&lt;</span> right) right<span style="color:#f92672">--</span>;
+<span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">quick_sort</span>(<span style="color:#458;font-weight:bold">int</span> arr[], <span style="color:#000;font-weight:bold">const</span> <span style="color:#458;font-weight:bold">int</span> len) {
+    <span style="color:#000;font-weight:bold">if</span> (len <span style="color:#000;font-weight:bold">&lt;=</span> <span style="color:#099">0</span>)
+        <span style="color:#000;font-weight:bold">return</span>; <span style="color:#998;font-style:italic">// 避免len等于负值时越界
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#998;font-style:italic">// r[]模拟堆栈,p为数量,r[p++]为push,r[--p]为pop且取得元素
+</span><span style="color:#998;font-style:italic"></span>    Range r[len];
+    <span style="color:#458;font-weight:bold">int</span> p <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
+    r[p<span style="color:#000;font-weight:bold">++</span>] <span style="color:#000;font-weight:bold">=</span> Range(<span style="color:#099">0</span>, len <span style="color:#000;font-weight:bold">-</span> <span style="color:#099">1</span>);
+    <span style="color:#000;font-weight:bold">while</span> (p) {
+        Range range <span style="color:#000;font-weight:bold">=</span> r[<span style="color:#000;font-weight:bold">--</span>p];
+        <span style="color:#000;font-weight:bold">if</span> (range.start <span style="color:#000;font-weight:bold">&gt;=</span> range.end)
+            <span style="color:#000;font-weight:bold">continue</span>;
+        <span style="color:#458;font-weight:bold">int</span> mid <span style="color:#000;font-weight:bold">=</span> arr[range.end];
+        <span style="color:#458;font-weight:bold">int</span> left <span style="color:#000;font-weight:bold">=</span> range.start, right <span style="color:#000;font-weight:bold">=</span> range.end <span style="color:#000;font-weight:bold">-</span> <span style="color:#099">1</span>;
+        <span style="color:#000;font-weight:bold">while</span> (left <span style="color:#000;font-weight:bold">&lt;</span> right) {
+            <span style="color:#000;font-weight:bold">while</span> (arr[left] <span style="color:#000;font-weight:bold">&lt;</span> mid <span style="color:#000;font-weight:bold">&amp;&amp;</span> left <span style="color:#000;font-weight:bold">&lt;</span> right) left<span style="color:#000;font-weight:bold">++</span>;
+            <span style="color:#000;font-weight:bold">while</span> (arr[right] <span style="color:#000;font-weight:bold">&gt;=</span> mid <span style="color:#000;font-weight:bold">&amp;&amp;</span> left <span style="color:#000;font-weight:bold">&lt;</span> right) right<span style="color:#000;font-weight:bold">--</span>;
             swap(arr[left], arr[right]);
         }
-        <span style="color:#66d9ef">if</span> (arr[left] <span style="color:#f92672">&gt;=</span> arr[range.end])
+        <span style="color:#000;font-weight:bold">if</span> (arr[left] <span style="color:#000;font-weight:bold">&gt;=</span> arr[range.end])
             swap(arr[left], arr[range.end]);
-        <span style="color:#66d9ef">else</span>
-            left<span style="color:#f92672">++</span>;
-        r[p<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> Range(range.start, left <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
-        r[p<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> Range(left <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, range.end);
+        <span style="color:#000;font-weight:bold">else</span>
+            left<span style="color:#000;font-weight:bold">++</span>;
+        r[p<span style="color:#000;font-weight:bold">++</span>] <span style="color:#000;font-weight:bold">=</span> Range(range.start, left <span style="color:#000;font-weight:bold">-</span> <span style="color:#099">1</span>);
+        r[p<span style="color:#000;font-weight:bold">++</span>] <span style="color:#000;font-weight:bold">=</span> Range(left <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">1</span>, range.end);
     }
 }
 </code></pre></div><p>时间复杂度:</p>
@@ -332,13 +332,13 @@
 <blockquote>
 <p>选择排序是一种简单直观的排序算法。它的工作原理如下。首先在未排序序列中找到最小（大）suanfa元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">SelectSort</span>(<span style="color:#66d9ef">int</span> arr[],<span style="color:#66d9ef">int</span> len)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">SelectSort</span>(<span style="color:#458;font-weight:bold">int</span> arr[],<span style="color:#458;font-weight:bold">int</span> len)
 {
-    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>len;i<span style="color:#f92672">++</span>){
-        <span style="color:#66d9ef">int</span> min <span style="color:#f92672">=</span> i;
-        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span>i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;j<span style="color:#f92672">&lt;</span>len;j<span style="color:#f92672">++</span>){
-            <span style="color:#66d9ef">if</span>(arr[j]<span style="color:#f92672">&lt;</span>arr[min]){
-                min <span style="color:#f92672">=</span> j;
+    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> i<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">&lt;</span>len;i<span style="color:#000;font-weight:bold">++</span>){
+        <span style="color:#458;font-weight:bold">int</span> min <span style="color:#000;font-weight:bold">=</span> i;
+        <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> j<span style="color:#000;font-weight:bold">=</span>i<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>;j<span style="color:#000;font-weight:bold">&lt;</span>len;j<span style="color:#000;font-weight:bold">++</span>){
+            <span style="color:#000;font-weight:bold">if</span>(arr[j]<span style="color:#000;font-weight:bold">&lt;</span>arr[min]){
+                min <span style="color:#000;font-weight:bold">=</span> j;
             }
         }
         swap(arr[i],arr[min]);
@@ -355,28 +355,28 @@
 <blockquote>
 <p>堆排序是指利用堆这种数据结构所设计的一种排序算法。堆是一个近似完全二叉树的结构，并同时满足堆积的性质：即子节点的键值或索引总是小于（或者大于）它的父节点。</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MaxHeap</span>(<span style="color:#66d9ef">int</span> arr[],<span style="color:#66d9ef">int</span> start,<span style="color:#66d9ef">int</span> end){
-    <span style="color:#66d9ef">int</span> dad <span style="color:#f92672">=</span> start;
-    <span style="color:#66d9ef">int</span> son <span style="color:#f92672">=</span> dad<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
-    <span style="color:#66d9ef">while</span>(son <span style="color:#f92672">&lt;=</span> end){
-        <span style="color:#66d9ef">if</span>(son<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span><span style="color:#f92672">&lt;=</span>end <span style="color:#f92672">&amp;&amp;</span> arr[son] <span style="color:#f92672">&lt;</span> arr[son<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>]) <span style="color:#75715e">//选择子节点中较大的那个
-</span><span style="color:#75715e"></span>            son<span style="color:#f92672">++</span>;
-        <span style="color:#66d9ef">if</span>(arr[dad] <span style="color:#f92672">&gt;</span> arr[son]) <span style="color:#75715e">//如果父节点已经大于最大子节点说明dad为父节点的堆有序
-</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">return</span> ;        
-        <span style="color:#66d9ef">else</span>{
-            swap(arr[dad],arr[son]);    <span style="color:#75715e">//否则交换父子节点，并递归操作子节点
-</span><span style="color:#75715e"></span>            dad <span style="color:#f92672">=</span> son;
-            son <span style="color:#f92672">=</span> dad<span style="color:#f92672">*</span><span style="color:#ae81ff">2</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">MaxHeap</span>(<span style="color:#458;font-weight:bold">int</span> arr[],<span style="color:#458;font-weight:bold">int</span> start,<span style="color:#458;font-weight:bold">int</span> end){
+    <span style="color:#458;font-weight:bold">int</span> dad <span style="color:#000;font-weight:bold">=</span> start;
+    <span style="color:#458;font-weight:bold">int</span> son <span style="color:#000;font-weight:bold">=</span> dad<span style="color:#000;font-weight:bold">*</span><span style="color:#099">2</span> <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">1</span>;
+    <span style="color:#000;font-weight:bold">while</span>(son <span style="color:#000;font-weight:bold">&lt;=</span> end){
+        <span style="color:#000;font-weight:bold">if</span>(son<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span><span style="color:#000;font-weight:bold">&lt;=</span>end <span style="color:#000;font-weight:bold">&amp;&amp;</span> arr[son] <span style="color:#000;font-weight:bold">&lt;</span> arr[son<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>]) <span style="color:#998;font-style:italic">//选择子节点中较大的那个
+</span><span style="color:#998;font-style:italic"></span>            son<span style="color:#000;font-weight:bold">++</span>;
+        <span style="color:#000;font-weight:bold">if</span>(arr[dad] <span style="color:#000;font-weight:bold">&gt;</span> arr[son]) <span style="color:#998;font-style:italic">//如果父节点已经大于最大子节点说明dad为父节点的堆有序
+</span><span style="color:#998;font-style:italic"></span>            <span style="color:#000;font-weight:bold">return</span> ;        
+        <span style="color:#000;font-weight:bold">else</span>{
+            swap(arr[dad],arr[son]);    <span style="color:#998;font-style:italic">//否则交换父子节点，并递归操作子节点
+</span><span style="color:#998;font-style:italic"></span>            dad <span style="color:#000;font-weight:bold">=</span> son;
+            son <span style="color:#000;font-weight:bold">=</span> dad<span style="color:#000;font-weight:bold">*</span><span style="color:#099">2</span><span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>;
         }
     }
 }
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">HeadSort</span>(<span style="color:#66d9ef">int</span> arr[],<span style="color:#66d9ef">int</span> len){
-    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>len<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;i<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">--</span>){    <span style="color:#75715e">//建初堆，len/2-1最后一个非叶子节点     
-</span><span style="color:#75715e"></span>   MaxHeap(arr,i,len<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+<span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">HeadSort</span>(<span style="color:#458;font-weight:bold">int</span> arr[],<span style="color:#458;font-weight:bold">int</span> len){
+    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> i<span style="color:#000;font-weight:bold">=</span>len<span style="color:#000;font-weight:bold">/</span><span style="color:#099">2</span><span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>;i<span style="color:#000;font-weight:bold">&gt;=</span><span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">--</span>){    <span style="color:#998;font-style:italic">//建初堆，len/2-1最后一个非叶子节点     
+</span><span style="color:#998;font-style:italic"></span>   MaxHeap(arr,i,len<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>);
     }
-    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>len<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;i<span style="color:#f92672">&gt;</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">--</span>){   <span style="color:#75715e">//将最大节点移除到当前最后节点后调整堆
-</span><span style="color:#75715e"></span>        swap(arr[<span style="color:#ae81ff">0</span>],arr[i]);
-        MaxHeap(arr,<span style="color:#ae81ff">0</span>,i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> i<span style="color:#000;font-weight:bold">=</span>len<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>;i<span style="color:#000;font-weight:bold">&gt;</span><span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">--</span>){   <span style="color:#998;font-style:italic">//将最大节点移除到当前最后节点后调整堆
+</span><span style="color:#998;font-style:italic"></span>        swap(arr[<span style="color:#099">0</span>],arr[i]);
+        MaxHeap(arr,<span style="color:#099">0</span>,i<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>);
     }
 }
 </code></pre></div><p>通常堆是通过一维数组来实现的。在数组起始位置为0的情形中:</p>
@@ -405,31 +405,31 @@
 <blockquote>
 <p>归并排序，是创建在归并操作上的一种有效的排序算法,归并排序算法思想是假设初始序列含有n个记录，则可以看成n个有序的子序列，每个子序列的长度为１，然后两两归并，不断将归并后数据继续归并直到得到一个长度为n的有序序列为止</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MergeSortRecursive</span>(<span style="color:#66d9ef">int</span> arr[],<span style="color:#66d9ef">int</span> reg[],<span style="color:#66d9ef">int</span> start,<span style="color:#66d9ef">int</span> end){
-    <span style="color:#66d9ef">if</span>(start <span style="color:#f92672">&gt;=</span> end)
-        <span style="color:#66d9ef">return</span> ;
-    <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> (start<span style="color:#f92672">+</span>end)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>;
-    <span style="color:#66d9ef">int</span> start1 <span style="color:#f92672">=</span> start;
-    <span style="color:#66d9ef">int</span> start2 <span style="color:#f92672">=</span> mid<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>;
-    <span style="color:#75715e">//递归分解
-</span><span style="color:#75715e"></span>    MergeSortRecursive(arr,reg,start1,mid);
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">MergeSortRecursive</span>(<span style="color:#458;font-weight:bold">int</span> arr[],<span style="color:#458;font-weight:bold">int</span> reg[],<span style="color:#458;font-weight:bold">int</span> start,<span style="color:#458;font-weight:bold">int</span> end){
+    <span style="color:#000;font-weight:bold">if</span>(start <span style="color:#000;font-weight:bold">&gt;=</span> end)
+        <span style="color:#000;font-weight:bold">return</span> ;
+    <span style="color:#458;font-weight:bold">int</span> mid <span style="color:#000;font-weight:bold">=</span> (start<span style="color:#000;font-weight:bold">+</span>end)<span style="color:#000;font-weight:bold">/</span><span style="color:#099">2</span>;
+    <span style="color:#458;font-weight:bold">int</span> start1 <span style="color:#000;font-weight:bold">=</span> start;
+    <span style="color:#458;font-weight:bold">int</span> start2 <span style="color:#000;font-weight:bold">=</span> mid<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>;
+    <span style="color:#998;font-style:italic">//递归分解
+</span><span style="color:#998;font-style:italic"></span>    MergeSortRecursive(arr,reg,start1,mid);
     MergeSortRecursive(arr,reg,start2,end);
 
-    <span style="color:#75715e">//合并
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> start;
-    <span style="color:#66d9ef">while</span>(start1<span style="color:#f92672">&lt;=</span>mid <span style="color:#f92672">&amp;&amp;</span> (start2)<span style="color:#f92672">&lt;=</span>end) <span style="color:#75715e">//将两个序列中最小值依次存入临时数组
-</span><span style="color:#75715e"></span>        reg[k<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> (arr[start1] <span style="color:#f92672">&lt;</span> arr[start2])<span style="color:#f92672">?</span>arr[start1<span style="color:#f92672">++</span>]<span style="color:#f92672">:</span>arr[start2<span style="color:#f92672">++</span>];
+    <span style="color:#998;font-style:italic">//合并
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#458;font-weight:bold">int</span> k <span style="color:#000;font-weight:bold">=</span> start;
+    <span style="color:#000;font-weight:bold">while</span>(start1<span style="color:#000;font-weight:bold">&lt;=</span>mid <span style="color:#000;font-weight:bold">&amp;&amp;</span> (start2)<span style="color:#000;font-weight:bold">&lt;=</span>end) <span style="color:#998;font-style:italic">//将两个序列中最小值依次存入临时数组
+</span><span style="color:#998;font-style:italic"></span>        reg[k<span style="color:#000;font-weight:bold">++</span>] <span style="color:#000;font-weight:bold">=</span> (arr[start1] <span style="color:#000;font-weight:bold">&lt;</span> arr[start2])<span style="color:#000;font-weight:bold">?</span>arr[start1<span style="color:#000;font-weight:bold">++</span>]<span style="color:#000;font-weight:bold">:</span>arr[start2<span style="color:#000;font-weight:bold">++</span>];
 
-    <span style="color:#66d9ef">while</span>(start1<span style="color:#f92672">&lt;=</span>mid)  <span style="color:#75715e">//将第一个数组剩余数据依次存入临时数组
-</span><span style="color:#75715e"></span>        reg[k<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> arr[start1<span style="color:#f92672">++</span>];
-    <span style="color:#66d9ef">while</span>(start2<span style="color:#f92672">&lt;=</span>end)  <span style="color:#75715e">//同上
-</span><span style="color:#75715e"></span>        reg[k<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> arr[start2<span style="color:#f92672">++</span>];
-    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span>start;i<span style="color:#f92672">&lt;=</span>end;i<span style="color:#f92672">++</span>) <span style="color:#75715e">//将临时数组数据存回排序数组
-</span><span style="color:#75715e"></span>        arr[i] <span style="color:#f92672">=</span> reg[i];
+    <span style="color:#000;font-weight:bold">while</span>(start1<span style="color:#000;font-weight:bold">&lt;=</span>mid)  <span style="color:#998;font-style:italic">//将第一个数组剩余数据依次存入临时数组
+</span><span style="color:#998;font-style:italic"></span>        reg[k<span style="color:#000;font-weight:bold">++</span>] <span style="color:#000;font-weight:bold">=</span> arr[start1<span style="color:#000;font-weight:bold">++</span>];
+    <span style="color:#000;font-weight:bold">while</span>(start2<span style="color:#000;font-weight:bold">&lt;=</span>end)  <span style="color:#998;font-style:italic">//同上
+</span><span style="color:#998;font-style:italic"></span>        reg[k<span style="color:#000;font-weight:bold">++</span>] <span style="color:#000;font-weight:bold">=</span> arr[start2<span style="color:#000;font-weight:bold">++</span>];
+    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> i<span style="color:#000;font-weight:bold">=</span>start;i<span style="color:#000;font-weight:bold">&lt;=</span>end;i<span style="color:#000;font-weight:bold">++</span>) <span style="color:#998;font-style:italic">//将临时数组数据存回排序数组
+</span><span style="color:#998;font-style:italic"></span>        arr[i] <span style="color:#000;font-weight:bold">=</span> reg[i];
 }
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">MergeSort</span>(<span style="color:#66d9ef">int</span> arr[],<span style="color:#66d9ef">int</span> len){
-    <span style="color:#66d9ef">int</span> reg[len];
-    MergeSortRecursive(arr,reg,<span style="color:#ae81ff">0</span>,len<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+<span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">MergeSort</span>(<span style="color:#458;font-weight:bold">int</span> arr[],<span style="color:#458;font-weight:bold">int</span> len){
+    <span style="color:#458;font-weight:bold">int</span> reg[len];
+    MergeSortRecursive(arr,reg,<span style="color:#099">0</span>,len<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>);
 }
 </code></pre></div><p>复杂度分析:</p>
 <p>当有n个记录时，需进行log<sub>2</sub>n趟归并，每一趟归并比较次数不超过n，元素移动次数都是n，因此，归并排序的时间复杂度为O(nlog<sub>2</sub>n)。用顺序表实现归并排序需要和待排序记录个数相等的存储空间，所以空间复杂度为O(n)</p>
@@ -440,57 +440,57 @@
 </ol>
 <h3 id="基数排序">基数排序</h3>
 <p>基数排序是通过对待排记录进行若干趟“分配”与“收集”来实现排序的，是一种借助于多关键字排序思想对关键字排序的方法。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">maxbit</span>(<span style="color:#66d9ef">int</span> data[], <span style="color:#66d9ef">int</span> n) <span style="color:#75715e">//辅助函数，求数据的最大位数
-</span><span style="color:#75715e"></span>{
-    <span style="color:#66d9ef">int</span> maxData <span style="color:#f92672">=</span> data[<span style="color:#ae81ff">0</span>];		<span style="color:#75715e">///&lt; 最大数
-</span><span style="color:#75715e"></span>    <span style="color:#75715e">// 先求出最大数，再求其位数，这样有原先依次每个数判断其位数，稍微优化点。
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">maxbit</span>(<span style="color:#458;font-weight:bold">int</span> data[], <span style="color:#458;font-weight:bold">int</span> n) <span style="color:#998;font-style:italic">//辅助函数，求数据的最大位数
+</span><span style="color:#998;font-style:italic"></span>{
+    <span style="color:#458;font-weight:bold">int</span> maxData <span style="color:#000;font-weight:bold">=</span> data[<span style="color:#099">0</span>];		<span style="color:#998;font-style:italic">///&lt; 最大数
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#998;font-style:italic">// 先求出最大数，再求其位数，这样有原先依次每个数判断其位数，稍微优化点。
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">for</span> (<span style="color:#458;font-weight:bold">int</span> i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>; i <span style="color:#000;font-weight:bold">&lt;</span> n; <span style="color:#000;font-weight:bold">++</span>i)
     {
-        <span style="color:#66d9ef">if</span> (maxData <span style="color:#f92672">&lt;</span> data[i])
-            maxData <span style="color:#f92672">=</span> data[i];
+        <span style="color:#000;font-weight:bold">if</span> (maxData <span style="color:#000;font-weight:bold">&lt;</span> data[i])
+            maxData <span style="color:#000;font-weight:bold">=</span> data[i];
     }
-    <span style="color:#66d9ef">int</span> d <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-    <span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
-    <span style="color:#66d9ef">while</span> (maxData <span style="color:#f92672">&gt;=</span> p)
-    {<span style="color:#960050;background-color:#1e0010">选择排序特点</span><span style="color:#f92672">:</span>
+    <span style="color:#458;font-weight:bold">int</span> d <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+    <span style="color:#458;font-weight:bold">int</span> p <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">10</span>;
+    <span style="color:#000;font-weight:bold">while</span> (maxData <span style="color:#000;font-weight:bold">&gt;=</span> p)
+    {<span style="color:#a61717;background-color:#e3d2d2">选择排序特点</span><span style="color:#000;font-weight:bold">:</span>
 
-<span style="color:#ae81ff">1.</span> <span style="color:#960050;background-color:#1e0010">选择排序本身是一个稳定的排序算法，但其实现的交换策略导致算法的不稳定。</span>
-<span style="color:#ae81ff">2.</span> <span style="color:#960050;background-color:#1e0010">可用于链式存出结构</span>
-        maxData <span style="color:#f92672">/=</span> <span style="color:#ae81ff">10</span>;
-        <span style="color:#f92672">++</span>d;
+<span style="color:#099">1.</span> <span style="color:#a61717;background-color:#e3d2d2">选择排序本身是一个稳定的排序算法，但其实现的交换策略导致算法的不稳定。</span>
+<span style="color:#099">2.</span> <span style="color:#a61717;background-color:#e3d2d2">可用于链式存出结构</span>
+        maxData <span style="color:#000;font-weight:bold">/=</span> <span style="color:#099">10</span>;
+        <span style="color:#000;font-weight:bold">++</span>d;
     }
-    <span style="color:#66d9ef">return</span> d;
+    <span style="color:#000;font-weight:bold">return</span> d;
 }
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">radixsort</span>(<span style="color:#66d9ef">int</span> data[], <span style="color:#66d9ef">int</span> n) <span style="color:#75715e">//基数排序
-</span><span style="color:#75715e"></span>{
-    <span style="color:#66d9ef">int</span> d <span style="color:#f92672">=</span> maxbit(data, n);
-    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>tmp <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[n];
-    <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>count <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">10</span>]; <span style="color:#75715e">//计数器,数值范围0-9
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> i, j, k;
-    <span style="color:#66d9ef">int</span> radix <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-    <span style="color:#66d9ef">for</span>(i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> d; i<span style="color:#f92672">++</span>) <span style="color:#75715e">//进行d次排序
-</span><span style="color:#75715e"></span>    {
-        <span style="color:#66d9ef">for</span>(j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; j<span style="color:#f92672">++</span>)
-            count[j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">//每次分配前清空计数器
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>(j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> n; j<span style="color:#f92672">++</span>)
+<span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">radixsort</span>(<span style="color:#458;font-weight:bold">int</span> data[], <span style="color:#458;font-weight:bold">int</span> n) <span style="color:#998;font-style:italic">//基数排序
+</span><span style="color:#998;font-style:italic"></span>{
+    <span style="color:#458;font-weight:bold">int</span> d <span style="color:#000;font-weight:bold">=</span> maxbit(data, n);
+    <span style="color:#458;font-weight:bold">int</span> <span style="color:#000;font-weight:bold">*</span>tmp <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> <span style="color:#458;font-weight:bold">int</span>[n];
+    <span style="color:#458;font-weight:bold">int</span> <span style="color:#000;font-weight:bold">*</span>count <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">new</span> <span style="color:#458;font-weight:bold">int</span>[<span style="color:#099">10</span>]; <span style="color:#998;font-style:italic">//计数器,数值范围0-9
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#458;font-weight:bold">int</span> i, j, k;
+    <span style="color:#458;font-weight:bold">int</span> radix <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+    <span style="color:#000;font-weight:bold">for</span>(i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>; i <span style="color:#000;font-weight:bold">&lt;=</span> d; i<span style="color:#000;font-weight:bold">++</span>) <span style="color:#998;font-style:italic">//进行d次排序
+</span><span style="color:#998;font-style:italic"></span>    {
+        <span style="color:#000;font-weight:bold">for</span>(j <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>; j <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#099">10</span>; j<span style="color:#000;font-weight:bold">++</span>)
+            count[j] <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>; <span style="color:#998;font-style:italic">//每次分配前清空计数器
+</span><span style="color:#998;font-style:italic"></span>        <span style="color:#000;font-weight:bold">for</span>(j <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>; j <span style="color:#000;font-weight:bold">&lt;</span> n; j<span style="color:#000;font-weight:bold">++</span>)
         {
-            k <span style="color:#f92672">=</span> (data[j] <span style="color:#f92672">/</span> radix) <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">//统计每个桶中的记录数
-</span><span style="color:#75715e"></span>            count[k]<span style="color:#f92672">++</span>;
+            k <span style="color:#000;font-weight:bold">=</span> (data[j] <span style="color:#000;font-weight:bold">/</span> radix) <span style="color:#000;font-weight:bold">%</span> <span style="color:#099">10</span>; <span style="color:#998;font-style:italic">//统计每个桶中的记录数
+</span><span style="color:#998;font-style:italic"></span>            count[k]<span style="color:#000;font-weight:bold">++</span>;
         }
-        <span style="color:#66d9ef">for</span>(j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; j<span style="color:#f92672">++</span>)
-            count[j] <span style="color:#f92672">=</span> count[j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> count[j]; <span style="color:#75715e">//将tmp中的位置依次分配给每个桶,通过count将tmp划分为10个桶
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>(j <span style="color:#f92672">=</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>; j<span style="color:#f92672">--</span>) <span style="color:#75715e">//将所有桶中记录依次收集到tmp中
-</span><span style="color:#75715e"></span>        {
-            k <span style="color:#f92672">=</span> (data[j] <span style="color:#f92672">/</span> radix) <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>;
-            tmp[count[k] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> data[j];
-            count[k]<span style="color:#f92672">--</span>;
+        <span style="color:#000;font-weight:bold">for</span>(j <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>; j <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#099">10</span>; j<span style="color:#000;font-weight:bold">++</span>)
+            count[j] <span style="color:#000;font-weight:bold">=</span> count[j <span style="color:#000;font-weight:bold">-</span> <span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">+</span> count[j]; <span style="color:#998;font-style:italic">//将tmp中的位置依次分配给每个桶,通过count将tmp划分为10个桶
+</span><span style="color:#998;font-style:italic"></span>        <span style="color:#000;font-weight:bold">for</span>(j <span style="color:#000;font-weight:bold">=</span> n <span style="color:#000;font-weight:bold">-</span> <span style="color:#099">1</span>; j <span style="color:#000;font-weight:bold">&gt;=</span> <span style="color:#099">0</span>; j<span style="color:#000;font-weight:bold">--</span>) <span style="color:#998;font-style:italic">//将所有桶中记录依次收集到tmp中
+</span><span style="color:#998;font-style:italic"></span>        {
+            k <span style="color:#000;font-weight:bold">=</span> (data[j] <span style="color:#000;font-weight:bold">/</span> radix) <span style="color:#000;font-weight:bold">%</span> <span style="color:#099">10</span>;
+            tmp[count[k] <span style="color:#000;font-weight:bold">-</span> <span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">=</span> data[j];
+            count[k]<span style="color:#000;font-weight:bold">--</span>;
         }
-        <span style="color:#66d9ef">for</span>(j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> n; j<span style="color:#f92672">++</span>) <span style="color:#75715e">//将临时数组的内容复制到data中
-</span><span style="color:#75715e"></span>            data[j] <span style="color:#f92672">=</span> tmp[j];
-        radix <span style="color:#f92672">=</span> radix <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>;
+        <span style="color:#000;font-weight:bold">for</span>(j <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>; j <span style="color:#000;font-weight:bold">&lt;</span> n; j<span style="color:#000;font-weight:bold">++</span>) <span style="color:#998;font-style:italic">//将临时数组的内容复制到data中
+</span><span style="color:#998;font-style:italic"></span>            data[j] <span style="color:#000;font-weight:bold">=</span> tmp[j];
+        radix <span style="color:#000;font-weight:bold">=</span> radix <span style="color:#000;font-weight:bold">*</span> <span style="color:#099">10</span>;
     }
-    <span style="color:#66d9ef">delete</span> []tmp;
-    <span style="color:#66d9ef">delete</span> []count;
+    <span style="color:#000;font-weight:bold">delete</span> []tmp;
+    <span style="color:#000;font-weight:bold">delete</span> []count;
 }
 </code></pre></div><p>以下是对于使用链式数据结构进行基数排序的算法分析(上面排序则使用数组)</p>
 <p>时间复杂度分析:<br>
@@ -514,9 +514,9 @@
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/sort">sort</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/sort">sort</a></li>
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/algorithm">algorithm</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/algorithm">algorithm</a></li>
                                 
                             </ul>
                         </div>
@@ -531,7 +531,7 @@
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20190528-base64Note/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190528-base64Note/">
         <i class="material-icons">arrow_back</i><span>Base64笔记</span>
         </a>
         </li>
@@ -539,7 +539,7 @@
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2019/20190523-algorithmNote/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190523-algorithmNote/">
         <span>算法笔记</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -609,10 +609,10 @@
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -622,43 +622,43 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -671,43 +671,43 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -717,87 +717,87 @@
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -807,7 +807,7 @@
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -824,7 +824,7 @@
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

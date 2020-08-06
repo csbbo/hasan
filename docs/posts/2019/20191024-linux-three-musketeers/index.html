@@ -20,7 +20,7 @@
     <meta name="description" content="Linux三剑客">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20191024-linux-three-musketeers/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20191024-linux-three-musketeers/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -88,7 +88,7 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/Tool">Tool</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/Tool">Tool</a></span>
                             
                         </div>
                         
@@ -132,15 +132,15 @@
 <h2 id="awk">Awk</h2>
 <p>awk 是一种很棒的语言，它适合文本处理和报表生成，其语法较为常见，借鉴了某些语言的一些精华，如 C 语言等。在 linux 系统日常处理工作中，发挥很重要的作用。</p>
 <h3 id="awk的原理">awk的原理</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk"><span style="color:#a6e22e">awk</span> <span style="color:#e6db74">&#39;{print $0}&#39;</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">etc</span><span style="color:#f92672">/</span><span style="color:#a6e22e">passwd</span>
-<span style="color:#a6e22e">echo</span> <span style="color:#a6e22e">hhh</span><span style="color:#f92672">|</span><span style="color:#a6e22e">awk</span> <span style="color:#e6db74">&#39;{print &#34;hello,world&#34;}&#39;</span>
-<span style="color:#a6e22e">awk</span> <span style="color:#e6db74">&#39;{ print &#34;hiya&#34; }&#39;</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">etc</span><span style="color:#f92672">/</span><span style="color:#a6e22e">passwd</span> 
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk">awk <span style="color:#d14">&#39;{print $0}&#39;</span> <span style="color:#000;font-weight:bold">/</span>etc<span style="color:#000;font-weight:bold">/</span>passwd
+echo hhh<span style="color:#000;font-weight:bold">|</span>awk <span style="color:#d14">&#39;{print &#34;hello,world&#34;}&#39;</span>
+awk <span style="color:#d14">&#39;{ print &#34;hiya&#34; }&#39;</span> <span style="color:#000;font-weight:bold">/</span>etc<span style="color:#000;font-weight:bold">/</span>passwd 
 </code></pre></div><p>通过上面的命令知道，awk可以从文件或输入流中获取数据，依次对每一行都执行print命令，最后将结果输出到stdout。</p>
 <h3 id="awk脚本基本结构">awk脚本基本结构</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk"><span style="color:#a6e22e">awk</span> <span style="color:#e6db74">&#39;BEGIN{ print &#34;start&#34; } pattern{ commands } END{ print &#34;end&#34; }&#39;</span> <span style="color:#a6e22e">file</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk">awk <span style="color:#d14">&#39;BEGIN{ print &#34;start&#34; } pattern{ commands } END{ print &#34;end&#34; }&#39;</span> file
 </code></pre></div><p>一个awk脚本通常由：BEGIN语句块、能够使用模式匹配的通用语句块、END语句块3部分组成，这三个部分是可选的。任意一个部分都可以不出现在脚本中，脚本通常是被单引号或双引号中，例如：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk"><span style="color:#a6e22e">awk</span> <span style="color:#e6db74">&#39;BEGIN{ i=0 } { i++ } END{ print i }&#39;</span> <span style="color:#a6e22e">filename</span>
-<span style="color:#a6e22e">awk</span> <span style="color:#e6db74">&#34;BEGIN{ i=0 } { i++ } END{ print i }&#34;</span> <span style="color:#a6e22e">filename</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk">awk <span style="color:#d14">&#39;BEGIN{ i=0 } { i++ } END{ print i }&#39;</span> filename
+awk <span style="color:#d14">&#34;BEGIN{ i=0 } { i++ } END{ print i }&#34;</span> filename
 </code></pre></div><ul>
 <li>
 <p>BEGIN语句块在awk开始从输入流中读取行之前被执行，这是一个可选的语句块，比如变量初始化、打印输出表格的表头等语句通常可以写在BEGIN语句块中。</p>
@@ -200,40 +200,40 @@
 </code></pre><p>字段数量 NF</p>
 <pre><code class="language-awc" data-lang="awc"> awk -F &quot;:&quot; 'NF==8{print $0}' hello.txt
 </code></pre><p>记录数量 NR</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk"> <span style="color:#a6e22e">awk</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">F</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#e6db74">&#39;NR&gt;=2{print $0}&#39;</span> <span style="color:#a6e22e">hello</span>.<span style="color:#a6e22e">txt</span> 
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk"> awk <span style="color:#000;font-weight:bold">-</span>F <span style="color:#d14">&#34;:&#34;</span> <span style="color:#d14">&#39;NR&gt;=2{print $0}&#39;</span> hello.txt 
 </code></pre></div><h3 id="awk正则应用">awk正则应用</h3>
 <p><code>awk  '/REG/{action}' file</code>,/REG/为正则表达式，可以将$0 中，满足条件的记录送入到： action 进行处理</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk"><span style="color:#a6e22e">awk</span> <span style="color:#e6db74">&#39;/root/{print $0}&#39;</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">etc</span><span style="color:#f92672">/</span><span style="color:#a6e22e">passwd</span>
-<span style="color:#a6e22e">awk</span>  <span style="color:#f92672">-</span><span style="color:#a6e22e">F</span> <span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#39;$1~/root/{print $0}&#39;</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">etc</span><span style="color:#f92672">/</span><span style="color:#a6e22e">passwd</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk">awk <span style="color:#d14">&#39;/root/{print $0}&#39;</span> <span style="color:#000;font-weight:bold">/</span>etc<span style="color:#000;font-weight:bold">/</span>passwd
+awk  <span style="color:#000;font-weight:bold">-</span>F <span style="color:#a61717;background-color:#e3d2d2">:</span> <span style="color:#d14">&#39;$1~/root/{print $0}&#39;</span> <span style="color:#000;font-weight:bold">/</span>etc<span style="color:#000;font-weight:bold">/</span>passwd
 </code></pre></div><p><code>awk  '布尔表达式{action}' file</code>仅当对前面的布尔表达式求值为真时，awk才执行代码块。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk"><span style="color:#a6e22e">awk</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">F</span> <span style="color:#e6db74">&#34;:&#34;</span> <span style="color:#e6db74">&#39;$1==&#34;root&#34;{print $0}&#39;</span> <span style="color:#f92672">/</span><span style="color:#a6e22e">etc</span><span style="color:#f92672">/</span><span style="color:#a6e22e">passwd</span> 
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk">awk <span style="color:#000;font-weight:bold">-</span>F <span style="color:#d14">&#34;:&#34;</span> <span style="color:#d14">&#39;$1==&#34;root&#34;{print $0}&#39;</span> <span style="color:#000;font-weight:bold">/</span>etc<span style="color:#000;font-weight:bold">/</span>passwd 
 </code></pre></div><h3 id="awk的if循环和数组">awk的if、循环和数组</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk">{
-    <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">$</span><span style="color:#ae81ff">1</span><span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;foo&#34;</span> ) {
-        <span style="color:#66d9ef">if</span> ( <span style="color:#f92672">$</span><span style="color:#ae81ff">2</span><span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;foo&#34;</span> ) {
-            <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;uno&#34;</span>
-        } <span style="color:#66d9ef">else</span> {
-            <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;one&#34;</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk">{
+    <span style="color:#000;font-weight:bold">if</span> ( <span style="color:#000;font-weight:bold">$</span><span style="color:#099">1</span><span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#34;foo&#34;</span> ) {
+        <span style="color:#000;font-weight:bold">if</span> ( <span style="color:#000;font-weight:bold">$</span><span style="color:#099">2</span><span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#34;foo&#34;</span> ) {
+            <span style="color:#000;font-weight:bold">print</span> <span style="color:#d14">&#34;uno&#34;</span>
+        } <span style="color:#000;font-weight:bold">else</span> {
+            <span style="color:#000;font-weight:bold">print</span> <span style="color:#d14">&#34;one&#34;</span>
         }
-    } <span style="color:#a6e22e">elseif</span> (<span style="color:#f92672">$</span><span style="color:#ae81ff">1</span><span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;bar&#34;</span> ) {
-        <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;two&#34;</span>
-    } <span style="color:#66d9ef">else</span> {
-        <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;three&#34;</span>
+    } elseif (<span style="color:#000;font-weight:bold">$</span><span style="color:#099">1</span><span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#34;bar&#34;</span> ) {
+        <span style="color:#000;font-weight:bold">print</span> <span style="color:#d14">&#34;two&#34;</span>
+    } <span style="color:#000;font-weight:bold">else</span> {
+        <span style="color:#000;font-weight:bold">print</span> <span style="color:#d14">&#34;three&#34;</span>
     }
 }
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk"><span style="color:#66d9ef">for</span> ( <span style="color:#a6e22e">x</span><span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;<span style="color:#a6e22e">x</span><span style="color:#f92672">&lt;=</span><span style="color:#ae81ff">4</span>;<span style="color:#a6e22e">x</span><span style="color:#f92672">++</span> ) {
-    <span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#34;iteration&#34;</span>, <span style="color:#a6e22e">x</span>
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk"><span style="color:#000;font-weight:bold">for</span> ( x<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>;x<span style="color:#000;font-weight:bold">&lt;=</span><span style="color:#099">4</span>;x<span style="color:#000;font-weight:bold">++</span> ) {
+    <span style="color:#000;font-weight:bold">print</span> <span style="color:#d14">&#34;iteration&#34;</span>, x
 } 
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk">{
-    <span style="color:#a6e22e">cities</span>[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">”</span><span style="color:#a6e22e">beijing</span><span style="color:#960050;background-color:#1e0010">”</span>
-    <span style="color:#a6e22e">cities</span>[<span style="color:#ae81ff">2</span>]<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">”</span><span style="color:#a6e22e">shanghai</span><span style="color:#960050;background-color:#1e0010">”</span>
-    <span style="color:#a6e22e">cities</span>[<span style="color:#960050;background-color:#1e0010">“</span><span style="color:#a6e22e">three</span><span style="color:#960050;background-color:#1e0010">”</span>]<span style="color:#f92672">=</span><span style="color:#960050;background-color:#1e0010">”</span><span style="color:#a6e22e">guangzhou</span><span style="color:#960050;background-color:#1e0010">”</span>
-    <span style="color:#66d9ef">for</span>( <span style="color:#a6e22e">c</span> <span style="color:#f92672">in</span> <span style="color:#a6e22e">cities</span>) {
-        <span style="color:#66d9ef">print</span> <span style="color:#a6e22e">cities</span>[<span style="color:#a6e22e">c</span>]
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-awk" data-lang="awk">{
+    cities[<span style="color:#099">1</span>]<span style="color:#000;font-weight:bold">=</span><span style="color:#a61717;background-color:#e3d2d2">”</span>beijing<span style="color:#a61717;background-color:#e3d2d2">”</span>
+    cities[<span style="color:#099">2</span>]<span style="color:#000;font-weight:bold">=</span><span style="color:#a61717;background-color:#e3d2d2">”</span>shanghai<span style="color:#a61717;background-color:#e3d2d2">”</span>
+    cities[<span style="color:#a61717;background-color:#e3d2d2">“</span>three<span style="color:#a61717;background-color:#e3d2d2">”</span>]<span style="color:#000;font-weight:bold">=</span><span style="color:#a61717;background-color:#e3d2d2">”</span>guangzhou<span style="color:#a61717;background-color:#e3d2d2">”</span>
+    <span style="color:#000;font-weight:bold">for</span>( c <span style="color:#000;font-weight:bold">in</span> cities) {
+        <span style="color:#000;font-weight:bold">print</span> cities[c]
     }
-    <span style="color:#66d9ef">print</span> <span style="color:#a6e22e">cities</span>[<span style="color:#ae81ff">1</span>]
-    <span style="color:#66d9ef">print</span> <span style="color:#a6e22e">cities</span>[<span style="color:#960050;background-color:#1e0010">“</span><span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">”</span>]
-    <span style="color:#66d9ef">print</span> <span style="color:#a6e22e">cities</span>[<span style="color:#960050;background-color:#1e0010">“</span><span style="color:#a6e22e">three</span><span style="color:#960050;background-color:#1e0010">”</span>]
+    <span style="color:#000;font-weight:bold">print</span> cities[<span style="color:#099">1</span>]
+    <span style="color:#000;font-weight:bold">print</span> cities[<span style="color:#a61717;background-color:#e3d2d2">“</span><span style="color:#099">1</span><span style="color:#a61717;background-color:#e3d2d2">”</span>]
+    <span style="color:#000;font-weight:bold">print</span> cities[<span style="color:#a61717;background-color:#e3d2d2">“</span>three<span style="color:#a61717;background-color:#e3d2d2">”</span>]
 } 
 </code></pre></div><pre><code>cat access.log| awk -F &quot; &quot; '{print $1}' | sort | uniq -c | sort -r -k 1 -n | head -10
 </code></pre><h2 id="sed">Sed</h2>
@@ -369,7 +369,7 @@ a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个�
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/Linux">Linux</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/Linux">Linux</a></li>
                                 
                             </ul>
                         </div>
@@ -384,7 +384,7 @@ a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个�
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20191024-optimistic-lock-pessimistic-lock/">
+        <a href="https://blog.shaobo.fun/posts/2019/20191024-optimistic-lock-pessimistic-lock/">
         <i class="material-icons">arrow_back</i><span>乐观锁和悲观锁</span>
         </a>
         </li>
@@ -392,7 +392,7 @@ a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个�
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2019/20191010-graph/">
+        <a href="https://blog.shaobo.fun/posts/2019/20191010-graph/">
         <span>图</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -470,10 +470,10 @@ a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个�
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -483,43 +483,43 @@ a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个�
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -532,43 +532,43 @@ a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个�
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -578,87 +578,87 @@ a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个�
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -668,7 +668,7 @@ a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个�
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -685,7 +685,7 @@ a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个�
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

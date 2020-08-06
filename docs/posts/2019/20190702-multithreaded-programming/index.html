@@ -20,7 +20,7 @@
     <meta name="description" content="多线程编程">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20190702-multithreaded-programming/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20190702-multithreaded-programming/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -88,7 +88,7 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
                             
                         </div>
                         
@@ -104,33 +104,33 @@
 <h3 id="线程的实现">线程的实现</h3>
 <p>Linux系统下的多线程遵循POSIX线程接口,称为pthread。编写 Linux 下的多线程程序,需要使用头文件pthread.h,连接时需要使用库libpthread.a。
 创建线程实际上就是确定调用该线程函数的入口点,这里通常使用的函数是pthread_create。在线程创建以后,就开始运行相关的线程函数。pthread_create 函数的原型如下:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;pthread.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">pthread_create</span> ((pthread_t <span style="color:#f92672">*</span><span style="color:#66d9ef">thread</span>, pthread_attr_t <span style="color:#f92672">*</span>attr,<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>(<span style="color:#f92672">*</span>start_routine) (<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>),<span style="color:#66d9ef">void</span> arg));
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;pthread.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">pthread_create</span> ((pthread_t <span style="color:#000;font-weight:bold">*</span><span style="color:#000;font-weight:bold">thread</span>, pthread_attr_t <span style="color:#000;font-weight:bold">*</span>attr,<span style="color:#458;font-weight:bold">void</span> <span style="color:#000;font-weight:bold">*</span>(<span style="color:#000;font-weight:bold">*</span>start_routine) (<span style="color:#458;font-weight:bold">void</span> <span style="color:#000;font-weight:bold">*</span>),<span style="color:#458;font-weight:bold">void</span> arg));
 </code></pre></div><p>函数 pthread_create 用来创建一个线程,第一个参数为指向线程标识符的指针,第二个参数用来设置线程属性,第三个参数是线程运行函数的起始地址,最后一个参数是运行函数的参数。当创建线程成功时,函数返回 0,若不为 0 则说明创建线程失败,常见的错误返回代码为EAGAIN 和 EINVAL。前者表示系统限制创建新的线程,例如线程数目过多了;后者表示第二个参数代表的线程属性值非法。下面我们展示一个最简单的多线程程序</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/*pthread.c*/</span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;pthread.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">thread</span>(<span style="color:#66d9ef">void</span>)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#998;font-style:italic">/*pthread.c*/</span>
+<span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;pthread.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;unistd.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;stdlib.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">thread</span>(<span style="color:#458;font-weight:bold">void</span>)
 {
-    <span style="color:#66d9ef">int</span> i;
-    <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">3</span>;i<span style="color:#f92672">++</span>)
-        printf(<span style="color:#e6db74">&#34;This is a pthread.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    <span style="color:#458;font-weight:bold">int</span> i;
+    <span style="color:#000;font-weight:bold">for</span>(i<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#099">3</span>;i<span style="color:#000;font-weight:bold">++</span>)
+        printf(<span style="color:#d14">&#34;This is a pthread.</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
 }
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>()
 {
     pthread_t id;
-    <span style="color:#66d9ef">int</span> i,ret;
-    ret<span style="color:#f92672">=</span>pthread_create(<span style="color:#f92672">&amp;</span>id,NULL,(<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>) <span style="color:#66d9ef">thread</span>,NULL);
-    <span style="color:#66d9ef">if</span>(ret<span style="color:#f92672">!=</span><span style="color:#ae81ff">0</span>){
-        printf (<span style="color:#e6db74">&#34;Create pthread error!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-        exit (<span style="color:#ae81ff">1</span>);
+    <span style="color:#458;font-weight:bold">int</span> i,ret;
+    ret<span style="color:#000;font-weight:bold">=</span>pthread_create(<span style="color:#000;font-weight:bold">&amp;</span>id,<span style="color:#0086b3">NULL</span>,(<span style="color:#458;font-weight:bold">void</span> <span style="color:#000;font-weight:bold">*</span>) <span style="color:#000;font-weight:bold">thread</span>,<span style="color:#0086b3">NULL</span>);
+    <span style="color:#000;font-weight:bold">if</span>(ret<span style="color:#000;font-weight:bold">!=</span><span style="color:#099">0</span>){
+        printf (<span style="color:#d14">&#34;Create pthread error!</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
+        exit (<span style="color:#099">1</span>);
     }
-    <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">3</span>;i<span style="color:#f92672">++</span>)
-        printf(<span style="color:#e6db74">&#34;This is the main process.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-    pthread_join(id,NULL);
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#000;font-weight:bold">for</span>(i<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#099">3</span>;i<span style="color:#000;font-weight:bold">++</span>)
+        printf(<span style="color:#d14">&#34;This is the main process.</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
+    pthread_join(id,<span style="color:#0086b3">NULL</span>);
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
 }
 </code></pre></div><blockquote>
 <p>pthread不是Linux系统默认库,编译时需要使用静态库libpthread.a,archlinux上安装<code>sudo pacman -S libpthread-stubs</code>.所以在使用pthread_create创建线程时在编译中加上-lpthread参数,即<code>gcc pthread.c -o pthread -lpthread</code>. pthread_join可以用于将当前线程挂起,等待线程的结束。这个函数是一个线程阻塞的函数,调用它的函数将一直等待到被等待的线程结束为止,当函数返回时,被等待线程的资源就被收回。函数pthread_join 用来等待一个线程的结束。</p>
@@ -149,12 +149,12 @@
 速度,这是因为 CPU 时间片的调度是面向轻进程的,绑定的线程可以保证在需要的时候它总
 有一个轻进程可用。通过设置被绑定的轻进程的优先级和调度级可以使得绑定的线程满足诸
 如实时反应之类的要求。下面的代码即创建了一个绑定的线程。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;pthread.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>pthread_attr_t attr;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;pthread.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>pthread_attr_t attr;
 pthread_t tid;
-pthread_attr_init(<span style="color:#f92672">&amp;</span>attr); <span style="color:#75715e">/*初始化属性值,均设为默认值*/</span>
-pthread_attr_setscope(<span style="color:#f92672">&amp;</span>attr, PTHREAD_SCOPE_SYSTEM); <span style="color:#75715e">/* 绑定的 */</span>
-pthread_create(<span style="color:#f92672">&amp;</span>tid, <span style="color:#f92672">&amp;</span>attr, (<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>) my_function, NULL);
+pthread_attr_init(<span style="color:#000;font-weight:bold">&amp;</span>attr); <span style="color:#998;font-style:italic">/*初始化属性值,均设为默认值*/</span>
+pthread_attr_setscope(<span style="color:#000;font-weight:bold">&amp;</span>attr, PTHREAD_SCOPE_SYSTEM); <span style="color:#998;font-style:italic">/* 绑定的 */</span>
+pthread_create(<span style="color:#000;font-weight:bold">&amp;</span>tid, <span style="color:#000;font-weight:bold">&amp;</span>attr, (<span style="color:#458;font-weight:bold">void</span> <span style="color:#000;font-weight:bold">*</span>) my_function, <span style="color:#0086b3">NULL</span>);
 </code></pre></div><ol start="2">
 <li>分离属性</li>
 </ol>
@@ -164,38 +164,38 @@ pthread_create(<span style="color:#f92672">&amp;</span>tid, <span style="color:#
 <li>优先级</li>
 </ol>
 <p>另外一个可能常用的属性是线程的优先级,它存放在结构sched_param 中。用函数pthread_attr_getschedparam和函数pthread_attr_setschedparam进行存放,一般说来,我们总是先取优先级,对取得的值修改后再存放回去。下面即是一段简单的例子。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;pthread.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sched.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;pthread.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;sched.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
 pthread_attr_t attr;
 pthread_t tid;
 sched_param param;
-<span style="color:#66d9ef">int</span> newprio<span style="color:#f92672">=</span><span style="color:#ae81ff">20</span>;
-pthread_attr_init(<span style="color:#f92672">&amp;</span>attr);
-pthread_attr_getschedparam(<span style="color:#f92672">&amp;</span>attr, <span style="color:#f92672">&amp;</span>param);
-param.sched_priority<span style="color:#f92672">=</span>newprio;
-pthread_attr_setschedparam(<span style="color:#f92672">&amp;</span>attr, <span style="color:#f92672">&amp;</span>param);
-pthread_create(<span style="color:#f92672">&amp;</span>tid, <span style="color:#f92672">&amp;</span>attr, (<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>)myfunction,myarg);
+<span style="color:#458;font-weight:bold">int</span> newprio<span style="color:#000;font-weight:bold">=</span><span style="color:#099">20</span>;
+pthread_attr_init(<span style="color:#000;font-weight:bold">&amp;</span>attr);
+pthread_attr_getschedparam(<span style="color:#000;font-weight:bold">&amp;</span>attr, <span style="color:#000;font-weight:bold">&amp;</span>param);
+param.sched_priority<span style="color:#000;font-weight:bold">=</span>newprio;
+pthread_attr_setschedparam(<span style="color:#000;font-weight:bold">&amp;</span>attr, <span style="color:#000;font-weight:bold">&amp;</span>param);
+pthread_create(<span style="color:#000;font-weight:bold">&amp;</span>tid, <span style="color:#000;font-weight:bold">&amp;</span>attr, (<span style="color:#458;font-weight:bold">void</span> <span style="color:#000;font-weight:bold">*</span>)myfunction,myarg);
 </code></pre></div><h3 id="多线程访问控制">多线程访问控制</h3>
 <p>由于多线程共享进程的资源和地址空间,因此对这些资源进行操作时,必须考虑到线程间资源访问的唯一性问题。线程同步可以使用互斥锁和信号量的方式来解决线程间数据的共享和通信问题,互斥锁一个明显的缺点是它只有两种状态:锁定和非锁定。而条件变量通过允许线程阻塞和等待另一个线程发送信号的方法弥补了互斥锁的不足,它常和互斥锁一起使用。使用时,条件变量被用来阻塞一个线程,当条件不满足时,线程往往解开相应的互斥锁并等待条件发生变化。一旦其它的某个线程改变了条件变量,它将通知相应的条件变量唤醒一个或多个正被此条件变量阻塞的线程。这些线程将重新锁定互斥锁并重新测试条件是否满足。一般说来,条件变量被用来进行线程间的同步。下面介绍这几个函数</p>
 <ol>
 <li>pthread_cond_init()函数</li>
 </ol>
 <p>该函数条件变量的结构为pthread_cond_t,函数 pthread_cond_init()被用来初始化一个条件变量。它的原型为:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> pthread_cond_init (pthread_cond_t <span style="color:#f92672">*</span> cond, __const pthread_condattr_t
-<span style="color:#f92672">*</span> cond_attr)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#458;font-weight:bold">int</span> pthread_cond_init (pthread_cond_t <span style="color:#000;font-weight:bold">*</span> cond, __const pthread_condattr_t
+<span style="color:#000;font-weight:bold">*</span> cond_attr)
 </code></pre></div><ol start="2">
 <li>pthread_cond_wait()函数</li>
 </ol>
 <p>使线程阻塞在一个条件变量上。它的函数原型为:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">int</span> pthread_cond_wait (pthread_cond_t
-pthread_mutex_t <span style="color:#f92672">*</span>__restrict __mutex)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#000;font-weight:bold">extern</span> <span style="color:#458;font-weight:bold">int</span> pthread_cond_wait (pthread_cond_t
+pthread_mutex_t <span style="color:#000;font-weight:bold">*</span>__restrict __mutex)
 </code></pre></div><ol start="3">
 <li>pthread_cond_timedwait()函数</li>
 </ol>
 <p>用来阻塞线程的另一个函数是 pthread_cond_timedwait(),它的原型为:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">int</span> pthread_cond_timedwait __P ((pthread_cond_t
-<span style="color:#f92672">*</span>__cond,pthread_mutex_t <span style="color:#f92672">*</span>__mutex, __const <span style="color:#66d9ef">struct</span> timespec <span style="color:#f92672">*</span>__abstime))
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#000;font-weight:bold">extern</span> <span style="color:#458;font-weight:bold">int</span> pthread_cond_timedwait __P ((pthread_cond_t
+<span style="color:#000;font-weight:bold">*</span>__cond,pthread_mutex_t <span style="color:#000;font-weight:bold">*</span>__mutex, __const <span style="color:#000;font-weight:bold">struct</span> timespec <span style="color:#000;font-weight:bold">*</span>__abstime))
 </code></pre></div><p>4.pthread_cond_signal()函数</p>
 <p>它的函数原型为:extern int pthread_cond_signal (pthread_cond_t *__cond)它用来释放被阻塞在条件变量 cond 上的一个线程。多个线程阻塞在此条件变量上时,哪一个线程被唤醒是由线程的调度策略所决定的。要注意的是,必须用保护条件变量的互斥锁来保护这个函数,否则条件满足信号又可能在测试条件和调用 pthread_cond_wait 函数之间被发出,从而造成无限制的等待。</p>
                         </div>
@@ -207,9 +207,9 @@ pthread_mutex_t <span style="color:#f92672">*</span>__restrict __mutex)
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/Linux">Linux</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/Linux">Linux</a></li>
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/thread">thread</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/thread">thread</a></li>
                                 
                             </ul>
                         </div>
@@ -224,7 +224,7 @@ pthread_mutex_t <span style="color:#f92672">*</span>__restrict __mutex)
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20190707-htmltopdf/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190707-htmltopdf/">
         <i class="material-icons">arrow_back</i><span>HtmlToPdf</span>
         </a>
         </li>
@@ -232,7 +232,7 @@ pthread_mutex_t <span style="color:#f92672">*</span>__restrict __mutex)
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2019/20190701-process-communication/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190701-process-communication/">
         <span>进程通信</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -310,10 +310,10 @@ pthread_mutex_t <span style="color:#f92672">*</span>__restrict __mutex)
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -323,43 +323,43 @@ pthread_mutex_t <span style="color:#f92672">*</span>__restrict __mutex)
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -372,43 +372,43 @@ pthread_mutex_t <span style="color:#f92672">*</span>__restrict __mutex)
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -418,87 +418,87 @@ pthread_mutex_t <span style="color:#f92672">*</span>__restrict __mutex)
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -508,7 +508,7 @@ pthread_mutex_t <span style="color:#f92672">*</span>__restrict __mutex)
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -525,7 +525,7 @@ pthread_mutex_t <span style="color:#f92672">*</span>__restrict __mutex)
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

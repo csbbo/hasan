@@ -20,7 +20,7 @@
     <meta name="description" content="下载Bing每日壁纸">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20191221-bing-dynamic-theme/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20191221-bing-dynamic-theme/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -88,7 +88,7 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/Python">Python</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/Python">Python</a></span>
                             
                         </div>
                         
@@ -102,54 +102,54 @@
                             <p>Bing首页每日更新的壁纸非常漂亮，爬下来当做桌面壁纸很nice。
 Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取最近8天的壁纸。</p>
 <p>下载<a href="https://cn.bing.com/">https://cn.bing.com/</a>每日更新的壁纸代码如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#! /usr/bin python3</span>
-<span style="color:#75715e"># -*- coding:utf-8 -*-</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic">#! /usr/bin python3</span>
+<span style="color:#998;font-style:italic"># -*- coding:utf-8 -*-</span>
 
-<span style="color:#f92672">import</span> sys
-<span style="color:#f92672">import</span> os
-<span style="color:#f92672">import</span> argparse
-<span style="color:#f92672">import</span> requests
-<span style="color:#f92672">import</span> re
-<span style="color:#f92672">from</span> concurrent.futures <span style="color:#f92672">import</span> ThreadPoolExecutor
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">sys</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">os</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">argparse</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">requests</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">re</span>
+<span style="color:#000;font-weight:bold">from</span> <span style="color:#555">concurrent.futures</span> <span style="color:#000;font-weight:bold">import</span> ThreadPoolExecutor
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_and_save_picture</span>(url, filename):
-    <span style="color:#66d9ef">with</span> requests<span style="color:#f92672">.</span>get(url, stream<span style="color:#f92672">=</span>True) <span style="color:#66d9ef">as</span> r:
-        <span style="color:#66d9ef">with</span> open(filename, <span style="color:#e6db74">&#39;wb&#39;</span>) <span style="color:#66d9ef">as</span> f:
-            <span style="color:#66d9ef">for</span> d <span style="color:#f92672">in</span> r<span style="color:#f92672">.</span>iter_content(<span style="color:#ae81ff">128</span>):
-                f<span style="color:#f92672">.</span>write(d)
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">get_and_save_picture</span>(url, filename):
+    <span style="color:#000;font-weight:bold">with</span> requests<span style="color:#000;font-weight:bold">.</span>get(url, stream<span style="color:#000;font-weight:bold">=</span><span style="color:#999">True</span>) <span style="color:#000;font-weight:bold">as</span> r:
+        <span style="color:#000;font-weight:bold">with</span> <span style="color:#0086b3">open</span>(filename, <span style="color:#d14">&#39;wb&#39;</span>) <span style="color:#000;font-weight:bold">as</span> f:
+            <span style="color:#000;font-weight:bold">for</span> d <span style="color:#000;font-weight:bold">in</span> r<span style="color:#000;font-weight:bold">.</span>iter_content(<span style="color:#099">128</span>):
+                f<span style="color:#000;font-weight:bold">.</span>write(d)
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_picture_info</span>(url, date: int <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, nums: int <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>):
-    url <span style="color:#f92672">=</span> url<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;?format=js&amp;idx=&#39;</span><span style="color:#f92672">+</span>str(date)<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;&amp;n=&#39;</span><span style="color:#f92672">+</span>str(nums)
-    r <span style="color:#f92672">=</span> requests<span style="color:#f92672">.</span>get(url)
-    images <span style="color:#f92672">=</span> r<span style="color:#f92672">.</span>json()<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;images&#39;</span>)
-    <span style="color:#66d9ef">return</span> images
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">get_picture_info</span>(url, date: <span style="color:#0086b3">int</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>, nums: <span style="color:#0086b3">int</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>):
+    url <span style="color:#000;font-weight:bold">=</span> url<span style="color:#000;font-weight:bold">+</span><span style="color:#d14">&#39;?format=js&amp;idx=&#39;</span><span style="color:#000;font-weight:bold">+</span><span style="color:#0086b3">str</span>(date)<span style="color:#000;font-weight:bold">+</span><span style="color:#d14">&#39;&amp;n=&#39;</span><span style="color:#000;font-weight:bold">+</span><span style="color:#0086b3">str</span>(nums)
+    r <span style="color:#000;font-weight:bold">=</span> requests<span style="color:#000;font-weight:bold">.</span>get(url)
+    images <span style="color:#000;font-weight:bold">=</span> r<span style="color:#000;font-weight:bold">.</span>json()<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;images&#39;</span>)
+    <span style="color:#000;font-weight:bold">return</span> images
 
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
-    parser <span style="color:#f92672">=</span> argparse<span style="color:#f92672">.</span>ArgumentParser(description<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;Bing Wallpaper Updates Daily&#39;</span>)
-    parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;file_path&#39;</span>, type<span style="color:#f92672">=</span>str, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;图片存放路径，默认将图片下载到当前目录&#39;</span>)
-    parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--date&#39;</span>, type<span style="color:#f92672">=</span>int, default<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;表示倒数第几天的图片，0表示今天,最大为7即能下载到倒数第八天的的图片&#39;</span>)
-    parser<span style="color:#f92672">.</span>add_argument(<span style="color:#e6db74">&#39;--nums&#39;</span>, type<span style="color:#f92672">=</span>int, default<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>, help<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;表示要下载的图片数量，最多8张&#39;</span>)
+<span style="color:#000;font-weight:bold">if</span> __name__ <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;__main__&#39;</span>:
+    parser <span style="color:#000;font-weight:bold">=</span> argparse<span style="color:#000;font-weight:bold">.</span>ArgumentParser(description<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;Bing Wallpaper Updates Daily&#39;</span>)
+    parser<span style="color:#000;font-weight:bold">.</span>add_argument(<span style="color:#d14">&#39;file_path&#39;</span>, <span style="color:#0086b3">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">str</span>, help<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;图片存放路径，默认将图片下载到当前目录&#39;</span>)
+    parser<span style="color:#000;font-weight:bold">.</span>add_argument(<span style="color:#d14">&#39;--date&#39;</span>, <span style="color:#0086b3">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">int</span>, default<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>, help<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;表示倒数第几天的图片，0表示今天,最大为7即能下载到倒数第八天的的图片&#39;</span>)
+    parser<span style="color:#000;font-weight:bold">.</span>add_argument(<span style="color:#d14">&#39;--nums&#39;</span>, <span style="color:#0086b3">type</span><span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">int</span>, default<span style="color:#000;font-weight:bold">=</span><span style="color:#099">8</span>, help<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;表示要下载的图片数量，最多8张&#39;</span>)
 
-    args <span style="color:#f92672">=</span> parser<span style="color:#f92672">.</span>parse_args()
+    args <span style="color:#000;font-weight:bold">=</span> parser<span style="color:#000;font-weight:bold">.</span>parse_args()
 
-    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>exists(args<span style="color:#f92672">.</span>file_path):
-        os<span style="color:#f92672">.</span>mkdir(args<span style="color:#f92672">.</span>file_path)
+    <span style="color:#000;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">not</span> os<span style="color:#000;font-weight:bold">.</span>path<span style="color:#000;font-weight:bold">.</span>exists(args<span style="color:#000;font-weight:bold">.</span>file_path):
+        os<span style="color:#000;font-weight:bold">.</span>mkdir(args<span style="color:#000;font-weight:bold">.</span>file_path)
 
-    url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://cn.bing.com/HPImageArchive.aspx&#39;</span>
-    images <span style="color:#f92672">=</span> get_picture_info(url, date<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>date, nums<span style="color:#f92672">=</span>args<span style="color:#f92672">.</span>nums)
+    url <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;https://cn.bing.com/HPImageArchive.aspx&#39;</span>
+    images <span style="color:#000;font-weight:bold">=</span> get_picture_info(url, date<span style="color:#000;font-weight:bold">=</span>args<span style="color:#000;font-weight:bold">.</span>date, nums<span style="color:#000;font-weight:bold">=</span>args<span style="color:#000;font-weight:bold">.</span>nums)
 
-    pool <span style="color:#f92672">=</span> ThreadPoolExecutor(max_workers<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span>)
-    <span style="color:#66d9ef">for</span> image <span style="color:#f92672">in</span> images:
-        name <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;/th\?id=OHR\.(.+)_ZH-CN.*&#39;</span>, image[<span style="color:#e6db74">&#39;url&#39;</span>])[<span style="color:#ae81ff">0</span>]
-        filename <span style="color:#f92672">=</span> image[<span style="color:#e6db74">&#39;enddate&#39;</span>]<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;-&#39;</span><span style="color:#f92672">+</span>name<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;.jpg&#39;</span>
+    pool <span style="color:#000;font-weight:bold">=</span> ThreadPoolExecutor(max_workers<span style="color:#000;font-weight:bold">=</span><span style="color:#099">8</span>)
+    <span style="color:#000;font-weight:bold">for</span> image <span style="color:#000;font-weight:bold">in</span> images:
+        name <span style="color:#000;font-weight:bold">=</span> re<span style="color:#000;font-weight:bold">.</span>findall(<span style="color:#d14">r</span><span style="color:#d14">&#39;/th\?id=OHR\.(.+)_ZH-CN.*&#39;</span>, image[<span style="color:#d14">&#39;url&#39;</span>])[<span style="color:#099">0</span>]
+        filename <span style="color:#000;font-weight:bold">=</span> image[<span style="color:#d14">&#39;enddate&#39;</span>]<span style="color:#000;font-weight:bold">+</span><span style="color:#d14">&#39;-&#39;</span><span style="color:#000;font-weight:bold">+</span>name<span style="color:#000;font-weight:bold">+</span><span style="color:#d14">&#39;.jpg&#39;</span>
 
-        <span style="color:#66d9ef">print</span>(image[<span style="color:#e6db74">&#39;copyright&#39;</span>], <span style="color:#e6db74">&#39;Save As &#39;</span><span style="color:#f92672">+</span>filename)
+        <span style="color:#000;font-weight:bold">print</span>(image[<span style="color:#d14">&#39;copyright&#39;</span>], <span style="color:#d14">&#39;Save As &#39;</span><span style="color:#000;font-weight:bold">+</span>filename)
 
-        save_name <span style="color:#f92672">=</span> args<span style="color:#f92672">.</span>file_path<span style="color:#f92672">+</span><span style="color:#e6db74">&#39;/&#39;</span><span style="color:#f92672">+</span>filename
-        url <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;https://cn.bing.com/&#39;</span><span style="color:#f92672">+</span>image[<span style="color:#e6db74">&#39;url&#39;</span>]
-        pool<span style="color:#f92672">.</span>submit(get_and_save_picture, url, save_name)
+        save_name <span style="color:#000;font-weight:bold">=</span> args<span style="color:#000;font-weight:bold">.</span>file_path<span style="color:#000;font-weight:bold">+</span><span style="color:#d14">&#39;/&#39;</span><span style="color:#000;font-weight:bold">+</span>filename
+        url <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;https://cn.bing.com/&#39;</span><span style="color:#000;font-weight:bold">+</span>image[<span style="color:#d14">&#39;url&#39;</span>]
+        pool<span style="color:#000;font-weight:bold">.</span>submit(get_and_save_picture, url, save_name)
 
-    <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;please wait...&#34;</span>)
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#34;please wait...&#34;</span>)
 </code></pre></div><p>环境:</p>
 <p><code>python3</code>,<code>requests</code>库</p>
 <p>将代码保存为<code>.py</code>文件后直接运行默认下载最新8天的必应壁纸，使用<code>-h</code>或<code>--help</code>参数查看更多用法</p>
@@ -162,7 +162,7 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/thread">thread</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/thread">thread</a></li>
                                 
                             </ul>
                         </div>
@@ -177,7 +177,7 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-docker-volumes/">
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-docker-volumes/">
         <i class="material-icons">arrow_back</i><span>获取Docker中磁盘信息</span>
         </a>
         </li>
@@ -185,7 +185,7 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2019/20191219-python-build-in-function/">
+        <a href="https://blog.shaobo.fun/posts/2019/20191219-python-build-in-function/">
         <span>Python内置函数</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -255,10 +255,10 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -268,43 +268,43 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -317,43 +317,43 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -363,87 +363,87 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -453,7 +453,7 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -470,7 +470,7 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

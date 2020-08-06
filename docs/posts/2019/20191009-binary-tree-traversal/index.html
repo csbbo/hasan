@@ -20,7 +20,7 @@
     <meta name="description" content="二叉树遍历">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20191009-binary-tree-traversal/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20191009-binary-tree-traversal/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -88,7 +88,7 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95">算法</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95">算法</a></span>
                             
                         </div>
                         
@@ -121,136 +121,136 @@
                         
                         <div class="post-content">
                             <p>二叉树的前中后序遍历，使用递归算法实现最为简单，他们的差别仅在于输出时机的不同。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ret;
-vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> preorderTraversal(TreeNode<span style="color:#f92672">*</span> root) {
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span> ret;
+vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span> preorderTraversal(TreeNode<span style="color:#000;font-weight:bold">*</span> root) {
     backtraking(root);
-    <span style="color:#66d9ef">return</span> ret;
+    <span style="color:#000;font-weight:bold">return</span> ret;
 }
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">backtraking</span>(TreeNode<span style="color:#f92672">*</span> root){
-    <span style="color:#66d9ef">if</span>(root <span style="color:#f92672">==</span> NULL)
-        <span style="color:#66d9ef">return</span> ;
-    preorderTraversal(root<span style="color:#f92672">-&gt;</span>left);
-    ret.push_back(root<span style="color:#f92672">-&gt;</span>val);
-    preorderTraversal(root<span style="color:#f92672">-&gt;</span>right);
+<span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">backtraking</span>(TreeNode<span style="color:#000;font-weight:bold">*</span> root){
+    <span style="color:#000;font-weight:bold">if</span>(root <span style="color:#000;font-weight:bold">==</span> <span style="color:#0086b3">NULL</span>)
+        <span style="color:#000;font-weight:bold">return</span> ;
+    preorderTraversal(root<span style="color:#000;font-weight:bold">-&gt;</span>left);
+    ret.push_back(root<span style="color:#000;font-weight:bold">-&gt;</span>val);
+    preorderTraversal(root<span style="color:#000;font-weight:bold">-&gt;</span>right);
 }
 </code></pre></div><h3 id="非递归前序遍历leetcode-144httpsleetcodecomproblemsbinary-tree-preorder-traversal">非递归前序遍历<a href="https://leetcode.com/problems/binary-tree-preorder-traversal/">LeetCode 144</a></h3>
 <p>二叉树的非递归遍历，主要的思想是使用栈（Stack）来进行存储操作，记录经过的节点。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> preorderTraversal(TreeNode<span style="color:#f92672">*</span> root) {
-    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ret;
-    <span style="color:#66d9ef">if</span>(root<span style="color:#f92672">==</span>NULL)
-        <span style="color:#66d9ef">return</span> ret;
-    stack<span style="color:#f92672">&lt;</span>TreeNode <span style="color:#f92672">*&gt;</span> s;
-    <span style="color:#66d9ef">while</span>(root <span style="color:#f92672">||</span> <span style="color:#f92672">!</span>s.empty()){
-        <span style="color:#66d9ef">if</span>(root){
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span> preorderTraversal(TreeNode<span style="color:#000;font-weight:bold">*</span> root) {
+    vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span> ret;
+    <span style="color:#000;font-weight:bold">if</span>(root<span style="color:#000;font-weight:bold">==</span><span style="color:#0086b3">NULL</span>)
+        <span style="color:#000;font-weight:bold">return</span> ret;
+    stack<span style="color:#000;font-weight:bold">&lt;</span>TreeNode <span style="color:#000;font-weight:bold">*&gt;</span> s;
+    <span style="color:#000;font-weight:bold">while</span>(root <span style="color:#000;font-weight:bold">||</span> <span style="color:#000;font-weight:bold">!</span>s.empty()){
+        <span style="color:#000;font-weight:bold">if</span>(root){
             s.push(root);
-            ret.push_back(root<span style="color:#f92672">-&gt;</span>val);
-            root <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>left;
-        }<span style="color:#66d9ef">else</span>{
-            root <span style="color:#f92672">=</span> s.top();
-            root <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>right;
+            ret.push_back(root<span style="color:#000;font-weight:bold">-&gt;</span>val);
+            root <span style="color:#000;font-weight:bold">=</span> root<span style="color:#000;font-weight:bold">-&gt;</span>left;
+        }<span style="color:#000;font-weight:bold">else</span>{
+            root <span style="color:#000;font-weight:bold">=</span> s.top();
+            root <span style="color:#000;font-weight:bold">=</span> root<span style="color:#000;font-weight:bold">-&gt;</span>right;
             s.pop();
         }
     }
-    <span style="color:#66d9ef">return</span> ret;
+    <span style="color:#000;font-weight:bold">return</span> ret;
 }
 </code></pre></div><h3 id="非递归中序遍历leetcode-94httpsleetcodecomproblemsbinary-tree-inorder-traversal">非递归中序遍历<a href="https://leetcode.com/problems/binary-tree-inorder-traversal/">LeetCode 94</a></h3>
 <p>非递归中序遍历跟非递归前序遍历一样，只需要改一下输出的位置</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> inorderTraversal(TreeNode<span style="color:#f92672">*</span> root) {
-    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ret;
-    <span style="color:#66d9ef">if</span>(root<span style="color:#f92672">==</span>NULL)
-        <span style="color:#66d9ef">return</span> ret;
-    stack<span style="color:#f92672">&lt;</span>TreeNode <span style="color:#f92672">*&gt;</span> s;
-    <span style="color:#66d9ef">while</span>(root <span style="color:#f92672">||</span> <span style="color:#f92672">!</span>s.empty()){
-        <span style="color:#66d9ef">if</span>(root){
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span> inorderTraversal(TreeNode<span style="color:#000;font-weight:bold">*</span> root) {
+    vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span> ret;
+    <span style="color:#000;font-weight:bold">if</span>(root<span style="color:#000;font-weight:bold">==</span><span style="color:#0086b3">NULL</span>)
+        <span style="color:#000;font-weight:bold">return</span> ret;
+    stack<span style="color:#000;font-weight:bold">&lt;</span>TreeNode <span style="color:#000;font-weight:bold">*&gt;</span> s;
+    <span style="color:#000;font-weight:bold">while</span>(root <span style="color:#000;font-weight:bold">||</span> <span style="color:#000;font-weight:bold">!</span>s.empty()){
+        <span style="color:#000;font-weight:bold">if</span>(root){
             s.push(root);
-            root <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>left;
-        }<span style="color:#66d9ef">else</span>{
-            root <span style="color:#f92672">=</span> s.top();
-            ret.push_back(root<span style="color:#f92672">-&gt;</span>val);
-            root <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>right;
+            root <span style="color:#000;font-weight:bold">=</span> root<span style="color:#000;font-weight:bold">-&gt;</span>left;
+        }<span style="color:#000;font-weight:bold">else</span>{
+            root <span style="color:#000;font-weight:bold">=</span> s.top();
+            ret.push_back(root<span style="color:#000;font-weight:bold">-&gt;</span>val);
+            root <span style="color:#000;font-weight:bold">=</span> root<span style="color:#000;font-weight:bold">-&gt;</span>right;
             s.pop();
         }
     }
-    <span style="color:#66d9ef">return</span> ret;
+    <span style="color:#000;font-weight:bold">return</span> ret;
 }
 </code></pre></div><h3 id="非递归后序遍历leetcode-145httpsleetcodecomproblemsbinary-tree-postorder-traversal">非递归后序遍历<a href="https://leetcode.com/problems/binary-tree-postorder-traversal/">LeetCode 145</a></h3>
 <p>非递归遍历中，后序遍历相对更难实现，因为需要在遍历完左右子节点之后，再遍历根节点，因此不能直接将根节点出栈。这里使用一个 last 指针记录上次出栈的节点，当且仅当节点的右孩子为空（top-&gt;right == NULL），或者右孩子已经出栈（top-&gt;right == last），才将本节点出栈。</p>
 <p>因此后序遍历在前序遍历或中序遍历的基础上多加一个top指针指向当前要出栈节点和last指针指向上次出栈节点，</p>
 <p>然后判断右孩子为空或右孩子出栈。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> postorderTraversal(TreeNode<span style="color:#f92672">*</span> root) {
-    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> ret;
-    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>root)
-        <span style="color:#66d9ef">return</span> ret;
-    TreeNode <span style="color:#f92672">*</span>top,<span style="color:#f92672">*</span>last <span style="color:#f92672">=</span> NULL;
-    stack<span style="color:#f92672">&lt;</span>TreeNode <span style="color:#f92672">*&gt;</span> s;
-    <span style="color:#66d9ef">while</span>(root <span style="color:#f92672">||</span> <span style="color:#f92672">!</span>s.empty()){
-        <span style="color:#66d9ef">if</span>(root){
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span> postorderTraversal(TreeNode<span style="color:#000;font-weight:bold">*</span> root) {
+    vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span> ret;
+    <span style="color:#000;font-weight:bold">if</span>(<span style="color:#000;font-weight:bold">!</span>root)
+        <span style="color:#000;font-weight:bold">return</span> ret;
+    TreeNode <span style="color:#000;font-weight:bold">*</span>top,<span style="color:#000;font-weight:bold">*</span>last <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">NULL</span>;
+    stack<span style="color:#000;font-weight:bold">&lt;</span>TreeNode <span style="color:#000;font-weight:bold">*&gt;</span> s;
+    <span style="color:#000;font-weight:bold">while</span>(root <span style="color:#000;font-weight:bold">||</span> <span style="color:#000;font-weight:bold">!</span>s.empty()){
+        <span style="color:#000;font-weight:bold">if</span>(root){
             s.push(root);
-            root <span style="color:#f92672">=</span> root<span style="color:#f92672">-&gt;</span>left;
-        }<span style="color:#66d9ef">else</span>{
-            top <span style="color:#f92672">=</span> s.top();
-            <span style="color:#66d9ef">if</span>(top<span style="color:#f92672">-&gt;</span>right<span style="color:#f92672">==</span>NULL <span style="color:#f92672">||</span> top<span style="color:#f92672">-&gt;</span>right<span style="color:#f92672">==</span>last){
+            root <span style="color:#000;font-weight:bold">=</span> root<span style="color:#000;font-weight:bold">-&gt;</span>left;
+        }<span style="color:#000;font-weight:bold">else</span>{
+            top <span style="color:#000;font-weight:bold">=</span> s.top();
+            <span style="color:#000;font-weight:bold">if</span>(top<span style="color:#000;font-weight:bold">-&gt;</span>right<span style="color:#000;font-weight:bold">==</span><span style="color:#0086b3">NULL</span> <span style="color:#000;font-weight:bold">||</span> top<span style="color:#000;font-weight:bold">-&gt;</span>right<span style="color:#000;font-weight:bold">==</span>last){
                 s.pop();
-                ret.push_back(top<span style="color:#f92672">-&gt;</span>val);
-                last <span style="color:#f92672">=</span> top;
-            }<span style="color:#66d9ef">else</span>{
-                root <span style="color:#f92672">=</span> top<span style="color:#f92672">-&gt;</span>right;
+                ret.push_back(top<span style="color:#000;font-weight:bold">-&gt;</span>val);
+                last <span style="color:#000;font-weight:bold">=</span> top;
+            }<span style="color:#000;font-weight:bold">else</span>{
+                root <span style="color:#000;font-weight:bold">=</span> top<span style="color:#000;font-weight:bold">-&gt;</span>right;
             }
         }
     }
-    <span style="color:#66d9ef">return</span> ret;
+    <span style="color:#000;font-weight:bold">return</span> ret;
 }
 </code></pre></div><h3 id="层序遍历-leetcode-102httpsleetcodecomproblemsbinary-tree-level-order-traversal">层序遍历 <a href="https://leetcode.com/problems/binary-tree-level-order-traversal/">LeetCode 102</a></h3>
 <h4 id="深度优先dfs">深度优先（DFS）</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">traversal</span>(TreeNode <span style="color:#f92672">*</span>root, <span style="color:#66d9ef">int</span> level, vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> <span style="color:#f92672">&amp;</span>result) {
-    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>root)
-        <span style="color:#66d9ef">return</span>;
-    <span style="color:#75715e">// 保证每一层只有一个vector
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (level <span style="color:#f92672">&gt;</span> result.size()) {
-        result.push_back(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>());
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">traversal</span>(TreeNode <span style="color:#000;font-weight:bold">*</span>root, <span style="color:#458;font-weight:bold">int</span> level, vector<span style="color:#000;font-weight:bold">&lt;</span>vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;&gt;</span> <span style="color:#000;font-weight:bold">&amp;</span>result) {
+    <span style="color:#000;font-weight:bold">if</span> (<span style="color:#000;font-weight:bold">!</span>root)
+        <span style="color:#000;font-weight:bold">return</span>;
+    <span style="color:#998;font-style:italic">// 保证每一层只有一个vector
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">if</span> (level <span style="color:#000;font-weight:bold">&gt;</span> result.size()) {
+        result.push_back(vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span>());
     }
-    result[level<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>].push_back(root<span style="color:#f92672">-&gt;</span>val);
-    traversal(root<span style="color:#f92672">-&gt;</span>left, level<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, result);
-    traversal(root<span style="color:#f92672">-&gt;</span>right, level<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, result);
+    result[level<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>].push_back(root<span style="color:#000;font-weight:bold">-&gt;</span>val);
+    traversal(root<span style="color:#000;font-weight:bold">-&gt;</span>left, level<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>, result);
+    traversal(root<span style="color:#000;font-weight:bold">-&gt;</span>right, level<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>, result);
 }
 
-vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> levelOrder(TreeNode <span style="color:#f92672">*</span>root) {
-    vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> result;
-    traversal(root, <span style="color:#ae81ff">1</span>, result);
-    <span style="color:#66d9ef">return</span> result;
+vector<span style="color:#000;font-weight:bold">&lt;</span>vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">&gt;</span> levelOrder(TreeNode <span style="color:#000;font-weight:bold">*</span>root) {
+    vector<span style="color:#000;font-weight:bold">&lt;</span>vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;&gt;</span> result;
+    traversal(root, <span style="color:#099">1</span>, result);
+    <span style="color:#000;font-weight:bold">return</span> result;
 }
 </code></pre></div><h4 id="广度优先bfs">广度优先（BFS）</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> levelOrder(TreeNode<span style="color:#f92672">*</span> root) {
-    std:queue<span style="color:#f92672">&lt;</span>TreeNode <span style="color:#f92672">*&gt;</span> q;
-    TreeNode <span style="color:#f92672">*</span>p;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#000;font-weight:bold">&lt;</span>vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;&gt;</span> levelOrder(TreeNode<span style="color:#000;font-weight:bold">*</span> root) {
+    <span style="color:#900;font-weight:bold">std</span>:queue<span style="color:#000;font-weight:bold">&lt;</span>TreeNode <span style="color:#000;font-weight:bold">*&gt;</span> q;
+    TreeNode <span style="color:#000;font-weight:bold">*</span>p;
 
-    vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> result;
-    <span style="color:#66d9ef">if</span> (root <span style="color:#f92672">==</span> NULL) <span style="color:#66d9ef">return</span> result;
+    vector<span style="color:#000;font-weight:bold">&lt;</span>vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;&gt;</span> result;
+    <span style="color:#000;font-weight:bold">if</span> (root <span style="color:#000;font-weight:bold">==</span> <span style="color:#0086b3">NULL</span>) <span style="color:#000;font-weight:bold">return</span> result;
 
     q.push(root);
 
-    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>q.empty()) {
-        <span style="color:#66d9ef">int</span> size <span style="color:#f92672">=</span> q.size();
-        vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> levelResult;
+    <span style="color:#000;font-weight:bold">while</span> (<span style="color:#000;font-weight:bold">!</span>q.empty()) {
+        <span style="color:#458;font-weight:bold">int</span> size <span style="color:#000;font-weight:bold">=</span> q.size();
+        vector<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">&gt;</span> levelResult;
 
-        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> size; i<span style="color:#f92672">++</span>) {
-            p <span style="color:#f92672">=</span> q.front();
+        <span style="color:#000;font-weight:bold">for</span> (<span style="color:#458;font-weight:bold">int</span> i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>; i <span style="color:#000;font-weight:bold">&lt;</span> size; i<span style="color:#000;font-weight:bold">++</span>) {
+            p <span style="color:#000;font-weight:bold">=</span> q.front();
             q.pop();
 
-            levelResult.push_back(p<span style="color:#f92672">-&gt;</span>val);
+            levelResult.push_back(p<span style="color:#000;font-weight:bold">-&gt;</span>val);
 
-            <span style="color:#66d9ef">if</span> (p<span style="color:#f92672">-&gt;</span>left) {
-                q.push(p<span style="color:#f92672">-&gt;</span>left);
+            <span style="color:#000;font-weight:bold">if</span> (p<span style="color:#000;font-weight:bold">-&gt;</span>left) {
+                q.push(p<span style="color:#000;font-weight:bold">-&gt;</span>left);
             }
-            <span style="color:#66d9ef">if</span> (p<span style="color:#f92672">-&gt;</span>right) {
-                q.push(p<span style="color:#f92672">-&gt;</span>right);
+            <span style="color:#000;font-weight:bold">if</span> (p<span style="color:#000;font-weight:bold">-&gt;</span>right) {
+                q.push(p<span style="color:#000;font-weight:bold">-&gt;</span>right);
             }
         }
 
         result.push_back(levelResult);
     }
 
-    <span style="color:#66d9ef">return</span> result;
+    <span style="color:#000;font-weight:bold">return</span> result;
 }
 </code></pre></div>
                         </div>
@@ -262,7 +262,7 @@ vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/algorithm">algorithm</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/algorithm">algorithm</a></li>
                                 
                             </ul>
                         </div>
@@ -277,7 +277,7 @@ vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20191010-tree/">
+        <a href="https://blog.shaobo.fun/posts/2019/20191010-tree/">
         <i class="material-icons">arrow_back</i><span>树</span>
         </a>
         </li>
@@ -285,7 +285,7 @@ vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2019/20190917-cpp-container/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190917-cpp-container/">
         <span>C&#43;&#43; STL容器</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -357,10 +357,10 @@ vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -370,43 +370,43 @@ vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -419,43 +419,43 @@ vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -465,87 +465,87 @@ vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -555,7 +555,7 @@ vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -572,7 +572,7 @@ vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

@@ -2,58 +2,58 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on 庄周梦蝶</title>
-    <link>http://blog.shaobo.fun/tags/Python/</link>
+    <link>https://blog.shaobo.fun/tags/Python/</link>
     <description>Recent content in Python on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 22 Feb 2020 18:11:11 +0800</lastBuildDate>
     
-	<atom:link href="http://blog.shaobo.fun/tags/Python/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.shaobo.fun/tags/Python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>TensorFlow搭建神经网络</title>
-      <link>http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/</link>
+      <link>https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/</link>
       <pubDate>Sat, 22 Feb 2020 18:11:11 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/</guid>
+      <guid>https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/</guid>
       <description>&lt;p&gt;keras是基于python的高级神经网络API，由Francois Chollet编写，支持以Tensorflow、CNTK、Theano为后端运行。
 而Tensorflow-keras是对keras API规范的实现，实现在&lt;code&gt;tf.keras&lt;/code&gt;空间下与Tensorflow结合也更紧密并且还添加了一些keras没有的特性&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>获取Docker中磁盘信息</title>
-      <link>http://blog.shaobo.fun/posts/2019/20191231-docker-volumes/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20191231-docker-volumes/</link>
       <pubDate>Tue, 31 Dec 2019 15:31:28 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20191231-docker-volumes/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20191231-docker-volumes/</guid>
       <description>&lt;p&gt;在项目中需要获取平台运行信息，但使用Docker部署时因为是隔离的环境所有的系统资源均为宿主机分配的资源，导致一般的检测方法无法获取真正的平台信息。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Python 并发编程</title>
-      <link>http://blog.shaobo.fun/posts/2019/20191218-python-concurrent-programming/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20191218-python-concurrent-programming/</link>
       <pubDate>Wed, 18 Dec 2019 19:28:13 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20191218-python-concurrent-programming/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20191218-python-concurrent-programming/</guid>
       <description>&lt;p&gt;对于并发编程, Python有多种长期支持的方法, 包括多线程, 调用子进程, 以及各种各样的关于生成器函数的技巧。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Python单例模式实现</title>
-      <link>http://blog.shaobo.fun/posts/2019/20191205-python-singleton-pattern/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20191205-python-singleton-pattern/</link>
       <pubDate>Thu, 05 Dec 2019 13:46:02 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20191205-python-singleton-pattern/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20191205-python-singleton-pattern/</guid>
       <description>&lt;p&gt;单例是一种设计模式，使用该模式的类只会生成一个实例。单例模式保证了在程序不同位置都可以读取到同一对象实例，如果实例不存在则创建，已存在则返回这个实例。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>HtmlToPdf</title>
-      <link>http://blog.shaobo.fun/posts/2019/20190707-htmltopdf/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20190707-htmltopdf/</link>
       <pubDate>Sun, 07 Jul 2019 22:40:51 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20190707-htmltopdf/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20190707-htmltopdf/</guid>
       <description>&lt;p&gt;最近用html写简历，打印的时候需要将html转成pdf,网上也有网站提供转换功能，但还是自己写一个转换程序更为方便些。&lt;/p&gt;</description>
     </item>
     

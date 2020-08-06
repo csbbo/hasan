@@ -20,7 +20,7 @@
     <meta name="description" content="Linux串口通信">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20190630-serial-port/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20190630-serial-port/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -88,7 +88,7 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
                             
                         </div>
                         
@@ -101,22 +101,22 @@
                         <div class="post-content">
                             <p>在Linux中,串口是一个字符设备,访问具体的串行端口的编程与读/写文件的操作类似,只需打开相应的设备文件操作即可.串口编程的特殊在于串口通信时相关参数的设置.若在根文件没有串口设备文件可以用mknod命令创建。</p>
 <p>串口作为终端I/O,它的参数设置需要使用<code>struct termios</code>结构体,这个结构体在termio.h文件中定义.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">char</span> cc_t;
-<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> speed_t;
-<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> tcflag_t;
-<span style="color:#66d9ef">struct</span> termios{
-    tcflag_t c_iflag;   <span style="color:#75715e">//输入模式标志
-</span><span style="color:#75715e"></span>    tcflag_t c_oflag;   <span style="color:#75715e">//输出模式标志
-</span><span style="color:#75715e"></span>    tcflag_t c_cflag;   <span style="color:#75715e">//控制模式标志
-</span><span style="color:#75715e"></span>    tcflag_t c_lflag;   <span style="color:#75715e">//本地模式标志
-</span><span style="color:#75715e"></span>    tcflag_t c_line;    <span style="color:#75715e">//行规程类型,一般应用程序不使用
-</span><span style="color:#75715e"></span>    cc_t c_cc[NCC]; <span style="color:#75715e">//控制字符
-</span><span style="color:#75715e"></span>    speed_t c_ispeed;   <span style="color:#75715e">//输入数据波特率
-</span><span style="color:#75715e"></span>    speed_t c_ospeed;   <span style="color:#75715e">//输出数据波特率
-</span><span style="color:#75715e"></span>}
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#000;font-weight:bold">typedef</span> <span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">char</span> cc_t;
+<span style="color:#000;font-weight:bold">typedef</span> <span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">int</span> speed_t;
+<span style="color:#000;font-weight:bold">typedef</span> <span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">int</span> tcflag_t;
+<span style="color:#000;font-weight:bold">struct</span> termios{
+    tcflag_t c_iflag;   <span style="color:#998;font-style:italic">//输入模式标志
+</span><span style="color:#998;font-style:italic"></span>    tcflag_t c_oflag;   <span style="color:#998;font-style:italic">//输出模式标志
+</span><span style="color:#998;font-style:italic"></span>    tcflag_t c_cflag;   <span style="color:#998;font-style:italic">//控制模式标志
+</span><span style="color:#998;font-style:italic"></span>    tcflag_t c_lflag;   <span style="color:#998;font-style:italic">//本地模式标志
+</span><span style="color:#998;font-style:italic"></span>    tcflag_t c_line;    <span style="color:#998;font-style:italic">//行规程类型,一般应用程序不使用
+</span><span style="color:#998;font-style:italic"></span>    cc_t c_cc[NCC]; <span style="color:#998;font-style:italic">//控制字符
+</span><span style="color:#998;font-style:italic"></span>    speed_t c_ispeed;   <span style="color:#998;font-style:italic">//输入数据波特率
+</span><span style="color:#998;font-style:italic"></span>    speed_t c_ospeed;   <span style="color:#998;font-style:italic">//输出数据波特率
+</span><span style="color:#998;font-style:italic"></span>}
 </code></pre></div><p>串口的设置主要就是设置这个结构体的各成员值,然后利用该结构体将参数传给硬件驱动程序.tcgetattr()/tcsetattr()函数获取/设置串口参数.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">tcgetattr</span>(<span style="color:#66d9ef">int</span> fd,<span style="color:#66d9ef">struct</span> termios <span style="color:#f92672">*</span>termios_p);
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">tcsetattr</span>(<span style="color:#66d9ef">int</span> fd,<span style="color:#66d9ef">int</span> optional_actions,<span style="color:#66d9ef">struct</span> termios <span style="color:#f92672">*</span>termios_p);
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">tcgetattr</span>(<span style="color:#458;font-weight:bold">int</span> fd,<span style="color:#000;font-weight:bold">struct</span> termios <span style="color:#000;font-weight:bold">*</span>termios_p);
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">tcsetattr</span>(<span style="color:#458;font-weight:bold">int</span> fd,<span style="color:#458;font-weight:bold">int</span> optional_actions,<span style="color:#000;font-weight:bold">struct</span> termios <span style="color:#000;font-weight:bold">*</span>termios_p);
 </code></pre></div><p>optional_action参数用于指定新设定参数生效时间,其设定值可以为:</p>
 <table>
 <thead>
@@ -138,11 +138,11 @@
 </table>
 <p>1.设置波特率
 使用函数设置波特率,使用波特率常数设置波特率,其定义为字母&quot;B+波特率&rdquo;,如B19200就是波特率为19200 bps.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">cfsetispeed</span>(<span style="color:#66d9ef">struct</span> termios <span style="color:#f92672">*</span>termios_p,speed_t speed);
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">cfsetospeed</span>(<span style="color:#66d9ef">struct</span> termios <span style="color:#f92672">*</span>termios_p,speed_t speed);
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">cfsetispeed</span>(<span style="color:#000;font-weight:bold">struct</span> termios <span style="color:#000;font-weight:bold">*</span>termios_p,speed_t speed);
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">cfsetospeed</span>(<span style="color:#000;font-weight:bold">struct</span> termios <span style="color:#000;font-weight:bold">*</span>termios_p,speed_t speed);
 </code></pre></div><p>例:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">cfsetispeed</span>(ttys0_opt,B115200);
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">cfsetospeed</span>(ttys0_opt,B115200);
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">cfsetispeed</span>(ttys0_opt,B115200);
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">cfsetospeed</span>(ttys0_opt,B115200);
 </code></pre></div><p>2.设置控制模式标志
 控制模式标志c_cflag主要用于设置串口对DCD信号状态检测,硬件流控制,字符位宽,停止位和奇偶检验位等,常用标志如下:</p>
 <table>
@@ -176,18 +176,18 @@
 </tbody>
 </table>
 <p>例如:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">struct</span> temios ttys0
-ttys0.c_cflag <span style="color:#f92672">|=</span> CLOCAL <span style="color:#f92672">|</span> CREAD;
-ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>CRTSCTS;
-ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>CSIZE;
-ttys0.c_cflag <span style="color:#f92672">|=</span> CS8;
-ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>(PARENB<span style="color:#f92672">|</span>CSTOPB);
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#000;font-weight:bold">struct</span> temios ttys0
+ttys0.c_cflag <span style="color:#000;font-weight:bold">|=</span> CLOCAL <span style="color:#000;font-weight:bold">|</span> CREAD;
+ttys0.c_cflag <span style="color:#000;font-weight:bold">&amp;=</span> <span style="color:#000;font-weight:bold">~</span>CRTSCTS;
+ttys0.c_cflag <span style="color:#000;font-weight:bold">&amp;=</span> <span style="color:#000;font-weight:bold">~</span>CSIZE;
+ttys0.c_cflag <span style="color:#000;font-weight:bold">|=</span> CS8;
+ttys0.c_cflag <span style="color:#000;font-weight:bold">&amp;=</span> <span style="color:#000;font-weight:bold">~</span>(PARENB<span style="color:#000;font-weight:bold">|</span>CSTOPB);
 </code></pre></div><p>3.设置本地模式标志</p>
 <p>本地模式设置标志c_lflag主要用于设置终端与用户的交互方式,常见的设置标志位有ICAN-ON,ECHO和ECHOE等.</p>
 <p>4.设置输入模式标志</p>
 <p>输入模式标志c_iflag主要用于控制串口的输入特性,常用的设置有IXOFF和IXON,分别用于软件流控制.</p>
 <p>起用软件流控制:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">ttys0_opt.c_iflag <span style="color:#f92672">|=</span> IXOFF<span style="color:#f92672">|</span>IXON
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">ttys0_opt.c_iflag <span style="color:#000;font-weight:bold">|=</span> IXOFF<span style="color:#000;font-weight:bold">|</span>IXON
 </code></pre></div><p>5.设置输出模式标志</p>
 <p>输出模式标志c_oflag主要用于处理串口在规范模式时输出的特殊字符,而对非规范模式无效.</p>
 <p>6.设置控制字符</p>
@@ -195,196 +195,196 @@ ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f926
 <p>7.清空发送/接收缓冲区</p>
 <p>为保证读/写操作不被串口缓冲区中原有的数据干扰,可以在读/写数据前用tc_flush()函数清空发送/接收缓冲区.</p>
 <p>串口配置函数实例:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">set_com_config</span>(<span style="color:#66d9ef">int</span> fd,<span style="color:#66d9ef">int</span> baud_rate,<span style="color:#66d9ef">int</span> data_bits,<span style="color:#66d9ef">char</span> parity,<span style="color:#66d9ef">int</span> stop_bits)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">set_com_config</span>(<span style="color:#458;font-weight:bold">int</span> fd,<span style="color:#458;font-weight:bold">int</span> baud_rate,<span style="color:#458;font-weight:bold">int</span> data_bits,<span style="color:#458;font-weight:bold">char</span> parity,<span style="color:#458;font-weight:bold">int</span> stop_bits)
 {
-	<span style="color:#66d9ef">struct</span> termios new_cfg,old_cfg;
-	<span style="color:#66d9ef">int</span> speed;
-	<span style="color:#75715e">/* 保存测试现有串口参数设置 */</span>
-	<span style="color:#66d9ef">if</span>(tcgetattr(fd,<span style="color:#f92672">&amp;</span>old_cfg) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
-		perror(<span style="color:#e6db74">&#34;tcgetattr&#34;</span>);
-		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+	<span style="color:#000;font-weight:bold">struct</span> termios new_cfg,old_cfg;
+	<span style="color:#458;font-weight:bold">int</span> speed;
+	<span style="color:#998;font-style:italic">/* 保存测试现有串口参数设置 */</span>
+	<span style="color:#000;font-weight:bold">if</span>(tcgetattr(fd,<span style="color:#000;font-weight:bold">&amp;</span>old_cfg) <span style="color:#000;font-weight:bold">!=</span> <span style="color:#099">0</span>){
+		perror(<span style="color:#d14">&#34;tcgetattr&#34;</span>);
+		<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>;
 	}
-	<span style="color:#75715e">/* 设置字符大小 */</span>
-	new_cfg <span style="color:#f92672">=</span> old_cfg;
-	cfmakeraw(<span style="color:#f92672">&amp;</span>new_cfg);
-	new_cfg.c_flag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>CSIZE;
-	<span style="color:#75715e">/* 设置串口波特率 */</span>
-	<span style="color:#66d9ef">switch</span>(baud_rate){
-		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2400</span><span style="color:#f92672">:</span>
-			speed <span style="color:#f92672">=</span> B2400;
-			<span style="color:#66d9ef">break</span>;
-		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">4800</span><span style="color:#f92672">:</span>
-			speed <span style="color:#f92672">=</span> B4800;
-			<span style="color:#66d9ef">break</span>;
-		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">9600</span><span style="color:#f92672">:</span>
-			speed <span style="color:#f92672">=</span> B9600;
-			<span style="color:#66d9ef">break</span>;
-		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">19200</span><span style="color:#f92672">:</span>
-			speed <span style="color:#f92672">=</span> B19200;
-			<span style="color:#66d9ef">break</span>;
-		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">38400</span><span style="color:#f92672">:</span>
-			speed <span style="color:#f92672">=</span> B38400;
-			<span style="color:#66d9ef">break</span>;
-		<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">115200</span><span style="color:#f92672">:</span>
-			speed <span style="color:#f92672">=</span> B115200;
-			<span style="color:#66d9ef">break</span>;
+	<span style="color:#998;font-style:italic">/* 设置字符大小 */</span>
+	new_cfg <span style="color:#000;font-weight:bold">=</span> old_cfg;
+	cfmakeraw(<span style="color:#000;font-weight:bold">&amp;</span>new_cfg);
+	new_cfg.c_flag <span style="color:#000;font-weight:bold">&amp;=</span> <span style="color:#000;font-weight:bold">~</span>CSIZE;
+	<span style="color:#998;font-style:italic">/* 设置串口波特率 */</span>
+	<span style="color:#000;font-weight:bold">switch</span>(baud_rate){
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#099">2400</span><span style="color:#000;font-weight:bold">:</span>
+			speed <span style="color:#000;font-weight:bold">=</span> B2400;
+			<span style="color:#000;font-weight:bold">break</span>;
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#099">4800</span><span style="color:#000;font-weight:bold">:</span>
+			speed <span style="color:#000;font-weight:bold">=</span> B4800;
+			<span style="color:#000;font-weight:bold">break</span>;
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#099">9600</span><span style="color:#000;font-weight:bold">:</span>
+			speed <span style="color:#000;font-weight:bold">=</span> B9600;
+			<span style="color:#000;font-weight:bold">break</span>;
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#099">19200</span><span style="color:#000;font-weight:bold">:</span>
+			speed <span style="color:#000;font-weight:bold">=</span> B19200;
+			<span style="color:#000;font-weight:bold">break</span>;
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#099">38400</span><span style="color:#000;font-weight:bold">:</span>
+			speed <span style="color:#000;font-weight:bold">=</span> B38400;
+			<span style="color:#000;font-weight:bold">break</span>;
+		<span style="color:#000;font-weight:bold">default</span><span style="color:#000;font-weight:bold">:</span>
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#099">115200</span><span style="color:#000;font-weight:bold">:</span>
+			speed <span style="color:#000;font-weight:bold">=</span> B115200;
+			<span style="color:#000;font-weight:bold">break</span>;
 	}
-	cfsetispeed(<span style="color:#f92672">&amp;</span>new_cfg,speed);
-	cfsetospeed(<span style="color:#f92672">&amp;</span>new_cfg,speed);
-	<span style="color:#75715e">/* 设置停止位 */</span>
-	<span style="color:#66d9ef">switch</span>(data_bits){
-		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">7</span><span style="color:#f92672">:</span>
-			new_cfg.c_cflag <span style="color:#f92672">|=</span> CS7;
-			<span style="color:#66d9ef">break</span>;
-		<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">8</span><span style="color:#f92672">:</span>
-			new_cfg.c_cflag <span style="color:#f92672">|=</span> CS8;
-			<span style="color:#66d9ef">break</span>;
+	cfsetispeed(<span style="color:#000;font-weight:bold">&amp;</span>new_cfg,speed);
+	cfsetospeed(<span style="color:#000;font-weight:bold">&amp;</span>new_cfg,speed);
+	<span style="color:#998;font-style:italic">/* 设置停止位 */</span>
+	<span style="color:#000;font-weight:bold">switch</span>(data_bits){
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#099">7</span><span style="color:#000;font-weight:bold">:</span>
+			new_cfg.c_cflag <span style="color:#000;font-weight:bold">|=</span> CS7;
+			<span style="color:#000;font-weight:bold">break</span>;
+		<span style="color:#000;font-weight:bold">default</span><span style="color:#000;font-weight:bold">:</span>
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#099">8</span><span style="color:#000;font-weight:bold">:</span>
+			new_cfg.c_cflag <span style="color:#000;font-weight:bold">|=</span> CS8;
+			<span style="color:#000;font-weight:bold">break</span>;
 	}
-	<span style="color:#75715e">/* 设置奇偶检验位 */</span>
-	<span style="color:#66d9ef">switch</span>(parity){
-		<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;n&#39;</span><span style="color:#f92672">:</span>
-		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;N&#39;</span><span style="color:#f92672">:</span>
-			new_cfg.c_flag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>PARENB;
-			new_cfg.ciflag <span style="color:#f92672">|=</span> INPCK;
-			<span style="color:#66d9ef">break</span>;
-		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;o&#39;</span><span style="color:#f92672">:</span>
-		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;O&#39;</span><span style="color:#f92672">:</span>
-			new_cfg.c_cflag <span style="color:#f92672">|=</span> (PARODD <span style="color:#f92672">|</span> PARENB);
-			new_cfg.c_iflag <span style="color:#f92672">|=</span> INPCK;
-			<span style="color:#66d9ef">break</span>;
-		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;e&#39;</span><span style="color:#f92672">:</span>
-		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;E&#39;</span><span style="color:#f92672">:</span>
-			new_cfg.c_cflag <span style="color:#f92672">|=</span> PARENB;
-			new_cfg.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>PARODD;
-			new_cfg.c_cflag <span style="color:#f92672">|=</span> INPCK;
-			<span style="color:#66d9ef">break</span>;
-		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;s&#39;</span><span style="color:#f92672">:</span>
-		<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;S&#39;</span><span style="color:#f92672">:</span>
-			new_cfg.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>PARENB;
-			new_cfg.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>CSTOPB;
-			<span style="color:#66d9ef">break</span>;
+	<span style="color:#998;font-style:italic">/* 设置奇偶检验位 */</span>
+	<span style="color:#000;font-weight:bold">switch</span>(parity){
+		<span style="color:#000;font-weight:bold">default</span><span style="color:#000;font-weight:bold">:</span>
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#d14">&#39;n&#39;</span><span style="color:#000;font-weight:bold">:</span>
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#d14">&#39;N&#39;</span><span style="color:#000;font-weight:bold">:</span>
+			new_cfg.c_flag <span style="color:#000;font-weight:bold">&amp;=</span> <span style="color:#000;font-weight:bold">~</span>PARENB;
+			new_cfg.ciflag <span style="color:#000;font-weight:bold">|=</span> INPCK;
+			<span style="color:#000;font-weight:bold">break</span>;
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#d14">&#39;o&#39;</span><span style="color:#000;font-weight:bold">:</span>
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#d14">&#39;O&#39;</span><span style="color:#000;font-weight:bold">:</span>
+			new_cfg.c_cflag <span style="color:#000;font-weight:bold">|=</span> (PARODD <span style="color:#000;font-weight:bold">|</span> PARENB);
+			new_cfg.c_iflag <span style="color:#000;font-weight:bold">|=</span> INPCK;
+			<span style="color:#000;font-weight:bold">break</span>;
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#d14">&#39;e&#39;</span><span style="color:#000;font-weight:bold">:</span>
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#d14">&#39;E&#39;</span><span style="color:#000;font-weight:bold">:</span>
+			new_cfg.c_cflag <span style="color:#000;font-weight:bold">|=</span> PARENB;
+			new_cfg.c_cflag <span style="color:#000;font-weight:bold">&amp;=</span> <span style="color:#000;font-weight:bold">~</span>PARODD;
+			new_cfg.c_cflag <span style="color:#000;font-weight:bold">|=</span> INPCK;
+			<span style="color:#000;font-weight:bold">break</span>;
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#d14">&#39;s&#39;</span><span style="color:#000;font-weight:bold">:</span>
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#d14">&#39;S&#39;</span><span style="color:#000;font-weight:bold">:</span>
+			new_cfg.c_cflag <span style="color:#000;font-weight:bold">&amp;=</span> <span style="color:#000;font-weight:bold">~</span>PARENB;
+			new_cfg.c_cflag <span style="color:#000;font-weight:bold">&amp;=</span> <span style="color:#000;font-weight:bold">~</span>CSTOPB;
+			<span style="color:#000;font-weight:bold">break</span>;
 	}
-	<span style="color:#75715e">/* 设置停止位 */</span>
-	<span style="color:#66d9ef">switch</span>(stop_bits){
-		<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">:</span>
-			new_cfg.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f92672">~</span>CSTOPB;
-			<span style="color:#66d9ef">break</span>;
-		<span style="color:#66d9ef">case</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">:</span>
-			new_cfg.c_cflag <span style="color:#f92672">|=</span> <span style="color:#f92672">~</span>CSTOPB;
+	<span style="color:#998;font-style:italic">/* 设置停止位 */</span>
+	<span style="color:#000;font-weight:bold">switch</span>(stop_bits){
+		<span style="color:#000;font-weight:bold">default</span><span style="color:#000;font-weight:bold">:</span>
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#099">1</span><span style="color:#000;font-weight:bold">:</span>
+			new_cfg.c_cflag <span style="color:#000;font-weight:bold">&amp;=</span> <span style="color:#000;font-weight:bold">~</span>CSTOPB;
+			<span style="color:#000;font-weight:bold">break</span>;
+		<span style="color:#000;font-weight:bold">case</span> <span style="color:#099">2</span><span style="color:#000;font-weight:bold">:</span>
+			new_cfg.c_cflag <span style="color:#000;font-weight:bold">|=</span> <span style="color:#000;font-weight:bold">~</span>CSTOPB;
 	}
-	<span style="color:#75715e">/* 设置等待时间和最小接收字符 */</span>
-	new_cfg.c_cc[VTIME] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-	new_cfg.c_cc[VMIE] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-	<span style="color:#75715e">/* 处理接收字符 */</span>
+	<span style="color:#998;font-style:italic">/* 设置等待时间和最小接收字符 */</span>
+	new_cfg.c_cc[VTIME] <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
+	new_cfg.c_cc[VMIE] <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+	<span style="color:#998;font-style:italic">/* 处理接收字符 */</span>
 	tcflush(fd,TCIFLUSH);
-	<span style="color:#75715e">/* 激活新配置 */</span>
-	<span style="color:#66d9ef">if</span>((tcsetattr(fd,TCSANOW,<span style="color:#f92672">&amp;</span>new_cfg)) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
-		perror(<span style="color:#e6db74">&#34;tcsetattr&#34;</span>);
-		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+	<span style="color:#998;font-style:italic">/* 激活新配置 */</span>
+	<span style="color:#000;font-weight:bold">if</span>((tcsetattr(fd,TCSANOW,<span style="color:#000;font-weight:bold">&amp;</span>new_cfg)) <span style="color:#000;font-weight:bold">!=</span> <span style="color:#099">0</span>){
+		perror(<span style="color:#d14">&#34;tcsetattr&#34;</span>);
+		<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>;
 	}
-	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
 }
 </code></pre></div><p>串口通信实例<br>
 下面给出串口发送和接收的信程序,其中串口在宿主机上运行,串口接收程序在目标机上运行</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/** serial_port_send.c **/</span>
-<span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;fcntl.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;termios.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;errno.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#define BAUDRATE B115200
-</span><span style="color:#75715e">#define MODEMDEVICE &#34;/dev/ttyS0&#34;
-</span><span style="color:#75715e">#define STOP &#39;@&#39;
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#998;font-style:italic">/** serial_port_send.c **/</span>
+<span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdlib.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;unistd.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/types.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;fcntl.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;termios.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;errno.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#999;font-weight:bold;font-style:italic">#define BAUDRATE B115200
+</span><span style="color:#999;font-weight:bold;font-style:italic">#define MODEMDEVICE &#34;/dev/ttyS0&#34;
+</span><span style="color:#999;font-weight:bold;font-style:italic">#define STOP &#39;@&#39;
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>()
 {
-    <span style="color:#66d9ef">int</span> fd,c <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,res;
-    <span style="color:#66d9ef">struct</span> termios oldtio,newtio;
-    <span style="color:#66d9ef">char</span> ch;
-    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">char</span> s1[<span style="color:#ae81ff">20</span>];
-    printf(<span style="color:#e6db74">&#34;Start...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-    fd <span style="color:#f92672">=</span> open(MODEMDEVICE,O_RDWR<span style="color:#f92672">|</span>O_NOCTTY);
-    <span style="color:#66d9ef">if</span>(fd<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>){
+    <span style="color:#458;font-weight:bold">int</span> fd,c <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>,res;
+    <span style="color:#000;font-weight:bold">struct</span> termios oldtio,newtio;
+    <span style="color:#458;font-weight:bold">char</span> ch;
+    <span style="color:#000;font-weight:bold">static</span> <span style="color:#458;font-weight:bold">char</span> s1[<span style="color:#099">20</span>];
+    printf(<span style="color:#d14">&#34;Start...</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
+    fd <span style="color:#000;font-weight:bold">=</span> open(MODEMDEVICE,O_RDWR<span style="color:#000;font-weight:bold">|</span>O_NOCTTY);
+    <span style="color:#000;font-weight:bold">if</span>(fd<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#099">0</span>){
         perror(MODEMDEVICE);
-        exit(<span style="color:#ae81ff">1</span>);
+        exit(<span style="color:#099">1</span>);
     }
-    printf(<span style="color:#e6db74">&#34;Open...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-    tcgetattr(fd,<span style="color:#f92672">&amp;</span>oldtio);
-    bzero(<span style="color:#f92672">&amp;</span>newtio,<span style="color:#66d9ef">sizeof</span>(newtio)); <span style="color:#75715e">//清除newtio结构,重新设置通信协议
-</span><span style="color:#75715e"></span>    newtio.c_cflag <span style="color:#f92672">=</span> BAUDRATE<span style="color:#f92672">|</span>CS8<span style="color:#f92672">|</span>CLOCAL<span style="color:#f92672">|</span>CREAD;
-    newtio.c_iflag <span style="color:#f92672">=</span> IGNPAR;
-    newtio.c_oflag <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-    newtio.c_lflag <span style="color:#f92672">=</span> ICANON;
+    printf(<span style="color:#d14">&#34;Open...</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
+    tcgetattr(fd,<span style="color:#000;font-weight:bold">&amp;</span>oldtio);
+    bzero(<span style="color:#000;font-weight:bold">&amp;</span>newtio,<span style="color:#000;font-weight:bold">sizeof</span>(newtio)); <span style="color:#998;font-style:italic">//清除newtio结构,重新设置通信协议
+</span><span style="color:#998;font-style:italic"></span>    newtio.c_cflag <span style="color:#000;font-weight:bold">=</span> BAUDRATE<span style="color:#000;font-weight:bold">|</span>CS8<span style="color:#000;font-weight:bold">|</span>CLOCAL<span style="color:#000;font-weight:bold">|</span>CREAD;
+    newtio.c_iflag <span style="color:#000;font-weight:bold">=</span> IGNPAR;
+    newtio.c_oflag <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
+    newtio.c_lflag <span style="color:#000;font-weight:bold">=</span> ICANON;
     tcflush(fd,TCOFLUSH);
-    tcsetattr(fd,TCSANOW,<span style="color:#f92672">&amp;</span>newtio);
-    printf(<span style="color:#e6db74">&#34;Writting..</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>){
-        <span style="color:#66d9ef">while</span>((ch <span style="color:#f92672">=</span> getchar()) <span style="color:#f92672">!=</span> STOP){
-            s1[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> ch;
-            res <span style="color:#f92672">=</span> write(fd,s1,<span style="color:#ae81ff">1</span>);
+    tcsetattr(fd,TCSANOW,<span style="color:#000;font-weight:bold">&amp;</span>newtio);
+    printf(<span style="color:#d14">&#34;Writting..</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
+    <span style="color:#000;font-weight:bold">while</span>(<span style="color:#099">1</span>){
+        <span style="color:#000;font-weight:bold">while</span>((ch <span style="color:#000;font-weight:bold">=</span> getchar()) <span style="color:#000;font-weight:bold">!=</span> STOP){
+            s1[<span style="color:#099">0</span>] <span style="color:#000;font-weight:bold">=</span> ch;
+            res <span style="color:#000;font-weight:bold">=</span> write(fd,s1,<span style="color:#099">1</span>);
         }
-        s1[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> ch;
-        s1[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
-        res <span style="color:#f92672">=</span> write(fd,s1,<span style="color:#ae81ff">2</span>);
-        <span style="color:#66d9ef">break</span>;
+        s1[<span style="color:#099">0</span>] <span style="color:#000;font-weight:bold">=</span> ch;
+        s1[<span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;\n&#39;</span>;
+        res <span style="color:#000;font-weight:bold">=</span> write(fd,s1,<span style="color:#099">2</span>);
+        <span style="color:#000;font-weight:bold">break</span>;
     }
-    printf(<span style="color:#e6db74">&#34;Close...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    printf(<span style="color:#d14">&#34;Close...</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
     close(fd);
-    tcsetattr(fd,TCSANOW,<span style="color:#f92672">&amp;</span>oldtio);
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+    tcsetattr(fd,TCSANOW,<span style="color:#000;font-weight:bold">&amp;</span>oldtio);
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
 }
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/** serial_port_rev.c **/</span>
-<span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/stat.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;fcntl.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;termios.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;errno.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">#define BAUDRATE B115200
-</span><span style="color:#75715e">#define MODEMDEVICE &#34;/dev/ttyS0&#34;
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#998;font-style:italic">/** serial_port_rev.c **/</span>
+<span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdlib.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;unistd.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/types.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/stat.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;fcntl.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;termios.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;errno.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#999;font-weight:bold;font-style:italic">#define BAUDRATE B115200
+</span><span style="color:#999;font-weight:bold;font-style:italic">#define MODEMDEVICE &#34;/dev/ttyS0&#34;
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>()
 {
-    <span style="color:#66d9ef">int</span> fd,c <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,res;
-    <span style="color:#66d9ef">struct</span> termios oldtio,newtio;
-    <span style="color:#66d9ef">char</span> buf[<span style="color:#ae81ff">256</span>];
-    printf(<span style="color:#e6db74">&#34;Start...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-    fd <span style="color:#f92672">=</span> open(MODEMDEVICE,O_RDWR<span style="color:#f92672">|</span>O_NOCTTY);
-    <span style="color:#66d9ef">if</span>(fd<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>){
+    <span style="color:#458;font-weight:bold">int</span> fd,c <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>,res;
+    <span style="color:#000;font-weight:bold">struct</span> termios oldtio,newtio;
+    <span style="color:#458;font-weight:bold">char</span> buf[<span style="color:#099">256</span>];
+    printf(<span style="color:#d14">&#34;Start...</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
+    fd <span style="color:#000;font-weight:bold">=</span> open(MODEMDEVICE,O_RDWR<span style="color:#000;font-weight:bold">|</span>O_NOCTTY);
+    <span style="color:#000;font-weight:bold">if</span>(fd<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#099">0</span>){
         perror(MODEMDEVICE);
-        exit(<span style="color:#ae81ff">1</span>);
+        exit(<span style="color:#099">1</span>);
     }
-    printf(<span style="color:#e6db74">&#34;open...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-    tcgetattr(fd,<span style="color:#f92672">&amp;</span>oldtio);
-    bzero(<span style="color:#f92672">&amp;</span>newtio,<span style="color:#66d9ef">sizeof</span>(newtio)); <span style="color:#75715e">//清除newtio结构,重新设置通信协议
-</span><span style="color:#75715e"></span>    newtio.c_cflag <span style="color:#f92672">=</span> BAUDRATE<span style="color:#f92672">|</span>CS8<span style="color:#f92672">|</span>CLOCAL<span style="color:#f92672">|</span>CREAD;
-    newtio.c_iflag <span style="color:#f92672">=</span> IGNPAR;
-    newtio.c_oflag <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-    newtio.c_lflag <span style="color:#f92672">=</span> ICANON;
+    printf(<span style="color:#d14">&#34;open...</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
+    tcgetattr(fd,<span style="color:#000;font-weight:bold">&amp;</span>oldtio);
+    bzero(<span style="color:#000;font-weight:bold">&amp;</span>newtio,<span style="color:#000;font-weight:bold">sizeof</span>(newtio)); <span style="color:#998;font-style:italic">//清除newtio结构,重新设置通信协议
+</span><span style="color:#998;font-style:italic"></span>    newtio.c_cflag <span style="color:#000;font-weight:bold">=</span> BAUDRATE<span style="color:#000;font-weight:bold">|</span>CS8<span style="color:#000;font-weight:bold">|</span>CLOCAL<span style="color:#000;font-weight:bold">|</span>CREAD;
+    newtio.c_iflag <span style="color:#000;font-weight:bold">=</span> IGNPAR;
+    newtio.c_oflag <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
+    newtio.c_lflag <span style="color:#000;font-weight:bold">=</span> ICANON;
     tcflush(fd,TCIFLUSH);
-    tcsetattr(fd,TCSANOW,<span style="color:#f92672">&amp;</span>newtio);
-    printf(<span style="color:#e6db74">&#34;Reading...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>){
-        res <span style="color:#f92672">=</span> read(fd,buf,<span style="color:#ae81ff">255</span>);
-        buf[res] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-        printf(<span style="color:#e6db74">&#34;res = %d buf = %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,res,buf);
-        <span style="color:#66d9ef">if</span>(buf[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;@&#39;</span>)
-            <span style="color:#66d9ef">break</span>;
+    tcsetattr(fd,TCSANOW,<span style="color:#000;font-weight:bold">&amp;</span>newtio);
+    printf(<span style="color:#d14">&#34;Reading...</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
+    <span style="color:#000;font-weight:bold">while</span>(<span style="color:#099">1</span>){
+        res <span style="color:#000;font-weight:bold">=</span> read(fd,buf,<span style="color:#099">255</span>);
+        buf[res] <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
+        printf(<span style="color:#d14">&#34;res = %d buf = %s</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>,res,buf);
+        <span style="color:#000;font-weight:bold">if</span>(buf[<span style="color:#099">0</span>] <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;@&#39;</span>)
+            <span style="color:#000;font-weight:bold">break</span>;
     }
-    printf(<span style="color:#e6db74">&#34;Close...</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+    printf(<span style="color:#d14">&#34;Close...</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
     close(fd);
-    tcsetattr(fd,TCSANOW,<span style="color:#f92672">&amp;</span>oldtio);
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+    tcsetattr(fd,TCSANOW,<span style="color:#000;font-weight:bold">&amp;</span>oldtio);
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
 }
 </code></pre></div>
                         </div>
@@ -396,9 +396,9 @@ ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f926
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/Linux">Linux</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/Linux">Linux</a></li>
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/serial">serial</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/serial">serial</a></li>
                                 
                             </ul>
                         </div>
@@ -413,7 +413,7 @@ ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f926
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20190630-fileio/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190630-fileio/">
         <i class="material-icons">arrow_back</i><span>文件I/O编程</span>
         </a>
         </li>
@@ -421,7 +421,7 @@ ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f926
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2019/20190629-tcpip/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190629-tcpip/">
         <span>Linux网络编程</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -491,10 +491,10 @@ ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f926
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -504,43 +504,43 @@ ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f926
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -553,43 +553,43 @@ ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f926
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -599,87 +599,87 @@ ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f926
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -689,7 +689,7 @@ ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f926
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -706,7 +706,7 @@ ttys0.c_cflag <span style="color:#f92672">&amp;=</span> <span style="color:#f926
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Django on 庄周梦蝶</title>
-    <link>http://blog.shaobo.fun/tags/Django/</link>
+    <link>https://blog.shaobo.fun/tags/Django/</link>
     <description>Recent content in Django on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 13 Jan 2020 11:03:42 +0800</lastBuildDate>
     
-	<atom:link href="http://blog.shaobo.fun/tags/Django/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.shaobo.fun/tags/Django/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Django ORM 查询</title>
-      <link>http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/</link>
+      <link>https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/</link>
       <pubDate>Mon, 13 Jan 2020 11:03:42 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/</guid>
+      <guid>https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/</guid>
       <description>&lt;p&gt;django orm其实还是很简单的，学起来也容易，这篇文章更多也是辅助记忆，方便日后查找。&lt;/p&gt;</description>
     </item>
     

@@ -20,7 +20,7 @@
     <meta name="description" content="算法笔记">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20190523-algorithmNote/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20190523-algorithmNote/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -88,7 +88,7 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95">算法</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95">算法</a></span>
                             
                         </div>
                         
@@ -132,70 +132,70 @@
 证明: 假设深度最大节点为a，则a一定有一个兄弟节点b。不妨设f(x)&lt;=f(y),f(a)&lt;=f(b),则f(x)&lt;=f(a),f(y)&lt;=f(b)。如果x不是a,则交换x和a;如果y不是b则交换y和b,这样得到新编码的树不会比。
 结论 2: 设T是加权字符集C的最优编码树，x和y是树T中两个叶子节点，且互为兄弟节点，z是他们的父节点。若把z看成是具有频率f(z)=f(x)+f(y)的字符，则树T`=T-{x,y}是字符集C`=C-{x,y}U{z}的一棵最优编码树。换句话说，原问题最优解包含子问题最优解。
 证明: 设T`的编码长度为L，其中字符{x,}的深度为h，则把字符{x,y}拆成两个后,长度变为L-(f(x)+f(y))<em>h+(f(x)+f(y))</em>(h+1)=L+f(x)+f(y)。因此T`必须是C`的最优编码树,T才是C的最优编码树。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;deque&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">struct</span> Node{
-    <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> weight;
-    Node <span style="color:#f92672">*</span>left;
-    Node <span style="color:#f92672">*</span>right;
-    Node(<span style="color:#66d9ef">int</span> x)<span style="color:#f92672">:</span>weight(x),left(NULL),right(NULL){}
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;cstdio&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;deque&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;algorithm&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#000;font-weight:bold">struct</span> Node{
+    <span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">int</span> weight;
+    Node <span style="color:#000;font-weight:bold">*</span>left;
+    Node <span style="color:#000;font-weight:bold">*</span>right;
+    Node(<span style="color:#458;font-weight:bold">int</span> x)<span style="color:#000;font-weight:bold">:</span>weight(x),left(<span style="color:#0086b3">NULL</span>),right(<span style="color:#0086b3">NULL</span>){}
 };
 
 
 
-<span style="color:#66d9ef">bool</span> isFirst <span style="color:#f92672">=</span> true;   <span style="color:#75715e">//输出时判断是否第一个
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">compare</span>(Node<span style="color:#f92672">*</span> a,Node<span style="color:#f92672">*</span> b);  <span style="color:#75715e">//定义排序规则
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printHuffmanLeaf</span>(Node<span style="color:#f92672">*</span> root);  <span style="color:#75715e">//输出编码后的叶子,从左至右
-</span><span style="color:#75715e"></span>Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuffman</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arr,<span style="color:#66d9ef">int</span> len);    <span style="color:#75715e">//构造哈夫曼树
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
-    <span style="color:#66d9ef">int</span> arr[<span style="color:#ae81ff">8</span>]<span style="color:#f92672">=</span>{<span style="color:#ae81ff">5</span>,<span style="color:#ae81ff">29</span>,<span style="color:#ae81ff">7</span>,<span style="color:#ae81ff">8</span>,<span style="color:#ae81ff">14</span>,<span style="color:#ae81ff">23</span>,<span style="color:#ae81ff">3</span>,<span style="color:#ae81ff">11</span>};  <span style="color:#75715e">//测试数据,根据权值进行哈夫曼编码
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> len <span style="color:#f92672">=</span> <span style="color:#66d9ef">sizeof</span>(arr)<span style="color:#f92672">/</span><span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span>);
+<span style="color:#458;font-weight:bold">bool</span> isFirst <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">true</span>;   <span style="color:#998;font-style:italic">//输出时判断是否第一个
+</span><span style="color:#998;font-style:italic"></span>
+<span style="color:#458;font-weight:bold">bool</span> <span style="color:#900;font-weight:bold">compare</span>(Node<span style="color:#000;font-weight:bold">*</span> a,Node<span style="color:#000;font-weight:bold">*</span> b);  <span style="color:#998;font-style:italic">//定义排序规则
+</span><span style="color:#998;font-style:italic"></span><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">printHuffmanLeaf</span>(Node<span style="color:#000;font-weight:bold">*</span> root);  <span style="color:#998;font-style:italic">//输出编码后的叶子,从左至右
+</span><span style="color:#998;font-style:italic"></span>Node<span style="color:#000;font-weight:bold">*</span> <span style="color:#900;font-weight:bold">encodingHuffman</span>(<span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">*</span> arr,<span style="color:#458;font-weight:bold">int</span> len);    <span style="color:#998;font-style:italic">//构造哈夫曼树
+</span><span style="color:#998;font-style:italic"></span>
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>(){
+    <span style="color:#458;font-weight:bold">int</span> arr[<span style="color:#099">8</span>]<span style="color:#000;font-weight:bold">=</span>{<span style="color:#099">5</span>,<span style="color:#099">29</span>,<span style="color:#099">7</span>,<span style="color:#099">8</span>,<span style="color:#099">14</span>,<span style="color:#099">23</span>,<span style="color:#099">3</span>,<span style="color:#099">11</span>};  <span style="color:#998;font-style:italic">//测试数据,根据权值进行哈夫曼编码
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">const</span> <span style="color:#458;font-weight:bold">int</span> len <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">sizeof</span>(arr)<span style="color:#000;font-weight:bold">/</span><span style="color:#000;font-weight:bold">sizeof</span>(<span style="color:#458;font-weight:bold">unsigned</span> <span style="color:#458;font-weight:bold">int</span>);
 
-    Node<span style="color:#f92672">*</span> ptr <span style="color:#f92672">=</span> encodingHuffman(arr,len);
-    printf(<span style="color:#e6db74">&#34;[&#34;</span>);
+    Node<span style="color:#000;font-weight:bold">*</span> ptr <span style="color:#000;font-weight:bold">=</span> encodingHuffman(arr,len);
+    printf(<span style="color:#d14">&#34;[&#34;</span>);
     printHuffmanLeaf(ptr);
-    printf(<span style="color:#e6db74">&#34;]</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+    printf(<span style="color:#d14">&#34;]</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
 }
 
-<span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">compare</span>(Node<span style="color:#f92672">*</span> a,Node<span style="color:#f92672">*</span> b){
-    <span style="color:#66d9ef">return</span> a<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">&lt;</span> b<span style="color:#f92672">-&gt;</span>weight;   <span style="color:#75715e">//按从小到大顺序来排
-</span><span style="color:#75715e"></span>}
+<span style="color:#458;font-weight:bold">bool</span> <span style="color:#900;font-weight:bold">compare</span>(Node<span style="color:#000;font-weight:bold">*</span> a,Node<span style="color:#000;font-weight:bold">*</span> b){
+    <span style="color:#000;font-weight:bold">return</span> a<span style="color:#000;font-weight:bold">-&gt;</span>weight <span style="color:#000;font-weight:bold">&lt;</span> b<span style="color:#000;font-weight:bold">-&gt;</span>weight;   <span style="color:#998;font-style:italic">//按从小到大顺序来排
+</span><span style="color:#998;font-style:italic"></span>}
 
-<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printHuffmanLeaf</span>(Node<span style="color:#f92672">*</span> root){
-    <span style="color:#66d9ef">if</span>(root<span style="color:#f92672">-&gt;</span>left<span style="color:#f92672">==</span>NULL <span style="color:#f92672">&amp;&amp;</span> root<span style="color:#f92672">-&gt;</span>right<span style="color:#f92672">==</span>NULL){
-        <span style="color:#66d9ef">if</span>(isFirst)
-            isFirst<span style="color:#f92672">=</span>false;
-        <span style="color:#66d9ef">else</span>
-            printf(<span style="color:#e6db74">&#34;,&#34;</span>);
-        printf(<span style="color:#e6db74">&#34;%d&#34;</span>,root<span style="color:#f92672">-&gt;</span>weight);
-        <span style="color:#66d9ef">return</span> ;
+<span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">printHuffmanLeaf</span>(Node<span style="color:#000;font-weight:bold">*</span> root){
+    <span style="color:#000;font-weight:bold">if</span>(root<span style="color:#000;font-weight:bold">-&gt;</span>left<span style="color:#000;font-weight:bold">==</span><span style="color:#0086b3">NULL</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> root<span style="color:#000;font-weight:bold">-&gt;</span>right<span style="color:#000;font-weight:bold">==</span><span style="color:#0086b3">NULL</span>){
+        <span style="color:#000;font-weight:bold">if</span>(isFirst)
+            isFirst<span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">false</span>;
+        <span style="color:#000;font-weight:bold">else</span>
+            printf(<span style="color:#d14">&#34;,&#34;</span>);
+        printf(<span style="color:#d14">&#34;%d&#34;</span>,root<span style="color:#000;font-weight:bold">-&gt;</span>weight);
+        <span style="color:#000;font-weight:bold">return</span> ;
     }
-    printHuffmanLeaf(root<span style="color:#f92672">-&gt;</span>left);   <span style="color:#75715e">//递归输出左边叶子节点
-</span><span style="color:#75715e"></span>    printHuffmanLeaf(root<span style="color:#f92672">-&gt;</span>right);  <span style="color:#75715e">//递归输出右边叶子节点
-</span><span style="color:#75715e"></span>}
+    printHuffmanLeaf(root<span style="color:#000;font-weight:bold">-&gt;</span>left);   <span style="color:#998;font-style:italic">//递归输出左边叶子节点
+</span><span style="color:#998;font-style:italic"></span>    printHuffmanLeaf(root<span style="color:#000;font-weight:bold">-&gt;</span>right);  <span style="color:#998;font-style:italic">//递归输出右边叶子节点
+</span><span style="color:#998;font-style:italic"></span>}
 
-Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuffman</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arr,<span style="color:#66d9ef">int</span> len){
-    std<span style="color:#f92672">::</span>deque<span style="color:#f92672">&lt;</span>Node<span style="color:#f92672">*&gt;</span> huffmanTree;   <span style="color:#75715e">//用于构造哈夫曼树的队列
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>len;<span style="color:#f92672">++</span>i){     <span style="color:#75715e">//初始化队列
-</span><span style="color:#75715e"></span>        Node<span style="color:#f92672">*</span> ptr <span style="color:#f92672">=</span> new Node(arr[i]);
+Node<span style="color:#000;font-weight:bold">*</span> <span style="color:#900;font-weight:bold">encodingHuffman</span>(<span style="color:#458;font-weight:bold">int</span><span style="color:#000;font-weight:bold">*</span> arr,<span style="color:#458;font-weight:bold">int</span> len){
+    std<span style="color:#000;font-weight:bold">::</span>deque<span style="color:#000;font-weight:bold">&lt;</span>Node<span style="color:#000;font-weight:bold">*&gt;</span> huffmanTree;   <span style="color:#998;font-style:italic">//用于构造哈夫曼树的队列
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> i<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">&lt;</span>len;<span style="color:#000;font-weight:bold">++</span>i){     <span style="color:#998;font-style:italic">//初始化队列
+</span><span style="color:#998;font-style:italic"></span>        Node<span style="color:#000;font-weight:bold">*</span> ptr <span style="color:#000;font-weight:bold">=</span> new Node(arr[i]);
         huffmanTree.push_back(ptr);
     }
-    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>len<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;i<span style="color:#f92672">++</span>){
-        std<span style="color:#f92672">::</span>sort(huffmanTree.begin(),huffmanTree.end(),compare);    <span style="color:#75715e">//每次构造完新的哈夫曼树后从新排序
-</span><span style="color:#75715e"></span>        Node<span style="color:#f92672">*</span> ptr <span style="color:#f92672">=</span> new Node(huffmanTree[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-&gt;</span>weight <span style="color:#f92672">+</span> huffmanTree[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">-&gt;</span>weight);  <span style="color:#75715e">//新哈夫曼树的权值等于当前最小两棵哈夫曼树权值和(每个节点看做一棵小的哈夫曼树)
-</span><span style="color:#75715e"></span>        ptr<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> huffmanTree[<span style="color:#ae81ff">0</span>];     <span style="color:#75715e">//新节点的左子树等于最小哈夫曼树
-</span><span style="color:#75715e"></span>        ptr<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> huffmanTree[<span style="color:#ae81ff">1</span>];    <span style="color:#75715e">//新节点的右子树等于次小哈夫曼树
-</span><span style="color:#75715e"></span>        huffmanTree.pop_front();        <span style="color:#75715e">//最小两棵哈夫曼树出队
-</span><span style="color:#75715e"></span>        huffmanTree.pop_front();
-        huffmanTree.push_back(ptr);     <span style="color:#75715e">//新哈夫曼树入队
-</span><span style="color:#75715e"></span>    }
-    <span style="color:#66d9ef">return</span> huffmanTree.front();         <span style="color:#75715e">//返回第一棵哈夫曼树,此时也仅剩一棵了
-</span><span style="color:#75715e"></span>}
+    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> i<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">&lt;</span>len<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>;i<span style="color:#000;font-weight:bold">++</span>){
+        std<span style="color:#000;font-weight:bold">::</span>sort(huffmanTree.begin(),huffmanTree.end(),compare);    <span style="color:#998;font-style:italic">//每次构造完新的哈夫曼树后从新排序
+</span><span style="color:#998;font-style:italic"></span>        Node<span style="color:#000;font-weight:bold">*</span> ptr <span style="color:#000;font-weight:bold">=</span> new Node(huffmanTree[<span style="color:#099">0</span>]<span style="color:#000;font-weight:bold">-&gt;</span>weight <span style="color:#000;font-weight:bold">+</span> huffmanTree[<span style="color:#099">1</span>]<span style="color:#000;font-weight:bold">-&gt;</span>weight);  <span style="color:#998;font-style:italic">//新哈夫曼树的权值等于当前最小两棵哈夫曼树权值和(每个节点看做一棵小的哈夫曼树)
+</span><span style="color:#998;font-style:italic"></span>        ptr<span style="color:#000;font-weight:bold">-&gt;</span>left <span style="color:#000;font-weight:bold">=</span> huffmanTree[<span style="color:#099">0</span>];     <span style="color:#998;font-style:italic">//新节点的左子树等于最小哈夫曼树
+</span><span style="color:#998;font-style:italic"></span>        ptr<span style="color:#000;font-weight:bold">-&gt;</span>right <span style="color:#000;font-weight:bold">=</span> huffmanTree[<span style="color:#099">1</span>];    <span style="color:#998;font-style:italic">//新节点的右子树等于次小哈夫曼树
+</span><span style="color:#998;font-style:italic"></span>        huffmanTree.pop_front();        <span style="color:#998;font-style:italic">//最小两棵哈夫曼树出队
+</span><span style="color:#998;font-style:italic"></span>        huffmanTree.pop_front();
+        huffmanTree.push_back(ptr);     <span style="color:#998;font-style:italic">//新哈夫曼树入队
+</span><span style="color:#998;font-style:italic"></span>    }
+    <span style="color:#000;font-weight:bold">return</span> huffmanTree.front();         <span style="color:#998;font-style:italic">//返回第一棵哈夫曼树,此时也仅剩一棵了
+</span><span style="color:#998;font-style:italic"></span>}
 </code></pre></div><p>时间复杂度分析:可以看出来本例算法时间主要用在哈弗曼编码函数encodingHuffuman()第二个for循环中,循环每次只需要将队列的前两个合成一棵哈夫曼树所以其时间复杂度为O(n),每次插入新的哈夫曼树后需要重新排序，其时间复杂度是logn,总的时间复杂度为O(nlogn)</p>
 <hr>
 <h3 id="欧几里得算法">欧几里得算法</h3>
@@ -203,10 +203,10 @@ Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuf
 <p>欧几里得算法其实就是<a href="https://zh.wikipedia.org/wiki/%E8%BC%BE%E8%BD%89%E7%9B%B8%E9%99%A4%E6%B3%95">辗转相除法</a>,是求最大公约数的算法。<br>
 辗转相除法基于如下原理：两个整数的最大公约数等于其中较小的数和两数的差的最大公约数。(a&gt;b当a&gt;2b需要重复多次a-b操作,所以欧几里得算法也是，两个整数的最大公约数等于其中较小的数和两数的余数的最大公约数)</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">gcd(a,b){
-    <span style="color:#66d9ef">if</span>(a<span style="color:#f92672">&lt;</span>b)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">gcd(a,b){
+    <span style="color:#000;font-weight:bold">if</span>(a<span style="color:#000;font-weight:bold">&lt;</span>b)
         swap(a,b);
-    <span style="color:#66d9ef">return</span> b<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> a:gcd(b,a<span style="color:#f92672">%</span>b);
+    <span style="color:#000;font-weight:bold">return</span> b<span style="color:#000;font-weight:bold">==</span><span style="color:#099">0</span> <span style="color:#000;font-weight:bold">?</span> <span style="color:#900;font-weight:bold">a</span>:gcd(b,a<span style="color:#000;font-weight:bold">%</span>b);
 }
 </code></pre></div><p>辗转相除法的计算过程可以用图形演示。[24]假设我们要在a×b的矩形地面上铺正方形瓷砖，并且正好铺满，其中a大于b。我们先尝试用b×b的瓷砖，但是留下了r0×b的部分，其中r0&lt;b。我们接着尝试用r0×r0的正方形瓷砖铺，又留下了r1×r0的部分，然后再使用r1×r1的正方形铺……直到全部铺满为止，即到某步时正方形刚好覆盖剩余的面积为止。此时用到的最小的正方形的边长就是原来矩形的两条边长的最大公约数。在图中，最小的正方形面积是21×21（红色），而原先的矩形（绿色）边长是1071×462，所以21是1071和462的最大公约数。</p>
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Euclidean_algorithm_1071_462.gif/51px-Euclidean_algorithm_1071_462.gif" alt=""></p>
@@ -215,16 +215,16 @@ Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuf
 <blockquote>
 <p><a href="https://zh.wikipedia.org/wiki/%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%E5%BD%A2">杨辉三角</a>，是二项式系数在三角形中的一种几何排列。</p>
 </blockquote>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span>
-              <span style="color:#75715e">１</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>　　　　　　　<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">１</span>
-　　　　　　<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">２</span>　<span style="color:#ae81ff">１</span>
-　　　　　<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">３</span>　<span style="color:#ae81ff">３</span>　<span style="color:#ae81ff">１</span>
-　　　　<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">４</span>　<span style="color:#ae81ff">６</span>　<span style="color:#ae81ff">４</span>　<span style="color:#ae81ff">１</span>
-　　　<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">５</span>　<span style="color:#ae81ff">10</span>　<span style="color:#ae81ff">10</span>　<span style="color:#ae81ff">５</span>　<span style="color:#ae81ff">１</span>
-　　<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">６</span>　<span style="color:#ae81ff">15</span>　<span style="color:#ae81ff">20</span>　<span style="color:#ae81ff">15</span>　<span style="color:#ae81ff">６</span>　<span style="color:#ae81ff">１</span>
-　<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">７</span>　<span style="color:#ae81ff">21</span>　<span style="color:#ae81ff">35</span>　<span style="color:#ae81ff">35</span>　<span style="color:#ae81ff">21</span>　<span style="color:#ae81ff">７</span>　<span style="color:#ae81ff">１</span>
-<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">８</span>　<span style="color:#ae81ff">28</span>　<span style="color:#ae81ff">56</span>　<span style="color:#ae81ff">70</span>　<span style="color:#ae81ff">56</span>　<span style="color:#ae81ff">28</span>　<span style="color:#ae81ff">８</span>　<span style="color:#ae81ff">１</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#999;font-weight:bold;font-style:italic">#include</span>
+              <span style="color:#999;font-weight:bold;font-style:italic">１</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>　　　　　　　<span style="color:#099">１</span>　<span style="color:#099">１</span>
+　　　　　　<span style="color:#099">１</span>　<span style="color:#099">２</span>　<span style="color:#099">１</span>
+　　　　　<span style="color:#099">１</span>　<span style="color:#099">３</span>　<span style="color:#099">３</span>　<span style="color:#099">１</span>
+　　　　<span style="color:#099">１</span>　<span style="color:#099">４</span>　<span style="color:#099">６</span>　<span style="color:#099">４</span>　<span style="color:#099">１</span>
+　　　<span style="color:#099">１</span>　<span style="color:#099">５</span>　<span style="color:#099">10</span>　<span style="color:#099">10</span>　<span style="color:#099">５</span>　<span style="color:#099">１</span>
+　　<span style="color:#099">１</span>　<span style="color:#099">６</span>　<span style="color:#099">15</span>　<span style="color:#099">20</span>　<span style="color:#099">15</span>　<span style="color:#099">６</span>　<span style="color:#099">１</span>
+　<span style="color:#099">１</span>　<span style="color:#099">７</span>　<span style="color:#099">21</span>　<span style="color:#099">35</span>　<span style="color:#099">35</span>　<span style="color:#099">21</span>　<span style="color:#099">７</span>　<span style="color:#099">１</span>
+<span style="color:#099">１</span>　<span style="color:#099">８</span>　<span style="color:#099">28</span>　<span style="color:#099">56</span>　<span style="color:#099">70</span>　<span style="color:#099">56</span>　<span style="color:#099">28</span>　<span style="color:#099">８</span>　<span style="color:#099">１</span>
 
 </code></pre></div><p>(a+b)<sup>n</sup> 展开，将得到一个关于x的多项式:<br>
 (a+b)<sup>0</sup> = 1<br>
@@ -235,41 +235,41 @@ Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuf
 <p>系数正好和杨辉三角一致,而(a+b)<sup>n</sup> =  ∑<sup>n</sup><sub>k=0</sub> C<sup>k</sup><sub>n</sub>a<sup>n-k</sup>b<sup>k</sup><br>
 组合数公式: <code>C = n!/k!(n-k)!</code><br>
 (<i><a href="http://www.w3school.com.cn/tags/html_ref_symbols.html">特殊符号</a></i>)</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#ae81ff">１</span>
-<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">１</span>
-<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">２</span>　<span style="color:#ae81ff">１</span>
-<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">３</span>　<span style="color:#ae81ff">３</span>　<span style="color:#ae81ff">１</span>
-<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">４</span>　<span style="color:#ae81ff">６</span>　<span style="color:#ae81ff">４</span>　<span style="color:#ae81ff">１</span>
-<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">５</span>　<span style="color:#ae81ff">10</span>　<span style="color:#ae81ff">10</span>　<span style="color:#ae81ff">５</span>　<span style="color:#ae81ff">１</span>
-<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">６</span>　<span style="color:#ae81ff">15</span>　<span style="color:#ae81ff">20</span>　<span style="color:#ae81ff">15</span>　<span style="color:#ae81ff">６</span>　<span style="color:#ae81ff">１</span>
-<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">７</span>　<span style="color:#ae81ff">21</span>　<span style="color:#ae81ff">35</span>　<span style="color:#ae81ff">35</span>　<span style="color:#ae81ff">21</span>　<span style="color:#ae81ff">７</span>　<span style="color:#ae81ff">１</span>
-<span style="color:#ae81ff">１</span>　<span style="color:#ae81ff">８</span>　<span style="color:#ae81ff">28</span>　<span style="color:#ae81ff">56</span>　<span style="color:#ae81ff">70</span>　<span style="color:#ae81ff">56</span>　<span style="color:#ae81ff">28</span>　<span style="color:#ae81ff">８</span>　<span style="color:#ae81ff">１</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#099">１</span>
+<span style="color:#099">１</span>　<span style="color:#099">１</span>
+<span style="color:#099">１</span>　<span style="color:#099">２</span>　<span style="color:#099">１</span>
+<span style="color:#099">１</span>　<span style="color:#099">３</span>　<span style="color:#099">３</span>　<span style="color:#099">１</span>
+<span style="color:#099">１</span>　<span style="color:#099">４</span>　<span style="color:#099">６</span>　<span style="color:#099">４</span>　<span style="color:#099">１</span>
+<span style="color:#099">１</span>　<span style="color:#099">５</span>　<span style="color:#099">10</span>　<span style="color:#099">10</span>　<span style="color:#099">５</span>　<span style="color:#099">１</span>
+<span style="color:#099">１</span>　<span style="color:#099">６</span>　<span style="color:#099">15</span>　<span style="color:#099">20</span>　<span style="color:#099">15</span>　<span style="color:#099">６</span>　<span style="color:#099">１</span>
+<span style="color:#099">１</span>　<span style="color:#099">７</span>　<span style="color:#099">21</span>　<span style="color:#099">35</span>　<span style="color:#099">35</span>　<span style="color:#099">21</span>　<span style="color:#099">７</span>　<span style="color:#099">１</span>
+<span style="color:#099">１</span>　<span style="color:#099">８</span>　<span style="color:#099">28</span>　<span style="color:#099">56</span>　<span style="color:#099">70</span>　<span style="color:#099">56</span>　<span style="color:#099">28</span>　<span style="color:#099">８</span>　<span style="color:#099">１</span>
 
 </code></pre></div><p>把杨辉三角左对齐一下不难发现，从第二行开始元素x[i][j]的值等于x[i-1][j-1]+x[i-1][j],构造一个n次方的杨辉三角</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;cstdio&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;cstring&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>using namespace std;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;cstdio&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;cstring&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>using namespace std;
 
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
-    <span style="color:#66d9ef">int</span> n;
-    scanf(<span style="color:#e6db74">&#34;%d&#34;</span>,<span style="color:#f92672">&amp;</span>n);
-    <span style="color:#66d9ef">int</span> triangle[n<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][n<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];
-    memset(triangle,<span style="color:#ae81ff">0</span>,<span style="color:#66d9ef">sizeof</span>(triangle));
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>(){
+    <span style="color:#458;font-weight:bold">int</span> n;
+    scanf(<span style="color:#d14">&#34;%d&#34;</span>,<span style="color:#000;font-weight:bold">&amp;</span>n);
+    <span style="color:#458;font-weight:bold">int</span> triangle[n<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>][n<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>];
+    memset(triangle,<span style="color:#099">0</span>,<span style="color:#000;font-weight:bold">sizeof</span>(triangle));
 
-    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;=</span>n;i<span style="color:#f92672">++</span>){  <span style="color:#75715e">//构造杨辉三角
-</span><span style="color:#75715e"></span>        triangle[i][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>;j<span style="color:#f92672">&lt;=</span>i;j<span style="color:#f92672">++</span>){
-            triangle[i][j] <span style="color:#f92672">=</span> triangle[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> triangle[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j];
+    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> i<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">&lt;=</span>n;i<span style="color:#000;font-weight:bold">++</span>){  <span style="color:#998;font-style:italic">//构造杨辉三角
+</span><span style="color:#998;font-style:italic"></span>        triangle[i][<span style="color:#099">0</span>] <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+        <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> j<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>;j<span style="color:#000;font-weight:bold">&lt;=</span>i;j<span style="color:#000;font-weight:bold">++</span>){
+            triangle[i][j] <span style="color:#000;font-weight:bold">=</span> triangle[i<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>][j<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">+</span> triangle[i<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>][j];
         }
     }
 
-    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;=</span>n;i<span style="color:#f92672">++</span>){  <span style="color:#75715e">//输出
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;j<span style="color:#f92672">&lt;=</span>i;j<span style="color:#f92672">++</span>){
-            printf(<span style="color:#e6db74">&#34;%3d &#34;</span>,triangle[i][j]);
+    <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> i<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">&lt;=</span>n;i<span style="color:#000;font-weight:bold">++</span>){  <span style="color:#998;font-style:italic">//输出
+</span><span style="color:#998;font-style:italic"></span>        <span style="color:#000;font-weight:bold">for</span>(<span style="color:#458;font-weight:bold">int</span> j<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>;j<span style="color:#000;font-weight:bold">&lt;=</span>i;j<span style="color:#000;font-weight:bold">++</span>){
+            printf(<span style="color:#d14">&#34;%3d &#34;</span>,triangle[i][j]);
         }
-        printf(<span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
+        printf(<span style="color:#d14">&#34;</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
     }
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
 }
 </code></pre></div>
                         </div>
@@ -281,7 +281,7 @@ Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuf
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/algorithm">algorithm</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/algorithm">algorithm</a></li>
                                 
                             </ul>
                         </div>
@@ -296,7 +296,7 @@ Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuf
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20190527-sortAlgorithm/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190527-sortAlgorithm/">
         <i class="material-icons">arrow_back</i><span>九大排序算法</span>
         </a>
         </li>
@@ -358,10 +358,10 @@ Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuf
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -371,43 +371,43 @@ Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuf
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -420,43 +420,43 @@ Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuf
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -466,87 +466,87 @@ Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuf
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -556,7 +556,7 @@ Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuf
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -573,7 +573,7 @@ Node<span style="color:#f92672">*</span> <span style="color:#a6e22e">encodingHuf
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

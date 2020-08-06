@@ -13,7 +13,7 @@ draft: false
 
 ### Django中使用socketio
 
-```python3
+```python
 import logging
 import socketio
 import eventlet
@@ -59,7 +59,7 @@ def open_virtual_machines(configs, user_id):
 
 第8行创建一个socketio服务，async_mode=None由sockerio内部算法决定使用异步模式，cors_allowed_origins='*'是因为sockio服务也有同源策略这里允许所有来源的地址请求，这也是我碰到的第一个问题导致nginx流量过来时候都没有正常返回，nginx配置如下：
 
-```nginx
+```shell
 location /socket.io/ {
     proxy_pass http://server:8000;
     proxy_redirect off;

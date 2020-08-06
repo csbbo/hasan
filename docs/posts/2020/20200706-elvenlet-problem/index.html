@@ -20,7 +20,7 @@
     <meta name="description" content="记一次Evenlet事件">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -88,7 +88,7 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/Python">Python</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/Python">Python</a></span>
                             
                         </div>
                         
@@ -120,65 +120,65 @@
                         <div class="post-content">
                             <p>事情的起因是要再项目中使用双向通信，首选是websocket但是由于ie10的不支持选用的socketio(sockerio会根据实际情自动切换websocket和轮询两种办法),而socketio的使用又需要引入evenlet,就这样一步一步的往里陷了。</p>
 <h3 id="django中使用socketio">Django中使用socketio</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#f92672">import</span> logging
-<span style="color:#f92672">import</span> socketio
-<span style="color:#f92672">import</span> eventlet
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">import</span> <span style="color:#555">logging</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">socketio</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">eventlet</span>
 
-logger <span style="color:#f92672">=</span> logging<span style="color:#f92672">.</span>getLogger(__name__)
+logger <span style="color:#000;font-weight:bold">=</span> logging<span style="color:#000;font-weight:bold">.</span>getLogger(__name__)
 
-eventlet<span style="color:#f92672">.</span>monkey_patch(thread<span style="color:#f92672">=</span><span style="color:#66d9ef">False</span>, socket<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, select<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
-sio <span style="color:#f92672">=</span> socketio<span style="color:#f92672">.</span>Server(async_mode<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, cors_allowed_origins<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;*&#39;</span>)
-SID <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
-
-
-<span style="color:#a6e22e">@sio</span><span style="color:#f92672">.</span>event
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">connect</span>(sid, environ):
-    <span style="color:#66d9ef">global</span> SID
-    SID <span style="color:#f92672">=</span> sid
-    logger<span style="color:#f92672">.</span>error(f<span style="color:#e6db74">&#39;Client </span><span style="color:#e6db74">{sid}</span><span style="color:#e6db74"> connected&#39;</span>)
+eventlet<span style="color:#000;font-weight:bold">.</span>monkey_patch(thread<span style="color:#000;font-weight:bold">=</span><span style="color:#999">False</span>, socket<span style="color:#000;font-weight:bold">=</span><span style="color:#999">True</span>, select<span style="color:#000;font-weight:bold">=</span><span style="color:#999">True</span>)
+sio <span style="color:#000;font-weight:bold">=</span> socketio<span style="color:#000;font-weight:bold">.</span>Server(async_mode<span style="color:#000;font-weight:bold">=</span><span style="color:#999">None</span>, cors_allowed_origins<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;*&#39;</span>)
+SID <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">None</span>
 
 
-<span style="color:#a6e22e">@sio</span><span style="color:#f92672">.</span>event
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">disconnect_request</span>(sid):
-    sio<span style="color:#f92672">.</span>disconnect(sid)
+<span style="color:#3c5d5d;font-weight:bold">@sio.event</span>
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">connect</span>(sid, environ):
+    <span style="color:#000;font-weight:bold">global</span> SID
+    SID <span style="color:#000;font-weight:bold">=</span> sid
+    logger<span style="color:#000;font-weight:bold">.</span>error(f<span style="color:#d14">&#39;Client {sid} connected&#39;</span>)
 
 
-<span style="color:#a6e22e">@sio</span><span style="color:#f92672">.</span>event
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">disconnect</span>(sid):
-    logger<span style="color:#f92672">.</span>error(f<span style="color:#e6db74">&#39;Client </span><span style="color:#e6db74">{sid}</span><span style="color:#e6db74"> disconnected&#39;</span>)
+<span style="color:#3c5d5d;font-weight:bold">@sio.event</span>
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">disconnect_request</span>(sid):
+    sio<span style="color:#000;font-weight:bold">.</span>disconnect(sid)
 
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">open_virtual_machines</span>(configs, user_id):
-    <span style="color:#f92672">from</span> virtual_machine.tasks <span style="color:#66d9ef">import</span> open_vm_task
-    <span style="color:#66d9ef">global</span> SID
-    result_list <span style="color:#f92672">=</span> []
-    <span style="color:#66d9ef">for</span> config <span style="color:#f92672">in</span> configs:
-        message <span style="color:#f92672">=</span> open_vm_task<span style="color:#f92672">.</span>send(str(config<span style="color:#f92672">.</span>id), config<span style="color:#f92672">.</span>name, user_id)
-        result_list<span style="color:#f92672">.</span>append(message)
-    messages <span style="color:#f92672">=</span> []
-    <span style="color:#66d9ef">for</span> msg <span style="color:#f92672">in</span> result_list:
-        message <span style="color:#f92672">=</span> msg<span style="color:#f92672">.</span>get_result(block<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, timeout<span style="color:#f92672">=</span><span style="color:#ae81ff">300000</span>)
-        messages<span style="color:#f92672">.</span>append(message)
-    sio<span style="color:#f92672">.</span>emit(<span style="color:#e6db74">&#39;vm_response&#39;</span>, {<span style="color:#e6db74">&#39;data&#39;</span>: messages})
-    sio<span style="color:#f92672">.</span>disconnect(SID)
+<span style="color:#3c5d5d;font-weight:bold">@sio.event</span>
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">disconnect</span>(sid):
+    logger<span style="color:#000;font-weight:bold">.</span>error(f<span style="color:#d14">&#39;Client {sid} disconnected&#39;</span>)
+
+
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">open_virtual_machines</span>(configs, user_id):
+    <span style="color:#000;font-weight:bold">from</span> <span style="color:#555">virtual_machine.tasks</span> <span style="color:#000;font-weight:bold">import</span> open_vm_task
+    <span style="color:#000;font-weight:bold">global</span> SID
+    result_list <span style="color:#000;font-weight:bold">=</span> []
+    <span style="color:#000;font-weight:bold">for</span> config <span style="color:#000;font-weight:bold">in</span> configs:
+        message <span style="color:#000;font-weight:bold">=</span> open_vm_task<span style="color:#000;font-weight:bold">.</span>send(<span style="color:#0086b3">str</span>(config<span style="color:#000;font-weight:bold">.</span>id), config<span style="color:#000;font-weight:bold">.</span>name, user_id)
+        result_list<span style="color:#000;font-weight:bold">.</span>append(message)
+    messages <span style="color:#000;font-weight:bold">=</span> []
+    <span style="color:#000;font-weight:bold">for</span> msg <span style="color:#000;font-weight:bold">in</span> result_list:
+        message <span style="color:#000;font-weight:bold">=</span> msg<span style="color:#000;font-weight:bold">.</span>get_result(block<span style="color:#000;font-weight:bold">=</span><span style="color:#999">True</span>, timeout<span style="color:#000;font-weight:bold">=</span><span style="color:#099">300000</span>)
+        messages<span style="color:#000;font-weight:bold">.</span>append(message)
+    sio<span style="color:#000;font-weight:bold">.</span>emit(<span style="color:#d14">&#39;vm_response&#39;</span>, {<span style="color:#d14">&#39;data&#39;</span>: messages})
+    sio<span style="color:#000;font-weight:bold">.</span>disconnect(SID)
 </code></pre></div><p>第8行创建一个socketio服务，async_mode=None由sockerio内部算法决定使用异步模式，cors_allowed_origins=&rsquo;*&lsquo;是因为sockio服务也有同源策略这里允许所有来源的地址请求，这也是我碰到的第一个问题导致nginx流量过来时候都没有正常返回，nginx配置如下：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#66d9ef">location</span> <span style="color:#e6db74">/socket.io/</span> {
-    <span style="color:#f92672">proxy_pass</span> <span style="color:#e6db74">http://server:8000</span>;
-    <span style="color:#f92672">proxy_redirect</span> <span style="color:#66d9ef">off</span>;
-    <span style="color:#f92672">proxy_buffering</span> <span style="color:#66d9ef">off</span>;
-    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Host</span> $host;
-    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Real-IP</span> $remote_addr;
-    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">X-Forwarded-For</span> $proxy_add_x_forwarded_for;
-    <span style="color:#f92672">proxy_http_version</span> <span style="color:#ae81ff">1</span><span style="color:#e6db74">.1</span>;
-    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Upgrade</span> $http_upgrade;
-    <span style="color:#f92672">proxy_set_header</span> <span style="color:#e6db74">Connection</span> <span style="color:#e6db74">&#34;Upgrade&#34;</span>;
-}
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">location /socket.io/ <span style="color:#000;font-weight:bold">{</span>
+    proxy_pass http://server:8000;
+    proxy_redirect off;
+    proxy_buffering off;
+    proxy_set_header Host <span style="color:#008080">$host</span>;
+    proxy_set_header X-Real-IP <span style="color:#008080">$remote_addr</span>;
+    proxy_set_header X-Forwarded-For <span style="color:#008080">$proxy_add_x_forwarded_for</span>;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade <span style="color:#008080">$http_upgrade</span>;
+    proxy_set_header Connection <span style="color:#d14">&#34;Upgrade&#34;</span>;
+<span style="color:#000;font-weight:bold">}</span>
 </code></pre></div><blockquote>
 <p>这里没什么问题，同官网例子</p>
 </blockquote>
 <h3 id="evenlet带来的问题">Evenlet带来的问题</h3>
 <p>socketio提供多种async_mode但要样socketio去使用websocket最好就是采用evenlet模式,这里列举一下使用evenlet所需要的环境:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">apt install netbase
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">apt install netbase
 pip3 install python-socketio4.5.1
 pip3 install eventlet0.20.1
 </code></pre></div><blockquote>
@@ -186,17 +186,17 @@ pip3 install eventlet0.20.1
 </blockquote>
 <p>运行evenlet WSGI服务器</p>
 <p>因为一些原因使用的是gunicorn的方式来启动evenlet，而gunicorn的配置如下:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">bind <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0.0.0.0:8000&#34;</span>
-workers <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-errorlog <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/web/log/error.log&#39;</span>
-accesslog <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;/web/log/access.log&#39;</span>
-loglevel <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;warning&#39;</span>
-proc_name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;gunicorn_project&#39;</span>
-timeout <span style="color:#f92672">=</span> <span style="color:#ae81ff">300</span>
-worker_class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;eventlet&#39;</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">bind <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;0.0.0.0:8000&#34;</span>
+workers <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>
+errorlog <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;/web/log/error.log&#39;</span>
+accesslog <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;/web/log/access.log&#39;</span>
+loglevel <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;warning&#39;</span>
+proc_name <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;gunicorn_project&#39;</span>
+timeout <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">300</span>
+worker_class <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;eventlet&#39;</span>
 </code></pre></div><p>这里有两个需要关注的问题，一个是<code>worker_class = 'eventlet'</code>工作task改为evenlet,另一个是workers = 1,这里是应为gunicorn负载均衡算法的限制使用了evenlet后只能有一个工作进程，一个eventlet worker可以处理大量并发客户机，每个客户机都由一个greenlet处理(greenlet是一个协程)。</p>
 <p>在使用中希望执行一个后台任务</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">sio<span style="color:#f92672">.</span>start_background_task(open_virtual_machines, configs, user<span style="color:#f92672">.</span>id)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">sio<span style="color:#000;font-weight:bold">.</span>start_background_task(open_virtual_machines, configs, user<span style="color:#000;font-weight:bold">.</span>id)
 </code></pre></div><p>但是阻塞了，因为整个django项目还是以多线程方式执行，官方提供一个猴子补丁函数monkey_patch() 它将标准库中的所有阻塞函数替换为等效的异步版本，也就是Django中使用socketio例子中的第7行代码。至此就解决了目前这一路碰到的问题了。</p>
 <p>[参考]</p>
 <p><a href="https://python-socketio.readthedocs.io/en/latest/server.html?highlight=monkey_patch">python-socketio文档</a></p>
@@ -209,9 +209,9 @@ worker_class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/socket.io">socket.io</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/socket.io">socket.io</a></li>
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/evenlet">evenlet</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/evenlet">evenlet</a></li>
                                 
                             </ul>
                         </div>
@@ -226,7 +226,7 @@ worker_class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/">
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/">
         <i class="material-icons">arrow_back</i><span>I/O模型</span>
         </a>
         </li>
@@ -234,7 +234,7 @@ worker_class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/">
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/">
         <span>Python性能分析</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -294,10 +294,10 @@ worker_class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -307,43 +307,43 @@ worker_class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -356,43 +356,43 @@ worker_class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -402,87 +402,87 @@ worker_class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -492,7 +492,7 @@ worker_class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -509,7 +509,7 @@ worker_class <span style="color:#f92672">=</span> <span style="color:#e6db74">&#
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

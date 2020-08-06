@@ -20,7 +20,7 @@
     <meta name="description" content="图">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20191010-graph/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20191010-graph/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -88,7 +88,7 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95">算法</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95">算法</a></span>
                             
                         </div>
                         
@@ -135,59 +135,59 @@
                             <p>图（Graph）G是由两个集合V和E组成，记为G=(V,E)，其中V为顶点的有穷非空集合，E是V中顶点偶对的有穷非空集合，这些顶点偶对称为边。V(G)和E(G)通常分别表示图G的顶点集合和边集合，E(G)可以为空集。若E(G)为空，则图G只有顶点没有边。</p>
 <h2 id="图的存储结构">图的存储结构</h2>
 <h3 id="邻接矩阵">邻接矩阵</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define MazInt 32767
-</span><span style="color:#75715e">#define MVNum
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">char</span> VerTexType;
-<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">int</span> ArcType;
-<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span>{
-    VerTexType vexs[MVNum]; <span style="color:#75715e">//顶点表
-</span><span style="color:#75715e"></span>    ArcType arcs[MVNum][MVNum]; <span style="color:#75715e">//邻接矩阵
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> vexnum,arcnum;  <span style="color:#75715e">//图的当前点数和边数
-</span><span style="color:#75715e"></span>}AMGraph
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#999;font-weight:bold;font-style:italic">#define MazInt 32767
+</span><span style="color:#999;font-weight:bold;font-style:italic">#define MVNum
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#000;font-weight:bold">typedef</span> <span style="color:#458;font-weight:bold">char</span> VerTexType;
+<span style="color:#000;font-weight:bold">typedef</span> <span style="color:#458;font-weight:bold">int</span> ArcType;
+<span style="color:#000;font-weight:bold">typedef</span> <span style="color:#000;font-weight:bold">struct</span>{
+    VerTexType vexs[MVNum]; <span style="color:#998;font-style:italic">//顶点表
+</span><span style="color:#998;font-style:italic"></span>    ArcType arcs[MVNum][MVNum]; <span style="color:#998;font-style:italic">//邻接矩阵
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#458;font-weight:bold">int</span> vexnum,arcnum;  <span style="color:#998;font-style:italic">//图的当前点数和边数
+</span><span style="color:#998;font-style:italic"></span>}AMGraph
 </code></pre></div><h3 id="邻接表">邻接表</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#define MVNum 100   </span><span style="color:#75715e">//最大定点数
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">// 边节点
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> ArcNode{
-    <span style="color:#66d9ef">int</span> adjvex; <span style="color:#75715e">//该边指向的顶点
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">struct</span> ArcNode<span style="color:#f92672">*</span> nextarc;    <span style="color:#75715e">//指向下一条边的指针
-</span><span style="color:#75715e"></span>    OtherInfo info; <span style="color:#75715e">//边相关信息
-</span><span style="color:#75715e"></span>}ArcNode
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#999;font-weight:bold;font-style:italic">#define MVNum 100   </span><span style="color:#998;font-style:italic">//最大定点数
+</span><span style="color:#998;font-style:italic"></span>
+<span style="color:#998;font-style:italic">// 边节点
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">typedef</span> <span style="color:#000;font-weight:bold">struct</span> ArcNode{
+    <span style="color:#458;font-weight:bold">int</span> adjvex; <span style="color:#998;font-style:italic">//该边指向的顶点
+</span><span style="color:#998;font-style:italic"></span>    <span style="color:#000;font-weight:bold">struct</span> ArcNode<span style="color:#000;font-weight:bold">*</span> nextarc;    <span style="color:#998;font-style:italic">//指向下一条边的指针
+</span><span style="color:#998;font-style:italic"></span>    OtherInfo info; <span style="color:#998;font-style:italic">//边相关信息
+</span><span style="color:#998;font-style:italic"></span>}ArcNode
 
-<span style="color:#75715e">// 顶点信息
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span> VNode{
-    ArcNode<span style="color:#f92672">*</span> firstarc;  <span style="color:#75715e">//指向依附该顶点的边的指针
-</span><span style="color:#75715e"></span>}VNode,AdjList[MVNum];
+<span style="color:#998;font-style:italic">// 顶点信息
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">typedef</span> <span style="color:#000;font-weight:bold">struct</span> VNode{
+    ArcNode<span style="color:#000;font-weight:bold">*</span> firstarc;  <span style="color:#998;font-style:italic">//指向依附该顶点的边的指针
+</span><span style="color:#998;font-style:italic"></span>}VNode,AdjList[MVNum];
 
-<span style="color:#75715e">// 邻接表
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span>{
+<span style="color:#998;font-style:italic">// 邻接表
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">typedef</span> <span style="color:#000;font-weight:bold">struct</span>{
     AdjList vertices;
-    <span style="color:#66d9ef">int</span> vexnum,arcnum;
+    <span style="color:#458;font-weight:bold">int</span> vexnum,arcnum;
 }ALGraph;
 </code></pre></div><h2 id="深度优先搜索dfs">深度优先搜索(DFS)</h2>
 <p>图的深度优先搜索(Depth First Search)遍历类似于树的先序遍历，是树的先序遍历的推广。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">bool</span> visited[MVNum];    <span style="color:#75715e">//访问标志数组
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">DFS</span>(Graph G,<span style="color:#66d9ef">int</span> v){
-    cout<span style="color:#f92672">&lt;&lt;</span>v;
-    visited[v] <span style="color:#f92672">=</span> true;
-    <span style="color:#66d9ef">for</span>(w<span style="color:#f92672">=</span>FirstAdjVex(G,v);w<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>;w<span style="color:#f92672">=</span>NextAdjVex(G,v,w))
-    <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>visited[w])
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#458;font-weight:bold">bool</span> visited[MVNum];    <span style="color:#998;font-style:italic">//访问标志数组
+</span><span style="color:#998;font-style:italic"></span><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">DFS</span>(Graph G,<span style="color:#458;font-weight:bold">int</span> v){
+    cout<span style="color:#000;font-weight:bold">&lt;&lt;</span>v;
+    visited[v] <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">true</span>;
+    <span style="color:#000;font-weight:bold">for</span>(w<span style="color:#000;font-weight:bold">=</span>FirstAdjVex(G,v);w<span style="color:#000;font-weight:bold">&gt;=</span><span style="color:#099">0</span>;w<span style="color:#000;font-weight:bold">=</span>NextAdjVex(G,v,w))
+    <span style="color:#000;font-weight:bold">if</span>(<span style="color:#000;font-weight:bold">!</span>visited[w])
         DFS(G,w);
 }
-<span style="color:#75715e">// FirstAdjVex(G,v)表示v的第一个邻接点
-</span><span style="color:#75715e">// NextAdjVex(G,v,w)表示v相对于w的下一个邻接点
+<span style="color:#998;font-style:italic">// FirstAdjVex(G,v)表示v的第一个邻接点
+</span><span style="color:#998;font-style:italic">// NextAdjVex(G,v,w)表示v相对于w的下一个邻接点
 </span></code></pre></div><h2 id="广度优先搜索bfs">广度优先搜索(BFS)</h2>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">BFS</span>(Graph G,<span style="color:#66d9ef">int</span> v){
-    cout<span style="color:#f92672">&lt;&lt;</span>v;
-    visited[v] <span style="color:#f92672">=</span> true;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">BFS</span>(Graph G,<span style="color:#458;font-weight:bold">int</span> v){
+    cout<span style="color:#000;font-weight:bold">&lt;&lt;</span>v;
+    visited[v] <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">true</span>;
     queue Q;
     Q.push(v);
-    <span style="color:#66d9ef">while</span>(<span style="color:#f92672">!</span>Q.empty()){
+    <span style="color:#000;font-weight:bold">while</span>(<span style="color:#000;font-weight:bold">!</span>Q.empty()){
         Q.pop();
-        <span style="color:#66d9ef">for</span>(w<span style="color:#f92672">=</span>FirstAdjVex(G,v);w<span style="color:#f92672">&gt;=</span><span style="color:#ae81ff">0</span>;w<span style="color:#f92672">=</span>NextAdjVex(G,v,w)){
-            <span style="color:#66d9ef">if</span>(<span style="color:#f92672">!</span>visited[w]){
-                cout<span style="color:#f92672">&lt;&lt;</span>w;
-                visited[w]<span style="color:#f92672">=</span>true;
+        <span style="color:#000;font-weight:bold">for</span>(w<span style="color:#000;font-weight:bold">=</span>FirstAdjVex(G,v);w<span style="color:#000;font-weight:bold">&gt;=</span><span style="color:#099">0</span>;w<span style="color:#000;font-weight:bold">=</span>NextAdjVex(G,v,w)){
+            <span style="color:#000;font-weight:bold">if</span>(<span style="color:#000;font-weight:bold">!</span>visited[w]){
+                cout<span style="color:#000;font-weight:bold">&lt;&lt;</span>w;
+                visited[w]<span style="color:#000;font-weight:bold">=</span><span style="color:#0086b3">true</span>;
                 Q.push(v);
             }
         }
@@ -199,25 +199,25 @@
 <h3 id="普里姆算法prim">普里姆算法(Prim)</h3>
 <p><a href="https://zh.wikipedia.org/wiki/%E6%99%AE%E6%9E%97%E5%A7%86%E7%AE%97%E6%B3%95">Prim</a>是图论中的一种算法，可在加权连通图里搜索最小生成树。意即由此算法搜索到的边子集所构成的树中，不但包括了连通图里的所有顶点，且其所有边的权值之和亦为最小。</p>
 <img src="/assets/article/20191010/800081-20180927221126399-947827138.png" style="width:60%;margin-left:0;margin-top:20px;">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Prim</span>()
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">Prim</span>()
 {
-    MST <span style="color:#f92672">=</span> {s};
-    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>){
-        V <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">未收录顶点中</span>dist最小值
-        <span style="color:#66d9ef">if</span>(<span style="color:#960050;background-color:#1e0010">这样的</span>V不存在){
-            <span style="color:#66d9ef">break</span>;
+    MST <span style="color:#000;font-weight:bold">=</span> {s};
+    <span style="color:#000;font-weight:bold">while</span>(<span style="color:#099">1</span>){
+        V <span style="color:#000;font-weight:bold">=</span> <span style="color:#a61717;background-color:#e3d2d2">未收录顶点中</span>dist最小值
+        <span style="color:#000;font-weight:bold">if</span>(<span style="color:#a61717;background-color:#e3d2d2">这样的</span>V不存在){
+            <span style="color:#000;font-weight:bold">break</span>;
         }
-        <span style="color:#960050;background-color:#1e0010">将</span>V收录进MST: dist[V] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-        <span style="color:#66d9ef">for</span>(V的每个邻接点W){
-            <span style="color:#66d9ef">if</span>(dist[W] <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>){
-                <span style="color:#66d9ef">if</span>(E(v,w) <span style="color:#f92672">&lt;</span> dist[W]){
-                    parent[W] <span style="color:#f92672">=</span> V;
+        <span style="color:#a61717;background-color:#e3d2d2">将</span><span style="color:#900;font-weight:bold">V收录进MST</span>: dist[V] <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;
+        <span style="color:#000;font-weight:bold">for</span>(V的每个邻接点W){
+            <span style="color:#000;font-weight:bold">if</span>(dist[W] <span style="color:#000;font-weight:bold">!=</span> <span style="color:#099">0</span>){
+                <span style="color:#000;font-weight:bold">if</span>(E(v,w) <span style="color:#000;font-weight:bold">&lt;</span> dist[W]){
+                    parent[W] <span style="color:#000;font-weight:bold">=</span> V;
                 }
             }
         }
     }
-    <span style="color:#66d9ef">if</span>(MST中的顶点不到<span style="color:#f92672">|</span>V<span style="color:#f92672">|</span><span style="color:#960050;background-color:#1e0010">个</span>)
-        Error(<span style="color:#e6db74">&#34;生成树不存在&#34;</span>)
+    <span style="color:#000;font-weight:bold">if</span>(MST中的顶点不到<span style="color:#000;font-weight:bold">|</span>V<span style="color:#000;font-weight:bold">|</span><span style="color:#a61717;background-color:#e3d2d2">个</span>)
+        Error(<span style="color:#d14">&#34;生成树不存在&#34;</span>)
 }
 </code></pre></div><table>
 <thead>
@@ -245,19 +245,19 @@
 <h3 id="克鲁斯卡尔kruskal">克鲁斯卡尔(Kruskal)</h3>
 <p><a href="https://zh.wikipedia.org/wiki/%E5%85%8B%E9%B2%81%E6%96%AF%E5%85%8B%E5%B0%94%E6%BC%94%E7%AE%97%E6%B3%95">Kruskal</a>是一种用来查找最小生成树的算法，由Joseph Kruskal在1956年发表。用来解决同样问题的还有Prim算法和Boruvka算法等。三种算法都是贪心算法的应用。和Boruvka算法不同的地方是，Kruskal算法在图中存在相同权值的边时也有效。</p>
 <img src="/assets/article/20191010/20141016003341734.png" style="width:50%;margin-left:0;margin-top:20px;">
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Kruskal</span>(Graph G)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">Kruskal</span>(Graph G)
 {
-    MST <span style="color:#f92672">=</span> {};
-    <span style="color:#66d9ef">while</span>(MST中不到<span style="color:#f92672">|</span>V<span style="color:#f92672">|-</span><span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">条边</span> <span style="color:#f92672">&amp;&amp;</span> E中还有边){
-        <span style="color:#960050;background-color:#1e0010">从</span>E中取一条权重最小的边E(v,w);
-        <span style="color:#960050;background-color:#1e0010">将</span>E(v,w)<span style="color:#960050;background-color:#1e0010">从</span>E中删除;
-        <span style="color:#66d9ef">if</span>(E(v,w)<span style="color:#960050;background-color:#1e0010">不在</span>MST中构成回路)
-            <span style="color:#960050;background-color:#1e0010">将</span>E(v,w)<span style="color:#960050;background-color:#1e0010">加入</span>MST
-        <span style="color:#66d9ef">else</span>
-            <span style="color:#960050;background-color:#1e0010">彻底无视</span>
+    MST <span style="color:#000;font-weight:bold">=</span> {};
+    <span style="color:#000;font-weight:bold">while</span>(MST中不到<span style="color:#000;font-weight:bold">|</span>V<span style="color:#000;font-weight:bold">|-</span><span style="color:#099">1</span><span style="color:#a61717;background-color:#e3d2d2">条边</span> <span style="color:#000;font-weight:bold">&amp;&amp;</span> E中还有边){
+        <span style="color:#a61717;background-color:#e3d2d2">从</span>E中取一条权重最小的边E(v,w);
+        <span style="color:#a61717;background-color:#e3d2d2">将</span>E(v,w)<span style="color:#a61717;background-color:#e3d2d2">从</span>E中删除;
+        <span style="color:#000;font-weight:bold">if</span>(E(v,w)<span style="color:#a61717;background-color:#e3d2d2">不在</span>MST中构成回路)
+            <span style="color:#a61717;background-color:#e3d2d2">将</span>E(v,w)<span style="color:#a61717;background-color:#e3d2d2">加入</span>MST
+        <span style="color:#000;font-weight:bold">else</span>
+            <span style="color:#a61717;background-color:#e3d2d2">彻底无视</span>
     }
-    <span style="color:#66d9ef">if</span>(MST中不到<span style="color:#f92672">|</span>V<span style="color:#f92672">|-</span><span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">条边</span>)
-        Error(<span style="color:#e6db74">&#34;生成树不存在&#34;</span>)
+    <span style="color:#000;font-weight:bold">if</span>(MST中不到<span style="color:#000;font-weight:bold">|</span>V<span style="color:#000;font-weight:bold">|-</span><span style="color:#099">1</span><span style="color:#a61717;background-color:#e3d2d2">条边</span>)
+        Error(<span style="color:#d14">&#34;生成树不存在&#34;</span>)
 }
 </code></pre></div><p>相比于Prim，Kruskal更适合稀疏图</p>
 <h2 id="最短路径">最短路径</h2>
@@ -273,18 +273,18 @@
 <p><a href="https://zh.wikipedia.org/wiki/%E6%88%B4%E5%85%8B%E6%96%AF%E7%89%B9%E6%8B%89%E7%AE%97%E6%B3%95">迪杰斯特拉算法</a>使用了广度优先搜索解决赋权有向图的单源最短路径问题。该算法存在很多变体；戴克斯特拉的原始版本找到两个顶点之间的最短路径，但是更常见的变体固定了一个顶点作为源节点然后找到该顶点到图中所有其它节点的最短路径，产生一个最短路径树。该算法常用于路由算法或者作为其他图算法的一个子模块。</p>
 </blockquote>
 <p>最初的戴克斯特拉算法不采用最小优先级队列，时间复杂度是O(|V|<sup>2</sup>)(其中|V|为图的顶点个数)通过斐波那契堆实现的戴克斯特拉算法时间复杂度是O(|E|+|V|log|V|) (其中|E|是边数)。对于不含负权的有向图，这是当前已知的最快的单源最短路径算法。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">Dijkstra</span>(Vertex s)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">Dijkstra</span>(Vertex s)
 {
-    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>){
-        V <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">未收录顶点中</span>dist最小者
-        <span style="color:#66d9ef">if</span>(<span style="color:#960050;background-color:#1e0010">这样的顶点不存在</span>)
-            <span style="color:#66d9ef">break</span>;
-        collected[V] <span style="color:#f92672">=</span> true;
-        <span style="color:#66d9ef">for</span>(V的每个邻接点W){
-            <span style="color:#66d9ef">if</span>(collected[W] <span style="color:#f92672">==</span> false){
-                <span style="color:#66d9ef">if</span>(dist[V]<span style="color:#f92672">+</span>E<span style="color:#f92672">&lt;</span>v,w<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&lt;</span> dist[W]){
-                    dist[W] <span style="color:#f92672">=</span> dist[V] <span style="color:#f92672">+</span> E<span style="color:#f92672">&lt;</span>v,w<span style="color:#f92672">&gt;</span>;
-                    path[W] <span style="color:#f92672">=</span> V;
+    <span style="color:#000;font-weight:bold">while</span>(<span style="color:#099">1</span>){
+        V <span style="color:#000;font-weight:bold">=</span> <span style="color:#a61717;background-color:#e3d2d2">未收录顶点中</span>dist最小者
+        <span style="color:#000;font-weight:bold">if</span>(<span style="color:#a61717;background-color:#e3d2d2">这样的顶点不存在</span>)
+            <span style="color:#000;font-weight:bold">break</span>;
+        collected[V] <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">true</span>;
+        <span style="color:#000;font-weight:bold">for</span>(V的每个邻接点W){
+            <span style="color:#000;font-weight:bold">if</span>(collected[W] <span style="color:#000;font-weight:bold">==</span> <span style="color:#0086b3">false</span>){
+                <span style="color:#000;font-weight:bold">if</span>(dist[V]<span style="color:#000;font-weight:bold">+</span>E<span style="color:#000;font-weight:bold">&lt;</span>v,w<span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#000;font-weight:bold">&lt;</span> dist[W]){
+                    dist[W] <span style="color:#000;font-weight:bold">=</span> dist[V] <span style="color:#000;font-weight:bold">+</span> E<span style="color:#000;font-weight:bold">&lt;</span>v,w<span style="color:#000;font-weight:bold">&gt;</span>;
+                    path[W] <span style="color:#000;font-weight:bold">=</span> V;
                 }
             }
         }
@@ -292,22 +292,22 @@
 }
 </code></pre></div><h3 id="弗洛伊德算法">弗洛伊德算法</h3>
 <p>弗洛伊德算法求每对顶点之间的最短路径</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">ShortestPath_Floyed</span>(AMGraph G){
-    <span style="color:#66d9ef">for</span>(i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>G.vexnum;<span style="color:#f92672">++</span>i){  <span style="color:#75715e">//初始各节点之间已知路径及距离
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">for</span>(j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;j<span style="color:#f92672">&lt;</span>G.vexnum;<span style="color:#f92672">++</span>j){
-            D[i][j] <span style="color:#f92672">=</span> G.arcs[i][j];
-            <span style="color:#66d9ef">if</span>(D[i][j]<span style="color:#f92672">&lt;</span>MaxInt)
-                Path[i][j] <span style="color:#f92672">=</span> i;
-            <span style="color:#66d9ef">else</span>
-                Path[i][j] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#458;font-weight:bold">void</span> <span style="color:#900;font-weight:bold">ShortestPath_Floyed</span>(AMGraph G){
+    <span style="color:#000;font-weight:bold">for</span>(i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">&lt;</span>G.vexnum;<span style="color:#000;font-weight:bold">++</span>i){  <span style="color:#998;font-style:italic">//初始各节点之间已知路径及距离
+</span><span style="color:#998;font-style:italic"></span>        <span style="color:#000;font-weight:bold">for</span>(j <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;j<span style="color:#000;font-weight:bold">&lt;</span>G.vexnum;<span style="color:#000;font-weight:bold">++</span>j){
+            D[i][j] <span style="color:#000;font-weight:bold">=</span> G.arcs[i][j];
+            <span style="color:#000;font-weight:bold">if</span>(D[i][j]<span style="color:#000;font-weight:bold">&lt;</span>MaxInt)
+                Path[i][j] <span style="color:#000;font-weight:bold">=</span> i;
+            <span style="color:#000;font-weight:bold">else</span>
+                Path[i][j] <span style="color:#000;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>;
         }
     }
-    <span style="color:#66d9ef">for</span>(k<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;k<span style="color:#f92672">&lt;</span>G.vexnum;<span style="color:#f92672">++</span>k){
-        <span style="color:#66d9ef">for</span>(i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span>G.vexnum;<span style="color:#f92672">++</span>i){
-            <span style="color:#66d9ef">for</span>(j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>;j<span style="color:#f92672">&lt;</span>G.vexnum;<span style="color:#f92672">++</span>j){
-                <span style="color:#66d9ef">if</span>(D[i][k]<span style="color:#f92672">+</span>D[k][j]<span style="color:#f92672">&lt;</span>D[i][j]){
-                    D[i][j] <span style="color:#f92672">=</span> D[i][k]<span style="color:#f92672">+</span>D[k][j];
-                    Path[i][j] <span style="color:#f92672">=</span> Path[k][j];
+    <span style="color:#000;font-weight:bold">for</span>(k<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>;k<span style="color:#000;font-weight:bold">&lt;</span>G.vexnum;<span style="color:#000;font-weight:bold">++</span>k){
+        <span style="color:#000;font-weight:bold">for</span>(i<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">&lt;</span>G.vexnum;<span style="color:#000;font-weight:bold">++</span>i){
+            <span style="color:#000;font-weight:bold">for</span>(j<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>;j<span style="color:#000;font-weight:bold">&lt;</span>G.vexnum;<span style="color:#000;font-weight:bold">++</span>j){
+                <span style="color:#000;font-weight:bold">if</span>(D[i][k]<span style="color:#000;font-weight:bold">+</span>D[k][j]<span style="color:#000;font-weight:bold">&lt;</span>D[i][j]){
+                    D[i][j] <span style="color:#000;font-weight:bold">=</span> D[i][k]<span style="color:#000;font-weight:bold">+</span>D[k][j];
+                    Path[i][j] <span style="color:#000;font-weight:bold">=</span> Path[k][j];
                 }
             }
         }
@@ -327,7 +327,7 @@ v<sub>i</sub>和<sub>j</sub>之间最短路径</li>
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/Graph">Graph</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/Graph">Graph</a></li>
                                 
                             </ul>
                         </div>
@@ -342,7 +342,7 @@ v<sub>i</sub>和<sub>j</sub>之间最短路径</li>
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20191024-linux-three-musketeers/">
+        <a href="https://blog.shaobo.fun/posts/2019/20191024-linux-three-musketeers/">
         <i class="material-icons">arrow_back</i><span>Linux三剑客</span>
         </a>
         </li>
@@ -350,7 +350,7 @@ v<sub>i</sub>和<sub>j</sub>之间最短路径</li>
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2019/20191010-tree/">
+        <a href="https://blog.shaobo.fun/posts/2019/20191010-tree/">
         <span>树</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -410,10 +410,10 @@ v<sub>i</sub>和<sub>j</sub>之间最短路径</li>
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -423,43 +423,43 @@ v<sub>i</sub>和<sub>j</sub>之间最短路径</li>
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -472,43 +472,43 @@ v<sub>i</sub>和<sub>j</sub>之间最短路径</li>
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -518,87 +518,87 @@ v<sub>i</sub>和<sub>j</sub>之间最短路径</li>
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -608,7 +608,7 @@ v<sub>i</sub>和<sub>j</sub>之间最短路径</li>
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -625,7 +625,7 @@ v<sub>i</sub>和<sub>j</sub>之间最短路径</li>
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

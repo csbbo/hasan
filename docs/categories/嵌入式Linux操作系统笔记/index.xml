@@ -2,66 +2,66 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>嵌入式Linux操作系统笔记 on 庄周梦蝶</title>
-    <link>http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/</link>
+    <link>https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/</link>
     <description>Recent content in 嵌入式Linux操作系统笔记 on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 02 Jul 2019 16:28:40 +0800</lastBuildDate>
     
-	<atom:link href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>多线程编程</title>
-      <link>http://blog.shaobo.fun/posts/2019/20190702-multithreaded-programming/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20190702-multithreaded-programming/</link>
       <pubDate>Tue, 02 Jul 2019 16:28:40 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20190702-multithreaded-programming/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20190702-multithreaded-programming/</guid>
       <description>&lt;p&gt;在Linux 系统下,启动一个新的进程必须分配给它独立的地址空间,建立众多的数据表来维护它的代码段、堆栈段和数据段,这是一种&amp;quot;昂贵&amp;quot;的多任务工作方式。而运行于一个进程中的多个线程,它们彼此之间使用相同的地址空间,共享大部分数据,启动一个线程所花费的空间远远小于启动一个进程所花费的空间,而且,线程间彼此切换所需的时间也远远小于进程间切换所需要的时间。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>进程通信</title>
-      <link>http://blog.shaobo.fun/posts/2019/20190701-process-communication/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20190701-process-communication/</link>
       <pubDate>Mon, 01 Jul 2019 22:34:15 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20190701-process-communication/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20190701-process-communication/</guid>
       <description>&lt;p&gt;每个进程各自有不同的用户地址空间,任何一个进程的全局变量在另一个进程中都看不到,所以进程之间要交换数据必须通过内核,在内核中开辟一块缓冲区,进程1把数据从用户空间拷到内核缓冲区,进程2再从内核缓冲区把数据读走,内核提供的这种机制称为进程间通信(IPC,InterProcess Communication)。如图所示。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>进程控制</title>
-      <link>http://blog.shaobo.fun/posts/2019/20190630-process-control/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20190630-process-control/</link>
       <pubDate>Sun, 30 Jun 2019 21:52:25 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20190630-process-control/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20190630-process-control/</guid>
       <description>&lt;p&gt;&lt;strong&gt;进程是可并发执行的程序在一个数据集合上的运行过程&lt;/strong&gt;,进程是一个程序的一次执行的过程。是系统进行处理机调度和资源分配的基本单位,Linux 是一个多任务的操作系统,也就是说,在同一个时间内,可以有多个进程同时执行。但是单CPU计算机实际上在一个时间片断内只能执行一条指令,Linux 使用了一种称为进程调度(process scheduling)的手段分配时间片实现多进程同时执行。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>文件I/O编程</title>
-      <link>http://blog.shaobo.fun/posts/2019/20190630-fileio/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20190630-fileio/</link>
       <pubDate>Sun, 30 Jun 2019 20:45:43 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20190630-fileio/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20190630-fileio/</guid>
       <description>&lt;p&gt;在Linux中,为了保护内核空间,将程序的运行空间分为内核空间和用户空间(内核态和用户态),它们运行在不同的级别上,在逻辑上是相互隔离的,因此用户进程在通常情况下不允许访问内核数据,也无法使用内核函数,它们只能在用户空间操作用户数据,调用用户空间的函数。操作系统为用户提供了两个接口:一个是用户编程接口 API,用户利用这些操作命令来组织和控制任务的执行或管理计算机系统。另一个接口是系统调用,编程人员使用系统调用来请求操作系统提供服务。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Linux串口通信</title>
-      <link>http://blog.shaobo.fun/posts/2019/20190630-serial-port/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20190630-serial-port/</link>
       <pubDate>Sun, 30 Jun 2019 20:45:31 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20190630-serial-port/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20190630-serial-port/</guid>
       <description>&lt;p&gt;在Linux中,串口是一个字符设备,访问具体的串行端口的编程与读/写文件的操作类似,只需打开相应的设备文件操作即可.串口编程的特殊在于串口通信时相关参数的设置.若在根文件没有串口设备文件可以用mknod命令创建。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Linux网络编程</title>
-      <link>http://blog.shaobo.fun/posts/2019/20190629-tcpip/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20190629-tcpip/</link>
       <pubDate>Sat, 29 Jun 2019 22:11:05 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20190629-tcpip/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20190629-tcpip/</guid>
       <description>&lt;p&gt;国际标准组织(ISO)制定了 OSI 模型。这个模型把网络通信的工作分为 7 层。每一层负责一项具体的工作,然后把数据传送到下一层。这个模型虽然规定得非常细致,但在实际应用中显得过于复杂了。&lt;/p&gt;</description>
     </item>
     

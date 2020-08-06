@@ -2,48 +2,48 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>数据库 on 庄周梦蝶</title>
-    <link>http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <link>https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
     <description>Recent content in 数据库 on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 09 Nov 2019 16:55:31 +0800</lastBuildDate>
     
-	<atom:link href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>PostgreSQL新手入门</title>
-      <link>http://blog.shaobo.fun/posts/2019/20191109-postgresql-green/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20191109-postgresql-green/</link>
       <pubDate>Sat, 09 Nov 2019 16:55:31 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20191109-postgresql-green/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20191109-postgresql-green/</guid>
       <description>&lt;p&gt;PostgreSQL被誉为“世界上功能最强大的开源数据库”，是以加州大学伯克利分校计算机系开发的POSTGRES 4.2为基础的对象关系型数据库管理系统。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>乐观锁和悲观锁</title>
-      <link>http://blog.shaobo.fun/posts/2019/20191024-optimistic-lock-pessimistic-lock/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20191024-optimistic-lock-pessimistic-lock/</link>
       <pubDate>Thu, 24 Oct 2019 22:14:19 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20191024-optimistic-lock-pessimistic-lock/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20191024-optimistic-lock-pessimistic-lock/</guid>
       <description>&lt;p&gt;乐观锁和悲观锁是两种思想，乐观并发控制(乐观锁)和悲观并发控制（悲观锁）是并发控制主要采用的技术手段，用于解决并发场景下的数据竞争问题。&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>Redis初探</title>
-      <link>http://blog.shaobo.fun/posts/2019/20190914-redis-exploration/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20190914-redis-exploration/</link>
       <pubDate>Sat, 14 Sep 2019 14:26:52 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20190914-redis-exploration/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20190914-redis-exploration/</guid>
       <description>&lt;p&gt;Redis数据类型丰富，支持数据磁盘持久化存储，支持主从同步，支持分片。由C语言编写性能非常高按官方的数据能达到100000QPS（query per second，每秒查询次数）&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>InnoDB事务及索引原理</title>
-      <link>http://blog.shaobo.fun/posts/2019/20190913-innodb-index-transaction/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20190913-innodb-index-transaction/</link>
       <pubDate>Fri, 13 Sep 2019 20:40:13 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20190913-innodb-index-transaction/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20190913-innodb-index-transaction/</guid>
       <description>&lt;p&gt;InnoDB是MySQL的默认存储引擎（5.1版本及以上），与MyISAM相比最大的特色就是支持事务，这里主要是探究InnoDB事务的实现原理及如何解决并发事务访问带来的问题；以及了解InnoDB下数据的存储方式和索引是怎样利用B+树来提高存储性能的。&lt;/p&gt;</description>
     </item>
     

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>tree on 庄周梦蝶</title>
-    <link>http://blog.shaobo.fun/tags/tree/</link>
+    <link>https://blog.shaobo.fun/tags/tree/</link>
     <description>Recent content in tree on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 10 Oct 2019 08:27:50 +0800</lastBuildDate>
     
-	<atom:link href="http://blog.shaobo.fun/tags/tree/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.shaobo.fun/tags/tree/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>树</title>
-      <link>http://blog.shaobo.fun/posts/2019/20191010-tree/</link>
+      <link>https://blog.shaobo.fun/posts/2019/20191010-tree/</link>
       <pubDate>Thu, 10 Oct 2019 08:27:50 +0800</pubDate>
       
-      <guid>http://blog.shaobo.fun/posts/2019/20191010-tree/</guid>
+      <guid>https://blog.shaobo.fun/posts/2019/20191010-tree/</guid>
       <description>&lt;p&gt;树（tree）是n个节点的有序集，它或为空树；或为非空树，对于非空树：&lt;/p&gt;
 &lt;p&gt;有且仅有一个根节点&lt;/p&gt;
 &lt;p&gt;除根节点以外其余节点可分为m（m&amp;gt;0）个互不相交的有限集T1，T2，&amp;hellip;,Tm其中每一个集合本身又是一棵树，并且称为跟的子树。&lt;/p&gt;</description>

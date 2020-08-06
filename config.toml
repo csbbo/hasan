@@ -1,16 +1,10 @@
-baseURL = "http://blog.shaobo.fun/"
+baseURL = "https://blog.shaobo.fun/"
 languageCode = "en-us"
 title = "庄周梦蝶"
 theme = "maupassant"
 
 preserveTaxonomyNames = true
 disablePathToLower = true
-
-[markup]
-  defaultMarkdownHandler = "goldmark"
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
 
 [author]
     name = "Hasan"
@@ -19,12 +13,21 @@ disablePathToLower = true
     author = "庄周梦蝶"
     subtitle = "庄生晓梦迷蝴蝶,望帝春心托杜鹃."
     busuanzi = true
+    localSearch = true
 
 [params.utteranc]
     enable = true
     repo = "csbbo/hasan"
     issueTerm = "pathname"
     theme = "github-light"
+
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = "github"
 
 [menu]
     [[menu.main]]

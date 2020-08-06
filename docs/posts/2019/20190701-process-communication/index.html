@@ -20,7 +20,7 @@
     <meta name="description" content="进程通信">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20190701-process-communication/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20190701-process-communication/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -88,7 +88,7 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0">嵌入式Linux操作系统笔记</a></span>
                             
                         </div>
                         
@@ -123,8 +123,8 @@
 </ul>
 <p>(1)管道的创建</p>
 <p>管道是基于文件描述符的通信方式,当一个管道建立时,它会创建两个文件描述符fd[0]和fd[1],其中fd[0]固定用于读管道,而fd[1]固定用于写管道,无名管道的建立比较简单,可以使用 pipe()函数来实现。其函数原型如下:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> pipe(<span style="color:#66d9ef">int</span> fd[<span style="color:#ae81ff">2</span>])
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;unistd.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#458;font-weight:bold">int</span> pipe(<span style="color:#458;font-weight:bold">int</span> fd[<span style="color:#099">2</span>])
 </code></pre></div><blockquote>
 <p>说明:参数 fd[2]表示管道的两个文件描述符,之后就可以直接操作这两个文件描述符;函数调用成功则返回 0,失败返回−1。</p>
 </blockquote>
@@ -134,45 +134,45 @@
 <p>父子进程通过管道通信如图所示:</p>
 <p><img src="/assets/article/20190701/pipe_communication.png" alt="pipe_communication"></p>
 <p>管道两端可分别用描述字fd[0]以及fd[1]来描述,需要注意的是,管道的两端是固定了任务的。即一端只能用于读,由描述字fd[0]表示,称其为管道读端;另一端则只能用于写,由描述字fd[1]来表示,称其为管道写端。如果试图从管道写端读取数据,或者向管道读端写入数据都将导致错误发生。要想对管道进行读写,可以使用文件的I/O函数,如read、write等等。下述例子实现了子进程向父进程写数据的过程。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/*****pipe.c*******/</span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;errno.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#998;font-style:italic">/*****pipe.c*******/</span>
+<span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;unistd.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/types.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;errno.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;stdlib.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;string.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>()
 {
-	<span style="color:#66d9ef">int</span> fd[<span style="color:#ae81ff">2</span>], nbytes;
+	<span style="color:#458;font-weight:bold">int</span> fd[<span style="color:#099">2</span>], nbytes;
 	pid_t childpid;
-	<span style="color:#66d9ef">char</span> string[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello, world!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
-	<span style="color:#66d9ef">char</span> readbuffer[<span style="color:#ae81ff">80</span>];
-	<span style="color:#66d9ef">if</span>(pipe(fd)<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>) <span style="color:#75715e">/*创建管道*/</span>
+	<span style="color:#458;font-weight:bold">char</span> string[] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;Hello, world!</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>;
+	<span style="color:#458;font-weight:bold">char</span> readbuffer[<span style="color:#099">80</span>];
+	<span style="color:#000;font-weight:bold">if</span>(pipe(fd)<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#099">0</span>) <span style="color:#998;font-style:italic">/*创建管道*/</span>
 	{
-		printf(<span style="color:#e6db74">&#34;创建失败</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>);
-		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+		printf(<span style="color:#d14">&#34;创建失败</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>);
+		<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>;
 	}
-	<span style="color:#66d9ef">if</span>((childpid <span style="color:#f92672">=</span> fork())<span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#75715e">/*创建一子进程*/</span>
+	<span style="color:#000;font-weight:bold">if</span>((childpid <span style="color:#000;font-weight:bold">=</span> fork())<span style="color:#000;font-weight:bold">==</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>) <span style="color:#998;font-style:italic">/*创建一子进程*/</span>
 	{
-		perror(<span style="color:#e6db74">&#34;fork&#34;</span>);
-		exit(<span style="color:#ae81ff">1</span>);
+		perror(<span style="color:#d14">&#34;fork&#34;</span>);
+		exit(<span style="color:#099">1</span>);
 	}
-	<span style="color:#66d9ef">if</span>(childpid <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#75715e">/*子进程*/</span>
+	<span style="color:#000;font-weight:bold">if</span>(childpid <span style="color:#000;font-weight:bold">==</span> <span style="color:#099">0</span>) <span style="color:#998;font-style:italic">/*子进程*/</span>
 	{
-		close(fd[<span style="color:#ae81ff">0</span>]); <span style="color:#75715e">/* 子进程关闭读取端 */</span>
-		sleep(<span style="color:#ae81ff">3</span>); <span style="color:#75715e">/*暂停确保父进程已关闭相应的写描述符*/</span>
-		write(fd[<span style="color:#ae81ff">1</span>], string, strlen(string)); <span style="color:#75715e">/* 通过写端发送字符串 */</span>
-		close(fd[<span style="color:#ae81ff">1</span>]); <span style="color:#75715e">/*关闭子进程写描述符*/</span>
-		exit(<span style="color:#ae81ff">0</span>);
+		close(fd[<span style="color:#099">0</span>]); <span style="color:#998;font-style:italic">/* 子进程关闭读取端 */</span>
+		sleep(<span style="color:#099">3</span>); <span style="color:#998;font-style:italic">/*暂停确保父进程已关闭相应的写描述符*/</span>
+		write(fd[<span style="color:#099">1</span>], string, strlen(string)); <span style="color:#998;font-style:italic">/* 通过写端发送字符串 */</span>
+		close(fd[<span style="color:#099">1</span>]); <span style="color:#998;font-style:italic">/*关闭子进程写描述符*/</span>
+		exit(<span style="color:#099">0</span>);
 	}
-	<span style="color:#66d9ef">else</span>
+	<span style="color:#000;font-weight:bold">else</span>
 	{
-		close(fd[<span style="color:#ae81ff">1</span>]); <span style="color:#75715e">/* 父进程关闭写端*/</span>
-		nbytes <span style="color:#f92672">=</span> read(fd[<span style="color:#ae81ff">0</span>], readbuffer, <span style="color:#66d9ef">sizeof</span>(readbuffer)); <span style="color:#75715e">/* 从管道中读取字符串 */</span>
-		printf(<span style="color:#e6db74">&#34;Received string: %s&#34;</span>, readbuffer);
-		close(fd[<span style="color:#ae81ff">0</span>]); <span style="color:#75715e">/*关闭父进程读描述符*/</span>
+		close(fd[<span style="color:#099">1</span>]); <span style="color:#998;font-style:italic">/* 父进程关闭写端*/</span>
+		nbytes <span style="color:#000;font-weight:bold">=</span> read(fd[<span style="color:#099">0</span>], readbuffer, <span style="color:#000;font-weight:bold">sizeof</span>(readbuffer)); <span style="color:#998;font-style:italic">/* 从管道中读取字符串 */</span>
+		printf(<span style="color:#d14">&#34;Received string: %s&#34;</span>, readbuffer);
+		close(fd[<span style="color:#099">0</span>]); <span style="color:#998;font-style:italic">/*关闭父进程读描述符*/</span>
 	}
-	<span style="color:#66d9ef">return</span>(<span style="color:#ae81ff">0</span>);
+	<span style="color:#000;font-weight:bold">return</span>(<span style="color:#099">0</span>);
 }
 </code></pre></div><h4 id="标准流管道">标准流管道</h4>
 <p>上面创建和使用管道的方法过于繁琐,可以使用下面的简单的方法:</p>
@@ -182,28 +182,28 @@
 库函数: pclose();<br>
 原型: int pclose( FILE *stream );<br>
 返回值: 返回 popen 中执行命令的终止状态 。如果stream无效,或者系统调用失败,则返回-1。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/*******popen.c*******/</span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#define MAXSTRS 5
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#998;font-style:italic">/*******popen.c*******/</span>
+<span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;unistd.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;stdlib.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#define MAXSTRS 5
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>(<span style="color:#458;font-weight:bold">void</span>)
 {
-	<span style="color:#66d9ef">int</span> cntr;
-	FILE <span style="color:#f92672">*</span>pipe_fp;
-	<span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>strings[MAXSTRS] <span style="color:#f92672">=</span> { <span style="color:#e6db74">&#34;echo&#34;</span>, <span style="color:#e6db74">&#34;bravo&#34;</span>, <span style="color:#e6db74">&#34;alpha&#34;</span>,<span style="color:#e6db74">&#34;charlie&#34;</span>,<span style="color:#e6db74">&#34;delta&#34;</span>};
-	<span style="color:#66d9ef">if</span> (( pipe_fp <span style="color:#f92672">=</span> popen(<span style="color:#e6db74">&#34;sort&#34;</span>, <span style="color:#e6db74">&#34;w&#34;</span>)) <span style="color:#f92672">==</span> NULL) <span style="color:#75715e">/*调用 popen 创建管道 */</span>
+	<span style="color:#458;font-weight:bold">int</span> cntr;
+	FILE <span style="color:#000;font-weight:bold">*</span>pipe_fp;
+	<span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>strings[MAXSTRS] <span style="color:#000;font-weight:bold">=</span> { <span style="color:#d14">&#34;echo&#34;</span>, <span style="color:#d14">&#34;bravo&#34;</span>, <span style="color:#d14">&#34;alpha&#34;</span>,<span style="color:#d14">&#34;charlie&#34;</span>,<span style="color:#d14">&#34;delta&#34;</span>};
+	<span style="color:#000;font-weight:bold">if</span> (( pipe_fp <span style="color:#000;font-weight:bold">=</span> popen(<span style="color:#d14">&#34;sort&#34;</span>, <span style="color:#d14">&#34;w&#34;</span>)) <span style="color:#000;font-weight:bold">==</span> <span style="color:#0086b3">NULL</span>) <span style="color:#998;font-style:italic">/*调用 popen 创建管道 */</span>
 	{
-		perror(<span style="color:#e6db74">&#34;popen&#34;</span>);
-		exit(<span style="color:#ae81ff">1</span>);
+		perror(<span style="color:#d14">&#34;popen&#34;</span>);
+		exit(<span style="color:#099">1</span>);
 	}
-	<span style="color:#66d9ef">for</span>(cntr<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; cntr<span style="color:#f92672">&lt;</span>MAXSTRS; cntr<span style="color:#f92672">++</span>) <span style="color:#75715e">/* 循环处理 */</span>
+	<span style="color:#000;font-weight:bold">for</span>(cntr<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0</span>; cntr<span style="color:#000;font-weight:bold">&lt;</span>MAXSTRS; cntr<span style="color:#000;font-weight:bold">++</span>) <span style="color:#998;font-style:italic">/* 循环处理 */</span>
 	{
 		fputs(strings[cntr], pipe_fp);
-		fputc(<span style="color:#e6db74">&#39;\n&#39;</span>, pipe_fp);
+		fputc(<span style="color:#d14">&#39;\n&#39;</span>, pipe_fp);
 	}
-	pclose(pipe_fp); <span style="color:#75715e">/* 关闭管道 */</span>
-	<span style="color:#66d9ef">return</span>(<span style="color:#ae81ff">0</span>);
+	pclose(pipe_fp); <span style="color:#998;font-style:italic">/* 关闭管道 */</span>
+	<span style="color:#000;font-weight:bold">return</span>(<span style="color:#099">0</span>);
 }
 </code></pre></div><h4 id="有名管道">有名管道</h4>
 <p>管道机制也存在着一些缺点和不足。由于管道是一种“无名”、“无形”的文件,它就只能通过fork()的过程创建于“近亲”的进程之间,而不可能成为可以在任意两个进程之间建立通信的机制,更不可能成为一种一般的、通用的进程间通信模型。同时,管道机制的这种缺点本身就强烈地暗示着人们,只要用“有名”、“有形”的文件来实现管道,就能克服这种缺点。这里所谓“有名”是指这样一个文件应该有个文件名,使得任何进程都可以通过文件名或路径名与这个文件挂上钩;所谓“有形”是指文件的inode应该存在于磁盘或其他文件系统介质上,使得任何进程在任何时间(而不仅仅是在fork()时)都可以建立(或断开)与这个文件之间的联系。所以,有了管道以后,“有名管道”的出现就是必然的了。与管道相比较,有名管道,即FIFO管道和一般的管道基本相同,但也有一些显著的不同:</p>
@@ -216,123 +216,123 @@
 </ul>
 <p>(1)FIFO 的创建
 为了实现“有名管道”,在“普通文件”、“块设备文件”、“字符设备文件”之外,又设立了一种文件类型,称为FIFO文件。对这种文件的访问严格遵循“先进先出”的原则,不允许有在文件内移动读写指针位置的lseek()操作。这样一来,就可以像在磁盘上建立个文件一样地建立一个有名管道,有几种方法创建一个有名管道。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mknod MYFIFO p
-mkfifo a<span style="color:#f92672">=</span>rw MYFIFO
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">mknod MYFIFO p
+mkfifo <span style="color:#008080">a</span><span style="color:#000;font-weight:bold">=</span>rw MYFIFO
 </code></pre></div><blockquote>
 <p>上面的两个命令执行同样的操作,但其中有一点不同。命令 mkfifo 提供一个在创建之后直接改变 FIFO 文件存取权限的途径,而命令 mknod 需要调用命令chmod。一个物理文件系统可以通过 p 指示器十分容易地分辨出 FIFO 文件。请注意文件名后的管道符号“ |”。</p>
 </blockquote>
 <p>mkfifo函数,该函数的作用是在文件系统中创建一个文件,该文件
 用于提供FIFO功能,原型如下所示:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/stat.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">mkfifo</span>( <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>pathname, mode_t mode );
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/types.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/stat.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">mkfifo</span>( <span style="color:#000;font-weight:bold">const</span> <span style="color:#458;font-weight:bold">char</span> <span style="color:#000;font-weight:bold">*</span>pathname, mode_t mode );
 </code></pre></div><p>(2)使用实例</p>
 <p>管道都是单向的,因此双方通信需要两个管道。该实例有两个程序,一个用于读管道,另一个用于写管道</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">//*****fifowrite.c***
-</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/stat.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;errno.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;fcntl.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#998;font-style:italic">//*****fifowrite.c***
+</span><span style="color:#998;font-style:italic"></span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/types.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/stat.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;errno.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;fcntl.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;string.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;unistd.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdlib.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>()
 {
-    <span style="color:#66d9ef">char</span> write_fifo_name[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lucy&#34;</span>;
-    <span style="color:#66d9ef">char</span> read_fifo_name[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;peter&#34;</span>;
-    <span style="color:#66d9ef">int</span> write_fd, read_fd;
-    <span style="color:#66d9ef">char</span> buf[<span style="color:#ae81ff">256</span>];
-    <span style="color:#66d9ef">int</span> len;
-    <span style="color:#66d9ef">struct</span> stat stat_buf;
-    <span style="color:#66d9ef">int</span> ret <span style="color:#f92672">=</span> mkfifo(write_fifo_name, S_IRUSR <span style="color:#f92672">|</span> S_IWUSR);
-    <span style="color:#66d9ef">if</span>( ret <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+    <span style="color:#458;font-weight:bold">char</span> write_fifo_name[] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;lucy&#34;</span>;
+    <span style="color:#458;font-weight:bold">char</span> read_fifo_name[] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;peter&#34;</span>;
+    <span style="color:#458;font-weight:bold">int</span> write_fd, read_fd;
+    <span style="color:#458;font-weight:bold">char</span> buf[<span style="color:#099">256</span>];
+    <span style="color:#458;font-weight:bold">int</span> len;
+    <span style="color:#000;font-weight:bold">struct</span> stat stat_buf;
+    <span style="color:#458;font-weight:bold">int</span> ret <span style="color:#000;font-weight:bold">=</span> mkfifo(write_fifo_name, S_IRUSR <span style="color:#000;font-weight:bold">|</span> S_IWUSR);
+    <span style="color:#000;font-weight:bold">if</span>( ret <span style="color:#000;font-weight:bold">==</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>)
     {
-        printf(<span style="color:#e6db74">&#34;Fail to create FIFO %s: %s&#34;</span>,write_fifo_name,strerror(errno));
-        exit(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+        printf(<span style="color:#d14">&#34;Fail to create FIFO %s: %s&#34;</span>,write_fifo_name,strerror(errno));
+        exit(<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>);
     }
-    write_fd <span style="color:#f92672">=</span> open(write_fifo_name, O_WRONLY);
-    <span style="color:#66d9ef">if</span>(write_fd <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+    write_fd <span style="color:#000;font-weight:bold">=</span> open(write_fifo_name, O_WRONLY);
+    <span style="color:#000;font-weight:bold">if</span>(write_fd <span style="color:#000;font-weight:bold">==</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>)
     {
-        printf(<span style="color:#e6db74">&#34;Fail to open FIFO %s: %s&#34;</span>,write_fifo_name,strerror(errno));
-        exit(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+        printf(<span style="color:#d14">&#34;Fail to open FIFO %s: %s&#34;</span>,write_fifo_name,strerror(errno));
+        exit(<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>);
     }
-    <span style="color:#66d9ef">while</span>((read_fd <span style="color:#f92672">=</span> open(read_fifo_name,O_RDONLY)) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+    <span style="color:#000;font-weight:bold">while</span>((read_fd <span style="color:#000;font-weight:bold">=</span> open(read_fifo_name,O_RDONLY)) <span style="color:#000;font-weight:bold">==</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>)
     {
-        sleep(<span style="color:#ae81ff">1</span>);
+        sleep(<span style="color:#099">1</span>);
     }
-    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>)
+    <span style="color:#000;font-weight:bold">while</span>(<span style="color:#099">1</span>)
     {
-        printf(<span style="color:#e6db74">&#34;Lucy: &#34;</span>);
-        fgets(buf, <span style="color:#ae81ff">256</span>, stdin);
-        buf[strlen(buf)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
-        <span style="color:#66d9ef">if</span>(strncmp(buf,<span style="color:#e6db74">&#34;quit&#34;</span>, <span style="color:#ae81ff">4</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+        printf(<span style="color:#d14">&#34;Lucy: &#34;</span>);
+        fgets(buf, <span style="color:#099">256</span>, stdin);
+        buf[strlen(buf)<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;\0&#39;</span>;
+        <span style="color:#000;font-weight:bold">if</span>(strncmp(buf,<span style="color:#d14">&#34;quit&#34;</span>, <span style="color:#099">4</span>) <span style="color:#000;font-weight:bold">==</span> <span style="color:#099">0</span>)
         {
             close(write_fd);
             unlink(write_fifo_name);
             close(read_fd);
-            exit(<span style="color:#ae81ff">0</span>);
+            exit(<span style="color:#099">0</span>);
         }
         write(write_fd, buf, strlen(buf));
 
-        len <span style="color:#f92672">=</span> read(read_fd, buf, <span style="color:#ae81ff">256</span>);  <span style="color:#75715e">/*这里read()函数会阻塞等待 */</span>
-        <span style="color:#66d9ef">if</span>( len <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>)
+        len <span style="color:#000;font-weight:bold">=</span> read(read_fd, buf, <span style="color:#099">256</span>);  <span style="color:#998;font-style:italic">/*这里read()函数会阻塞等待 */</span>
+        <span style="color:#000;font-weight:bold">if</span>( len <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#099">0</span>)
         {
-            buf[len] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
-            printf(<span style="color:#e6db74">&#34;Peter: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, buf);
+            buf[len] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;\0&#39;</span>;
+            printf(<span style="color:#d14">&#34;Peter: %s</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>, buf);
         }
     }
 }
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">//*****fiforead.c***
-</span><span style="color:#75715e"></span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;sys/stat.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;errno.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;fcntl.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span><span style="color:#75715e">&lt;stdlib.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">void</span>)
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#998;font-style:italic">//*****fiforead.c***
+</span><span style="color:#998;font-style:italic"></span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/types.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/stat.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;errno.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;fcntl.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;string.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;unistd.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span><span style="color:#999;font-weight:bold;font-style:italic">&lt;stdlib.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span><span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>(<span style="color:#458;font-weight:bold">void</span>)
 {
-    <span style="color:#66d9ef">char</span> write_fifo_name[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;peter&#34;</span>;
-    <span style="color:#66d9ef">char</span> read_fifo_name[] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;lucy&#34;</span>;
-    <span style="color:#66d9ef">int</span> write_fd, read_fd;
-    <span style="color:#66d9ef">char</span> buf[<span style="color:#ae81ff">256</span>];
-    <span style="color:#66d9ef">int</span> len;
-    <span style="color:#66d9ef">int</span> ret <span style="color:#f92672">=</span> mkfifo(write_fifo_name, S_IRUSR <span style="color:#f92672">|</span> S_IWUSR);
-    <span style="color:#66d9ef">if</span>( ret <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+    <span style="color:#458;font-weight:bold">char</span> write_fifo_name[] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;peter&#34;</span>;
+    <span style="color:#458;font-weight:bold">char</span> read_fifo_name[] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;lucy&#34;</span>;
+    <span style="color:#458;font-weight:bold">int</span> write_fd, read_fd;
+    <span style="color:#458;font-weight:bold">char</span> buf[<span style="color:#099">256</span>];
+    <span style="color:#458;font-weight:bold">int</span> len;
+    <span style="color:#458;font-weight:bold">int</span> ret <span style="color:#000;font-weight:bold">=</span> mkfifo(write_fifo_name, S_IRUSR <span style="color:#000;font-weight:bold">|</span> S_IWUSR);
+    <span style="color:#000;font-weight:bold">if</span>( ret <span style="color:#000;font-weight:bold">==</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>)
     {
-        printf(<span style="color:#e6db74">&#34;Fail to create FIFO %s: %s&#34;</span>,write_fifo_name,strerror(errno));
-        exit(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+        printf(<span style="color:#d14">&#34;Fail to create FIFO %s: %s&#34;</span>,write_fifo_name,strerror(errno));
+        exit(<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>);
     }
-    <span style="color:#66d9ef">while</span>((read_fd <span style="color:#f92672">=</span> open(read_fifo_name, O_RDONLY)) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+    <span style="color:#000;font-weight:bold">while</span>((read_fd <span style="color:#000;font-weight:bold">=</span> open(read_fifo_name, O_RDONLY)) <span style="color:#000;font-weight:bold">==</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>)
     {
-        sleep(<span style="color:#ae81ff">1</span>);
+        sleep(<span style="color:#099">1</span>);
     }
-    write_fd <span style="color:#f92672">=</span> open(write_fifo_name, O_WRONLY);
-    <span style="color:#66d9ef">if</span>(write_fd <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+    write_fd <span style="color:#000;font-weight:bold">=</span> open(write_fifo_name, O_WRONLY);
+    <span style="color:#000;font-weight:bold">if</span>(write_fd <span style="color:#000;font-weight:bold">==</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>)
     {
-        printf(<span style="color:#e6db74">&#34;Fail to open FIFO %s: %s&#34;</span>, write_fifo_name, strerror(errno));
-        exit(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+        printf(<span style="color:#d14">&#34;Fail to open FIFO %s: %s&#34;</span>, write_fifo_name, strerror(errno));
+        exit(<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>);
     }
-    <span style="color:#66d9ef">while</span>(<span style="color:#ae81ff">1</span>)
+    <span style="color:#000;font-weight:bold">while</span>(<span style="color:#099">1</span>)
     {
-        len <span style="color:#f92672">=</span> read(read_fd, buf, <span style="color:#ae81ff">256</span>);  <span style="color:#75715e">/*这里read()函数会阻塞等待 */</span>
-        <span style="color:#66d9ef">if</span>(len <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>)
+        len <span style="color:#000;font-weight:bold">=</span> read(read_fd, buf, <span style="color:#099">256</span>);  <span style="color:#998;font-style:italic">/*这里read()函数会阻塞等待 */</span>
+        <span style="color:#000;font-weight:bold">if</span>(len <span style="color:#000;font-weight:bold">&gt;</span> <span style="color:#099">0</span>)
         {
-            buf[len] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
-            printf(<span style="color:#e6db74">&#34;Lucy: %s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,buf);
+            buf[len] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;\0&#39;</span>;
+            printf(<span style="color:#d14">&#34;Lucy: %s</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>,buf);
         }
 
-        printf(<span style="color:#e6db74">&#34;Peter: &#34;</span>);
-        fgets(buf, <span style="color:#ae81ff">256</span>, stdin);
-        buf[strlen(buf)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;\0&#39;</span>;
-        <span style="color:#66d9ef">if</span>(strncmp(buf,<span style="color:#e6db74">&#34;quit&#34;</span>, <span style="color:#ae81ff">4</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>)
+        printf(<span style="color:#d14">&#34;Peter: &#34;</span>);
+        fgets(buf, <span style="color:#099">256</span>, stdin);
+        buf[strlen(buf)<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;\0&#39;</span>;
+        <span style="color:#000;font-weight:bold">if</span>(strncmp(buf,<span style="color:#d14">&#34;quit&#34;</span>, <span style="color:#099">4</span>) <span style="color:#000;font-weight:bold">==</span> <span style="color:#099">0</span>)
         {
             close(write_fd);
             unlink(write_fifo_name);
             close(read_fd);
-            exit(<span style="color:#ae81ff">0</span>);
+            exit(<span style="color:#099">0</span>);
         }
         write(write_fd, buf, strlen(buf));
     }
@@ -345,85 +345,85 @@ mkfifo a<span style="color:#f92672">=</span>rw MYFIFO
 域。shmat()把共享内存区域映射到调用进程的地址空间中去,这样,进程就可以方便地对共享区域进行访问操作。shmdt()调用用来解除进程对共享内存区域的映射。Shmctl()实现对共享内存区域的控制操作。</p>
 <p>使用实例<br>
 创建了两个程序:sharewrite.c创建一个系统V共享内存区,并在其中写入格式化数据;另外一个程序 shareread.c访问同一个系统V共享内存区,读出其中的格式化数据。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/***** sharewrite.c *******/</span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/ipc.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/shm.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span>{
-    <span style="color:#66d9ef">char</span> name[<span style="color:#ae81ff">4</span>];
-    <span style="color:#66d9ef">int</span> age;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#998;font-style:italic">/***** sharewrite.c *******/</span>
+<span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/ipc.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/shm.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/types.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;unistd.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;string.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#000;font-weight:bold">typedef</span> <span style="color:#000;font-weight:bold">struct</span>{
+    <span style="color:#458;font-weight:bold">char</span> name[<span style="color:#099">4</span>];
+    <span style="color:#458;font-weight:bold">int</span> age;
 } people;
 
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span><span style="color:#f92672">**</span> argv)
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>(<span style="color:#458;font-weight:bold">int</span> argc, <span style="color:#458;font-weight:bold">char</span><span style="color:#000;font-weight:bold">**</span> argv)
 {
-    <span style="color:#66d9ef">int</span> shm_id,i;
+    <span style="color:#458;font-weight:bold">int</span> shm_id,i;
     key_t key;
-    <span style="color:#66d9ef">char</span> temp;
-    people <span style="color:#f92672">*</span>p_map;
-    key <span style="color:#f92672">=</span> ftok(<span style="color:#e6db74">&#34;.&#34;</span>,<span style="color:#ae81ff">1</span>);    <span style="color:#75715e">/*得到一个指定ID值 */</span>
-    <span style="color:#66d9ef">if</span>(key<span style="color:#f92672">==-</span><span style="color:#ae81ff">1</span>)
-        perror(<span style="color:#e6db74">&#34;ftok error&#34;</span>);
+    <span style="color:#458;font-weight:bold">char</span> temp;
+    people <span style="color:#000;font-weight:bold">*</span>p_map;
+    key <span style="color:#000;font-weight:bold">=</span> ftok(<span style="color:#d14">&#34;.&#34;</span>,<span style="color:#099">1</span>);    <span style="color:#998;font-style:italic">/*得到一个指定ID值 */</span>
+    <span style="color:#000;font-weight:bold">if</span>(key<span style="color:#000;font-weight:bold">==-</span><span style="color:#099">1</span>)
+        perror(<span style="color:#d14">&#34;ftok error&#34;</span>);
     
-    shm_id<span style="color:#f92672">=</span>shmget(key,<span style="color:#ae81ff">4096</span>,IPC_CREAT);
-    <span style="color:#66d9ef">if</span>(shm_id<span style="color:#f92672">==-</span><span style="color:#ae81ff">1</span>)
+    shm_id<span style="color:#000;font-weight:bold">=</span>shmget(key,<span style="color:#099">4096</span>,IPC_CREAT);
+    <span style="color:#000;font-weight:bold">if</span>(shm_id<span style="color:#000;font-weight:bold">==-</span><span style="color:#099">1</span>)
     {
-        perror(<span style="color:#e6db74">&#34;shmget error&#34;</span>);
-        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+        perror(<span style="color:#d14">&#34;shmget error&#34;</span>);
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
     }
-    p_map<span style="color:#f92672">=</span>(people<span style="color:#f92672">*</span>)shmat(shm_id,NULL,<span style="color:#ae81ff">0</span>);    <span style="color:#75715e">/*把共享内存区域映射到调用进程的地址空间中去 */</span>
+    p_map<span style="color:#000;font-weight:bold">=</span>(people<span style="color:#000;font-weight:bold">*</span>)shmat(shm_id,<span style="color:#0086b3">NULL</span>,<span style="color:#099">0</span>);    <span style="color:#998;font-style:italic">/*把共享内存区域映射到调用进程的地址空间中去 */</span>
 
-    temp<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;a&#39;</span>;
-    <span style="color:#66d9ef">for</span>(i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">10</span>;i<span style="color:#f92672">++</span>)
+    temp<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;a&#39;</span>;
+    <span style="color:#000;font-weight:bold">for</span>(i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#099">10</span>;i<span style="color:#000;font-weight:bold">++</span>)
     {
-        temp <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
-        memcpy((<span style="color:#f92672">*</span>(p_map<span style="color:#f92672">+</span>i)).name,<span style="color:#f92672">&amp;</span>temp,<span style="color:#ae81ff">1</span>);
-        (<span style="color:#f92672">*</span>(p_map<span style="color:#f92672">+</span>i)).age <span style="color:#f92672">=</span> <span style="color:#ae81ff">30</span><span style="color:#f92672">+</span>i;
+        temp <span style="color:#000;font-weight:bold">+=</span> <span style="color:#099">1</span>;
+        memcpy((<span style="color:#000;font-weight:bold">*</span>(p_map<span style="color:#000;font-weight:bold">+</span>i)).name,<span style="color:#000;font-weight:bold">&amp;</span>temp,<span style="color:#099">1</span>);
+        (<span style="color:#000;font-weight:bold">*</span>(p_map<span style="color:#000;font-weight:bold">+</span>i)).age <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">30</span><span style="color:#000;font-weight:bold">+</span>i;
     }
-    <span style="color:#66d9ef">if</span>(shmdt(p_map)<span style="color:#f92672">==-</span><span style="color:#ae81ff">1</span>)    <span style="color:#75715e">/*解除进程对共享内存区域的映射 */</span>
-        perror(<span style="color:#e6db74">&#34; detach error &#34;</span>);
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#000;font-weight:bold">if</span>(shmdt(p_map)<span style="color:#000;font-weight:bold">==-</span><span style="color:#099">1</span>)    <span style="color:#998;font-style:italic">/*解除进程对共享内存区域的映射 */</span>
+        perror(<span style="color:#d14">&#34; detach error &#34;</span>);
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
 }
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#75715e">/********** shareread.c ************/</span>
-<span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/ipc.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/shm.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;sys/types.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdio.h&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">typedef</span> <span style="color:#66d9ef">struct</span>{
-    <span style="color:#66d9ef">char</span> name[<span style="color:#ae81ff">4</span>];
-    <span style="color:#66d9ef">int</span> age;
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#998;font-style:italic">/********** shareread.c ************/</span>
+<span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/ipc.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/shm.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;sys/types.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;unistd.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic">#include</span> <span style="color:#999;font-weight:bold;font-style:italic">&lt;stdio.h&gt;</span><span style="color:#999;font-weight:bold;font-style:italic">
+</span><span style="color:#999;font-weight:bold;font-style:italic"></span>
+<span style="color:#000;font-weight:bold">typedef</span> <span style="color:#000;font-weight:bold">struct</span>{
+    <span style="color:#458;font-weight:bold">char</span> name[<span style="color:#099">4</span>];
+    <span style="color:#458;font-weight:bold">int</span> age;
 } people;
 
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(<span style="color:#66d9ef">int</span> argc, <span style="color:#66d9ef">char</span><span style="color:#f92672">**</span> argv)
+<span style="color:#458;font-weight:bold">int</span> <span style="color:#900;font-weight:bold">main</span>(<span style="color:#458;font-weight:bold">int</span> argc, <span style="color:#458;font-weight:bold">char</span><span style="color:#000;font-weight:bold">**</span> argv)
 {
-    <span style="color:#66d9ef">int</span> shm_id,i;
+    <span style="color:#458;font-weight:bold">int</span> shm_id,i;
     key_t key;
-    people <span style="color:#f92672">*</span>p_map;
-    key <span style="color:#f92672">=</span> ftok(<span style="color:#e6db74">&#34;.&#34;</span>,<span style="color:#ae81ff">1</span>);
-    <span style="color:#66d9ef">if</span>(key <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
-        perror(<span style="color:#e6db74">&#34;ftok error&#34;</span>);
-    shm_id <span style="color:#f92672">=</span> shmget(key,<span style="color:#ae81ff">4096</span>,IPC_CREAT);
-    <span style="color:#66d9ef">if</span>(shm_id <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+    people <span style="color:#000;font-weight:bold">*</span>p_map;
+    key <span style="color:#000;font-weight:bold">=</span> ftok(<span style="color:#d14">&#34;.&#34;</span>,<span style="color:#099">1</span>);
+    <span style="color:#000;font-weight:bold">if</span>(key <span style="color:#000;font-weight:bold">==</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>)
+        perror(<span style="color:#d14">&#34;ftok error&#34;</span>);
+    shm_id <span style="color:#000;font-weight:bold">=</span> shmget(key,<span style="color:#099">4096</span>,IPC_CREAT);
+    <span style="color:#000;font-weight:bold">if</span>(shm_id <span style="color:#000;font-weight:bold">==</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>)
     {
-        perror(<span style="color:#e6db74">&#34;shmget error&#34;</span>);
-        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+        perror(<span style="color:#d14">&#34;shmget error&#34;</span>);
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
     }
-    p_map <span style="color:#f92672">=</span> (people<span style="color:#f92672">*</span>)shmat(shm_id,NULL,<span style="color:#ae81ff">0</span>);
-    <span style="color:#66d9ef">for</span>(i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">10</span>;i<span style="color:#f92672">++</span>)
+    p_map <span style="color:#000;font-weight:bold">=</span> (people<span style="color:#000;font-weight:bold">*</span>)shmat(shm_id,<span style="color:#0086b3">NULL</span>,<span style="color:#099">0</span>);
+    <span style="color:#000;font-weight:bold">for</span>(i <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>;i<span style="color:#000;font-weight:bold">&lt;</span><span style="color:#099">10</span>;i<span style="color:#000;font-weight:bold">++</span>)
     {
-        printf( <span style="color:#e6db74">&#34;name:%s</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,(<span style="color:#f92672">*</span>(p_map<span style="color:#f92672">+</span>i)).name );
-        printf( <span style="color:#e6db74">&#34;age %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>,(<span style="color:#f92672">*</span>(p_map<span style="color:#f92672">+</span>i)).age );
-        <span style="color:#66d9ef">if</span>((i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)<span style="color:#f92672">%</span><span style="color:#ae81ff">5</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>)
-            printf( <span style="color:#e6db74">&#34;</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span> );
+        printf( <span style="color:#d14">&#34;name:%s</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>,(<span style="color:#000;font-weight:bold">*</span>(p_map<span style="color:#000;font-weight:bold">+</span>i)).name );
+        printf( <span style="color:#d14">&#34;age %d</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span>,(<span style="color:#000;font-weight:bold">*</span>(p_map<span style="color:#000;font-weight:bold">+</span>i)).age );
+        <span style="color:#000;font-weight:bold">if</span>((i<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>)<span style="color:#000;font-weight:bold">%</span><span style="color:#099">5</span><span style="color:#000;font-weight:bold">==</span><span style="color:#099">0</span>)
+            printf( <span style="color:#d14">&#34;</span><span style="color:#d14">\n</span><span style="color:#d14">&#34;</span> );
     }
-    <span style="color:#66d9ef">if</span>(shmdt(p_map) <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
-        perror(<span style="color:#e6db74">&#34; detach error &#34;</span>);
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+    <span style="color:#000;font-weight:bold">if</span>(shmdt(p_map) <span style="color:#000;font-weight:bold">==</span> <span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>)
+        perror(<span style="color:#d14">&#34; detach error &#34;</span>);
+    <span style="color:#000;font-weight:bold">return</span> <span style="color:#099">0</span>;
 }
 </code></pre></div><h3 id="其他方式通信">其他方式通信</h3>
 <p>其他的通信方式包括消息队列、信号量、信号以及套接字等进程间通信方式。消息队列就是一个消息的列表。用户可以从消息队列中添加消息、读取消息等。从这点上看,消息队列具有一定的 FIFO 的特性,但是它可以实现消息的随机查询,比 FIFO 具有更大的优势。同时,这些消息又是存在于内核中的,由“队列 ID”来标识;信号量不仅可以完成进程间通信,而且可以实现进程同步;套接字是应用非常广泛的进程间通信方式,它不仅能完成一般的进程间通信,更可用于不同机器之间的进程间通信。</p>
@@ -436,9 +436,9 @@ mkfifo a<span style="color:#f92672">=</span>rw MYFIFO
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/Linux">Linux</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/Linux">Linux</a></li>
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/process">process</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/process">process</a></li>
                                 
                             </ul>
                         </div>
@@ -453,7 +453,7 @@ mkfifo a<span style="color:#f92672">=</span>rw MYFIFO
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20190702-multithreaded-programming/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190702-multithreaded-programming/">
         <i class="material-icons">arrow_back</i><span>多线程编程</span>
         </a>
         </li>
@@ -461,7 +461,7 @@ mkfifo a<span style="color:#f92672">=</span>rw MYFIFO
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2019/20190630-process-control/">
+        <a href="https://blog.shaobo.fun/posts/2019/20190630-process-control/">
         <span>进程控制</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -537,10 +537,10 @@ mkfifo a<span style="color:#f92672">=</span>rw MYFIFO
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -550,43 +550,43 @@ mkfifo a<span style="color:#f92672">=</span>rw MYFIFO
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -599,43 +599,43 @@ mkfifo a<span style="color:#f92672">=</span>rw MYFIFO
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -645,87 +645,87 @@ mkfifo a<span style="color:#f92672">=</span>rw MYFIFO
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -735,7 +735,7 @@ mkfifo a<span style="color:#f92672">=</span>rw MYFIFO
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -752,7 +752,7 @@ mkfifo a<span style="color:#f92672">=</span>rw MYFIFO
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

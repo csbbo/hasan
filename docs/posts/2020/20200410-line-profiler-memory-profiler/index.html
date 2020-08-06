@@ -20,7 +20,7 @@
     <meta name="description" content="Python性能分析">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -88,7 +88,7 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/Python">Python</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/Python">Python</a></span>
                             
                         </div>
                         
@@ -122,63 +122,63 @@
 <h3 id="line_profiler">line_profiler</h3>
 <p>line_profiler是一个用于逐行分析函数时间消耗的模块。</p>
 <p>安装</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pip install line_profiler
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pip install line_profiler
 </code></pre></div><p>封装了一个类装饰器</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">line_profile</span>:
-    <span style="color:#e6db74">&#34;&#34;&#34;
-</span><span style="color:#e6db74">    put @line_profile on function
-</span><span style="color:#e6db74">    :param follow 显示调用的函数具体时间消耗
-</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
-    <span style="color:#66d9ef">def</span> __init__(self, follow<span style="color:#f92672">=</span>None):
-        self<span style="color:#f92672">.</span>follow <span style="color:#f92672">=</span> follow <span style="color:#f92672">or</span> []
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">line_profile</span>:
+    <span style="color:#d14">&#34;&#34;&#34;
+</span><span style="color:#d14">    put @line_profile on function
+</span><span style="color:#d14">    :param follow 显示调用的函数具体时间消耗
+</span><span style="color:#d14">    &#34;&#34;&#34;</span>
+    <span style="color:#000;font-weight:bold">def</span> __init__(<span style="color:#999">self</span>, follow<span style="color:#000;font-weight:bold">=</span><span style="color:#999">None</span>):
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>follow <span style="color:#000;font-weight:bold">=</span> follow <span style="color:#000;font-weight:bold">or</span> []
     
-    <span style="color:#66d9ef">def</span> __call__(self, func):
-        <span style="color:#a6e22e">@functools.wraps</span>(func)
-        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">prof_func</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kw):
-            lp <span style="color:#f92672">=</span> LineProfiler()
-            list(map(<span style="color:#66d9ef">lambda</span> x: lp<span style="color:#f92672">.</span>add_function(x), self<span style="color:#f92672">.</span>follow))
-            lp_wrapper <span style="color:#f92672">=</span> lp(func)
-            result <span style="color:#f92672">=</span> lp_wrapper(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kw)
-            lp<span style="color:#f92672">.</span>print_stats()
-            <span style="color:#66d9ef">return</span> result
-        <span style="color:#66d9ef">return</span> prof_func
+    <span style="color:#000;font-weight:bold">def</span> __call__(<span style="color:#999">self</span>, func):
+        <span style="color:#3c5d5d;font-weight:bold">@functools.wraps</span>(func)
+        <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">prof_func</span>(<span style="color:#000;font-weight:bold">*</span>args, <span style="color:#000;font-weight:bold">**</span>kw):
+            lp <span style="color:#000;font-weight:bold">=</span> LineProfiler()
+            <span style="color:#0086b3">list</span>(<span style="color:#0086b3">map</span>(<span style="color:#000;font-weight:bold">lambda</span> x: lp<span style="color:#000;font-weight:bold">.</span>add_function(x), <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>follow))
+            lp_wrapper <span style="color:#000;font-weight:bold">=</span> lp(func)
+            result <span style="color:#000;font-weight:bold">=</span> lp_wrapper(<span style="color:#000;font-weight:bold">*</span>args, <span style="color:#000;font-weight:bold">**</span>kw)
+            lp<span style="color:#000;font-weight:bold">.</span>print_stats()
+            <span style="color:#000;font-weight:bold">return</span> result
+        <span style="color:#000;font-weight:bold">return</span> prof_func
 </code></pre></div><p>使用</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># example.py</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_other_stuff</span>(numbers):
-    s <span style="color:#f92672">=</span> sum(numbers)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># example.py</span>
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">do_other_stuff</span>(numbers):
+    s <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">sum</span>(numbers)
 
-<span style="color:#a6e22e">@line_profile</span>([do_other_stuff])
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_stuff</span>(numbers):
+<span style="color:#3c5d5d;font-weight:bold">@line_profile</span>([do_other_stuff])
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">do_stuff</span>(numbers):
     do_other_stuff(numbers)
-    s <span style="color:#f92672">=</span> sum(numbers)
-    l <span style="color:#f92672">=</span> [numbers[i]<span style="color:#f92672">/</span><span style="color:#ae81ff">43</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(numbers))]
-    m <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;hello&#39;</span><span style="color:#f92672">+</span>str(numbers[i]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(numbers))]
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">python example<span style="color:#f92672">.</span>py
+    s <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">sum</span>(numbers)
+    l <span style="color:#000;font-weight:bold">=</span> [numbers[i]<span style="color:#000;font-weight:bold">/</span><span style="color:#099">43</span> <span style="color:#000;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#0086b3">range</span>(<span style="color:#0086b3">len</span>(numbers))]
+    m <span style="color:#000;font-weight:bold">=</span> [<span style="color:#d14">&#39;hello&#39;</span><span style="color:#000;font-weight:bold">+</span><span style="color:#0086b3">str</span>(numbers[i]) <span style="color:#000;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#0086b3">range</span>(<span style="color:#0086b3">len</span>(numbers))]
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">python example<span style="color:#000;font-weight:bold">.</span>py
 </code></pre></div><p>运行结果
 <img src="/assets/2020/0410/line_profile.png" alt=""></p>
 <!-- <img src="/assets/2020/0410/line_profile.png" style="margin-left:0px;width:70%"> -->
 <h3 id="memory_profiler">memory_profiler</h3>
 <p><a href="https://github.com/pythonprofilers/memory_profiler">memory_profiler</a>是一个基于<a href="https://pypi.org/project/psutil/">psutil</a>用于监视进程内存消耗的python模块，并且能够逐行分析程序的内存消耗。</p>
 <p>安装</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pip install <span style="color:#f92672">-</span>U memory_profiler
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">pip install <span style="color:#000;font-weight:bold">-</span>U memory_profiler
 </code></pre></div><p>使用</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># example.py</span>
-<span style="color:#a6e22e">@profile</span>(precision<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>)
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">do_stuff</span>(numbers):
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># example.py</span>
+<span style="color:#3c5d5d;font-weight:bold">@profile</span>(precision<span style="color:#000;font-weight:bold">=</span><span style="color:#099">4</span>)
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">do_stuff</span>(numbers):
     do_other_stuff(numbers)
-    s <span style="color:#f92672">=</span> sum(numbers)
-    l <span style="color:#f92672">=</span> [numbers[i]<span style="color:#f92672">/</span><span style="color:#ae81ff">43</span> <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(numbers))]
-    m <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#39;hello&#39;</span><span style="color:#f92672">+</span>str(numbers[i]) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(numbers))]
-</code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">python <span style="color:#f92672">-</span>m memory_profiler example<span style="color:#f92672">.</span>py
+    s <span style="color:#000;font-weight:bold">=</span> <span style="color:#0086b3">sum</span>(numbers)
+    l <span style="color:#000;font-weight:bold">=</span> [numbers[i]<span style="color:#000;font-weight:bold">/</span><span style="color:#099">43</span> <span style="color:#000;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#0086b3">range</span>(<span style="color:#0086b3">len</span>(numbers))]
+    m <span style="color:#000;font-weight:bold">=</span> [<span style="color:#d14">&#39;hello&#39;</span><span style="color:#000;font-weight:bold">+</span><span style="color:#0086b3">str</span>(numbers[i]) <span style="color:#000;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#0086b3">range</span>(<span style="color:#0086b3">len</span>(numbers))]
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">python <span style="color:#000;font-weight:bold">-</span>m memory_profiler example<span style="color:#000;font-weight:bold">.</span>py
 </code></pre></div><p>或者直接使用以下方式</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> memory_profiler <span style="color:#f92672">import</span> profile
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">from</span> <span style="color:#555">memory_profiler</span> <span style="color:#000;font-weight:bold">import</span> profile
 
-<span style="color:#a6e22e">@profile</span>
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">my_func</span>():
-    a <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> (<span style="color:#ae81ff">10</span> <span style="color:#f92672">**</span> <span style="color:#ae81ff">6</span>)
-    b <span style="color:#f92672">=</span> [<span style="color:#ae81ff">2</span>] <span style="color:#f92672">*</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">**</span> <span style="color:#ae81ff">7</span>)
-    <span style="color:#66d9ef">del</span> b
-    <span style="color:#66d9ef">return</span> a
+<span style="color:#3c5d5d;font-weight:bold">@profile</span>
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">my_func</span>():
+    a <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">1</span>] <span style="color:#000;font-weight:bold">*</span> (<span style="color:#099">10</span> <span style="color:#000;font-weight:bold">**</span> <span style="color:#099">6</span>)
+    b <span style="color:#000;font-weight:bold">=</span> [<span style="color:#099">2</span>] <span style="color:#000;font-weight:bold">*</span> (<span style="color:#099">2</span> <span style="color:#000;font-weight:bold">*</span> <span style="color:#099">10</span> <span style="color:#000;font-weight:bold">**</span> <span style="color:#099">7</span>)
+    <span style="color:#000;font-weight:bold">del</span> b
+    <span style="color:#000;font-weight:bold">return</span> a
 </code></pre></div><p>运行结果
 <img src="/assets/2020/0410/memory_profile.png" alt=""></p>
                         </div>
@@ -197,7 +197,7 @@
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/">
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/">
         <i class="material-icons">arrow_back</i><span>记一次Evenlet事件</span>
         </a>
         </li>
@@ -205,7 +205,7 @@
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/">
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/">
         <span>TensorFlow搭建神经网络</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -265,10 +265,10 @@
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -278,43 +278,43 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -327,43 +327,43 @@
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -373,87 +373,87 @@
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -463,7 +463,7 @@
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -480,7 +480,7 @@
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         

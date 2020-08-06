@@ -20,7 +20,7 @@
     <meta name="description" content="gRPC基础">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="http://blog.shaobo.fun/posts/2019/20191216-grpc-basics/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20191216-grpc-basics/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -44,7 +44,7 @@
         <div class="col-group">
             <div class="site-name ">
                 
-                    <a id="logo" href="http://blog.shaobo.fun/">
+                    <a id="logo" href="https://blog.shaobo.fun/">
                         庄周梦蝶
                     </a>
                 
@@ -54,15 +54,15 @@
             </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
-                    <a class="" href="http://blog.shaobo.fun/">首页</a>
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
                     
-                    <a  href="http://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
                     
                 </nav>
             </div>
@@ -88,7 +88,7 @@
                         <div class="post-meta">
                             <span>|</span>
                             
-                                <span class="meta-category"><a href="http://blog.shaobo.fun/categories/RPC">RPC</a></span>
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/RPC">RPC</a></span>
                             
                         </div>
                         
@@ -129,22 +129,22 @@
 </code></pre><h3 id="定义服务">定义服务</h3>
 <p>使用 protocol buffers去定义 gRPC service 和方法 request、response 的类型。</p>
 <p>要定义一个服务，你必须在你的 .proto 文件中指定 service：</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">service RouteGuide {
-   <span style="color:#f92672">//</span> (Method definitions <span style="color:#f92672">not</span> shown)
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">service RouteGuide {
+   <span style="color:#000;font-weight:bold">//</span> (Method definitions <span style="color:#000;font-weight:bold">not</span> shown)
 }
 </code></pre></div><p>然后在你的服务中定义 rpc 方法，指定请求的和响应类型。gRPC 允许你定义4种类型的 service 方法</p>
 <p>1.一个 简单 RPC ， 客户端使用存根发送请求到服务器并等待响应返回，就像平常的函数调用一样。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">rpc GetFeature(Point) returns (Feature) {}
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">rpc GetFeature(Point) returns (Feature) {}
 </code></pre></div><p>2.一个 应答流式 RPC ， 客户端发送请求到服务器，拿到一个流去读取返回的消息序列。 客户端读取返回的流，直到里面没有任何消息。从例子中可以看出，通过在 响应 类型前插入 stream 关键字，可以指定一个服务器端的流方法。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">rpc ListFeatures(Rectangle) returns (stream Feature) {}
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">rpc ListFeatures(Rectangle) returns (stream Feature) {}
 </code></pre></div><p>3.一个 请求流式 RPC ， 客户端写入一个消息序列并将其发送到服务器，同样也是使用流。一旦客户端完成写入消息，它等待服务器完成读取返回它的响应。通过在 请求 类型前指定 stream 关键字来指定一个客户端的流方法。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">rpc RecordRoute(stream Point) returns (RouteSummary) {}
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">rpc RecordRoute(stream Point) returns (RouteSummary) {}
 </code></pre></div><p>4.一个 双向流式 RPC 是双方使用读写流去发送一个消息序列。两个流独立操作，因此客户端和服务器可以以任意喜欢的顺序读写：比如， 服务器可以在写入响应前等待接收所有的客户端消息，或者可以交替的读取和写入消息，或者其他读写的组合。 每个流中的消息顺序被预留。你可以通过在请求和响应前加 stream 关键字去制定方法的类型。</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">rpc RouteChat(stream RouteNote) returns (stream RouteNote) {}
 </code></pre></div><h3 id="样例">样例</h3>
 <p>proto文件</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># hello.proto</span>
-syntax <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;proto3&#34;</span>;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># hello.proto</span>
+syntax <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;proto3&#34;</span>;
 package hello;
 
 service Hello {
@@ -155,127 +155,127 @@ service Hello {
 }
 
 message Point {
-	float latitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-	float longitude <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+	<span style="color:#0086b3">float</span> latitude <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+	<span style="color:#0086b3">float</span> longitude <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">2</span>;
 }
 
 message Rectangle {
-	Point lo <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-	Point hi <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+	Point lo <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+	Point hi <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">2</span>;
 }
 
 message Feature {
-	string name <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-	Point location <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+	string name <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+	Point location <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">2</span>;
 }
 
 message RouteNote {
-	Point location <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-	string message <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
+	Point location <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+	string message <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">2</span>;
 }
 
 message RouteSummary {
-	int32 point_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
-	int32 feature_count <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;
-	int32 distance <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>;
-	int32 elapsed_time <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+	int32 point_count <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>;
+	int32 feature_count <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">2</span>;
+	int32 distance <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">3</span>;
+	int32 elapsed_time <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">4</span>;
 }
 </code></pre></div><p>生成.proto定义的 gRPC 客户端和服务器端的接口</p>
 <pre><code>python -m grpc_tools.protoc -I . --python_out=. --grpc_python_out=. ./hello.proto
 </code></pre><p>服务端代码</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># hello_server.py</span>
-<span style="color:#f92672">import</span> grpc
-<span style="color:#f92672">from</span> concurrent <span style="color:#f92672">import</span> futures
-<span style="color:#f92672">import</span> hello_pb2_grpc
-<span style="color:#f92672">from</span> hello_pb2 <span style="color:#f92672">import</span> Point, Rectangle, Feature, RouteNote, RouteSummary
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># hello_server.py</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">grpc</span>
+<span style="color:#000;font-weight:bold">from</span> <span style="color:#555">concurrent</span> <span style="color:#000;font-weight:bold">import</span> futures
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">hello_pb2_grpc</span>
+<span style="color:#000;font-weight:bold">from</span> <span style="color:#555">hello_pb2</span> <span style="color:#000;font-weight:bold">import</span> Point, Rectangle, Feature, RouteNote, RouteSummary
 
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HelloServicer</span>(hello_pb2_grpc<span style="color:#f92672">.</span>HelloServicer):
-    <span style="color:#66d9ef">def</span> __init__(self):
-        self<span style="color:#f92672">.</span>name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;北京&#34;</span>
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">HelloServicer</span>(hello_pb2_grpc<span style="color:#000;font-weight:bold">.</span>HelloServicer):
+    <span style="color:#000;font-weight:bold">def</span> __init__(<span style="color:#999">self</span>):
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>name <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#34;北京&#34;</span>
 
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">GetFeature</span>(self, request, context):
-        latitude <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>latitude
-        longitude <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>longitude
-        location <span style="color:#f92672">=</span> Point(latitude<span style="color:#f92672">=</span>latitude, longitude<span style="color:#f92672">=</span>longitude)
-        <span style="color:#66d9ef">return</span> Feature(name<span style="color:#f92672">=</span>self<span style="color:#f92672">.</span>name, location<span style="color:#f92672">=</span>location)
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">GetFeature</span>(<span style="color:#999">self</span>, request, context):
+        latitude <span style="color:#000;font-weight:bold">=</span> request<span style="color:#000;font-weight:bold">.</span>latitude
+        longitude <span style="color:#000;font-weight:bold">=</span> request<span style="color:#000;font-weight:bold">.</span>longitude
+        location <span style="color:#000;font-weight:bold">=</span> Point(latitude<span style="color:#000;font-weight:bold">=</span>latitude, longitude<span style="color:#000;font-weight:bold">=</span>longitude)
+        <span style="color:#000;font-weight:bold">return</span> Feature(name<span style="color:#000;font-weight:bold">=</span><span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>name, location<span style="color:#000;font-weight:bold">=</span>location)
 
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">ListFeatures</span>(self, request, context):
-        location <span style="color:#f92672">=</span> Point(latitude<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>lo<span style="color:#f92672">.</span>latitude, longitude<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>lo<span style="color:#f92672">.</span>longitude)
-        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
-            <span style="color:#66d9ef">yield</span> Feature(name<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Beijing-Shanghai&#34;</span>, location<span style="color:#f92672">=</span>location)
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">ListFeatures</span>(<span style="color:#999">self</span>, request, context):
+        location <span style="color:#000;font-weight:bold">=</span> Point(latitude<span style="color:#000;font-weight:bold">=</span>request<span style="color:#000;font-weight:bold">.</span>lo<span style="color:#000;font-weight:bold">.</span>latitude, longitude<span style="color:#000;font-weight:bold">=</span>request<span style="color:#000;font-weight:bold">.</span>lo<span style="color:#000;font-weight:bold">.</span>longitude)
+        <span style="color:#000;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#0086b3">range</span>(<span style="color:#099">10</span>):
+            <span style="color:#000;font-weight:bold">yield</span> Feature(name<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;Beijing-Shanghai&#34;</span>, location<span style="color:#000;font-weight:bold">=</span>location)
 
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">RecordRoute</span>(self, request, context):
-        <span style="color:#66d9ef">for</span> point <span style="color:#f92672">in</span> request:
-            <span style="color:#66d9ef">return</span> RouteSummary(point_count<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, feature_count<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>, distance<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, elapsed_time<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>)
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">RecordRoute</span>(<span style="color:#999">self</span>, request, context):
+        <span style="color:#000;font-weight:bold">for</span> point <span style="color:#000;font-weight:bold">in</span> request:
+            <span style="color:#000;font-weight:bold">return</span> RouteSummary(point_count<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>, feature_count<span style="color:#000;font-weight:bold">=</span><span style="color:#099">2</span>, distance<span style="color:#000;font-weight:bold">=</span><span style="color:#099">3</span>, elapsed_time<span style="color:#000;font-weight:bold">=</span><span style="color:#099">4</span>)
 
-    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">RouteChat</span>(self, request, context):
-        <span style="color:#66d9ef">for</span> note <span style="color:#f92672">in</span> request:
-            <span style="color:#66d9ef">yield</span> note
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">RouteChat</span>(<span style="color:#999">self</span>, request, context):
+        <span style="color:#000;font-weight:bold">for</span> note <span style="color:#000;font-weight:bold">in</span> request:
+            <span style="color:#000;font-weight:bold">yield</span> note
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
-    server <span style="color:#f92672">=</span> grpc<span style="color:#f92672">.</span>server(futures<span style="color:#f92672">.</span>ThreadPoolExecutor(max_workers<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>))
-    hello_pb2_grpc<span style="color:#f92672">.</span>add_HelloServicer_to_server(HelloServicer(), server)
-    server<span style="color:#f92672">.</span>add_insecure_port(<span style="color:#e6db74">&#39;[::]:50051&#39;</span>)
-    server<span style="color:#f92672">.</span>start()
-    server<span style="color:#f92672">.</span>wait_for_termination()
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">main</span>():
+    server <span style="color:#000;font-weight:bold">=</span> grpc<span style="color:#000;font-weight:bold">.</span>server(futures<span style="color:#000;font-weight:bold">.</span>ThreadPoolExecutor(max_workers<span style="color:#000;font-weight:bold">=</span><span style="color:#099">10</span>))
+    hello_pb2_grpc<span style="color:#000;font-weight:bold">.</span>add_HelloServicer_to_server(HelloServicer(), server)
+    server<span style="color:#000;font-weight:bold">.</span>add_insecure_port(<span style="color:#d14">&#39;[::]:50051&#39;</span>)
+    server<span style="color:#000;font-weight:bold">.</span>start()
+    server<span style="color:#000;font-weight:bold">.</span>wait_for_termination()
 
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+<span style="color:#000;font-weight:bold">if</span> __name__ <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;__main__&#39;</span>:
     main()
 </code></pre></div><p>客户端代码</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># hello_client.py</span>
-<span style="color:#f92672">import</span> grpc
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># hello_client.py</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">grpc</span>
 
-<span style="color:#f92672">from</span> hello_pb2 <span style="color:#f92672">import</span> Point, Rectangle, Feature, RouteNote, RouteSummary
-<span style="color:#f92672">from</span> hello_pb2_grpc <span style="color:#f92672">import</span> HelloStub
+<span style="color:#000;font-weight:bold">from</span> <span style="color:#555">hello_pb2</span> <span style="color:#000;font-weight:bold">import</span> Point, Rectangle, Feature, RouteNote, RouteSummary
+<span style="color:#000;font-weight:bold">from</span> <span style="color:#555">hello_pb2_grpc</span> <span style="color:#000;font-weight:bold">import</span> HelloStub
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">stream_point</span>():
-    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
-        <span style="color:#66d9ef">yield</span> Point(latitude<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, longitude<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">stream_point</span>():
+    <span style="color:#000;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#0086b3">range</span>(<span style="color:#099">10</span>):
+        <span style="color:#000;font-weight:bold">yield</span> Point(latitude<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>, longitude<span style="color:#000;font-weight:bold">=</span><span style="color:#099">2</span>)
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">stream_route_note</span>():
-    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
-        <span style="color:#66d9ef">yield</span> RouteNote(location<span style="color:#f92672">=</span>Point(latitude<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, longitude<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>), message<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;good job!&#39;</span>)
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">stream_route_note</span>():
+    <span style="color:#000;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#0086b3">range</span>(<span style="color:#099">10</span>):
+        <span style="color:#000;font-weight:bold">yield</span> RouteNote(location<span style="color:#000;font-weight:bold">=</span>Point(latitude<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>, longitude<span style="color:#000;font-weight:bold">=</span><span style="color:#099">2</span>), message<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;good job!&#39;</span>)
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_feature</span>(latitude, longitude):
-    <span style="color:#66d9ef">with</span> grpc<span style="color:#f92672">.</span>insecure_channel(<span style="color:#e6db74">&#39;127.0.0.1:50051&#39;</span>) <span style="color:#66d9ef">as</span> channel:
-        stub <span style="color:#f92672">=</span> HelloStub(channel)
-        response <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span>GetFeature(Point(latitude<span style="color:#f92672">=</span>latitude, longitude<span style="color:#f92672">=</span>longitude))
-        <span style="color:#66d9ef">print</span>(response)
-        <span style="color:#66d9ef">return</span> response
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">get_feature</span>(latitude, longitude):
+    <span style="color:#000;font-weight:bold">with</span> grpc<span style="color:#000;font-weight:bold">.</span>insecure_channel(<span style="color:#d14">&#39;127.0.0.1:50051&#39;</span>) <span style="color:#000;font-weight:bold">as</span> channel:
+        stub <span style="color:#000;font-weight:bold">=</span> HelloStub(channel)
+        response <span style="color:#000;font-weight:bold">=</span> stub<span style="color:#000;font-weight:bold">.</span>GetFeature(Point(latitude<span style="color:#000;font-weight:bold">=</span>latitude, longitude<span style="color:#000;font-weight:bold">=</span>longitude))
+        <span style="color:#000;font-weight:bold">print</span>(response)
+        <span style="color:#000;font-weight:bold">return</span> response
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_list_features</span>():
-    <span style="color:#66d9ef">with</span> grpc<span style="color:#f92672">.</span>insecure_channel(<span style="color:#e6db74">&#39;127.0.0.1:50051&#39;</span>) <span style="color:#66d9ef">as</span> channel:
-        stub <span style="color:#f92672">=</span> HelloStub(channel)
-        lo <span style="color:#f92672">=</span> Point(latitude<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>, longitude<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
-        hi <span style="color:#f92672">=</span> Point(latitude<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>, longitude<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span>)
-        response <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span>ListFeatures(Rectangle(lo<span style="color:#f92672">=</span>lo, hi<span style="color:#f92672">=</span>hi))
-        <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> response:
-            <span style="color:#66d9ef">print</span>(r)
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">get_list_features</span>():
+    <span style="color:#000;font-weight:bold">with</span> grpc<span style="color:#000;font-weight:bold">.</span>insecure_channel(<span style="color:#d14">&#39;127.0.0.1:50051&#39;</span>) <span style="color:#000;font-weight:bold">as</span> channel:
+        stub <span style="color:#000;font-weight:bold">=</span> HelloStub(channel)
+        lo <span style="color:#000;font-weight:bold">=</span> Point(latitude<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>, longitude<span style="color:#000;font-weight:bold">=</span><span style="color:#099">2</span>)
+        hi <span style="color:#000;font-weight:bold">=</span> Point(latitude<span style="color:#000;font-weight:bold">=</span><span style="color:#099">3</span>, longitude<span style="color:#000;font-weight:bold">=</span><span style="color:#099">4</span>)
+        response <span style="color:#000;font-weight:bold">=</span> stub<span style="color:#000;font-weight:bold">.</span>ListFeatures(Rectangle(lo<span style="color:#000;font-weight:bold">=</span>lo, hi<span style="color:#000;font-weight:bold">=</span>hi))
+        <span style="color:#000;font-weight:bold">for</span> r <span style="color:#000;font-weight:bold">in</span> response:
+            <span style="color:#000;font-weight:bold">print</span>(r)
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_record_route</span>():
-    <span style="color:#66d9ef">with</span> grpc<span style="color:#f92672">.</span>insecure_channel(<span style="color:#e6db74">&#39;127.0.0.1:50051&#39;</span>) <span style="color:#66d9ef">as</span> channel:
-        stub <span style="color:#f92672">=</span> HelloStub(channel)
-        data <span style="color:#f92672">=</span> stream_point()
-        response <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span>RecordRoute(data)
-        <span style="color:#66d9ef">print</span>(response)
-        <span style="color:#66d9ef">return</span> response
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">get_record_route</span>():
+    <span style="color:#000;font-weight:bold">with</span> grpc<span style="color:#000;font-weight:bold">.</span>insecure_channel(<span style="color:#d14">&#39;127.0.0.1:50051&#39;</span>) <span style="color:#000;font-weight:bold">as</span> channel:
+        stub <span style="color:#000;font-weight:bold">=</span> HelloStub(channel)
+        data <span style="color:#000;font-weight:bold">=</span> stream_point()
+        response <span style="color:#000;font-weight:bold">=</span> stub<span style="color:#000;font-weight:bold">.</span>RecordRoute(data)
+        <span style="color:#000;font-weight:bold">print</span>(response)
+        <span style="color:#000;font-weight:bold">return</span> response
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_route_chat</span>():
-    <span style="color:#66d9ef">with</span> grpc<span style="color:#f92672">.</span>insecure_channel(<span style="color:#e6db74">&#39;127.0.0.1:50051&#39;</span>) <span style="color:#66d9ef">as</span> channel:
-        stub <span style="color:#f92672">=</span> HelloStub(channel)
-        data <span style="color:#f92672">=</span> stream_route_note()
-        response <span style="color:#f92672">=</span> stub<span style="color:#f92672">.</span>RouteChat(data)
-        <span style="color:#66d9ef">for</span> r <span style="color:#f92672">in</span> response:
-            <span style="color:#66d9ef">print</span>(r)
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">get_route_chat</span>():
+    <span style="color:#000;font-weight:bold">with</span> grpc<span style="color:#000;font-weight:bold">.</span>insecure_channel(<span style="color:#d14">&#39;127.0.0.1:50051&#39;</span>) <span style="color:#000;font-weight:bold">as</span> channel:
+        stub <span style="color:#000;font-weight:bold">=</span> HelloStub(channel)
+        data <span style="color:#000;font-weight:bold">=</span> stream_route_note()
+        response <span style="color:#000;font-weight:bold">=</span> stub<span style="color:#000;font-weight:bold">.</span>RouteChat(data)
+        <span style="color:#000;font-weight:bold">for</span> r <span style="color:#000;font-weight:bold">in</span> response:
+            <span style="color:#000;font-weight:bold">print</span>(r)
 
-<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main</span>():
-    get_feature(<span style="color:#ae81ff">39.92</span>, <span style="color:#ae81ff">116.46</span>)
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">main</span>():
+    get_feature(<span style="color:#099">39.92</span>, <span style="color:#099">116.46</span>)
     get_list_features()
     get_record_route()
     get_route_chat()
 
 
-<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+<span style="color:#000;font-weight:bold">if</span> __name__ <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;__main__&#39;</span>:
     main()
 </code></pre></div><p>[参考]</p>
 <p><a href="https://doc.oschina.net/grpc?t=58008">gRPC官方文档</a><br>
@@ -290,7 +290,7 @@ message RouteSummary {
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="http://blog.shaobo.fun/tags/grpc">grpc</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/grpc">grpc</a></li>
                                 
                             </ul>
                         </div>
@@ -305,7 +305,7 @@ message RouteSummary {
     <ul class="prevnext">
     
         <li class="next">
-        <a href="http://blog.shaobo.fun/posts/2019/20191218-python-concurrent-programming/">
+        <a href="https://blog.shaobo.fun/posts/2019/20191218-python-concurrent-programming/">
         <i class="material-icons">arrow_back</i><span>Python 并发编程</span>
         </a>
         </li>
@@ -313,7 +313,7 @@ message RouteSummary {
 
     
         <li class="pre">
-        <a href="http://blog.shaobo.fun/posts/2019/20191206-openssl-library/">
+        <a href="https://blog.shaobo.fun/posts/2019/20191206-openssl-library/">
         <span>Openssl生成SSL证书</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
@@ -373,10 +373,10 @@ message RouteSummary {
             </div>
             <div id="secondary">
     <section class="widget">
-        <form id="search" action="https://man.linuxde.net/" method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
       
-      <input type="text" name="s" maxlength="20" placeholder="请输入一个完整Linux命令">
-      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
       <button type="submit" class="submit icon-search"></button>
 </form>
     </section>
@@ -386,43 +386,43 @@ message RouteSummary {
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
+        <a href="https://blog.shaobo.fun/posts/2019/20191231-books/" title="书籍">书籍</a>
     </li>
     
 </ul>
@@ -435,43 +435,43 @@ message RouteSummary {
 <ul class="widget-list">
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Python/">Python(8)</a>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(8)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
     </li>
     
     <li>
-        <a href="http://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
 </ul>
@@ -481,87 +481,87 @@ message RouteSummary {
         <h3 class="widget-title">标签</h3>
 <div class="tagcloud">
     
-    <a href="http://blog.shaobo.fun/tags/Base64/">Base64</a>
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
     
-    <a href="http://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
     
-    <a href="http://blog.shaobo.fun/tags/Django/">Django</a>
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
     
-    <a href="http://blog.shaobo.fun/tags/Docker/">Docker</a>
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
-    <a href="http://blog.shaobo.fun/tags/Git/">Git</a>
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
     
-    <a href="http://blog.shaobo.fun/tags/Graph/">Graph</a>
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
-    <a href="http://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
     
-    <a href="http://blog.shaobo.fun/tags/JWT/">JWT</a>
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
     
-    <a href="http://blog.shaobo.fun/tags/Linux/">Linux</a>
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
     
-    <a href="http://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
     
-    <a href="http://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
     
-    <a href="http://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
     
-    <a href="http://blog.shaobo.fun/tags/Python/">Python</a>
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
     
-    <a href="http://blog.shaobo.fun/tags/Redis/">Redis</a>
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
     
-    <a href="http://blog.shaobo.fun/tags/Session/">Session</a>
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
     
-    <a href="http://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
     
-    <a href="http://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
     
-    <a href="http://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
     
-    <a href="http://blog.shaobo.fun/tags/Token/">Token</a>
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vector/">Vector</a>
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
     
-    <a href="http://blog.shaobo.fun/tags/Vim/">Vim</a>
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
-    <a href="http://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
     
-    <a href="http://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
-    <a href="http://blog.shaobo.fun/tags/crypto/">crypto</a>
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
     
-    <a href="http://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
     
-    <a href="http://blog.shaobo.fun/tags/grpc/">grpc</a>
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
     
-    <a href="http://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
     
-    <a href="http://blog.shaobo.fun/tags/md5/">md5</a>
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
     
-    <a href="http://blog.shaobo.fun/tags/process/">process</a>
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
     
-    <a href="http://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
     
-    <a href="http://blog.shaobo.fun/tags/python/">python</a>
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
     
-    <a href="http://blog.shaobo.fun/tags/serial/">serial</a>
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
     
-    <a href="http://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
     
-    <a href="http://blog.shaobo.fun/tags/sort/">sort</a>
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
     
-    <a href="http://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
     
-    <a href="http://blog.shaobo.fun/tags/thread/">thread</a>
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
     
-    <a href="http://blog.shaobo.fun/tags/tmux/">tmux</a>
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
     
-    <a href="http://blog.shaobo.fun/tags/tree/">tree</a>
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
     
-    <a href="http://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
     
 </div>
     </section>
@@ -571,7 +571,7 @@ message RouteSummary {
     <section class="widget">
         <h3 class="widget-title">其它</h3>
         <ul class="widget-list">
-            <li><a target="_blank" href="http://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
             <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
             <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
             <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
@@ -588,7 +588,7 @@ message RouteSummary {
 </div>
 <footer id="footer">
     <div class="container">
-        &copy; 2020 <a href="http://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
         Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
         <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
         
