@@ -95,7 +95,9 @@
       <pubDate>Wed, 01 Jan 2020 16:13:16 +0800</pubDate>
       
       <guid>http://blog.shaobo.fun/posts/2020/20200101-resume/</guid>
-      <description>&lt;!-- raw HTML omitted --&gt;</description>
+      <description>&lt;span class=&#34;preview&#34;&gt;
+个人在线简历！输入密码后才能查看捏😜😜😜。
+&lt;span&gt;</description>
     </item>
     
     <item>
@@ -134,7 +136,7 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
       
       <guid>http://blog.shaobo.fun/posts/2019/20191219-python-build-in-function/</guid>
       <description>&lt;p&gt;Python 解释器内置了很多函数和类型，您可以在任何时候使用它们。以下按字母表顺序列出它们。
-&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;</description>
+&lt;br&gt;&lt;br&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
@@ -382,7 +384,21 @@ Git有什么特点？简单来说就是：高端大气上档次！&lt;/p&gt;</de
       <pubDate>Fri, 28 Jun 2019 11:40:12 +0800</pubDate>
       
       <guid>http://blog.shaobo.fun/tab/other/</guid>
-      <description>ONLINE TOOL Linux命令大全Materialize ColorACONVERTMd5 Sha256 Base64 转换MPostJsonOnline Documents GORMCS-NotesPython 3.7.4 文档python3-cookbook欢迎来到Flask 的世界— Flask 1.0.2 documentationDjango 文档Django REST framework 中文文档Makefile介绍，跟我一起写Makefile 1.0 文档让HTTP 服务人类— Requests 2.18.1 文档 - RequestsBooks 图书角</description>
+      <description>ONLINE TOOL Linux命令大全
+Materialize Color
+ACONVERT
+Md5 Sha256 Base64 转换
+MPostJson
+Online Documents GORM
+CS-Notes
+Python 3.7.4 文档
+python3-cookbook
+欢迎来到Flask 的世界— Flask 1.0.2 documentation
+Django 文档
+Django REST framework 中文文档
+Makefile介绍，跟我一起写Makefile 1.0 文档
+让HTTP 服务人类— Requests 2.18.1 文档 - Requests
+Books 图书角</description>
     </item>
     
     <item>
@@ -394,7 +410,8 @@ Git有什么特点？简单来说就是：高端大气上档次！&lt;/p&gt;</de
       <description>天津科技大学计算机科学与技术专业在校学生一枚,各种打杂,目前做Python后端开发,自己项目也有在写一些Golang.
 一直懒得写博客,却频频搭建博客平台从Hexo-&amp;gt;Flask-&amp;gt;Django+Vue-&amp;gt;Hugo一路走来似乎是有点本末倒置了,不折腾了老老实实写写文章.
 邮箱: Y2hzaGJveEBnbWFpbC5jb20K
-QQ: NTk5ODgzNTE5Cg==</description>
+QQ: NTk5ODgzNTE5Cg==
+个人简历</description>
     </item>
     
     <item>

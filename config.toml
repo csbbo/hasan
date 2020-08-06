@@ -6,6 +6,12 @@ theme = "maupassant"
 preserveTaxonomyNames = true
 disablePathToLower = true
 
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
 [author]
     name = "Hasan"
 

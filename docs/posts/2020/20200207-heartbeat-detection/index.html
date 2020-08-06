@@ -149,14 +149,14 @@
 <p>其中 <strong>σ(sigma)</strong> 是标准偏差， <strong>μ(miu)</strong> 代表样本队列的平均值，<strong>x</strong> 则代表随即变量，我们可以把 <strong>x</strong> 认为是需要进行概率计算的输入参数。那整个函数则表达了正态分布的几何函数图。函数图以样本数据为横坐标，纵坐标为正态分布的函数值。</p>
 </blockquote>
 <p>而对此函数进行积分，则认为其结果是时间间隔下的心跳接收概率，其积分如下：</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<!-- ![](/assets/2020/0207/8aa278c4eec28aad4de0efc9da5a0ca1.png) -->
+<img src="/assets/2020/0207/8aa278c4eec28aad4de0efc9da5a0ca1.png" style="margin-left:0px">
 <p>所以，如果在[x,+∞)上积分则认为是时间间隔下心跳无法接收的概率：</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<!-- ![](/assets/2020/0207/0_1308188128rKpN.gif) -->
+<img src="/assets/2020/0207/0_1308188128rKpN.gif" style="margin-left:0px">
 <p>而φ采用下面公式计算：</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<!-- ![](/assets/2020/0207/0_1308188613XtsX.gif) -->
+<img src="/assets/2020/0207/0_1308188613XtsX.gif" style="margin-left:0px">
 <blockquote>
 <p>此时计算出的φ是一个数字，是从(tnow-Tlast)到+∞的积分，并取以10为底的对数并转换为正数，其含义是：假如在时间tnow判断目标宕机，则误判的可能性为P=G(tnow-Tlater)，即心跳在tnow之后到达的概率。</p>
 </blockquote>
@@ -190,9 +190,19 @@
 <h4 id="基于指数分布的算法">基于指数分布的算法</h4>
 <p>上面提到的正态分布是一个<a href="https://zh.wikipedia.org/wiki/%E6%A9%9F%E7%8E%87%E5%AF%86%E5%BA%A6%E5%87%BD%E6%95%B8">概率密度函数</a>，当然也可以构造自己的密度函数，但要满足很多性质，具体请参考：概率密度函数。在实际中，连续时间随机分布的概率密度函数一般采用指数分布函数，而不会采用正态分布，当然正态分布函数因为不可积，其积分也很难计算。</p>
 <p><em>指数分布的概率密度函数：</em></p>
-<!-- raw HTML omitted -->
+<div style="display: flex; flex-direction: row; border:1px solid black">
+<!-- ![](/assets/2020/0207/0_1308203009IGII.gif) -->
+<img src="/assets/2020/0207/0_1308203009IGII.gif">
+<!-- ![](/assets/2020/0207/0_1308203033cs8U.gif) -->
+<img src="/assets/2020/0207/0_1308203033cs8U.gif">
+</div>
 <p><em>对应的累积函数：</em></p>
-<!-- raw HTML omitted -->
+<div style="display: flex; flex-direction: row; border:1px solid black">
+<!-- ![](/assets/2020/0207/0_1308203029z97X.gif) -->
+<img src="/assets/2020/0207/0_1308203029z97X.gif">
+<!-- ![](/assets/2020/0207/0_1308203037lN6F.gif) -->
+<img src="/assets/2020/0207/0_1308203037lN6F.gif">
+</div>
 <p>和上面的算法一样，同样采用滑动窗口采样样本数据的方式。x是随机变量，在这里代表当前时间和最后一次心跳到达时间的间隔。λ是率参数我们这里取值 1/样本平均数。</p>
 <p>P_later(t) = 1 - F(t)， F(t)是累计分布函数，上正态分布中使用正太累积分布函数，在这里使用的是指数分布累积函数。最终应该计算
 -log10(P_later(t))的值，也就是-log10(1-(1-e^(-λx)))。通过计算也就简化成

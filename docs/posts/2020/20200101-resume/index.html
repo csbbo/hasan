@@ -92,12 +92,18 @@
                         
                         
                         <div class="post-content">
-                            <!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+                            <span class="preview">
+个人在线简历！输入密码后才能查看捏😜😜😜。
+<span>
+<div class="resume" style="display:none;line-height:1.5em;border:1px solid #bdbdbd; padding:5px;">
+<!--以下取出到http://coolaf.com/tool/md打印PDF-->
+<img src="/assets/article/20200101/20180320.jpg" style="width:89px; float:right">
+<h1 style="border-bottom:none;text-align:center;">陈少波</h1>
+<div class="info" style="text-align:center;">
+13978901767 | chshbox@gmail.com<br>
+Blog:<a href="http://blog.shaobo.fun/" target="_blank">http://blog.shaobo.fun/</a><br>
+Github:<a href="https://github.com/csbbo" target="_blank">https://github.com/csbbo</a><br>
+</div>
 <h2 id="教育经历">教育经历</h2>
 <ul>
 <li>天津科技大学本科，人工智能学院，计算机科学与技术专业，2016年9月~至今</li>
@@ -153,15 +159,42 @@
 </ul>
 <h2 id="个人总结">个人总结</h2>
 <p>喜欢Linux热衷于学习各种新的前沿技术，具有良好的学习能力。独立和团队合作完成过项目开发，享受项目完成带来的快乐。在锻炼项目能力时，我也注重计算机网络、数据结构与算法等理论基础的钻研。</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<blockquote>
+<!-- 获奖经历：
+
+2017 天津市物联网大赛二等奖
+2017 蓝桥杯市级二等奖
+
+2018.12 华北五省计算机应用大赛 二等奖
+
+大学生创新创业大赛国家级立项
+2017.5 互联网家庭3D智能打印机 市级
+2018.5 服务器入侵检测警报系统被 国家级
+
+2019 论文 自然科学期刊，计算机与信息科学类，《面向服务器的入侵检测与警报系统的研究》 
+
+2018~2019计算机精英协会主席
+
+打印一页pdf调整边距4，缩放82
+-->
+<div>
+<!--以上打印PDF-->
+<!--Import SHA256-->
+<script src="https://cdn.bootcss.com/js-sha256/0.9.0/sha256.min.js"></script>
+<script>
+    function checkPassword(){
+        let password = prompt("请输入文章密码:");
+        let ciphertext = "cf8b2b53f2caa3d2890d9775ac8755ffc0eee1cfa9654c8c8770c2f025ed2178"
+        if (password===null || sha256(password) != ciphertext){
+            if(password != null)
+                alert("密码错误!")
+            window.location.href = '/'
+        } else{
+            document.getElementsByClassName("resume")[0].style.display='block'
+            document.getElementsByClassName("preview")[0].style.display='none'
+        }
+    }
+    checkPassword()
+</script><blockquote>
 </blockquote>
                         </div>
 

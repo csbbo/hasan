@@ -128,7 +128,7 @@ Git是目前世界上最先进的分布式版本控制系统（没有之一）�
 Git有什么特点？简单来说就是：高端大气上档次！</p>
 <h2 id="工作区暂存区版本库">工作区暂存区版本库</h2>
 <p>工作区就是建立Git版本库的目录，Git版本库其实就是工作区中<code>.git</code>文件。Git的版本库里存了很多东西，其中最重要的就是称为stage的暂存区，还有Git为我们自动创建的第一个分支<code>master</code>，以及指向<code>master</code>的一个指针叫<code>HEAD</code>。</p>
-<!-- raw HTML omitted -->
+<img src="/assets/article/20190915/struct.png" style="width:50%"/>
 <p>把文件往Git版本库里添加的时候，是分两步执行的：</p>
 <ul>
 <li>用<code>git add</code>把文件添加进去，实际上就是把文件修改添加到暂存区；</li>
@@ -176,13 +176,13 @@ Git有什么特点？简单来说就是：高端大气上档次！</p>
 <li>重命名分支：<code>git branch -m old_name new_name</code></li>
 </ul>
 <blockquote>
-<p>switch:我们注意到切换分支使用git checkout <!-- raw HTML omitted -->，而前面讲过的撤销修改则是git checkout &ndash; <!-- raw HTML omitted -->，同一个命令，有两种作用，确实有点令人迷惑。因此，最新版本的Git提供了新的git switch命令来切换分支,上面切换分支命令可以改为<code>git switch master</code>、<code>git switch -c dev</code></p>
+<p>switch:我们注意到切换分支使用git checkout <branch>，而前面讲过的撤销修改则是git checkout &ndash; <file>，同一个命令，有两种作用，确实有点令人迷惑。因此，最新版本的Git提供了新的git switch命令来切换分支,上面切换分支命令可以改为<code>git switch master</code>、<code>git switch -c dev</code></p>
 </blockquote>
 <p>解决冲突:</p>
 <ul>
 <li>解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再add到<code>stage</code>后提交。</li>
 </ul>
-<!-- raw HTML omitted -->
+<img src="/assets/article/20190915/branch.png" style="width:50%"/>
 <ul>
 <li>
 <p>查看分支合并图:
@@ -198,7 +198,7 @@ Git有什么特点？简单来说就是：高端大气上档次！</p>
 那在哪干活呢？干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本；
 你和你的小伙伴们每个人都在dev分支上干活，每个人都有自己的分支，时不时地往dev分支上合并就可以了。
 所以，团队合作的分支看起来就像这样</p>
-<!-- raw HTML omitted -->
+<img src="/assets/article/20190915/multilbranch.png" style="width:70%"/>
 <p>bug分支：</p>
 <p>修复bug时，我们会通过创建新的bug分支进行修复，然后合并，最后删除；  当手头工作没有完成时，先把工作现场<code>git stash</code>一下<code>git stash save &quot;save info&quot;</code>可以自定义stash保存信息，然后去修复bug，修复后，再<code>git stash apply [stash@{0}]</code>恢复工作现场<code>git stash list</code>可以查看多次<code>stash</code>指定恢复的<code>stash</code>，最后<code>git stash drop stash@{0}</code>删掉<code>stash</code>内容而<code>git stash clear</code>可以清空stash。</p>
 <blockquote>

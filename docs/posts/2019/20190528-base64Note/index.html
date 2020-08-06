@@ -282,7 +282,76 @@
 <blockquote>
 <p>举一个具体的实例，演示英语单词Man如何转成Base64编码。</p>
 </blockquote>
-<!-- raw HTML omitted -->
+<table>
+<tbody><tr>
+<th scope="row">文本
+</th>
+<td colspan="8" align="center"><b>M</b>
+</td>
+<td colspan="8" align="center"><b>a</b>
+</td>
+<td colspan="8" align="center"><b>n</b>
+</td></tr>
+<tr>
+<th scope="row">ASCII编码
+</th>
+<td colspan="8" align="center">77
+</td>
+<td colspan="8" align="center">97
+</td>
+<td colspan="8" align="center">110
+</td></tr>
+<tr>
+<th scope="row">二进制位
+</th>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0
+</td></tr>
+<tr>
+<th scope="row">索引
+</th>
+<td colspan="6" align="center">19
+</td>
+<td colspan="6" align="center">22
+</td>
+<td colspan="6" align="center">5
+</td>
+<td colspan="6" align="center">46
+</td></tr>
+<tr>
+<th scope="row">Base64编码
+</th>
+<td colspan="6" align="center"><b>T</b>
+</td>
+<td colspan="6" align="center"><b>W</b>
+</td>
+<td colspan="6" align="center"><b>F</b>
+</td>
+<td colspan="6" align="center"><b>u</b>
+</td></tr></tbody>
+</table>
 <p>第一步，&ldquo;M&rdquo;、&ldquo;a&rdquo;、&ldquo;n&quot;的ASCII值分别是77、97、110，对应的二进制值是01001101、01100001、01101110，将它们连成一个24位的二进制字符串010011010110000101101110。</p>
 <p>第二步，将这个24位的二进制字符串分成4组，每组6个二进制位：010011、010110、000101、101110。</p>
 <p>第三步，在每组前面加两个00，扩展成32个二进制位，即四个字节：00010011、00010110、00000101、00101110。它们的十进制值分别是19、22、5、46。</p>

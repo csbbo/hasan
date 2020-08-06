@@ -95,7 +95,9 @@
       <pubDate>Wed, 01 Jan 2020 16:13:16 +0800</pubDate>
       
       <guid>http://blog.shaobo.fun/posts/2020/20200101-resume/</guid>
-      <description>&lt;!-- raw HTML omitted --&gt;</description>
+      <description>&lt;span class=&#34;preview&#34;&gt;
+个人在线简历！输入密码后才能查看捏😜😜😜。
+&lt;span&gt;</description>
     </item>
     
     <item>
@@ -134,7 +136,7 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
       
       <guid>http://blog.shaobo.fun/posts/2019/20191219-python-build-in-function/</guid>
       <description>&lt;p&gt;Python 解释器内置了很多函数和类型，您可以在任何时候使用它们。以下按字母表顺序列出它们。
-&lt;!-- raw HTML omitted --&gt;&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;</description>
+&lt;br&gt;&lt;br&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
