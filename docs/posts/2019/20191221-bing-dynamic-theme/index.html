@@ -109,7 +109,6 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
 <span style="color:#000;font-weight:bold">import</span> <span style="color:#555">os</span>
 <span style="color:#000;font-weight:bold">import</span> <span style="color:#555">argparse</span>
 <span style="color:#000;font-weight:bold">import</span> <span style="color:#555">requests</span>
-<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">re</span>
 <span style="color:#000;font-weight:bold">from</span> <span style="color:#555">concurrent.futures</span> <span style="color:#000;font-weight:bold">import</span> ThreadPoolExecutor
 
 <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">get_and_save_picture</span>(url, filename):
@@ -119,8 +118,12 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
                 f<span style="color:#000;font-weight:bold">.</span>write(d)
 
 <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">get_picture_info</span>(url, date: <span style="color:#0086b3">int</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>, nums: <span style="color:#0086b3">int</span> <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">1</span>):
-    url <span style="color:#000;font-weight:bold">=</span> url<span style="color:#000;font-weight:bold">+</span><span style="color:#d14">&#39;?format=js&amp;idx=&#39;</span><span style="color:#000;font-weight:bold">+</span><span style="color:#0086b3">str</span>(date)<span style="color:#000;font-weight:bold">+</span><span style="color:#d14">&#39;&amp;n=&#39;</span><span style="color:#000;font-weight:bold">+</span><span style="color:#0086b3">str</span>(nums)
-    r <span style="color:#000;font-weight:bold">=</span> requests<span style="color:#000;font-weight:bold">.</span>get(url)
+    HEADERS <span style="color:#000;font-weight:bold">=</span> {
+        <span style="color:#d14">&#39;accept-language&#39;</span>: <span style="color:#d14">&#39;zh-CN,zh;q=0.9,en;q=0.8&#39;</span>,
+    }
+    url <span style="color:#000;font-weight:bold">=</span> url<span style="color:#000;font-weight:bold">+</span><span style="color:#d14">&#39;?format=js&amp;idx=&#39;</span><span style="color:#000;font-weight:bold">+</span><span style="color:#0086b3">str</span>(date)<span style="color:#000;font-weight:bold">+</span><span style="color:#d14">&#39;&amp;n=&#39;</span><span style="color:#000;font-weight:bold">+</span><span style="color:#0086b3">str</span>(nums)<span style="color:#000;font-weight:bold">+</span><span style="color:#d14">&#39;&amp;nc=1596768309402&amp;pid=hp&amp;uhd=1&amp;uhdwidth=3840&amp;uhdheight=2160&#39;</span>
+    r <span style="color:#000;font-weight:bold">=</span> requests<span style="color:#000;font-weight:bold">.</span>get(url, headers<span style="color:#000;font-weight:bold">=</span>HEADERS)
+    <span style="color:#000;font-weight:bold">print</span>(r<span style="color:#000;font-weight:bold">.</span>headers)
     images <span style="color:#000;font-weight:bold">=</span> r<span style="color:#000;font-weight:bold">.</span>json()<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;images&#39;</span>)
     <span style="color:#000;font-weight:bold">return</span> images
 
@@ -140,8 +143,9 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
 
     pool <span style="color:#000;font-weight:bold">=</span> ThreadPoolExecutor(max_workers<span style="color:#000;font-weight:bold">=</span><span style="color:#099">8</span>)
     <span style="color:#000;font-weight:bold">for</span> image <span style="color:#000;font-weight:bold">in</span> images:
-        name <span style="color:#000;font-weight:bold">=</span> re<span style="color:#000;font-weight:bold">.</span>findall(<span style="color:#d14">r</span><span style="color:#d14">&#39;/th\?id=OHR\.(.+)_ZH-CN.*&#39;</span>, image[<span style="color:#d14">&#39;url&#39;</span>])[<span style="color:#099">0</span>]
-        filename <span style="color:#000;font-weight:bold">=</span> image[<span style="color:#d14">&#39;enddate&#39;</span>]<span style="color:#000;font-weight:bold">+</span><span style="color:#d14">&#39;-&#39;</span><span style="color:#000;font-weight:bold">+</span>name<span style="color:#000;font-weight:bold">+</span><span style="color:#d14">&#39;.jpg&#39;</span>
+        <span style="color:#998;font-style:italic"># title = image[&#39;copyright&#39;].split(&#39; &#39;)[0]</span>
+        <span style="color:#998;font-style:italic"># filename = image[&#39;enddate&#39;] + &#39;-&#39; + title + &#39;.jpg&#39;</span>
+        filename <span style="color:#000;font-weight:bold">=</span> image[<span style="color:#d14">&#39;enddate&#39;</span>] <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#39;.jpg&#39;</span>
 
         <span style="color:#000;font-weight:bold">print</span>(image[<span style="color:#d14">&#39;copyright&#39;</span>], <span style="color:#d14">&#39;Save As &#39;</span><span style="color:#000;font-weight:bold">+</span>filename)
 

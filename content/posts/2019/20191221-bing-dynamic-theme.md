@@ -20,7 +20,6 @@ import sys
 import os
 import argparse
 import requests
-import re
 from concurrent.futures import ThreadPoolExecutor
 
 def get_and_save_picture(url, filename):
@@ -30,8 +29,12 @@ def get_and_save_picture(url, filename):
                 f.write(d)
 
 def get_picture_info(url, date: int = 0, nums: int = 1):
-    url = url+'?format=js&idx='+str(date)+'&n='+str(nums)
-    r = requests.get(url)
+    HEADERS = {
+        'accept-language': 'zh-CN,zh;q=0.9,en;q=0.8',
+    }
+    url = url+'?format=js&idx='+str(date)+'&n='+str(nums)+'&nc=1596768309402&pid=hp&uhd=1&uhdwidth=3840&uhdheight=2160'
+    r = requests.get(url, headers=HEADERS)
+    print(r.headers)
     images = r.json().get('images')
     return images
 
@@ -51,8 +54,9 @@ if __name__ == '__main__':
 
     pool = ThreadPoolExecutor(max_workers=8)
     for image in images:
-        name = re.findall(r'/th\?id=OHR\.(.+)_ZH-CN.*', image['url'])[0]
-        filename = image['enddate']+'-'+name+'.jpg'
+        # title = image['copyright'].split(' ')[0]
+        # filename = image['enddate'] + '-' + title + '.jpg'
+        filename = image['enddate'] + '.jpg'
 
         print(image['copyright'], 'Save As '+filename)
 
