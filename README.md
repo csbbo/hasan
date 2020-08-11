@@ -8,4 +8,10 @@
 
 文章中使用 **###** 作为第一级标题，往下一次是 **####** , **#####** ,...
 
-[博客地址](http://blog.shaobo.fun/)
+给自己定一下git提交规范:
+
+- 添加一篇文章`git commit -m "add: article_name"
+- 完善文章内容`git commit -m "perfect: desciption"
+- 修改文章内容`git commit -m "modify: desciption"
+
+[博客地址](https://blog.shaobo.fun/)
