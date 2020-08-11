@@ -4,7 +4,37 @@
   
   <url>
     <loc>https://blog.shaobo.fun/categories/</loc>
-    <lastmod>2020-07-08T15:33:57+08:00</lastmod>
+    <lastmod>2020-08-11T11:04:49+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.shaobo.fun/tags/Locust/</loc>
+    <lastmod>2020-08-11T11:04:49+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.shaobo.fun/posts/</loc>
+    <lastmod>2020-08-11T11:04:49+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.shaobo.fun/categories/Python/</loc>
+    <lastmod>2020-08-11T11:04:49+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.shaobo.fun/tags/</loc>
+    <lastmod>2020-08-11T11:04:49+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.shaobo.fun/</loc>
+    <lastmod>2020-08-11T11:04:49+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.shaobo.fun/posts/2020/20200811-locust/</loc>
+    <lastmod>2020-08-11T11:04:49+08:00</lastmod>
   </url>
   
   <url>
@@ -18,32 +48,12 @@
   </url>
   
   <url>
-    <loc>https://blog.shaobo.fun/posts/</loc>
-    <lastmod>2020-07-08T15:33:57+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.shaobo.fun/</loc>
-    <lastmod>2020-07-08T15:33:57+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.shaobo.fun/tags/evenlet/</loc>
     <lastmod>2020-07-06T14:46:00+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.shaobo.fun/categories/Python/</loc>
-    <lastmod>2020-07-06T14:46:00+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.shaobo.fun/tags/socket.io/</loc>
-    <lastmod>2020-07-06T14:46:00+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.shaobo.fun/tags/</loc>
     <lastmod>2020-07-06T14:46:00+08:00</lastmod>
   </url>
   

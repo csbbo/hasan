@@ -6,10 +6,19 @@
     <description>Recent content in Python on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 06 Jul 2020 14:46:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 11 Aug 2020 11:04:49 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/categories/Python/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>性能测试工具Locust</title>
+      <link>https://blog.shaobo.fun/posts/2020/20200811-locust/</link>
+      <pubDate>Tue, 11 Aug 2020 11:04:49 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/posts/2020/20200811-locust/</guid>
+      <description>&lt;p&gt;Locust原意蝗虫，&amp;ldquo;蝗虫过境，寸草不生&amp;rdquo;。Locust生成的并发请求就如同一大群蝗虫一样对被测系统发起攻击以此检测系统的承压能力。在模拟有效并发方面，Locust的优势在于其摒弃了进程和线程，完全基于事件驱动，使用gevent提供的非阻塞IO和coroutine来实现网络层的并发请求，因此即使是单台压力机也能产生数千并发请求数；再加上对分布式运行的支持，理论上来说，Locust能在使用较少压力机的前提下支持极高并发数的测试。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>记一次Evenlet事件</title>

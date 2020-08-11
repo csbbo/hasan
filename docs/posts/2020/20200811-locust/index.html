@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.74.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>性能测试工具Locust | 庄周梦蝶</title>
+    <meta property="og:title" content="性能测试工具Locust - 庄周梦蝶">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2020-08-11T11:04:49&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2020-08-11T11:04:49&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="性能测试工具Locust">
+        
+    <meta name="author" content="Hasan">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2020/20200811-locust/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.shaobo.fun/">
+                        庄周梦蝶
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">庄生晓梦迷蝴蝶,望帝春心托杜鹃.</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">性能测试工具Locust</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2020-8-11
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/Python">Python</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#httpuser">HttpUser</a></li>
+        <li><a href="#taskset">TaskSet</a></li>
+        <li><a href="#单进程运行">单进程运行</a></li>
+        <li><a href="#多进程分布式运行">多进程分布式运行</a></li>
+        <li><a href="#结果展示">结果展示</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>Locust原意蝗虫，&ldquo;蝗虫过境，寸草不生&rdquo;。Locust生成的并发请求就如同一大群蝗虫一样对被测系统发起攻击以此检测系统的承压能力。在模拟有效并发方面，Locust的优势在于其摒弃了进程和线程，完全基于事件驱动，使用gevent提供的非阻塞IO和coroutine来实现网络层的并发请求，因此即使是单台压力机也能产生数千并发请求数；再加上对分布式运行的支持，理论上来说，Locust能在使用较少压力机的前提下支持极高并发数的测试。</p>
+<p>先看一个简单的示例<code>locust_demo.py</code></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">import</span> <span style="color:#555">random</span>
+<span style="color:#000;font-weight:bold">from</span> <span style="color:#555">locust</span> <span style="color:#000;font-weight:bold">import</span> HttpUser, TaskSet, task, between
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">json</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">urllib3</span>
+
+urllib3<span style="color:#000;font-weight:bold">.</span>disable_warnings()
+
+
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">WebsiteTasks</span>(TaskSet):
+    <span style="color:#000;font-weight:bold">def</span> __init__(<span style="color:#999">self</span>, <span style="color:#000;font-weight:bold">*</span>args, <span style="color:#000;font-weight:bold">**</span>kw):
+        TaskSet<span style="color:#000;font-weight:bold">.</span>__init__(<span style="color:#999">self</span>, <span style="color:#000;font-weight:bold">*</span>args, <span style="color:#000;font-weight:bold">**</span>kw)
+
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>headers <span style="color:#000;font-weight:bold">=</span> {
+            <span style="color:#d14">&#39;Content-Type&#39;</span>: <span style="color:#d14">&#39;application/json;charset=UTF-8&#39;</span>,
+            <span style="color:#d14">&#39;user-agent&#39;</span>: <span style="color:#d14">&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36&#39;</span>
+        }
+
+    <span style="color:#3c5d5d;font-weight:bold">@task</span>(<span style="color:#099">1</span>)
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">get_license</span>(<span style="color:#999">self</span>):
+        r <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>client<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;/api/LicenseAPI&#39;</span>)
+
+    <span style="color:#3c5d5d;font-weight:bold">@task</span>(<span style="color:#099">3</span>)
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">get_label</span>(<span style="color:#999">self</span>):
+        r <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>client<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;/api/LabelAPI&#39;</span>)
+
+    <span style="color:#3c5d5d;font-weight:bold">@task</span>(<span style="color:#099">5</span>)
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">get_user_info</span>(<span style="color:#999">self</span>):
+        r <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>client<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;/api/UserInfoAPI&#39;</span>)
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">on_start</span>(<span style="color:#999">self</span>):
+        <span style="color:#000;font-weight:bold">try</span>:
+            r <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>client<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#d14">&#39;/api/CSRFTokenAPI&#39;</span>, verify<span style="color:#000;font-weight:bold">=</span><span style="color:#999">False</span>)
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>headers[<span style="color:#d14">&#39;x-csrftoken&#39;</span>] <span style="color:#000;font-weight:bold">=</span> r<span style="color:#000;font-weight:bold">.</span>headers[<span style="color:#d14">&#39;Set-Cookie&#39;</span>]<span style="color:#000;font-weight:bold">.</span>split(<span style="color:#d14">&#39;;&#39;</span>)[<span style="color:#099">0</span>]<span style="color:#000;font-weight:bold">.</span>split(<span style="color:#d14">&#39;=&#39;</span>)[<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>]
+
+            data <span style="color:#000;font-weight:bold">=</span> json<span style="color:#000;font-weight:bold">.</span>dumps({
+                <span style="color:#d14">&#39;username&#39;</span>: <span style="color:#d14">&#39;admin&#39;</span>,
+                <span style="color:#d14">&#39;password&#39;</span>: <span style="color:#d14">&#39;admin&#39;</span>
+            })
+            r <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>client<span style="color:#000;font-weight:bold">.</span>post(<span style="color:#d14">&#39;/api/LoginAPI&#39;</span>, data<span style="color:#000;font-weight:bold">=</span>data, headers<span style="color:#000;font-weight:bold">=</span><span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>headers, verify<span style="color:#000;font-weight:bold">=</span><span style="color:#999">False</span>)
+            <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>headers[<span style="color:#d14">&#39;x-csrftoken&#39;</span>] <span style="color:#000;font-weight:bold">=</span> r<span style="color:#000;font-weight:bold">.</span>headers[<span style="color:#d14">&#39;Set-Cookie&#39;</span>]<span style="color:#000;font-weight:bold">.</span>split(<span style="color:#d14">&#39;;&#39;</span>)[<span style="color:#099">0</span>]<span style="color:#000;font-weight:bold">.</span>split(<span style="color:#d14">&#39;=&#39;</span>)[<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>]
+        <span style="color:#000;font-weight:bold">except</span>:
+            <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;登录失败!&#39;</span>)
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">on_stop</span>(<span style="color:#999">self</span>):
+        r <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>client<span style="color:#000;font-weight:bold">.</span>post(<span style="color:#d14">&#39;/api/LogoutAPI&#39;</span>, headers<span style="color:#000;font-weight:bold">=</span><span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>headers, verify<span style="color:#000;font-weight:bold">=</span><span style="color:#999">False</span>)
+
+
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">WebsiteUser</span>(HttpUser):
+    tasks <span style="color:#000;font-weight:bold">=</span> [WebsiteTasks]
+    wait_time <span style="color:#000;font-weight:bold">=</span> between(<span style="color:#099">1</span>, <span style="color:#099">5</span>)
+    host <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;https://127.0.0.1&#39;</span>
+
+
+<span style="color:#000;font-weight:bold">if</span> __name__ <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;__main__&#39;</span>:
+
+    <span style="color:#000;font-weight:bold">import</span> <span style="color:#555">os</span>
+    port <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">9000</span>
+    os<span style="color:#000;font-weight:bold">.</span>system(f<span style="color:#d14">&#34;open http://localhost:{port}&#34;</span>)
+    os<span style="color:#000;font-weight:bold">.</span>system(f<span style="color:#d14">&#34;locust -f locust_demo.py  --web-port {port}&#34;</span>)
+</code></pre></div><blockquote>
+<p>Locust发送HTTP请求其实用的就是requests库，这里也完全可以像requests一样使用Locust的client发送请求。<code>verify=False</code>关闭https站点的证书认证,配合<code>urllib3.disable_warnings()</code>使用关闭警告信息。</p>
+</blockquote>
+<h3 id="httpuser">HttpUser</h3>
+<p>HttpUser表示一个用户，用来攻击进行负载测试的系统。它的行为由task定义，task可以通过使用@task装饰器直接在类上声明，或设置tasks属性在类上声明。</p>
+<p><strong>client=None</strong></p>
+<p>Locust在实例化时创建的一个HttpSession实例，client支持cookies，因此在HTTP请求时会保持session会话</p>
+<p><strong>tasks=[]</strong></p>
+<p>Locust将要执行的可调用函数或TaskSet类。如果tasks是一个列表则随机选择列表中的任务执行</p>
+<p><strong>wait_time()</strong></p>
+<p>返回两个任务执行的间隔时间</p>
+<p><strong>host</strong></p>
+<p>待测试是主机地址</p>
+<h3 id="taskset">TaskSet</h3>
+<p>定义一个Locust User将要执行的tasks集合，在TaskSet运行时候他将会随机选择一个task执行，然后睡眠wait_time所指定的时间</p>
+<p><strong>on_start()</strong></p>
+<p>在每个用开始执行之前调用</p>
+<p><strong>on_stop()</strong></p>
+<p>在每个用户停止执行之后调用</p>
+<h3 id="单进程运行">单进程运行</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">locust -f locust_demo.py
+</code></pre></div><blockquote>
+<p>示例中将这一部分写到了程序里所以也可以通过<code>python3 locust_demo.py</code>执行</p>
+</blockquote>
+<h3 id="多进程分布式运行">多进程分布式运行</h3>
+<p>不管是单机多进程还是多机负载模式运行方式均一样</p>
+<p>启动master</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">locust -f locust_demo.py --master
+</code></pre></div><p>启动worker</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">locust -f locust_demo.py --worker   <span style="color:#998;font-style:italic"># 单机多进程</span>
+locust -f locust_demo.py --worker --master-host&lt;master machine ip&gt;  <span style="color:#998;font-style:italic"># 多机负载</span>
+</code></pre></div><blockquote>
+<p>更多的locust用法参见<code>locust --help</code></p>
+</blockquote>
+<h3 id="结果展示">结果展示</h3>
+<p>当master和slave都启动完毕后可以在浏览器访问<code>http://master_machine_ip:8089</code>进入web管理页面，单进程与多进程web使用方式一样，在web管理界面也能看到实际的salve数量。</p>
+<p>Locust的结果展示十分简单,主要就几个指标并发用户数、RPS、响应时间、异常率，但对于大多数场景来说已经足够了。</p>
+<img src="/assets/2020/0811/statistics.png"/>
+<p>在Charts栏可以看到性能指标走势，通过趋势图方式可以非常直观的看到RPS、响应时间、请求用户数的变化情况。
+<img src="/assets/2020/0811/charts.png"/></p>
+<blockquote>
+<p>如果想知道被测系统的资源消耗情况可以通过例如<code>top</code>等工具来查看</p>
+</blockquote>
+<p>[参考]</p>
+<p><a href="https://docs.locust.io/en/stable/api.html?highlight=HttpUser#httpuser-class">Locust官方文档</a><br>
+<a href="https://debugtalk.com/post/head-first-locust-user-guide/">深入浅出开源性能测试工具 Locust</a></p>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://blog.shaobo.fun/tags/Locust">Locust</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+
+    
+        <li class="pre">
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/">
+        <span>I/O模型</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200811-locust/" title="性能测试工具Locust">性能测试工具Locust</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200207-heartbeat-detection/" title="分布式系统心跳检查">分布式系统心跳检查</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200117-tcpdump/" title="Tcpdump快速入门">Tcpdump快速入门</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200113-django-complex-query-orm/" title="Django ORM 查询">Django ORM 查询</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200101-resume/" title="个人简历">个人简历</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(9)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Locust/">Locust</a>
+    
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
+    
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
+    
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
+    
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"></h3>
+        <a href="http://beian.miit.gov.cn/">桂ICP备17011922号</a>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>
