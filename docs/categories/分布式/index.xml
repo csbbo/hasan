@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>分布式 on 庄周梦蝶</title>
+    <link>https://blog.shaobo.fun/categories/%E5%88%86%E5%B8%83%E5%BC%8F/</link>
+    <description>Recent content in 分布式 on 庄周梦蝶</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 24 Aug 2020 15:29:37 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.shaobo.fun/categories/%E5%88%86%E5%B8%83%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Raft算法</title>
+      <link>https://blog.shaobo.fun/posts/2020/20200824-raft/</link>
+      <pubDate>Mon, 24 Aug 2020 15:29:37 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/posts/2020/20200824-raft/</guid>
+      <description>&lt;p&gt;Raft是一种共识算法，旨在易于理解。具有和Paxos相当容错性和性能，不同的是Raft被分为多个相对独立的子问题：Leader选举（Leader election）、日志同步（Log replication）、安全性（Safety）、日志压缩（Log compaction）、成员变更（Membership change）等，清晰的解决了实际系统所需的所有主要部分。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

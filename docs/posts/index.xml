@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Aug 2020 11:04:49 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 24 Aug 2020 15:29:37 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Raft算法</title>
+      <link>https://blog.shaobo.fun/posts/2020/20200824-raft/</link>
+      <pubDate>Mon, 24 Aug 2020 15:29:37 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/posts/2020/20200824-raft/</guid>
+      <description>&lt;p&gt;Raft是一种共识算法，旨在易于理解。具有和Paxos相当容错性和性能，不同的是Raft被分为多个相对独立的子问题：Leader选举（Leader election）、日志同步（Log replication）、安全性（Safety）、日志压缩（Log compaction）、成员变更（Membership change）等，清晰的解决了实际系统所需的所有主要部分。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>性能测试工具Locust</title>
