@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang on 庄周梦蝶</title>
+    <link>https://blog.shaobo.fun/categories/Golang/</link>
+    <description>Recent content in Golang on 庄周梦蝶</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 02 Sep 2020 10:38:09 +0800</lastBuildDate>
+    
+	<atom:link href="https://blog.shaobo.fun/categories/Golang/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Go生成二维码</title>
+      <link>https://blog.shaobo.fun/posts/2020/20200902-qr-code/</link>
+      <pubDate>Wed, 02 Sep 2020 10:38:09 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/posts/2020/20200902-qr-code/</guid>
+      <description>&lt;p&gt;使用Go语言编程生成二维码特别方便， 这里使用生成二维码的库是&lt;code&gt;go-qrcode&lt;/code&gt;，废话不多说开整&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

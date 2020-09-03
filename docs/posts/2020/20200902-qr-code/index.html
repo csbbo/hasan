@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.74.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Go生成二维码 | 庄周梦蝶</title>
+    <meta property="og:title" content="Go生成二维码 - 庄周梦蝶">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2020-09-02T10:38:09&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2020-09-02T10:38:09&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Go生成二维码">
+        
+    <meta name="author" content="Hasan">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2020/20200902-qr-code/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.shaobo.fun/">
+                        庄周梦蝶
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">庄生晓梦迷蝴蝶,望帝春心托杜鹃.</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Go生成二维码</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2020-9-2
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/Golang">Golang</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#自定义前景色背景色">自定义前景色背景色</a></li>
+        <li><a href="#生成带头像的二维码">生成带头像的二维码</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>使用Go语言编程生成二维码特别方便， 这里使用生成二维码的库是<code>go-qrcode</code>，废话不多说开整</p>
+<p>生成一张256*256大小的二维码图片</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">package</span> main
+
+<span style="color:#000;font-weight:bold">import</span> (
+	<span style="color:#d14">&#34;github.com/skip2/go-qrcode&#34;</span>
+)
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	qrcode.<span style="color:#900;font-weight:bold">WriteFile</span>(<span style="color:#d14">&#34;https://blog.shaobo.fun/&#34;</span>, qrcode.Highest, <span style="color:#099">256</span>, <span style="color:#d14">&#34;blog.png&#34;</span>)
+}
+</code></pre></div><p>WriteFile函数的原型定义如下:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">WriteFile</span>(content <span style="color:#458;font-weight:bold">string</span>, level RecoveryLevel, size <span style="color:#458;font-weight:bold">int</span>, filename <span style="color:#458;font-weight:bold">string</span>) <span style="color:#458;font-weight:bold">error</span>
+</code></pre></div><ol>
+<li>content表示要生成二维码的内容，可以是任意字符串。</li>
+<li>level表示二维码的容错级别，取值有Low、Medium、High、Highest。</li>
+<li>size表示生成图片的width和height，像素单位。</li>
+<li>filename表示生成的文件名路径。</li>
+</ol>
+<h3 id="自定义前景色背景色">自定义前景色背景色</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">package</span> main
+
+<span style="color:#000;font-weight:bold">import</span> (
+	<span style="color:#d14">&#34;github.com/skip2/go-qrcode&#34;</span>
+	<span style="color:#d14">&#34;log&#34;</span>
+	<span style="color:#d14">&#34;image/color&#34;</span>
+)
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	qr, err <span style="color:#000;font-weight:bold">:=</span> qrcode.<span style="color:#900;font-weight:bold">New</span>(<span style="color:#d14">&#34;https://blog.shaobo.fun/&#34;</span>, qrcode.Highest)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		log.<span style="color:#900;font-weight:bold">Fatal</span>(err)
+	} <span style="color:#000;font-weight:bold">else</span> {
+		<span style="color:#998;font-style:italic">// qr.DisableBorder = true
+</span><span style="color:#998;font-style:italic"></span>		qr.BackgroundColor = color.RGBA{<span style="color:#099">147</span>, <span style="color:#099">105</span>, <span style="color:#099">96</span>, <span style="color:#099">255</span>}
+		qr.ForegroundColor = color.White
+		qr.<span style="color:#900;font-weight:bold">WriteFile</span>(<span style="color:#099">256</span>, <span style="color:#d14">&#34;blog.png&#34;</span>)
+	}
+}
+</code></pre></div><blockquote>
+<p>使用的调色板地址<a href="https://www.sojson.com/web/panel.html">https://www.sojson.com/web/panel.html</a></p>
+</blockquote>
+<h3 id="生成带头像的二维码">生成带头像的二维码</h3>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">package</span> main
+
+<span style="color:#000;font-weight:bold">import</span> (
+	<span style="color:#d14">&#34;github.com/nfnt/resize&#34;</span>
+	<span style="color:#d14">&#34;github.com/skip2/go-qrcode&#34;</span>
+	<span style="color:#d14">&#34;image&#34;</span>
+	<span style="color:#d14">&#34;image/color&#34;</span>
+	<span style="color:#d14">&#34;image/draw&#34;</span>
+	<span style="color:#d14">&#34;image/jpeg&#34;</span>
+	<span style="color:#d14">&#34;image/png&#34;</span>
+	<span style="color:#d14">&#34;os&#34;</span>
+	<span style="color:#d14">&#34;path&#34;</span>
+)
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	qrImg, err <span style="color:#000;font-weight:bold">:=</span> <span style="color:#900;font-weight:bold">createQrImg</span>(<span style="color:#d14">&#34;https://blog.shaobo.fun/&#34;</span>)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		<span style="color:#0086b3">panic</span>(err)
+	}
+	avatarImg, err <span style="color:#000;font-weight:bold">:=</span> <span style="color:#900;font-weight:bold">getAvatarImg</span>(<span style="color:#d14">&#34;./avatar.jpeg&#34;</span>, <span style="color:#099">50</span>, <span style="color:#099">50</span>)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		<span style="color:#0086b3">panic</span>(err)
+	}
+	qrImgBound <span style="color:#000;font-weight:bold">:=</span> qrImg.<span style="color:#900;font-weight:bold">Bounds</span>()
+	avatarImgBound <span style="color:#000;font-weight:bold">:=</span> avatarImg.<span style="color:#900;font-weight:bold">Bounds</span>()
+	x <span style="color:#000;font-weight:bold">:=</span> (qrImgBound.Max.X <span style="color:#000;font-weight:bold">-</span> avatarImgBound.Max.X) <span style="color:#000;font-weight:bold">/</span> <span style="color:#099">2</span>
+	y <span style="color:#000;font-weight:bold">:=</span> (qrImgBound.Max.Y <span style="color:#000;font-weight:bold">-</span> avatarImgBound.Max.Y) <span style="color:#000;font-weight:bold">/</span> <span style="color:#099">2</span>
+	offset <span style="color:#000;font-weight:bold">:=</span> image.<span style="color:#900;font-weight:bold">Pt</span>(x, y)
+
+	img <span style="color:#000;font-weight:bold">:=</span> image.<span style="color:#900;font-weight:bold">NewRGBA</span>(qrImgBound)
+	draw.<span style="color:#900;font-weight:bold">Draw</span>(img, qrImgBound, qrImg, image.Point{X: <span style="color:#099">0</span>, Y: <span style="color:#099">0</span>}, draw.Src)
+	draw.<span style="color:#900;font-weight:bold">Draw</span>(img, avatarImgBound.<span style="color:#900;font-weight:bold">Add</span>(offset), avatarImg, image.Point{X: <span style="color:#099">0</span>, Y: <span style="color:#099">0</span>}, draw.Over)
+
+	i, _ <span style="color:#000;font-weight:bold">:=</span> os.<span style="color:#900;font-weight:bold">Create</span>(path.<span style="color:#900;font-weight:bold">Base</span>(<span style="color:#d14">&#34;blog.png&#34;</span>))
+	_ = png.<span style="color:#900;font-weight:bold">Encode</span>(i, img)
+	<span style="color:#000;font-weight:bold">defer</span> i.<span style="color:#900;font-weight:bold">Close</span>()
+}
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">createQrImg</span>(content <span style="color:#458;font-weight:bold">string</span>) (img image.Image, err <span style="color:#458;font-weight:bold">error</span>) {
+	<span style="color:#000;font-weight:bold">var</span> qr <span style="color:#000;font-weight:bold">*</span>qrcode.QRCode
+	qr, err = qrcode.<span style="color:#900;font-weight:bold">New</span>(content, qrcode.Highest)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">nil</span>, err
+	}
+	qr.DisableBorder = <span style="color:#000;font-weight:bold">false</span>
+	qr.BackgroundColor = color.RGBA{<span style="color:#099">147</span>, <span style="color:#099">105</span>, <span style="color:#099">96</span>, <span style="color:#099">255</span>}
+	qr.ForegroundColor = color.White
+	img = qr.<span style="color:#900;font-weight:bold">Image</span>(<span style="color:#099">256</span>)
+	<span style="color:#000;font-weight:bold">return</span> img, err
+}
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">getAvatarImg</span>(path <span style="color:#458;font-weight:bold">string</span>, w <span style="color:#458;font-weight:bold">int</span>, h <span style="color:#458;font-weight:bold">int</span>) (img image.Image, err <span style="color:#458;font-weight:bold">error</span>) {
+	file, err <span style="color:#000;font-weight:bold">:=</span> os.<span style="color:#900;font-weight:bold">Open</span>(path)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">nil</span>, err
+	}
+	img, err = jpeg.<span style="color:#900;font-weight:bold">Decode</span>(file)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">nil</span>, err
+	}
+	img = resize.<span style="color:#900;font-weight:bold">Resize</span>(<span style="color:#0086b3">uint</span>(w), <span style="color:#0086b3">uint</span>(h), img, resize.Lanczos3)
+	<span style="color:#000;font-weight:bold">return</span> img, err
+}
+</code></pre></div><img src="/assets/2020/0902/blog.png" style="width:25%"/>
+<span style="margin-left: 43%; color: gray;">带头像的二维码</span>
+                        </div>
+
+                        
+
+
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+
+    
+        <li class="pre">
+        <a href="https://blog.shaobo.fun/posts/2020/20200824-raft/">
+        <span>Raft算法</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200902-qr-code/" title="Go生成二维码">Go生成二维码</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200824-raft/" title="Raft算法">Raft算法</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200811-locust/" title="性能测试工具Locust">性能测试工具Locust</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200411-django-query-optimization/" title="Django查询优化">Django查询优化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200331-numpy-pandas-matplotlib/" title="Numpy Pandas Matplotlib整理">Numpy Pandas Matplotlib整理</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Golang/">Golang(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(11)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Locust/">Locust</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Matplotlib/">Matplotlib</a>
+    
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Numpy/">Numpy</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Pandas/">Pandas</a>
+    
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Raft/">Raft</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
+    
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
+    
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
+    
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"></h3>
+        <a href="http://beian.miit.gov.cn/">桂ICP备17011922号</a>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

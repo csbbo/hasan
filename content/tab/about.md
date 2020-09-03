@@ -13,4 +13,6 @@ QQ: NTk5ODgzNTE5Cg==
 
 <a href="/posts/2020/20200101-resume/" target="_blank">个人简历</a><br>
 
+<img src="/assets/2020/0902/blog.png" style="width:25%"/>
+<br>
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=3&id=2062886669&auto=0&height=66"></iframe>

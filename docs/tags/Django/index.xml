@@ -6,10 +6,19 @@
     <description>Recent content in Django on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Jan 2020 11:03:42 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 11 Apr 2020 23:23:53 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/tags/Django/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django查询优化</title>
+      <link>https://blog.shaobo.fun/posts/2020/20200411-django-query-optimization/</link>
+      <pubDate>Sat, 11 Apr 2020 23:23:53 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/posts/2020/20200411-django-query-optimization/</guid>
+      <description>&lt;p&gt;django查询优化&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Django ORM 查询</title>

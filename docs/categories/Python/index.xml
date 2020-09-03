@@ -30,12 +30,30 @@
     </item>
     
     <item>
+      <title>Django查询优化</title>
+      <link>https://blog.shaobo.fun/posts/2020/20200411-django-query-optimization/</link>
+      <pubDate>Sat, 11 Apr 2020 23:23:53 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/posts/2020/20200411-django-query-optimization/</guid>
+      <description>&lt;p&gt;django查询优化&lt;/p&gt;</description>
+    </item>
+    
+    <item>
       <title>Python性能分析</title>
       <link>https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/</link>
       <pubDate>Fri, 10 Apr 2020 14:12:45 +0800</pubDate>
       
       <guid>https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/</guid>
       <description>&lt;p&gt;对代码优化的前提是需要了解性能瓶颈在什么地方，程序运行的主要时间和内存是消耗在哪里。line_profiler和memory_profiler就能够很好的帮我们定位到时间和内存都消耗在哪里了。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Numpy Pandas Matplotlib整理</title>
+      <link>https://blog.shaobo.fun/posts/2020/20200331-numpy-pandas-matplotlib/</link>
+      <pubDate>Tue, 31 Mar 2020 14:14:41 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/posts/2020/20200331-numpy-pandas-matplotlib/</guid>
+      <description></description>
     </item>
     
     <item>
