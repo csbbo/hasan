@@ -144,24 +144,24 @@ asyncio<span style="color:#000;font-weight:bold">.</span>run(asyncio_test_func()
 <blockquote>
 <p>可以理解成层级关系，asyncio.run()运行一个协程，该协程里通过await关键字运行等待一个“子协程”，而“子协程”也可以通过asyncio.create_task()打包成一个asyncio任务交由await执行</p>
 </blockquote>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python3" data-lang="python3"><span style="color:#000;font-weight:bold">import</span> <span style="color:#555">asyncio</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">import</span> <span style="color:#555">asyncio</span>
 <span style="color:#000;font-weight:bold">import</span> <span style="color:#555">time</span>
 
-<span style="color:#000;font-weight:bold">async</span> <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">say_after</span>(delay, what):
-    <span style="color:#000;font-weight:bold">await</span> asyncio<span style="color:#000;font-weight:bold">.</span>sleep(delay)
-    <span style="color:#0086b3">print</span>(what)
+async <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">say_after</span>(delay, what):
+    await asyncio<span style="color:#000;font-weight:bold">.</span>sleep(delay)
+    <span style="color:#000;font-weight:bold">print</span>(what)
 
-<span style="color:#000;font-weight:bold">async</span> <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">main</span>():
+async <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">main</span>():
     task1 <span style="color:#000;font-weight:bold">=</span> asyncio<span style="color:#000;font-weight:bold">.</span>create_task(
         say_after(<span style="color:#099">3</span>, <span style="color:#d14">&#39;hello&#39;</span>))
 
     task2 <span style="color:#000;font-weight:bold">=</span> asyncio<span style="color:#000;font-weight:bold">.</span>create_task(
         say_after(<span style="color:#099">2</span>, <span style="color:#d14">&#39;world&#39;</span>))
 
-    <span style="color:#0086b3">print</span>(f<span style="color:#d14">&#34;started at {time.strftime(&#39;</span><span style="color:#d14">%X</span><span style="color:#d14">&#39;)}&#34;</span>)
+    <span style="color:#000;font-weight:bold">print</span>(f<span style="color:#d14">&#34;started at {time.strftime(&#39;</span><span style="color:#d14">%X</span><span style="color:#d14">&#39;)}&#34;</span>)
 
-    <span style="color:#000;font-weight:bold">await</span> task1
-    <span style="color:#000;font-weight:bold">await</span> task2
+    await task1
+    await task2
 
 asyncio<span style="color:#000;font-weight:bold">.</span>run(main())
 </code></pre></div><h3 id="可等待对象">可等待对象</h3>
@@ -249,6 +249,12 @@ sleep() 总是会挂起当前任务，以允许其他任务运行。</p>
     
     <div class="clearfix">
     <ul class="prevnext">
+    
+        <li class="next">
+        <a href="https://blog.shaobo.fun/posts/2020/20201109-docker-resource-limit/">
+        <i class="material-icons">arrow_back</i><span>Docker资源限制</span>
+        </a>
+        </li>
     
 
     
@@ -340,6 +346,14 @@ sleep() 总是会挂起当前任务，以允许其他任务运行。</p>
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201109-linux-command/" title="Linux常用命令(持续更新)">Linux常用命令(持续更新)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201109-docker-resource-limit/" title="Docker资源限制">Docker资源限制</a>
+    </li>
+    
+    <li>
         <a href="https://blog.shaobo.fun/posts/2020/20201103-coroutines/" title="Asyncio">Asyncio</a>
     </li>
     
@@ -371,14 +385,6 @@ sleep() 总是会挂起当前任务，以允许其他任务运行。</p>
         <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
-    <li>
-        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -389,7 +395,7 @@ sleep() 总是会挂起当前任务，以允许其他任务运行。</p>
 <ul class="widget-list">
     
     <li>
-        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(3)</a>
     </li>
     
     <li>
@@ -397,7 +403,7 @@ sleep() 总是会挂起当前任务，以允许其他任务运行。</p>
     </li>
     
     <li>
-        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(4)</a>
     </li>
     
     <li>

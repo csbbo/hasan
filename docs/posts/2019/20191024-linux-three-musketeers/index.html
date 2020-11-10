@@ -333,33 +333,112 @@ sed 's|test|TEXT|g'
 <td>/l..e/</td>
 <td>匹配包含字符 l、后跟两个任意 字符、再跟字母 e 的行</td>
 </tr>
+<tr>
+<td>*</td>
+<td>匹配零个或多个前导字符</td>
+<td>/*love/</td>
+<td>匹配在零个或多个空格紧跟着</td>
+</tr>
+<tr>
+<td>[]</td>
+<td>匹配指定字符组内任一字符</td>
+<td>/[Ll]ove/</td>
+<td>匹配包含 love 和 Love 的行</td>
+</tr>
+<tr>
+<td>[^]</td>
+<td>匹配不在指定字符组内任一字符</td>
+<td>/[^A-KM-Z]ove/</td>
+<td>匹配包含 ove，但 ove 之前的那 个字符不在 A 至 K 或 M 至 Z 间 的行</td>
+</tr>
+<tr>
+<td>(..)</td>
+<td>保存已匹配的字符</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>保存查找串以便在替换串中引用</td>
+<td>s/love/<strong>&amp;</strong>/</td>
+<td>符号&amp;代表查找串。字符串 love 将替换前后各加了两个<strong>的引 用，即 love 变成</strong>love**</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>词首定位符</td>
+<td>/&lt;love/</td>
+<td>匹配包含以 love 开头的单词的行</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>词尾定位符</td>
+<td>/love&gt;/</td>
+<td>匹配包含以 love 结尾的单词的 行</td>
+</tr>
+<tr>
+<td>x{m}</td>
+<td>连续 m 个 x</td>
+<td>/o{5}/</td>
+<td>5 个字母 o、 至少 5 个连续的 o、或 5~10 个 连续的 o 的行</td>
+</tr>
+<tr>
+<td>x{m,}</td>
+<td>至少 m 个 x</td>
+<td>/o{5,}/</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>x{m,n}</td>
+<td>m 个 x，但不 超过 n 个 x</td>
+<td>/o{5,10}/</td>
+<td>同上</td>
+</tr>
 </tbody>
 </table>
-<ul>
-<li>|匹配零个或多个前导字符 |/<em>love/ |匹配在零个或多个空格紧跟着 |模式 love 的行
-[] |匹配指定字符组内任一字符 |/[Ll]ove/ |匹配包含 love 和 Love 的行
-[^] | 匹配不在指定字符组内任一字符 |/[^A-KM-Z]ove/ |匹配包含 ove，但 ove 之前的那 个字符不在 A 至 K 或 M 至 Z 间 的行
-(..) | 保存已匹配的字符
-&amp; |保存查找串以便在替换串中引用 |s/love/<strong>&amp;</strong>/ |符号&amp;代表查找串。字符串 love 将替换前后各加了两个<strong>的引 用，即 love 变成</strong>love</em>*
-&lt; |词首定位符 |/&lt;love/ |匹配包含以 love 开头的单词的行
-&gt; |词尾定位符 |/love&gt;/ |匹配包含以 love 结尾的单词的 行
-x{m} |连续 m 个 x |/o{5}/ | 5 个字母 o、 至少 5 个连续的 o、或 5~10 个 连续的 o 的行
-x{m,} |至少 m 个 x |/o{5,}/ |同上
-x{m,n} | m 个 x，但不 超过 n 个 x |/o{5,10}/ | 同上</li>
-</ul>
+<blockquote>
+<p>在Linux上，grep不支持\d,\w的写法，可以用[0-9]和[a-z]代替，并且注意要给特殊字符&rdquo;{&rdquo;, &ldquo;}&rdquo;, &ldquo;?&ldquo;前面加反斜杠转义</p>
+</blockquote>
 <p>egrep新增的元字符</p>
-<p>egrep 在 grep 的基础上增加了更多的元字符。但是 egrep 不允许使用(),{}.
-元字符 | 功能 | 示例 | 示例的匹配对象
-&mdash;|&mdash;|&mdash;|&mdash;</p>
-<ul>
-<li>| 匹配一个或多个 | 加号前面的字符 | &lsquo;[a-z]+ove&rsquo; 匹配一个或多个小写字母后跟ove的字符串。move love approve
-？ | 匹配0个或一个前导字符 | &lsquo;lo?ve&rsquo; | 匹配l后跟一个或 0 个字母 o 以及 ve 的字符串。love lve
-a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个表达式之一
-() | 字符组 | &lsquo;love(able|ly)(ov+)&rsquo; | 匹配loveable或lovely匹配ov的一次或多次出现</li>
-</ul>
+<p>egrep 在 grep 的基础上增加了更多的元字符。但是 egrep 不允许使用(),{}.</p>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>功能</th>
+<th>示例</th>
+<th>示例的匹配对象</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td>匹配一个或多个</td>
+<td>加号前面的字符</td>
+<td>&lsquo;[a-z]+ove&rsquo; 匹配一个或多个小写字母后跟ove的字符串。move love approve</td>
+</tr>
+<tr>
+<td>？</td>
+<td>匹配0个或一个前导字符</td>
+<td>&lsquo;lo?ve&rsquo;</td>
+<td>匹配l后跟一个或 0 个字母 o 以及 ve 的字符串。love lve</td>
+</tr>
+<tr>
+<td>a|b</td>
+<td>匹配 a或b</td>
+<td>&lsquo;love | hate&rsquo;</td>
+<td>匹配 love 和 hate 这两个表达式之一</td>
+</tr>
+<tr>
+<td>()</td>
+<td>字符组</td>
+<td>&lsquo;love(able|ly)(ov+)&rsquo;</td>
+<td>匹配loveable或lovely匹配ov的一次或多次出现</td>
+</tr>
+</tbody>
+</table>
 <p>[参考]</p>
-<p><a href="https://man.linuxde.net/sed">Linux命令大全</a></p>
-<p>《跟老男孩学Linux三剑客命令》</p>
+<p><a href="https://man.linuxde.net/sed">Linux命令大全</a><br>
+《跟老男孩学Linux三剑客命令》</p>
                         </div>
 
                         
@@ -483,6 +562,14 @@ a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个�
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201109-linux-command/" title="Linux常用命令(持续更新)">Linux常用命令(持续更新)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201109-docker-resource-limit/" title="Docker资源限制">Docker资源限制</a>
+    </li>
+    
+    <li>
         <a href="https://blog.shaobo.fun/posts/2020/20201103-coroutines/" title="Asyncio">Asyncio</a>
     </li>
     
@@ -514,14 +601,6 @@ a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个�
         <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
     </li>
     
-    <li>
-        <a href="https://blog.shaobo.fun/posts/2020/20200222-tf-keras-model/" title="TensorFlow搭建神经网络">TensorFlow搭建神经网络</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.shaobo.fun/posts/2020/20200220-small-code/" title="Small Code">Small Code</a>
-    </li>
-    
 </ul>
     </section>
 
@@ -532,7 +611,7 @@ a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个�
 <ul class="widget-list">
     
     <li>
-        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(2)</a>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(3)</a>
     </li>
     
     <li>
@@ -540,7 +619,7 @@ a|b | 匹配 a或b | &lsquo;love | hate&rsquo; | 匹配 love 和 hate 这两个�
     </li>
     
     <li>
-        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(3)</a>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(4)</a>
     </li>
     
     <li>

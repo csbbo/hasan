@@ -6,10 +6,20 @@
     <description>Recent content in Linux on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 Jul 2020 15:33:57 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 09 Nov 2020 16:10:24 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/categories/Linux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Linux常用命令(持续更新)</title>
+      <link>https://blog.shaobo.fun/posts/2020/20201109-linux-command/</link>
+      <pubDate>Mon, 09 Nov 2020 16:10:24 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/posts/2020/20201109-linux-command/</guid>
+      <description>&lt;p&gt;Linux常用命令整理记录一下，常用就是个人开发过程中用的比较多的&lt;/p&gt;
+&lt;p&gt;目的呢还是提高信息检索速度和辅助记忆了，这些命令都是非常容易找到的，但是哪有cv香，哈哈哈哈！😀&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>I/O模型</title>

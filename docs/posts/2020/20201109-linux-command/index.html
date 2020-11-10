@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.74.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Linux常用命令(持续更新) | 庄周梦蝶</title>
+    <meta property="og:title" content="Linux常用命令(持续更新) - 庄周梦蝶">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2020-11-09T16:10:24&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2020-11-09T16:10:24&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Linux常用命令(持续更新)">
+        
+    <meta name="author" content="Hasan">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2020/20201109-linux-command/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.shaobo.fun/">
+                        庄周梦蝶
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">庄生晓梦迷蝴蝶,望帝春心托杜鹃.</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Linux常用命令(持续更新)</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2020-11-9
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/Linux">Linux</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#命令">命令</a></li>
+        <li><a href="#功能">功能</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>Linux常用命令整理记录一下，常用就是个人开发过程中用的比较多的</p>
+<p>目的呢还是提高信息检索速度和辅助记忆了，这些命令都是非常容易找到的，但是哪有cv香，哈哈哈哈！😀</p>
+<h3 id="命令">命令</h3>
+<p>查看系统信息</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">uname -a
+</code></pre></div><p>查看操作系统版本</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">lsb_release -a
+</code></pre></div><p>查看CPU信息</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /proc/cpuinfo
+cat /proc/cpuinfo | grep name   <span style="color:#998;font-style:italic"># 查看逻辑CPU数量和CPU型号</span>
+cat /proc/cpuinfo | grep physical   <span style="color:#998;font-style:italic"># 查看物理CPU数量</span>
+</code></pre></div><p>top</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">top
+</code></pre></div><img src="/assets/2020/1109/top.png"/>
+<p>第一行</p>
+<ul>
+<li><code>08:36:03</code>当前系统时间</li>
+<li><code>up  6:32</code>系统已连续运行时间</li>
+<li><code>2 users</code>当前登录系统用户数</li>
+<li><code>load average: 0.13, 0.14, 0.15</code>分别是1分钟、5分钟、15分钟的负载情况</li>
+</ul>
+<p>第二行</p>
+<p>系统现在有240个任务(进程)、一个运行中、239个休眠、0个终止、0个僵尸进程</p>
+<p>第三行</p>
+<ul>
+<li>us(user)用户空间占用CPU的百分比, 运行在用户态的程序</li>
+<li>sy(system)内核空间占用CPU的百分比, 内核负责管理系统进程和硬件资源,用户态进程需要分配内存和读写I/O也需要通过系统调用由内核态执行, %sy太高说明内核占用太多资源或者是用户进程发起了太多的系统调用</li>
+<li>ni(niceness)改变过优先级(优先级不为0)的进程占用CPU的百分比, niceness的取值范围是-20~19,值越小表示优先级越高，默认为0</li>
+<li>id(idle)空闲CPU百分比</li>
+<li>wa(wait)IO等待占用CPU的百分比, I/O操作时CPU也没有其他事情可做的等待时间</li>
+<li>hi(hardware interrupts)硬中断占用CPU的百分比, 一般由I/O设备引起, 需要立即处理</li>
+<li>si(software interrupts)软中断占用CPU的百分比,</li>
+<li>st和虚拟机有关, 当系统运行在虚拟机中时, 表示当前虚拟机等待CPU为他服务的时间</li>
+</ul>
+<p>第四行:内存状态</p>
+<ul>
+<li>
+<p>total — 物理内存总量</p>
+</li>
+<li>
+<p>used — 使用中的内存总量</p>
+</li>
+<li>
+<p>free — 空闲内存总量</p>
+</li>
+<li>
+<p>buffers — 缓存的内存量
+第五行:swap交换分区</p>
+</li>
+<li>
+<p>total — 交换区总量</p>
+</li>
+<li>
+<p>used — 使用的交换区总量</p>
+</li>
+<li>
+<p>free — 空闲交换区总量</p>
+</li>
+<li>
+<p>cached — 缓冲的交换区总量</p>
+</li>
+</ul>
+<p>第六行后:进程监控</p>
+<ul>
+<li>PID — 进程id</li>
+<li>USER — 进程所有者</li>
+<li>PR — 进程优先级</li>
+<li>NI — nice值。负值表示高优先级，正值表示低优先级</li>
+<li>VIRT — 进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RES</li>
+<li>RES — 进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATA</li>
+<li>SHR — 共享内存大小，单位kb</li>
+<li>S — 进程状态。D=不可中断的睡眠状态 R=运行 S=睡眠 T=跟踪/停止 Z=僵尸进程</li>
+<li>%CPU — 上次更新到现在的CPU时间占用百分比</li>
+<li>%MEM — 进程使用的物理内存百分比</li>
+<li>TIME+ — 进程使用的CPU时间总计，单位1/100秒</li>
+<li>COMMAND — 进程名称（命令名/命令行）</li>
+</ul>
+<p>查看内存</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">free -b | free -m | free -g
+</code></pre></div><p>查看磁盘</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">df -h
+</code></pre></div><p>查看文件大小</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">du -h
+</code></pre></div><p>查看进程</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ps -ef | grep &lt;name&gt;
+</code></pre></div><p>查看线程</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ps -T -p &lt;PID&gt;
+</code></pre></div><p>mac 路由管理</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo route add 172.31.9.201/24 25.25.0.2
+sudo route delete 172.31.9/24
+</code></pre></div><h3 id="功能">功能</h3>
+<p>全局搜索</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">grep -r -l <span style="color:#d14">&#34;VirtualMachineHost&#34;</span> ./ | grep <span style="color:#d14">&#39;[a-zA-Z]\{2,\}.py$&#39;</span>
+</code></pre></div><p>列出登录系统失败的ip并按登录次数从大到小排列出前20个</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo lastb | awk <span style="color:#d14">&#39;{print $3}&#39;</span> | grep <span style="color:#d14">&#39;^[0-9]\{2,3\}&#39;</span> | uniq -c | sort -n -r | head -n <span style="color:#099">20</span>
+</code></pre></div><p>全局替换</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sed -n <span style="color:#d14">&#39;s/route/router/gp&#39;</span> file.txt <span style="color:#998;font-style:italic"># 打印全局替换的效果</span>
+sed -i <span style="color:#d14">&#39;s/route/router/g&#39;</span> file.txt  <span style="color:#998;font-style:italic"># 全局替换</span>
+</code></pre></div>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://blog.shaobo.fun/tags/Linux">Linux</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+
+    
+        <li class="pre">
+        <a href="https://blog.shaobo.fun/posts/2020/20201109-docker-resource-limit/">
+        <span>Docker资源限制</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+<hr>
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/2019/20191024-linux-three-musketeers/">Linux三剑客</a></li>
+        
+        <li><a href="/posts/2019/20190702-multithreaded-programming/">多线程编程</a></li>
+        
+        <li><a href="/posts/2019/20190701-process-communication/">进程通信</a></li>
+        
+        <li><a href="/posts/2019/20190630-process-control/">进程控制</a></li>
+        
+        <li><a href="/posts/2019/20190630-fileio/">文件I/O编程</a></li>
+        
+    </ul>
+</div>
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201109-linux-command/" title="Linux常用命令(持续更新)">Linux常用命令(持续更新)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201109-docker-resource-limit/" title="Docker资源限制">Docker资源限制</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201103-coroutines/" title="Asyncio">Asyncio</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200902-qr-code/" title="Go生成二维码">Go生成二维码</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200824-raft/" title="Raft算法">Raft算法</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200811-locust/" title="性能测试工具Locust">性能测试工具Locust</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200411-django-query-optimization/" title="Django查询优化">Django查询优化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200410-line-profiler-memory-profiler/" title="Python性能分析">Python性能分析</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Golang/">Golang(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(11)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(7)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Locust/">Locust</a>
+    
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Raft/">Raft</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
+    
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
+    
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
+    
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"></h3>
+        <a href="http://beian.miit.gov.cn/">桂ICP备17011922号</a>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

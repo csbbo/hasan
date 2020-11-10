@@ -6,10 +6,19 @@
     <description>Recent content in Docker on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Dec 2019 15:31:28 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 09 Nov 2020 14:39:20 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/tags/Docker/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Docker资源限制</title>
+      <link>https://blog.shaobo.fun/posts/2020/20201109-docker-resource-limit/</link>
+      <pubDate>Mon, 09 Nov 2020 14:39:20 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/posts/2020/20201109-docker-resource-limit/</guid>
+      <description>&lt;p&gt;一个Docker宿主机上回运行若干个容器，每个容器都会消耗宿主机的CPU、内存和IO资源，对于KVM、VMWare等虚拟化技术，用户可以控制分配多少CPU、内存资源给每个虚拟机。Docker也提供了类似的机制避免某个容器因占用过多的资源从而影响其他容器乃至宿主机的性能&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>获取Docker中磁盘信息</title>
