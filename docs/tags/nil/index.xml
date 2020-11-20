@@ -6,18 +6,18 @@
     <description>Recent content in nil on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 14 Apr 2020 23:05:17 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2020 15:25:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/tags/nil/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Tensorflow基础--简单粗暴Tensorflow2学习笔记</title>
-      <link>https://blog.shaobo.fun/posts/2020/20200414-tf2-basic/</link>
-      <pubDate>Tue, 14 Apr 2020 23:05:17 +0800</pubDate>
+      <title>中国主要城市经纬度</title>
+      <link>https://blog.shaobo.fun/posts/2020/20201120-city-coordinate/</link>
+      <pubDate>Fri, 20 Nov 2020 15:25:00 +0800</pubDate>
       
-      <guid>https://blog.shaobo.fun/posts/2020/20200414-tf2-basic/</guid>
-      <description></description>
+      <guid>https://blog.shaobo.fun/posts/2020/20201120-city-coordinate/</guid>
+      <description>&lt;p&gt;23个省5、5自治区、4直辖市、2特别行政区经纬度&lt;/p&gt;</description>
     </item>
     
   </channel>

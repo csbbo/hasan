@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 09 Nov 2020 16:10:24 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2020 15:25:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>中国主要城市经纬度</title>
+      <link>https://blog.shaobo.fun/posts/2020/20201120-city-coordinate/</link>
+      <pubDate>Fri, 20 Nov 2020 15:25:00 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/posts/2020/20201120-city-coordinate/</guid>
+      <description>&lt;p&gt;23个省5、5自治区、4直辖市、2特别行政区经纬度&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Linux常用命令(持续更新)</title>

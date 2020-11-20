@@ -6,10 +6,19 @@
     <description>Recent content in Categories on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 09 Nov 2020 16:10:24 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 20 Nov 2020 15:25:00 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Tool</title>
+      <link>https://blog.shaobo.fun/categories/Tool/</link>
+      <pubDate>Fri, 20 Nov 2020 15:25:00 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/categories/Tool/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Linux</title>
@@ -62,15 +71,6 @@
       <pubDate>Sat, 22 Feb 2020 18:11:11 +0800</pubDate>
       
       <guid>https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tool</title>
-      <link>https://blog.shaobo.fun/categories/Tool/</link>
-      <pubDate>Fri, 17 Jan 2020 10:32:56 +0800</pubDate>
-      
-      <guid>https://blog.shaobo.fun/categories/Tool/</guid>
       <description></description>
     </item>
     
