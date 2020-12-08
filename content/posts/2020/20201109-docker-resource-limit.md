@@ -10,42 +10,83 @@ toc: true
 
 <!--more-->
 
-### docker-stress
-
-docker-stress是一个可以用于压力测试的Docker容器，可以生成对CPU、内存和磁盘I/O的压力
+### 内存限制
 
 ```shell
-docker run --rm -it progrium/stress --cpu 2 --io 1 --vm 2 --vm-bytes 128M --timeout 10s
+docker run -it --name limit_ubuntu --memory 1g ubuntu:18.04
 ```
 
-- `--vm` 工作线程数
-- `--vm-bytes` 每个线程分配的内存
-- `--cpu` cpu数量，与宿主机数量一样可以将cpu压满
+通过`docker stats`可以查看到容器的内存限制
+> 单位(b, k, m, g)
 
-### 内存限额
 
-- \-m设置内存限额
-- \--memory-swap 设置交换分区限额
+### cpu限制
 
+- 使用`htop`监视主机CPU, 安装
 ```shell
-docker run -m 200M --memory-swap=300M ubuntu
+sudo apt install htop -y
 ```
 
-使用`progrium/stress`进行压力测试
+- 运行容器并设置`--cpus=1.0`
 ```shell
-docker run -it -m 200M --memory-swap=300M progrium/stress --vm 1 --vm-bytes 208M
+sudo docker run -it --name limit_ubuntu --cpus=1.0 ubuntu:18.04
 ```
 
-如果分配的内存超过限额，stress线程报错误容器退出
-
-### CPU限额
-
-默认设置下，所有容器可以平等地使用CPU资源并且没有限制
-
-Docker可以通过-c或-pu-shares设置容器使用CPU的权重。如果不指定，默认值为1024。
-与内存限额不同，通过-c设置的cpu share 并不是CPU资源的绝对数量，而是一个相对的权重值。某个容器最终能分配到的CPU资源取决于它的cpu share占所有容器cpu share总和的比例。
-换句话说:通过cpu share可以设置容器使用CPU的优先级。
-
+- 进入容器将cpu拉满
 ```shell
-docker run --name "cont_A" -c 1024 ubuntu docker run --name "cont_B" -c 512 ubuntu
+for i in `seq 1 $(cat /proc/cpuinfo |grep "physical id" |wc -l)`; do dd if=/dev/zero of=/dev/null & done
 ```
+
+<img src="/assets/2020/1109/htop-1hostcpu-100load.png"/>
+
+> 可以看到docker容器使用等同于1个cpu的能力去拉满时，由于主机有4cpu，所以每个cpu的负载为25%
+
+### 进程限制
+
+- 运行容器并设置`--pids-limit 1024`
+```shell
+docker run -it --name limit_ubuntu --pids-limit 1024 ubuntu:18.04
+```
+
+- fork炸弹
+```shell
+:(){ :|:& };:
+```
+> 通过`docker stats limit_ubuntu`可以看到容器中的进程数无法超过1024
+### ulimit限制
+
+- 运行容器并设置`--ulimit nofile=20480:40960 --ulimit nproc=1024:2048`
+```shell
+docker run -it --name limit_ubuntu --ulimit nofile=20480:40960 --ulimit nproc=1024:2048 ubuntu:18.04
+```
+
+
+- ulimit所有参数命令
+```shell
+"core":       RLIMIT_CORE,                                            
+"cpu":        RLIMIT_CPU,                       
+"data":       RLIMIT_DATA,                      
+"fsize":      RLIMIT_FSIZE,
+"locks":      RLIMIT_LOCKS,
+"memlock":    RLIMIT_MEMLOCK,
+"msgqueue":   RLIMIT_MSGQUEUE,
+"nice":       RLIMIT_NICE,
+"nofile":     RLIMIT_NOFILE,
+"nproc":      RLIMIT_NPROC,
+"rss":        RLIMIT_RSS,
+"rtprio":     RLIMIT_RTPRIO,
+"rttime":     RLIMIT_RTTIME,
+"sigpending": RLIMIT_SIGPENDING,
+"stack":      RLIMIT_STACK,
+```
+
+> soft:hard soft警告设定，超过则警告。hard严格设定，不能超过该值
+
+更多操作请参考`docker run --help`
+
+[参考]
+
+[Docker SDK for Python](https://docker-py.readthedocs.io/en/stable/containers.html)  
+[Placing limits on cpu usage in containers](https://fabianlee.org/2020/01/19/docker-placing-limits-on-cpu-usage-in-containers/)  
+[Docker1.6新特性初体验](http://dockone.io/article/302)  
+[Docker底层实现](https://yeasy.gitbook.io/docker_practice/underly)
