@@ -3,12 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://blog.shaobo.fun/categories/</loc>
-    <lastmod>2020-11-20T15:25:00+08:00</lastmod>
+    <loc>https://blog.shaobo.fun/posts/</loc>
+    <lastmod>2020-12-28T11:13:28+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://blog.shaobo.fun/posts/</loc>
+    <loc>https://blog.shaobo.fun/posts/2020/20201228-python-solid/</loc>
+    <lastmod>2020-12-28T11:13:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.shaobo.fun/</loc>
+    <lastmod>2020-12-28T11:13:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.shaobo.fun/categories/</loc>
     <lastmod>2020-11-20T15:25:00+08:00</lastmod>
   </url>
   
@@ -19,11 +29,6 @@
   
   <url>
     <loc>https://blog.shaobo.fun/posts/2020/20201120-city-coordinate/</loc>
-    <lastmod>2020-11-20T15:25:00+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.shaobo.fun/</loc>
     <lastmod>2020-11-20T15:25:00+08:00</lastmod>
   </url>
   

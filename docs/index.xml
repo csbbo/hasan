@@ -6,10 +6,19 @@
     <description>Recent content on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 20 Nov 2020 15:25:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 28 Dec 2020 11:13:28 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>SOLID 原则</title>
+      <link>https://blog.shaobo.fun/posts/2020/20201228-python-solid/</link>
+      <pubDate>Mon, 28 Dec 2020 11:13:28 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/posts/2020/20201228-python-solid/</guid>
+      <description>&lt;p&gt;在程序设计领域，SOLID指代了面向对象编程和面向对象设计的五个基本原则。当这些原则被一起应用时，他们使得一个程序员开发一个容易进行软件维护和拓展的系统变得更加可能。SOLID所包含的原则是通过引发编程者进行软件源代码的代码重构进行软件代码异味清扫，从而使得软件清晰可读以及可拓展时可以应用的指南。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>中国主要城市经纬度</title>
