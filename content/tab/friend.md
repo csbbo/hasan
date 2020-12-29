@@ -9,7 +9,5 @@ type: friend
 [Staneyffer](https://www.chengfy.com/)
 [Julindada](https://julindada.github.io/)
 [飞雪无情](https://www.flysnow.org/)
-[Thinkao 的博客](https://blog.csdn.net/wangxinyao1997)
-[Henry](https://changchen.me/)
-[月色的部落格](http://blog.17study.com.cn/)
 [李文周的博客](https://www.liwenzhou.com/)
+[Thinkao 的博客](https://blog.csdn.net/wangxinyao1997)
