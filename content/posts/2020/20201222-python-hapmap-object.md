@@ -1,5 +1,5 @@
 ---
-title: "Python 面向对象编程"
+title: "Python面向对象编程"
 date: 2020-12-22T10:33:16+08:00
 categories: ["Python技能图谱"]
 tags: ["Python"]
