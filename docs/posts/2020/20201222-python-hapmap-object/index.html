@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.74.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Python 面向对象编程 | 庄周梦蝶</title>
+    <meta property="og:title" content="Python 面向对象编程 - 庄周梦蝶">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2020-12-22T10:33:16&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2020-12-22T10:33:16&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Python 面向对象编程">
+        
+    <meta name="author" content="Hasan">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2020/20201222-python-hapmap-object/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.shaobo.fun/">
+                        庄周梦蝶
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">庄生晓梦迷蝴蝶,望帝春心托杜鹃.</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Python 面向对象编程</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2020-12-22
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/Python%E6%8A%80%E8%83%BD%E5%9B%BE%E8%B0%B1">Python技能图谱</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#作用域">作用域</a></li>
+        <li><a href="#动态属性">动态属性</a></li>
+        <li><a href="#多继承">多继承</a></li>
+        <li><a href="#设计模式">设计模式</a></li>
+        <li><a href="#对象协议与鸭子类型">对象协议与鸭子类型</a></li>
+        <li><a href="#技能图谱">技能图谱</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <h3 id="作用域">作用域</h3>
+<p>python类创建的实例可以绑定任意属性，给实例绑定属性可以通过实例变量，或者通过self变量：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">User</span>():
+    <span style="color:#000;font-weight:bold">def</span> __init__(<span style="color:#999">self</span>, username):
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>username <span style="color:#000;font-weight:bold">=</span> username
+user <span style="color:#000;font-weight:bold">=</span> User(<span style="color:#d14">&#39;bob&#39;</span>)
+user<span style="color:#000;font-weight:bold">.</span>password <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;123456&#39;</span>
+</code></pre></div><p>而类本身需要绑定属性，可以直接在class中定义：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">User</span>():
+    name <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;User&#39;</span>
+
+user <span style="color:#000;font-weight:bold">=</span> User()
+user<span style="color:#000;font-weight:bold">.</span>name
+</code></pre></div><blockquote>
+<p>属性归类所有，但所有实例都可以访问到</p>
+</blockquote>
+<blockquote>
+<p>需要注意的是实例属性与类属性同名时，实例属性会将类属性屏蔽掉，但将实例属性删除掉后<code>del user.username</code>再访问到的就是类属性了</p>
+</blockquote>
+<h3 id="动态属性">动态属性</h3>
+<p>在python中数据的属性，和处理属性的方法统称为属性。相对于C这种静态语言在类固定的情况下是无法为这个类和其对象添加属性的，而python就可以，这就是python的动态属性。</p>
+<p><strong>影响属性处理方式的特殊属性</strong></p>
+<ul>
+<li><code>__class__</code>对象所属类的引用，即<code>obj.__class__</code>与<code>type(obj)</code>作用相同</li>
+<li><code>__dict__</code>一个映射，存储对象或类的可写属性</li>
+<li><code>__slots__</code>类中可以定义该属性，限制实例可以有哪些属性，<code>__slots__</code>值是由字符串组成的元组</li>
+</ul>
+<p><strong>处理属性的特殊方法</strong></p>
+<p>内置的<code>getattr</code>、<code>hasattr</code>、<code>setattr</code>和<code>del</code>函数操作属性都会触发下述相应的特殊方法</p>
+<ul>
+<li><code>__delattr__(self, name)</code></li>
+<li><code>__dir__(self)</code></li>
+<li><code>__getattr__(self, name)</code></li>
+<li><code>__getattribute__(self, name)</code></li>
+<li><code>__setattr__(self, name, value)</code></li>
+</ul>
+<p>除属性外，还可以创建特性(property)，使用存取方法修改数据属性。python内置的@property装饰器就是负责把一个方法变成属性调用的</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Event</span>(): 
+    <span style="color:#3c5d5d;font-weight:bold">@property</span>
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">venue</span>(<span style="color:#999">self</span>):
+    <span style="color:#d14">&#39;&#39;&#39;The Event attribute&#39;&#39;&#39;</span>
+        <span style="color:#000;font-weight:bold">return</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__venue
+
+    <span style="color:#3c5d5d;font-weight:bold">@venue.setter</span>
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">venue</span>(<span style="color:#999">self</span>,value):
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__venue <span style="color:#000;font-weight:bold">=</span> value
+
+    <span style="color:#3c5d5d;font-weight:bold">@venue.deleter</span>
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">venue</span>(<span style="color:#999">self</span>,value):
+        <span style="color:#000;font-weight:bold">del</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>__venue
+</code></pre></div><h3 id="多继承">多继承</h3>
+<p><strong>MRO 算法</strong></p>
+<p>mor(method resolution order)，主要用于在多继承时判断所调用的属性的路径(来自哪个类)。没有深究据说mor算法在python2.3之前是基于深度优先搜索，但在python2.3之后使用的事C3算法,参考<a href="http://blog.sina.com.cn/s/blog_45ac0d0a01018488.html">Python多重继承mro</a></p>
+<p><strong>Mixin 模式</strong></p>
+<p>利用Python的多重继承，子类可以继承不同功能的Mixin类，按需动态组合使用。参考<a href="https://zhuanlan.zhihu.com/p/95857866">通过Python理解Mixin概念</a></p>
+<p>定义和使用Mixin类应当遵循几个原则:</p>
+<ol>
+<li>Mixin 实现的功能需要是通用的，并且是单一的，比如上例中两个 Mixin 类都适用于大部分子类，每个 Mixin 只实现一种功能，可按需继承。</li>
+<li>Mixin 只用于拓展子类的功能，不能影响子类的主要功能，子类也不能依赖 Mixin。比如上例中 Person 继承不同的 Mixin 只是增加了一些功能，并不影响自身的主要功能。如果是依赖关系，则是真正的基类，不应该用 Mixin 命名。</li>
+<li>Mixin 类自身不能进行实例化，仅用于被子类继承。</li>
+</ol>
+<h3 id="设计模式">设计模式</h3>
+<p><strong>SOLID 设计原则</strong></p>
+<p>在程序设计领域，SOLID指代了面向对象编程和面向对象设计的五个基本原则。当这些原则被一起应用时，他们使得一个程序员开发一个容易进行软件维护和拓展的系统变得更加可能。SOLID所包含的原则是通过引发编程者进行软件源代码的代码重构进行软件代码异味清扫，从而使得软件清晰可读以及可拓展时可以应用的指南。</p>
+<ul>
+<li>S 单一功能原则(Single Responsibility Principle), 认为对象应该仅具有一种单一功能的概念</li>
+<li>O 开闭原则(Open-Close Principle), 认为“软件体应该是对于扩展开放的，但对于修改封闭的”的概念</li>
+<li>L 里式替换原则(Liskov Substitution Principle), 认为“程序中的对象应该是可以在不改变程序正确性的前提下被它的子类所替换的”的概念</li>
+<li>I 接口隔离原则(Interface Segregation Principle), 认为“多个特定客户端接口要好于一个宽泛用途的接口”的概念</li>
+<li>D 依赖反转原则(Dependency Inversion Principle), 认为一个方法应该遵循”依赖于抽象而不是一个实例“的概念</li>
+</ul>
+<p><strong>工厂模式</strong></p>
+<p>工厂模式中可以通过一个简单的函数就可以创建不同的对象，工厂模式一般包含<strong>工厂方法</strong>和<strong>抽象工厂</strong>两种模式。</p>
+<p>工厂方法(factory method)，工厂方法模式是指定义一个可以根据输入参数的不同返回不同对象的函数:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">JsonParser</span>:
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">parse</span>(<span style="color:#999">self</span>, raw_data):
+        <span style="color:#000;font-weight:bold">return</span> json<span style="color:#000;font-weight:bold">.</span>load(raw_data)
+
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">XMLParser</span>:
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">parse</span>(<span style="color:#999">self</span>, raw_data):
+        <span style="color:#000;font-weight:bold">return</span> xmldict(raw_data)
+
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">new_parser</span>(<span style="color:#0086b3">type</span>, <span style="color:#000;font-weight:bold">**</span>kwargs):
+    <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">type</span> <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;json&#39;</span>:
+        <span style="color:#000;font-weight:bold">return</span> JsonParser()
+    <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">type</span> <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;xml&#39;</span>:
+        <span style="color:#000;font-weight:bold">return</span> XMLParser()
+
+<span style="color:#000;font-weight:bold">if</span> __name__ <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;__mian__&#39;</span>:
+    parser <span style="color:#000;font-weight:bold">=</span> new_parser(<span style="color:#d14">&#39;json&#39;</span>)
+    parser<span style="color:#000;font-weight:bold">.</span>parser(jsonstr)
+</code></pre></div><p>抽象工厂(abstract factory), 一系列工厂方法组合在一起实现了一个抽象工厂，基于上面的例子</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">DBSaver</span>:
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">save</span>(<span style="color:#999">self</span>, obj, <span style="color:#000;font-weight:bold">**</span>kwargs):
+        model <span style="color:#000;font-weight:bold">=</span> Model(<span style="color:#000;font-weight:bold">**</span>obj)
+        model<span style="color:#000;font-weight:bold">.</span>save()
+
+
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">FileSaver</span>:
+    <span style="color:#000;font-weight:bold">def</span> __init__(<span style="color:#999">self</span>, save_dir):
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>save_dir <span style="color:#000;font-weight:bold">=</span> save_dir
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">save</span>(<span style="color:#999">self</span>, obj, name):
+        path <span style="color:#000;font-weight:bold">=</span> os<span style="color:#000;font-weight:bold">.</span>path<span style="color:#000;font-weight:bold">.</span>join(<span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>save_dir, name)
+        <span style="color:#000;font-weight:bold">with</span> <span style="color:#0086b3">open</span>(path, <span style="color:#d14">&#39;wb&#39;</span>) <span style="color:#000;font-weight:bold">as</span> fp:
+            data <span style="color:#000;font-weight:bold">=</span> json<span style="color:#000;font-weight:bold">.</span>dumps(obj)
+            fp<span style="color:#000;font-weight:bold">.</span>write(data)
+
+
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">new_saver</span>(<span style="color:#0086b3">type</span>, <span style="color:#000;font-weight:bold">**</span>kwargs):
+    <span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">type</span> <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;db&#39;</span>:
+        <span style="color:#000;font-weight:bold">return</span> DBSaver()
+    <span style="color:#000;font-weight:bold">elif</span> <span style="color:#0086b3">type</span> <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;file&#39;</span>:
+        save_dir <span style="color:#000;font-weight:bold">=</span> kwargs[<span style="color:#d14">&#39;save_dir&#39;</span>]
+        <span style="color:#000;font-weight:bold">return</span> FileSaver(save_dir)
+
+
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">FileHandler</span>:
+    <span style="color:#000;font-weight:bold">def</span> __init__(<span style="color:#999">self</span>, parse_type, save_type, <span style="color:#000;font-weight:bold">**</span>kwargs):
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>parser <span style="color:#000;font-weight:bold">=</span> new_parser(parse_type, <span style="color:#000;font-weight:bold">**</span>kwargs)
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>saver <span style="color:#000;font-weight:bold">=</span> new_saver(save_type, <span style="color:#000;font-weight:bold">**</span>kwargs)
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">do</span>(<span style="color:#999">self</span>, data, filename):
+        obj <span style="color:#000;font-weight:bold">=</span> <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>parser<span style="color:#000;font-weight:bold">.</span>parse(data)
+        <span style="color:#999">self</span><span style="color:#000;font-weight:bold">.</span>saver<span style="color:#000;font-weight:bold">.</span>save(obj, filename)
+
+handler <span style="color:#000;font-weight:bold">=</span> FileHandler(<span style="color:#d14">&#39;json&#39;</span>, <span style="color:#d14">&#39;file&#39;</span>, save_dir<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;save&#39;</span>)
+<span style="color:#000;font-weight:bold">with</span> <span style="color:#0086b3">open</span>(<span style="color:#d14">&#39;hello.json&#39;</span>) <span style="color:#000;font-weight:bold">as</span> fp:
+    data <span style="color:#000;font-weight:bold">=</span> fp<span style="color:#000;font-weight:bold">.</span>read()
+handler<span style="color:#000;font-weight:bold">.</span>do(data, <span style="color:#d14">&#39;data.json&#39;</span>)
+</code></pre></div><blockquote>
+<p>工厂方法和抽象工厂的选择： 先使用工厂方法，当发现需要使用一系列的工厂方法来创建多个对象时，可以考虑把这些创建对象的过程合并到一个抽象工厂。</p>
+</blockquote>
+<p><strong>单例模式</strong></p>
+<p>单例模式（Singleton Pattern）是一种常用的软件设计模式，该模式的主要目的是确保某一个类只有一个实例存在。当你希望在整个系统中，某个类只能出现一个实例时，单例对象就能派上用场。(但在个人Python使用场景中，单例模式事实上用处不大，因为往往只要使用一个全局变量就可以更加简单高效的实现该目的)我在另一篇文章中也列举了python中实现单例模式的实现方式<a href="https://blog.shaobo.fun/posts/2019/20191205-python-singleton-pattern/">Python单例模式实现</a></p>
+<h3 id="对象协议与鸭子类型">对象协议与鸭子类型</h3>
+<p>python作为一门动态语言，Duck Type概念遍布其中，所以其中的概念并不是以类型约束为载体，而是使用称作为协议的概念</p>
+<p>python对象协议: 在python需要调用对象的某个方法，而该对象也正好有这个方法，就就是协议。比如在加法运算中，当出现<code>+</code>时，按照数值类型相关的协议，python会去调用相应对象的<code>__add()__</code>方法。
+鸭子类型(Duck Type): 是动态语言的一种设计风格，在这种风格中，一个对象的有效的语意并不是由继承特定的类或实现特定的接口决定，而是由当前方法和属性的集合决定。简而言之就是不关心对象的类型，只关心其拥有的行为。</p>
+<p>在James Whitcomb Riley提出的鸭子测试中这样表述: “当看到一只鸟走起来像鸭子、游泳起来像鸭子、叫起来也像鸭子就可以被称为鸭子”，在鸭子类型中关注的不是对象的类型本身，而是它如何使用，如:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Duck</span>():
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">quack</span>(<span style="color:#999">self</span>):
+        <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#34;嘎嘎嘎&#34;</span>)
+
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Person</span>():
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">quack</span>(<span style="color:#999">self</span>):
+        <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#34;hello world&#34;</span>)
+
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">in_the_forest</span>(duck):
+    duck<span style="color:#000;font-weight:bold">.</span>quack()
+
+<span style="color:#000;font-weight:bold">if</span> __name__ <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;__main__&#39;</span>:
+    duck <span style="color:#000;font-weight:bold">=</span> Duck()
+    bob <span style="color:#000;font-weight:bold">=</span> Person()
+    in_the_forest(duck)
+    in_the_forest(bob)
+</code></pre></div><blockquote>
+<p>从上面可以看到，in_the_forest()函数并不关心其参数类型，只关心这个参数是否拥有quack()方法，只要有quack()方法的对象都可以被in_the_forest()函数调用。这就是鸭子类型，与C++、Java等静态语言的却别基本是完全不一样的。</p>
+</blockquote>
+<h3 id="技能图谱">技能图谱</h3>
+<img src="/assets/2020/1222/python-hapmap.jpg" style="border: 1px solid #e0e0e0"/>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://blog.shaobo.fun/tags/Python">Python</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+
+    
+        <li class="pre">
+        <a href="https://blog.shaobo.fun/posts/2020/20201120-city-coordinate/">
+        <span>中国主要城市经纬度</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+<hr>
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/2019/20191231-docker-volumes/">获取Docker中磁盘信息</a></li>
+        
+        <li><a href="/posts/2019/20190707-htmltopdf/">HtmlToPdf</a></li>
+        
+    </ul>
+</div>
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201222-python-hapmap-object/" title="Python 面向对象编程">Python 面向对象编程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201120-city-coordinate/" title="中国主要城市经纬度">中国主要城市经纬度</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201109-linux-command/" title="Linux常用命令(持续更新)">Linux常用命令(持续更新)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201109-docker-resource-limit/" title="Docker资源限制">Docker资源限制</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201103-coroutines/" title="Asyncio">Asyncio</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200902-qr-code/" title="Go生成二维码">Go生成二维码</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200824-raft/" title="Raft算法">Raft算法</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200811-locust/" title="性能测试工具Locust">性能测试工具Locust</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200708-io-model/" title="I/O模型">I/O模型</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200706-elvenlet-problem/" title="记一次Evenlet事件">记一次Evenlet事件</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Golang/">Golang(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(11)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Python%E6%8A%80%E8%83%BD%E5%9B%BE%E8%B0%B1/">Python技能图谱(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(8)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Locust/">Locust</a>
+    
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Raft/">Raft</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
+    
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
+    
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
+    
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"></h3>
+        <a href="http://beian.miit.gov.cn/">桂ICP备17011922号</a>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2020 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

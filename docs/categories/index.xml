@@ -6,10 +6,19 @@
     <description>Recent content in Categories on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 20 Nov 2020 15:25:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 22 Dec 2020 10:33:16 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Python技能图谱</title>
+      <link>https://blog.shaobo.fun/categories/Python%E6%8A%80%E8%83%BD%E5%9B%BE%E8%B0%B1/</link>
+      <pubDate>Tue, 22 Dec 2020 10:33:16 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/categories/Python%E6%8A%80%E8%83%BD%E5%9B%BE%E8%B0%B1/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Tool</title>
