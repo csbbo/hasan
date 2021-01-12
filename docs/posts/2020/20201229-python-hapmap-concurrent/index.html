@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.74.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Python并发编程 | 庄周梦蝶</title>
+    <meta property="og:title" content="Python并发编程 - 庄周梦蝶">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2020-12-29T18:00:59&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2020-12-29T18:00:59&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Python并发编程">
+        
+    <meta name="author" content="Hasan">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-concurrent/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.shaobo.fun/">
+                        庄周梦蝶
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">庄生晓梦迷蝴蝶,望帝春心托杜鹃.</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Python并发编程</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2020-12-29
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/Python%E6%8A%80%E8%83%BD%E5%9B%BE%E8%B0%B1">Python技能图谱</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#多进程">多进程</a></li>
+        <li><a href="#多线程">多线程</a></li>
+        <li><a href="#协程">协程</a></li>
+        <li><a href="#技能图谱">技能图谱</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>进程、线程、协程的并发编程</p>
+<h3 id="多进程">多进程</h3>
+<p>Unix/Linux操作系统提供一个fork()系统调用，它比较特殊调用一次fork()返回两次，因为操作系统自动把当前进程(父进程)复制一份(子进程)然后分别在父进程和子进程内返回。子进程永远返回0，而父进程则返回子进程ID</p>
+<p>使用os模块封装的系统调用可以很容易的就创建子进程:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">import</span> <span style="color:#555">os</span>
+pid <span style="color:#000;font-weight:bold">=</span> os<span style="color:#000;font-weight:bold">.</span>fork()
+<span style="color:#000;font-weight:bold">if</span> pid <span style="color:#000;font-weight:bold">==</span> <span style="color:#099">0</span>:
+    <span style="color:#000;font-weight:bold">print</span>(f<span style="color:#d14">&#39;this is child process {os.getpid()}, parent id is {os.getppid}&#39;</span>)
+<span style="color:#000;font-weight:bold">else</span>:
+    <span style="color:#000;font-weight:bold">print</span>(f<span style="color:#d14">&#39;this is parent process {os.getpid()}, create child process {pid}&#39;</span>)
+</code></pre></div><p>由于Windows没有fork()系统调用，而Python是跨平台的，自然也提供了一个跨平台的多进程解决方案，multiprocessing模块就是跨平台的多进程模块</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">from</span> <span style="color:#555">multiprocessing</span> <span style="color:#000;font-weight:bold">import</span> Process
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">os</span>
+
+<span style="color:#998;font-style:italic"># 子进程要执行的代码</span>
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">run_proc</span>(name):
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Run child process </span><span style="color:#d14">%s</span><span style="color:#d14"> (</span><span style="color:#d14">%s</span><span style="color:#d14">)...&#39;</span> <span style="color:#000;font-weight:bold">%</span> (name, os<span style="color:#000;font-weight:bold">.</span>getpid()))
+
+<span style="color:#000;font-weight:bold">if</span> __name__<span style="color:#000;font-weight:bold">==</span><span style="color:#d14">&#39;__main__&#39;</span>:
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Parent process </span><span style="color:#d14">%s</span><span style="color:#d14">.&#39;</span> <span style="color:#000;font-weight:bold">%</span> os<span style="color:#000;font-weight:bold">.</span>getpid())
+    p <span style="color:#000;font-weight:bold">=</span> Process(target<span style="color:#000;font-weight:bold">=</span>run_proc, args<span style="color:#000;font-weight:bold">=</span>(<span style="color:#d14">&#39;test&#39;</span>,))
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Child process will start.&#39;</span>)
+    p<span style="color:#000;font-weight:bold">.</span>start()
+    p<span style="color:#000;font-weight:bold">.</span>join()
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Child process end.&#39;</span>)
+</code></pre></div><p>如果要启动大量的子进程，可以用进程池的方式批量创建子进程</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">from</span> <span style="color:#555">multiprocessing</span> <span style="color:#000;font-weight:bold">import</span> Pool
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">os</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#555">time</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#555">random</span>
+
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">long_time_task</span>(name):
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Run task </span><span style="color:#d14">%s</span><span style="color:#d14"> (</span><span style="color:#d14">%s</span><span style="color:#d14">)...&#39;</span> <span style="color:#000;font-weight:bold">%</span> (name, os<span style="color:#000;font-weight:bold">.</span>getpid()))
+    start <span style="color:#000;font-weight:bold">=</span> time<span style="color:#000;font-weight:bold">.</span>time()
+    time<span style="color:#000;font-weight:bold">.</span>sleep(random<span style="color:#000;font-weight:bold">.</span>random() <span style="color:#000;font-weight:bold">*</span> <span style="color:#099">3</span>)
+    end <span style="color:#000;font-weight:bold">=</span> time<span style="color:#000;font-weight:bold">.</span>time()
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Task </span><span style="color:#d14">%s</span><span style="color:#d14"> runs </span><span style="color:#d14">%0.2f</span><span style="color:#d14"> seconds.&#39;</span> <span style="color:#000;font-weight:bold">%</span> (name, (end <span style="color:#000;font-weight:bold">-</span> start)))
+
+<span style="color:#000;font-weight:bold">if</span> __name__<span style="color:#000;font-weight:bold">==</span><span style="color:#d14">&#39;__main__&#39;</span>:
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Parent process </span><span style="color:#d14">%s</span><span style="color:#d14">.&#39;</span> <span style="color:#000;font-weight:bold">%</span> os<span style="color:#000;font-weight:bold">.</span>getpid())
+    p <span style="color:#000;font-weight:bold">=</span> Pool(<span style="color:#099">4</span>)
+    <span style="color:#000;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#0086b3">range</span>(<span style="color:#099">5</span>):
+        p<span style="color:#000;font-weight:bold">.</span>apply_async(long_time_task, args<span style="color:#000;font-weight:bold">=</span>(i,))
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Waiting for all subprocesses done...&#39;</span>)
+    p<span style="color:#000;font-weight:bold">.</span>close()
+    p<span style="color:#000;font-weight:bold">.</span>join()
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;All subprocesses done.&#39;</span>)
+</code></pre></div><p>很多时候，子进程并不是自身，而是一个外部进程。我们创建了子进程后，还需要控制子进程的输入和输出。
+subprocess模块可以让我们非常方便地启动一个子进程，然后控制其输入和输出</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">import</span> <span style="color:#555">subprocess</span>
+
+<span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;$ nslookup www.python.org&#39;</span>)
+r <span style="color:#000;font-weight:bold">=</span> subprocess<span style="color:#000;font-weight:bold">.</span>call([<span style="color:#d14">&#39;nslookup&#39;</span>, <span style="color:#d14">&#39;www.python.org&#39;</span>])
+<span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Exit code:&#39;</span>, r)
+</code></pre></div><p>Process之间肯定是需要通信的，操作系统提供了很多机制来实现进程间的通信。Python的multiprocessing模块包装了底层的机制，提供了Queue、Pipes等多种方式来交换数据。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">from</span> <span style="color:#555">multiprocessing</span> <span style="color:#000;font-weight:bold">import</span> Process, Queue
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">os</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#555">time</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#555">random</span>
+
+<span style="color:#998;font-style:italic"># 写数据进程执行的代码:</span>
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">write</span>(q):
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Process to write: </span><span style="color:#d14">%s</span><span style="color:#d14">&#39;</span> <span style="color:#000;font-weight:bold">%</span> os<span style="color:#000;font-weight:bold">.</span>getpid())
+    <span style="color:#000;font-weight:bold">for</span> value <span style="color:#000;font-weight:bold">in</span> [<span style="color:#d14">&#39;A&#39;</span>, <span style="color:#d14">&#39;B&#39;</span>, <span style="color:#d14">&#39;C&#39;</span>]:
+        <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Put </span><span style="color:#d14">%s</span><span style="color:#d14"> to queue...&#39;</span> <span style="color:#000;font-weight:bold">%</span> value)
+        q<span style="color:#000;font-weight:bold">.</span>put(value)
+        time<span style="color:#000;font-weight:bold">.</span>sleep(random<span style="color:#000;font-weight:bold">.</span>random())
+
+<span style="color:#998;font-style:italic"># 读数据进程执行的代码:</span>
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">read</span>(q):
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Process to read: </span><span style="color:#d14">%s</span><span style="color:#d14">&#39;</span> <span style="color:#000;font-weight:bold">%</span> os<span style="color:#000;font-weight:bold">.</span>getpid())
+    <span style="color:#000;font-weight:bold">while</span> <span style="color:#999">True</span>:
+        value <span style="color:#000;font-weight:bold">=</span> q<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#999">True</span>)
+        <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Get </span><span style="color:#d14">%s</span><span style="color:#d14"> from queue.&#39;</span> <span style="color:#000;font-weight:bold">%</span> value)
+
+<span style="color:#000;font-weight:bold">if</span> __name__<span style="color:#000;font-weight:bold">==</span><span style="color:#d14">&#39;__main__&#39;</span>:
+    <span style="color:#998;font-style:italic"># 父进程创建Queue，并传给各个子进程：</span>
+    q <span style="color:#000;font-weight:bold">=</span> Queue()
+    pw <span style="color:#000;font-weight:bold">=</span> Process(target<span style="color:#000;font-weight:bold">=</span>write, args<span style="color:#000;font-weight:bold">=</span>(q,))
+    pr <span style="color:#000;font-weight:bold">=</span> Process(target<span style="color:#000;font-weight:bold">=</span>read, args<span style="color:#000;font-weight:bold">=</span>(q,))
+    <span style="color:#998;font-style:italic"># 启动子进程pw，写入:</span>
+    pw<span style="color:#000;font-weight:bold">.</span>start()
+    <span style="color:#998;font-style:italic"># 启动子进程pr，读取:</span>
+    pr<span style="color:#000;font-weight:bold">.</span>start()
+    <span style="color:#998;font-style:italic"># 等待pw结束:</span>
+    pw<span style="color:#000;font-weight:bold">.</span>join()
+    <span style="color:#998;font-style:italic"># pr进程里是死循环，无法等待其结束，只能强行终止:</span>
+    pr<span style="color:#000;font-weight:bold">.</span>terminate()
+</code></pre></div><h3 id="多线程">多线程</h3>
+<p>由于线程是操作系统直接支持的执行单元，因此，高级语言通常都内置多线程的支持，Python也不例外，并且，Python的线程是真正的Posix Thread，而不是模拟出来的线程。</p>
+<p>Python的标准库提供了两个模块：_thread和threading，_thread是低级模块，threading是高级模块，对_thread进行了封装。绝大多数情况下，我们只需要使用threading这个高级模块。</p>
+<p>启动一个线程就是把一个函数传入并创建Thread实例，然后调用start()开始执行：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">import</span> <span style="color:#555">time</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#555">threading</span>
+
+<span style="color:#998;font-style:italic"># 新线程执行的代码:</span>
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">loop</span>():
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;thread </span><span style="color:#d14">%s</span><span style="color:#d14"> is running...&#39;</span> <span style="color:#000;font-weight:bold">%</span> threading<span style="color:#000;font-weight:bold">.</span>current_thread()<span style="color:#000;font-weight:bold">.</span>name)
+    n <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>
+    <span style="color:#000;font-weight:bold">while</span> n <span style="color:#000;font-weight:bold">&lt;</span> <span style="color:#099">5</span>:
+        n <span style="color:#000;font-weight:bold">=</span> n <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">1</span>
+        <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;thread </span><span style="color:#d14">%s</span><span style="color:#d14"> &gt;&gt;&gt; </span><span style="color:#d14">%s</span><span style="color:#d14">&#39;</span> <span style="color:#000;font-weight:bold">%</span> (threading<span style="color:#000;font-weight:bold">.</span>current_thread()<span style="color:#000;font-weight:bold">.</span>name, n))
+        time<span style="color:#000;font-weight:bold">.</span>sleep(<span style="color:#099">1</span>)
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;thread </span><span style="color:#d14">%s</span><span style="color:#d14"> ended.&#39;</span> <span style="color:#000;font-weight:bold">%</span> threading<span style="color:#000;font-weight:bold">.</span>current_thread()<span style="color:#000;font-weight:bold">.</span>name)
+
+<span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;thread </span><span style="color:#d14">%s</span><span style="color:#d14"> is running...&#39;</span> <span style="color:#000;font-weight:bold">%</span> threading<span style="color:#000;font-weight:bold">.</span>current_thread()<span style="color:#000;font-weight:bold">.</span>name)
+t <span style="color:#000;font-weight:bold">=</span> threading<span style="color:#000;font-weight:bold">.</span>Thread(target<span style="color:#000;font-weight:bold">=</span>loop, name<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;LoopThread&#39;</span>)
+t<span style="color:#000;font-weight:bold">.</span>start()
+t<span style="color:#000;font-weight:bold">.</span>join()
+<span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;thread </span><span style="color:#d14">%s</span><span style="color:#d14"> ended.&#39;</span> <span style="color:#000;font-weight:bold">%</span> threading<span style="color:#000;font-weight:bold">.</span>current_thread()<span style="color:#000;font-weight:bold">.</span>name)
+</code></pre></div><blockquote>
+<p>由于任何进程默认就会启动一个线程，我们把该线程称为主线程，主线程又可以启动新的线程，Python的threading模块有个current_thread()函数，它永远返回当前线程的实例。主线程实例的名字叫MainThread，子线程的名字在创建时指定，我们用LoopThread命名子线程。名字仅仅在打印时用来显示，完全没有其他意义，如果不起名字Python就自动给线程命名为Thread-1，Thread-2……</p>
+</blockquote>
+<p>在多线程中多个线程共享一个变量，所以任何一个变量都可以被任何一个线程修改，因此线程之间数据共享的最大危险在于多个线程修改一个变量把内容该乱了。其原因在于高级语言中即使是一条很简单的语句cpu执行时也会分成多步执行，如：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">balance <span style="color:#000;font-weight:bold">=</span> balance <span style="color:#000;font-weight:bold">+</span> n
+</code></pre></div><p>cpu执行时就变成了</p>
+<ol>
+<li>计算balance + n,存入临时变量中</li>
+<li>将临时变量的值赋给balance</li>
+</ol>
+<p>如果我们要确保balance计算正确，就要给change_it()上一把锁，当某个线程开始执行change_it()时，我们说，该线程因为获得了锁，因此其他线程不能同时执行change_it()，只能等待，直到锁被释放后，获得该锁以后才能改。由于锁只有一个，无论多少线程，同一时刻最多只有一个线程持有该锁，所以，不会造成修改的冲突。创建一个锁就是通过threading.Lock()来实现：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">balance <span style="color:#000;font-weight:bold">=</span> <span style="color:#099">0</span>
+lock <span style="color:#000;font-weight:bold">=</span> threading<span style="color:#000;font-weight:bold">.</span>Lock()
+
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">run_thread</span>(n):
+    <span style="color:#000;font-weight:bold">for</span> i <span style="color:#000;font-weight:bold">in</span> <span style="color:#0086b3">range</span>(<span style="color:#099">100000</span>):
+        <span style="color:#998;font-style:italic"># 先要获取锁:</span>
+        lock<span style="color:#000;font-weight:bold">.</span>acquire()
+        <span style="color:#000;font-weight:bold">try</span>:
+            <span style="color:#998;font-style:italic"># 放心地改吧:</span>
+            change_it(n)
+        <span style="color:#000;font-weight:bold">finally</span>:
+            <span style="color:#998;font-style:italic"># 改完了一定要释放锁:</span>
+            lock<span style="color:#000;font-weight:bold">.</span>release()
+</code></pre></div><h3 id="协程">协程</h3>
+<p>协程，又称微线程，纤程。英文名Coroutine</p>
+<p>协程看上去也是子程序，但执行过程中，在子程序内部可中断，然后转而执行别的子程序，在适当的时候再返回来接着执行，需要注意的是，在一个子程序中中断，去执行其他子程序，不是函数调用，有点类似CPU的中断。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">async <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">hello</span>():
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#34;Hello world!&#34;</span>)
+    r <span style="color:#000;font-weight:bold">=</span> await asyncio<span style="color:#000;font-weight:bold">.</span>sleep(<span style="color:#099">1</span>)
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#34;Hello again!&#34;</span>)
+</code></pre></div><p><strong>aiohttp</strong></p>
+<p>asyncio可以实现单线程并发IO操作,asyncio实现了TCP、UDP、SSL等协议，aiohttp则是基于asyncio实现的HTTP框架</p>
+<p>编写一个HTTP服务器，分别处理以下URL:</p>
+<ul>
+<li><code>/</code> - 首页返回<code>b'&lt;h1&gt;Index&lt;/h1&gt;'</code></li>
+<li><code>/hello/{name}</code> - 根据URL参数返回文本<code>hello, %s!</code></li>
+</ul>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">import</span> <span style="color:#555">asyncio</span>
+
+<span style="color:#000;font-weight:bold">from</span> <span style="color:#555">aiohttp</span> <span style="color:#000;font-weight:bold">import</span> web
+
+async <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">index</span>(request):
+    await asyncio<span style="color:#000;font-weight:bold">.</span>sleep(<span style="color:#099">0.5</span>)
+    <span style="color:#000;font-weight:bold">return</span> web<span style="color:#000;font-weight:bold">.</span>Response(body<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">b</span><span style="color:#d14">&#39;&lt;h1&gt;Index&lt;/h1&gt;&#39;</span>)
+
+async <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">hello</span>(request):
+    await asyncio<span style="color:#000;font-weight:bold">.</span>sleep(<span style="color:#099">0.5</span>)
+    text <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;&lt;h1&gt;hello, </span><span style="color:#d14">%s</span><span style="color:#d14">!&lt;/h1&gt;&#39;</span> <span style="color:#000;font-weight:bold">%</span> request<span style="color:#000;font-weight:bold">.</span>match_info[<span style="color:#d14">&#39;name&#39;</span>]
+    <span style="color:#000;font-weight:bold">return</span> web<span style="color:#000;font-weight:bold">.</span>Response(body<span style="color:#000;font-weight:bold">=</span>text<span style="color:#000;font-weight:bold">.</span>encode(<span style="color:#d14">&#39;utf-8&#39;</span>))
+
+async <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">init</span>(loop):
+    app <span style="color:#000;font-weight:bold">=</span> web<span style="color:#000;font-weight:bold">.</span>Application(loop<span style="color:#000;font-weight:bold">=</span>loop)
+    app<span style="color:#000;font-weight:bold">.</span>router<span style="color:#000;font-weight:bold">.</span>add_route(<span style="color:#d14">&#39;GET&#39;</span>, <span style="color:#d14">&#39;/&#39;</span>, index)
+    app<span style="color:#000;font-weight:bold">.</span>router<span style="color:#000;font-weight:bold">.</span>add_route(<span style="color:#d14">&#39;GET&#39;</span>, <span style="color:#d14">&#39;/hello/{name}&#39;</span>, hello)
+    srv <span style="color:#000;font-weight:bold">=</span> await loop<span style="color:#000;font-weight:bold">.</span>create_server(app<span style="color:#000;font-weight:bold">.</span>make_handler(), <span style="color:#d14">&#39;127.0.0.1&#39;</span>, <span style="color:#099">8000</span>)
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Server started at http://127.0.0.1:8000...&#39;</span>)
+    <span style="color:#000;font-weight:bold">return</span> srv
+
+loop <span style="color:#000;font-weight:bold">=</span> asyncio<span style="color:#000;font-weight:bold">.</span>get_event_loop()
+loop<span style="color:#000;font-weight:bold">.</span>run_until_complete(init(loop))
+loop<span style="color:#000;font-weight:bold">.</span>run_forever()
+</code></pre></div><h3 id="技能图谱">技能图谱</h3>
+<img src="/assets/2020/1222/python-hapmap.jpg" style="border: 1px solid #e0e0e0"/>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://blog.shaobo.fun/tags/Python">Python</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+
+    
+        <li class="pre">
+        <a href="https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-decorator/">
+        <span>巧用装饰器</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+<hr>
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/2020/20201229-python-hapmap-decorator/">巧用装饰器</a></li>
+        
+        <li><a href="/posts/2020/20201222-python-hapmap-object/">Python面向对象编程</a></li>
+        
+        <li><a href="/posts/2019/20191231-docker-volumes/">获取Docker中磁盘信息</a></li>
+        
+        <li><a href="/posts/2019/20190707-htmltopdf/">HtmlToPdf</a></li>
+        
+    </ul>
+</div>
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-concurrent/" title="Python并发编程">Python并发编程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-decorator/" title="巧用装饰器">巧用装饰器</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201222-python-hapmap-object/" title="Python面向对象编程">Python面向对象编程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201120-city-coordinate/" title="中国主要城市经纬度">中国主要城市经纬度</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201109-linux-command/" title="Linux常用命令(持续更新)">Linux常用命令(持续更新)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201109-docker-resource-limit/" title="Docker资源限制">Docker资源限制</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201103-coroutines/" title="Asyncio">Asyncio</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200902-qr-code/" title="Go生成二维码">Go生成二维码</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200824-raft/" title="Raft算法">Raft算法</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20200811-locust/" title="性能测试工具Locust">性能测试工具Locust</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Golang/">Golang(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(11)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Python%E6%8A%80%E8%83%BD%E5%9B%BE%E8%B0%B1/">Python技能图谱(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(8)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Locust/">Locust</a>
+    
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Raft/">Raft</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
+    
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
+    
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
+    
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"></h3>
+        <a href="http://beian.miit.gov.cn/">桂ICP备17011922号</a>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2021 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

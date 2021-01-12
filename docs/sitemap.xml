@@ -4,36 +4,41 @@
   
   <url>
     <loc>https://blog.shaobo.fun/categories/</loc>
-    <lastmod>2020-12-29T15:00:10+08:00</lastmod>
+    <lastmod>2020-12-29T18:00:59+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.shaobo.fun/posts/</loc>
-    <lastmod>2020-12-29T15:00:10+08:00</lastmod>
+    <lastmod>2020-12-29T18:00:59+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.shaobo.fun/tags/Python/</loc>
-    <lastmod>2020-12-29T15:00:10+08:00</lastmod>
+    <lastmod>2020-12-29T18:00:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-concurrent/</loc>
+    <lastmod>2020-12-29T18:00:59+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.shaobo.fun/categories/Python%E6%8A%80%E8%83%BD%E5%9B%BE%E8%B0%B1/</loc>
-    <lastmod>2020-12-29T15:00:10+08:00</lastmod>
+    <lastmod>2020-12-29T18:00:59+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.shaobo.fun/tags/</loc>
-    <lastmod>2020-12-29T15:00:10+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-decorator/</loc>
-    <lastmod>2020-12-29T15:00:10+08:00</lastmod>
+    <lastmod>2020-12-29T18:00:59+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.shaobo.fun/</loc>
+    <lastmod>2020-12-29T18:00:59+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-decorator/</loc>
     <lastmod>2020-12-29T15:00:10+08:00</lastmod>
   </url>
   

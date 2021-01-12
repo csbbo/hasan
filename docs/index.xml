@@ -6,10 +6,19 @@
     <description>Recent content on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Dec 2020 15:00:10 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 29 Dec 2020 18:00:59 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Python并发编程</title>
+      <link>https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-concurrent/</link>
+      <pubDate>Tue, 29 Dec 2020 18:00:59 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-concurrent/</guid>
+      <description>&lt;p&gt;进程、线程、协程的并发编程&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>巧用装饰器</title>
