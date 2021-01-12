@@ -4,7 +4,6 @@ date: 2020-12-29T18:00:59+08:00
 categories: ["Python技能图谱"]
 tags: ["Python"]
 toc: true
-draft: true
 ---
 
 进程、线程、协程的并发编程
@@ -165,6 +164,53 @@ def run_thread(n):
 ```
 
 ### 协程
+
+协程，又称微线程，纤程。英文名Coroutine
+
+协程看上去也是子程序，但执行过程中，在子程序内部可中断，然后转而执行别的子程序，在适当的时候再返回来接着执行，需要注意的是，在一个子程序中中断，去执行其他子程序，不是函数调用，有点类似CPU的中断。
+
+```python
+async def hello():
+    print("Hello world!")
+    r = await asyncio.sleep(1)
+    print("Hello again!")
+```
+
+**aiohttp**
+
+asyncio可以实现单线程并发IO操作,asyncio实现了TCP、UDP、SSL等协议，aiohttp则是基于asyncio实现的HTTP框架
+
+编写一个HTTP服务器，分别处理以下URL:
+
++ `/` - 首页返回`b'<h1>Index</h1>'`
++ `/hello/{name}` - 根据URL参数返回文本`hello, %s!`
+
+```python
+import asyncio
+
+from aiohttp import web
+
+async def index(request):
+    await asyncio.sleep(0.5)
+    return web.Response(body=b'<h1>Index</h1>')
+
+async def hello(request):
+    await asyncio.sleep(0.5)
+    text = '<h1>hello, %s!</h1>' % request.match_info['name']
+    return web.Response(body=text.encode('utf-8'))
+
+async def init(loop):
+    app = web.Application(loop=loop)
+    app.router.add_route('GET', '/', index)
+    app.router.add_route('GET', '/hello/{name}', hello)
+    srv = await loop.create_server(app.make_handler(), '127.0.0.1', 8000)
+    print('Server started at http://127.0.0.1:8000...')
+    return srv
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(init(loop))
+loop.run_forever()
+```
 
 ### 技能图谱
 <img src="/assets/2020/1222/python-hapmap.jpg" style="border: 1px solid #e0e0e0"/>
