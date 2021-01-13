@@ -7,22 +7,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Python | 庄周梦蝶</title>
-    <meta property="og:title" content="Python - 庄周梦蝶">
+    <title>中间件 | 庄周梦蝶</title>
+    <meta property="og:title" content="中间件 - 庄周梦蝶">
     <meta property="og:type" content="article">
         
+    <meta property="article:published_time" content="2021-01-12T16:09:12&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2021-01-12T16:09:12&#43;08:00">
         
     <meta name="Keywords" content="">
-    <meta name="description" content="Python">
+    <meta name="description" content="中间件">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="https://blog.shaobo.fun/categories/Python/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2021/20210112-python-hapmap-middleware/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
     
+        <link rel="stylesheet" href="/css/prism.css">
+    
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="alternate" type="application/rss+xml+xml" href="https://blog.shaobo.fun/categories/Python/index.xml" title="庄周梦蝶" />
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 
     
@@ -32,7 +37,6 @@
     
     <link href="/iconfont/material-icons.css" rel="stylesheet">
 </head>
-
 
 <body>
 <header id="header" class="clearfix">
@@ -73,66 +77,198 @@
 
             <div class="col-8" id="main">
                 <div class="res-cons">
-                    
-                    <h3 class="archive-title">
-                        分类
-                        <span class="keyword">Python</span>
-                        中的文章
-                    </h3>
-                    
-
-                    
-                        <article class="post">
-                            <header>
-                                <h1 class="post-title">
-                                    <a href="https://blog.shaobo.fun/posts/2019/20191205-python-singleton-pattern/">Python单例模式实现</a>
-                                </h1>
-                            </header>
-                            <date class="post-meta meta-date">
-                                2019-12-5
-                            </date>
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">中间件</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2021-1-12
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
                             
-                            <div class="post-meta meta-category">
-                                |
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/Python%E6%8A%80%E8%83%BD%E5%9B%BE%E8%B0%B1">Python技能图谱</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
                                 
-                                    <a href="https://blog.shaobo.fun/categories/Python">Python</a>
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#消息队列-rabbitmq">消息队列 (RabbitMQ)</a></li>
+        <li><a href="#分布式缓存-redis">分布式缓存 (Redis)</a></li>
+        <li><a href="#rpc-grpc">RPC (GRPC)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
                                 
-                            </div>
-                            
-                            
-                        </article>
-                        <hr>
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>消息队列、分布式缓存、RPC</p>
+<h3 id="消息队列-rabbitmq">消息队列 (RabbitMQ)</h3>
+<p>macOS install RabbitMQ</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">brew install rabbitmq
+brew services start rabbitmq
+</code></pre></div><p>send.py</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic">#!/usr/bin/env python</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">pika</span>
+
+connection <span style="color:#000;font-weight:bold">=</span> pika<span style="color:#000;font-weight:bold">.</span>BlockingConnection(pika<span style="color:#000;font-weight:bold">.</span>ConnectionParameters(host<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;localhost&#39;</span>))
+channel <span style="color:#000;font-weight:bold">=</span> connection<span style="color:#000;font-weight:bold">.</span>channel()
+
+channel<span style="color:#000;font-weight:bold">.</span>queue_declare(queue<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;hello&#39;</span>)
+
+channel<span style="color:#000;font-weight:bold">.</span>basic_publish(exchange<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;&#39;</span>, routing_key<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;hello&#39;</span>, body<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;Hello World!&#39;</span>)
+<span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#34; [x] Sent &#39;Hello World!&#39;&#34;</span>)
+connection<span style="color:#000;font-weight:bold">.</span>close()
+</code></pre></div><p>receive.py</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic">#!/usr/bin/env python</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#555">pika</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#555">sys</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#555">os</span>
+
+<span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">main</span>():
+    connection <span style="color:#000;font-weight:bold">=</span> pika<span style="color:#000;font-weight:bold">.</span>BlockingConnection(pika<span style="color:#000;font-weight:bold">.</span>ConnectionParameters(host<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;localhost&#39;</span>))
+    channel <span style="color:#000;font-weight:bold">=</span> connection<span style="color:#000;font-weight:bold">.</span>channel()
+
+    channel<span style="color:#000;font-weight:bold">.</span>queue_declare(queue<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;hello&#39;</span>)
+
+    <span style="color:#000;font-weight:bold">def</span> <span style="color:#900;font-weight:bold">callback</span>(ch, method, properties, body):
+        <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#34; [x] Received </span><span style="color:#d14">%r</span><span style="color:#d14">&#34;</span> <span style="color:#000;font-weight:bold">%</span> body<span style="color:#000;font-weight:bold">.</span>decode())
+
+    channel<span style="color:#000;font-weight:bold">.</span>basic_consume(queue<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;hello&#39;</span>, on_message_callback<span style="color:#000;font-weight:bold">=</span>callback, auto_ack<span style="color:#000;font-weight:bold">=</span><span style="color:#999">True</span>)
+
+    <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39; [*] Waiting for messages. To exit press CTRL+C&#39;</span>)
+    channel<span style="color:#000;font-weight:bold">.</span>start_consuming()
+
+<span style="color:#000;font-weight:bold">if</span> __name__ <span style="color:#000;font-weight:bold">==</span> <span style="color:#d14">&#39;__main__&#39;</span>:
+    <span style="color:#000;font-weight:bold">try</span>:
+        main()
+    <span style="color:#000;font-weight:bold">except</span> <span style="color:#900;font-weight:bold">KeyboardInterrupt</span>:
+        <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#39;Interrupted&#39;</span>)
+        <span style="color:#000;font-weight:bold">try</span>:
+            sys<span style="color:#000;font-weight:bold">.</span>exit(<span style="color:#099">0</span>)
+        <span style="color:#000;font-weight:bold">except</span> <span style="color:#900;font-weight:bold">SystemExit</span>:
+            os<span style="color:#000;font-weight:bold">.</span>_exit(<span style="color:#099">0</span>)
+</code></pre></div><h3 id="分布式缓存-redis">分布式缓存 (Redis)</h3>
+<p><a href="https://blog.shaobo.fun/posts/2019/20190914-redis-exploration/">redis初探</a></p>
+<h3 id="rpc-grpc">RPC (GRPC)</h3>
+<p><a href="https://blog.shaobo.fun/posts/2019/20191216-grpc-basics/">grpc基础</a></p>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://blog.shaobo.fun/tags/Python">Python</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+
+    
+        <li class="pre">
+        <a href="https://blog.shaobo.fun/posts/2021/20210112-python-hapmap-spider/">
+        <span>爬虫</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
                     
 
+<hr>
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/2021/20210112-python-hapmap-spider/">爬虫</a></li>
+        
+        <li><a href="/posts/2020/20201229-python-hapmap-concurrent/">Python并发编程</a></li>
+        
+        <li><a href="/posts/2020/20201229-python-hapmap-decorator/">巧用装饰器</a></li>
+        
+        <li><a href="/posts/2020/20201222-python-hapmap-object/">Python面向对象编程</a></li>
+        
+        <li><a href="/posts/2019/20191231-docker-volumes/">获取Docker中磁盘信息</a></li>
+        
+    </ul>
+</div>
+
                     
-
-
-
-<ol class="page-navigator">
-    
-    <li class="prev">
-        <a href="https://blog.shaobo.fun/categories/Python/">上一页</a>
-    </li>
     
 
     
-    <li >
-        <a href="https://blog.shaobo.fun/categories/Python/">1</a>
-    </li>
     
-    <li  class="current">
-        <a href="https://blog.shaobo.fun/categories/Python/page/2/">2</a>
-    </li>
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
     
-
-    
-</ol>
-
-
-
                 </div>
             </div>
-
             <div id="secondary">
     <section class="widget">
         <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
@@ -374,13 +510,28 @@
 </footer>
 
 
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
 <a id="rocket" href="#top"></a>
 <script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
 
 
 
 <script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-
 
 
 
