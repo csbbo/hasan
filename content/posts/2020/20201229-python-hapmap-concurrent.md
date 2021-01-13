@@ -211,6 +211,3 @@ loop = asyncio.get_event_loop()
 loop.run_until_complete(init(loop))
 loop.run_forever()
 ```
-
-### 技能图谱
-<img src="/assets/2020/1222/python-hapmap.jpg" style="border: 1px solid #e0e0e0"/>

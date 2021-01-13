@@ -75,6 +75,3 @@ def log(func):
 def now():
     print('2015-3-25')
 ```
-
-### 技能图谱
-<img src="/assets/2020/1222/python-hapmap.jpg" style="border: 1px solid #e0e0e0"/>
