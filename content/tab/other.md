@@ -19,7 +19,7 @@ type: other
 
 <a class="other-page-tag" href="http://gorm.io/zh_CN/docs/index.html" target="_blank">GORM</a>
 
-<a class="other-page-tag" href="https://cyc2018.github.io/CS-Notes/#/README" target="_blank">CS-Notes</a>
+<a class="other-page-tag" href="http://www.cyc2018.xyz/" target="_blank">CS-Notes</a>
 
 <a class="other-page-tag" href="https://docs.python.org/zh-cn/3/" target="_blank">Python 3.7.4 文档</a>
 
