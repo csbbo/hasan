@@ -154,6 +154,136 @@ Bing中提供了8天内的壁纸，而又以每天为参考一次最多可获取
         pool<span style="color:#000;font-weight:bold">.</span>submit(get_and_save_picture, url, save_name)
 
     <span style="color:#000;font-weight:bold">print</span>(<span style="color:#d14">&#34;please wait...&#34;</span>)
+</code></pre></div><p>golang(新增)</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">package</span> main
+
+<span style="color:#000;font-weight:bold">import</span> (
+	<span style="color:#d14">&#34;bytes&#34;</span>
+	<span style="color:#d14">&#34;encoding/json&#34;</span>
+	<span style="color:#d14">&#34;flag&#34;</span>
+	<span style="color:#d14">&#34;fmt&#34;</span>
+	<span style="color:#d14">&#34;io&#34;</span>
+	<span style="color:#d14">&#34;io/ioutil&#34;</span>
+	<span style="color:#d14">&#34;net/http&#34;</span>
+	<span style="color:#d14">&#34;os&#34;</span>
+	<span style="color:#d14">&#34;strconv&#34;</span>
+	<span style="color:#d14">&#34;sync&#34;</span>
+)
+
+<span style="color:#000;font-weight:bold">const</span> (
+	BaseUrl = <span style="color:#d14">&#34;https://cn.bing.com/&#34;</span>
+	Url     = <span style="color:#d14">&#34;https://cn.bing.com/HPImageArchive.aspx&#34;</span>
+)
+
+<span style="color:#000;font-weight:bold">var</span> wg sync.WaitGroup
+
+<span style="color:#000;font-weight:bold">var</span> (
+	help <span style="color:#458;font-weight:bold">bool</span>
+	path <span style="color:#458;font-weight:bold">string</span>
+	date <span style="color:#458;font-weight:bold">int</span>
+	num  <span style="color:#458;font-weight:bold">int</span>
+)
+
+<span style="color:#000;font-weight:bold">type</span> Image <span style="color:#000;font-weight:bold">struct</span> {
+	Startdate     <span style="color:#458;font-weight:bold">string</span> <span style="color:#d14">`json:&#34;startdate&#34;`</span>
+	Fullstartdate <span style="color:#458;font-weight:bold">string</span> <span style="color:#d14">`json:&#34;fullstartdate&#34;`</span>
+	Enddate       <span style="color:#458;font-weight:bold">string</span> <span style="color:#d14">`json:&#34;enddate&#34;`</span>
+	Url           <span style="color:#458;font-weight:bold">string</span> <span style="color:#d14">`json:&#34;url&#34;`</span>
+	Urlbase       <span style="color:#458;font-weight:bold">string</span> <span style="color:#d14">`json:&#34;urlbase&#34;`</span>
+	Copyright     <span style="color:#458;font-weight:bold">string</span> <span style="color:#d14">`json:&#34;copyright&#34;`</span>
+	Copyrightlink <span style="color:#458;font-weight:bold">string</span> <span style="color:#d14">`json:&#34;copyrightlink&#34;`</span>
+	Title         <span style="color:#458;font-weight:bold">string</span> <span style="color:#d14">`json:&#34;title&#34;`</span>
+	Caption       <span style="color:#458;font-weight:bold">string</span> <span style="color:#d14">`json:&#34;caption&#34;`</span>
+	Copyrightonly <span style="color:#458;font-weight:bold">string</span> <span style="color:#d14">`json:&#34;copyrightonly&#34;`</span>
+	Desc          <span style="color:#458;font-weight:bold">string</span> <span style="color:#d14">`json:&#34;desc&#34;`</span>
+	Date          <span style="color:#458;font-weight:bold">string</span> <span style="color:#d14">`json:&#34;date&#34;`</span>
+	Quiz          <span style="color:#458;font-weight:bold">string</span> <span style="color:#d14">`json:&#34;quiz&#34;`</span>
+	Wp            <span style="color:#458;font-weight:bold">bool</span>   <span style="color:#d14">`json:&#34;wp&#34;`</span>
+	Hsh           <span style="color:#458;font-weight:bold">string</span> <span style="color:#d14">`json:&#34;hsh&#34;`</span>
+	Drk           <span style="color:#458;font-weight:bold">int</span>    <span style="color:#d14">`json:&#34;drk&#34;`</span>
+	Top           <span style="color:#458;font-weight:bold">int</span>    <span style="color:#d14">`json:&#34;top&#34;`</span>
+	Bot           <span style="color:#458;font-weight:bold">int</span>    <span style="color:#d14">`json:&#34;bot&#34;`</span>
+}
+
+<span style="color:#000;font-weight:bold">type</span> RespPictrueInfo <span style="color:#000;font-weight:bold">struct</span> {
+	Images   []Image                <span style="color:#d14">`json:&#34;images&#34;`</span>
+	Tooltips <span style="color:#000;font-weight:bold">map</span>[<span style="color:#458;font-weight:bold">string</span>]<span style="color:#000;font-weight:bold">interface</span>{} <span style="color:#d14">`json:&#34;tooltips`</span>
+}
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">init</span>() {
+	flag.<span style="color:#900;font-weight:bold">BoolVar</span>(<span style="color:#000;font-weight:bold">&amp;</span>help, <span style="color:#d14">&#34;help&#34;</span>, <span style="color:#000;font-weight:bold">false</span>, <span style="color:#d14">&#34;this help&#34;</span>)
+	flag.<span style="color:#900;font-weight:bold">StringVar</span>(<span style="color:#000;font-weight:bold">&amp;</span>path, <span style="color:#d14">&#34;path&#34;</span>, <span style="color:#d14">&#34;./&#34;</span>, <span style="color:#d14">&#34;表示要下载的图片数量，最多8张&#34;</span>)
+	flag.<span style="color:#900;font-weight:bold">IntVar</span>(<span style="color:#000;font-weight:bold">&amp;</span>date, <span style="color:#d14">&#34;d&#34;</span>, <span style="color:#099">0</span>, <span style="color:#d14">&#34;表示倒数第几天的图片，0表示今天,最大为7即能下载到倒数第八天的的图片&#34;</span>)
+	flag.<span style="color:#900;font-weight:bold">IntVar</span>(<span style="color:#000;font-weight:bold">&amp;</span>num, <span style="color:#d14">&#34;n&#34;</span>, <span style="color:#099">8</span>, <span style="color:#d14">&#34;表示要下载的图片数量，最多8张&#34;</span>)
+}
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	flag.<span style="color:#900;font-weight:bold">Parse</span>()
+
+	_, err <span style="color:#000;font-weight:bold">:=</span> os.<span style="color:#900;font-weight:bold">Stat</span>(path)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> <span style="color:#000;font-weight:bold">||</span> os.<span style="color:#900;font-weight:bold">IsNotExist</span>(err) {
+		<span style="color:#998;font-style:italic">// fmt.Println(&#34;路径不存在&#34;)
+</span><span style="color:#998;font-style:italic"></span>		<span style="color:#998;font-style:italic">// os.Exit(0)
+</span><span style="color:#998;font-style:italic"></span>		err = os.<span style="color:#900;font-weight:bold">Mkdir</span>(path, os.ModePerm)
+		<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+			fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;文件夹创建失败&#34;</span>)
+		}
+	}
+
+	images, err <span style="color:#000;font-weight:bold">:=</span> <span style="color:#900;font-weight:bold">getPictureInfo</span>(Url, date, num)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;图片信息获取失败&#34;</span>)
+	}
+
+	<span style="color:#000;font-weight:bold">for</span> _, image <span style="color:#000;font-weight:bold">:=</span> <span style="color:#000;font-weight:bold">range</span> images {
+		filename <span style="color:#000;font-weight:bold">:=</span> image.Enddate <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34;.jpg&#34;</span>
+		savename <span style="color:#000;font-weight:bold">:=</span> path <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34;/&#34;</span> <span style="color:#000;font-weight:bold">+</span> filename
+		url <span style="color:#000;font-weight:bold">:=</span> BaseUrl <span style="color:#000;font-weight:bold">+</span> image.Url
+		wg.<span style="color:#900;font-weight:bold">Add</span>(<span style="color:#099">1</span>)
+		<span style="color:#000;font-weight:bold">go</span> <span style="color:#900;font-weight:bold">getAndSave</span>(url, savename)
+	}
+	wg.<span style="color:#900;font-weight:bold">Wait</span>()
+	fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;all finish!&#34;</span>)
+}
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">getPictureInfo</span>(url <span style="color:#458;font-weight:bold">string</span>, date <span style="color:#458;font-weight:bold">int</span>, num <span style="color:#458;font-weight:bold">int</span>) ([]Image, <span style="color:#458;font-weight:bold">error</span>) {
+	url = url <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34;?format=js&amp;idx=&#34;</span> <span style="color:#000;font-weight:bold">+</span> strconv.<span style="color:#900;font-weight:bold">Itoa</span>(date) <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34;&amp;n=&#34;</span> <span style="color:#000;font-weight:bold">+</span> strconv.<span style="color:#900;font-weight:bold">Itoa</span>(num) <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34;&amp;nc=1596768309402&amp;pid=hp&amp;uhd=1&amp;uhdwidth=3840&amp;uhdheight=2160&#34;</span>
+	resp, err <span style="color:#000;font-weight:bold">:=</span> http.<span style="color:#900;font-weight:bold">Get</span>(url)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;网络错误&#34;</span>)
+	}
+
+	<span style="color:#000;font-weight:bold">defer</span> resp.Body.<span style="color:#900;font-weight:bold">Close</span>()
+	body, err <span style="color:#000;font-weight:bold">:=</span> ioutil.<span style="color:#900;font-weight:bold">ReadAll</span>(resp.Body)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;数据流读取失败&#34;</span>)
+	}
+
+	<span style="color:#000;font-weight:bold">var</span> jsonResp RespPictrueInfo
+	err = json.<span style="color:#900;font-weight:bold">Unmarshal</span>(body, <span style="color:#000;font-weight:bold">&amp;</span>jsonResp)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;Unmarshal失败&#34;</span>)
+	}
+	<span style="color:#000;font-weight:bold">return</span> jsonResp.Images, <span style="color:#000;font-weight:bold">nil</span>
+}
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">getAndSave</span>(url <span style="color:#458;font-weight:bold">string</span>, savename <span style="color:#458;font-weight:bold">string</span>) {
+	<span style="color:#000;font-weight:bold">defer</span> wg.<span style="color:#900;font-weight:bold">Done</span>()
+	resp, err <span style="color:#000;font-weight:bold">:=</span> http.<span style="color:#900;font-weight:bold">Get</span>(url)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;网络错误&#34;</span>)
+	}
+
+	<span style="color:#000;font-weight:bold">defer</span> resp.Body.<span style="color:#900;font-weight:bold">Close</span>()
+	body, err <span style="color:#000;font-weight:bold">:=</span> ioutil.<span style="color:#900;font-weight:bold">ReadAll</span>(resp.Body)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;数据流读取失败&#34;</span>)
+	}
+
+	out, _ <span style="color:#000;font-weight:bold">:=</span> os.<span style="color:#900;font-weight:bold">Create</span>(savename)
+	io.<span style="color:#900;font-weight:bold">Copy</span>(out, bytes.<span style="color:#900;font-weight:bold">NewReader</span>(body))
+	fmt.<span style="color:#900;font-weight:bold">Println</span>(savename <span style="color:#000;font-weight:bold">+</span> <span style="color:#d14">&#34; save done&#34;</span>)
+}
 </code></pre></div><p>环境:</p>
 <p><code>python3</code>,<code>requests</code>库</p>
 <p>将代码保存为<code>.py</code>文件后直接运行默认下载最新8天的必应壁纸，使用<code>-h</code>或<code>--help</code>参数查看更多用法</p>

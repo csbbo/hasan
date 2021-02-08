@@ -67,6 +67,139 @@ if __name__ == '__main__':
     print("please wait...")
 ```
 
+golang(新增)
+```go
+package main
+
+import (
+	"bytes"
+	"encoding/json"
+	"flag"
+	"fmt"
+	"io"
+	"io/ioutil"
+	"net/http"
+	"os"
+	"strconv"
+	"sync"
+)
+
+const (
+	BaseUrl = "https://cn.bing.com/"
+	Url     = "https://cn.bing.com/HPImageArchive.aspx"
+)
+
+var wg sync.WaitGroup
+
+var (
+	help bool
+	path string
+	date int
+	num  int
+)
+
+type Image struct {
+	Startdate     string `json:"startdate"`
+	Fullstartdate string `json:"fullstartdate"`
+	Enddate       string `json:"enddate"`
+	Url           string `json:"url"`
+	Urlbase       string `json:"urlbase"`
+	Copyright     string `json:"copyright"`
+	Copyrightlink string `json:"copyrightlink"`
+	Title         string `json:"title"`
+	Caption       string `json:"caption"`
+	Copyrightonly string `json:"copyrightonly"`
+	Desc          string `json:"desc"`
+	Date          string `json:"date"`
+	Quiz          string `json:"quiz"`
+	Wp            bool   `json:"wp"`
+	Hsh           string `json:"hsh"`
+	Drk           int    `json:"drk"`
+	Top           int    `json:"top"`
+	Bot           int    `json:"bot"`
+}
+
+type RespPictrueInfo struct {
+	Images   []Image                `json:"images"`
+	Tooltips map[string]interface{} `json:"tooltips`
+}
+
+func init() {
+	flag.BoolVar(&help, "help", false, "this help")
+	flag.StringVar(&path, "path", "./", "表示要下载的图片数量，最多8张")
+	flag.IntVar(&date, "d", 0, "表示倒数第几天的图片，0表示今天,最大为7即能下载到倒数第八天的的图片")
+	flag.IntVar(&num, "n", 8, "表示要下载的图片数量，最多8张")
+}
+
+func main() {
+	flag.Parse()
+
+	_, err := os.Stat(path)
+	if err != nil || os.IsNotExist(err) {
+		// fmt.Println("路径不存在")
+		// os.Exit(0)
+		err = os.Mkdir(path, os.ModePerm)
+		if err != nil {
+			fmt.Println("文件夹创建失败")
+		}
+	}
+
+	images, err := getPictureInfo(Url, date, num)
+	if err != nil {
+		fmt.Println("图片信息获取失败")
+	}
+
+	for _, image := range images {
+		filename := image.Enddate + ".jpg"
+		savename := path + "/" + filename
+		url := BaseUrl + image.Url
+		wg.Add(1)
+		go getAndSave(url, savename)
+	}
+	wg.Wait()
+	fmt.Println("all finish!")
+}
+
+func getPictureInfo(url string, date int, num int) ([]Image, error) {
+	url = url + "?format=js&idx=" + strconv.Itoa(date) + "&n=" + strconv.Itoa(num) + "&nc=1596768309402&pid=hp&uhd=1&uhdwidth=3840&uhdheight=2160"
+	resp, err := http.Get(url)
+	if err != nil {
+		fmt.Println("网络错误")
+	}
+
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("数据流读取失败")
+	}
+
+	var jsonResp RespPictrueInfo
+	err = json.Unmarshal(body, &jsonResp)
+	if err != nil {
+		fmt.Println("Unmarshal失败")
+	}
+	return jsonResp.Images, nil
+}
+
+func getAndSave(url string, savename string) {
+	defer wg.Done()
+	resp, err := http.Get(url)
+	if err != nil {
+		fmt.Println("网络错误")
+	}
+
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("数据流读取失败")
+	}
+
+	out, _ := os.Create(savename)
+	io.Copy(out, bytes.NewReader(body))
+	fmt.Println(savename + " save done")
+}
+```
+
 环境:
 
 `python3`,`requests`库
