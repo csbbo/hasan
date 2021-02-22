@@ -7,20 +7,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Base64笔记 | 庄周梦蝶</title>
-    <meta property="og:title" content="Base64笔记 - 庄周梦蝶">
+    <title>Django 数据库查询优化 | 庄周梦蝶</title>
+    <meta property="og:title" content="Django 数据库查询优化 - 庄周梦蝶">
     <meta property="og:type" content="article">
         
-    <meta property="article:published_time" content="2019-05-28T20:01:40&#43;08:00">
+    <meta property="article:published_time" content="2021-02-22T10:35:32&#43;08:00">
         
         
-    <meta property="article:modified_time" content="2019-05-28T20:01:40&#43;08:00">
+    <meta property="article:modified_time" content="2021-02-22T10:35:32&#43;08:00">
         
     <meta name="Keywords" content="">
-    <meta name="description" content="Base64笔记">
+    <meta name="description" content="Django 数据库查询优化">
         
     <meta name="author" content="Hasan">
-    <meta property="og:url" content="https://blog.shaobo.fun/posts/2019/20190528-base64Note/">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2021/20210222-django-db-query/">
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="/css/normalize.css">
@@ -79,11 +79,18 @@
                 <div class="res-cons">
                     <article class="post">
                         <header>
-                            <h1 class="post-title">Base64笔记</h1>
+                            <h1 class="post-title">Django 数据库查询优化</h1>
                         </header>
                         <date class="post-meta meta-date">
-                            2019-5-28
+                            2021-2-22
                         </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/Python">Python</a></span>
+                            
+                        </div>
                         
                         
                         <div class="post-meta">
@@ -91,285 +98,54 @@
                         </div>
                         
                         
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#queryset与查询">QuerySet与查询</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
                         <div class="post-content">
-                            <p>Base64是一种基于64个可打印字符来表示二进制数据的表示方法。常用于在通常处理文本数据的场合，表示、传输、存储一些二进制数据，包括MIME的电子邮件及XML的一些复杂数据。</p>
+                            <p>对于网站和Web APP来说最影响网站性能的就是数据库查询了，因为反复从数据库读写数据很耗时间和计算资源，而查询返回的数据集非常大时还会占据很多内存。这里从django orm的角度来探索数据库查询的优化。</p>
+<h3 id="queryset与查询">QuerySet与查询</h3>
+<h4 id="什么是queryset">什么是QuerySet</h4>
+<p>QuerySet是Django提供的强大的数据库接口(API)。正是因为通过它，我们可以使用filter, exclude, get等方法进行数据库查询，而不需要使用原始的SQL语言与数据库进行交互。从数据库中查询出来的结果一般是一个集合，这个集合叫就做 queryset。</p>
+<h4 id="queryset是惰性的">QuerySet是惰性的</h4>
+<p>当我们使用如<code>filter</code>语句获得queryset，Django的数据接口QuerySet并没有对数据库进行查询，只有在做进一步运算时(如打印查询结果、判断是否存在、计算结果长度)才会执行真正的数据库查询,这个过程就是queryset的执行(evaluation)。这样做的目的是减少对数据库无效的操作。</p>
+<h4 id="qeuryset自带缓存">QeurySet自带缓存</h4>
+<p>当queryset被执行后，其查询结果会载入内存并保存在queryset内置的cache中。再次使用就不需要重新去查询了</p>
+<h4 id="判断查询结果是否存在">判断查询结果是否存在</h4>
+<p><code>if</code>与<code>exists()</code>都可以判断查询结果是否存在，但两者使用却又很大的不相同。<code>if</code>会触发整个queryset的缓存，而<code>exists()</code>只会返回<code>True</code>或<code>False</code>检视查询结果是否存在而不会缓存查询结果。选用哪个办法来判断需要根据实际使用需求来看。</p>
+<h4 id="统计查询结果数量">统计查询结果数量</h4>
+<p><code>len()</code>与<code>count()</code>方法均能统计查询结果数量，这里也不说哪个更好。<code>count()</code>是从数据库层面直接获取查询结果数量而不需要返回整个queryset数据集一般来说会更快。<code>len()</code>会导致queryset的执行，需要先将整个数据集载入内存方可计算，但如果queryset数据集已经缓存在内存当中了<code>len()</code>则会更快</p>
+<h4 id="按需获取数据">按需获取数据</h4>
+<p>当查询到的queryset非常大时，会占用大量的内存，使用<code>values</code>和<code>values_list</code>按需提取数据</p>
 <blockquote>
-<p>所谓Base64，就是说选出64个字符小写字母a-z、大写字母A-Z、数字0-9、符号&quot;+&rdquo;、&quot;/&quot;（再加上作为垫字的&quot;=&rdquo;，实际上是65个字符）作为一个基本字符集。然后，其他所有符号都转换成这个字符集中的字符。</p>
+<p>注意: values和values_list返回的是字典形式字符串数据，而不是对象集合</p>
 </blockquote>
-<p>具体来说，转换方式可以分为四步:<br>
-1.将每三个字节作为一组，一共是24个二进制位。<br>
-2.将这24个二进制位分为四组，每个组有6个二进制位。<br>
-3.在每组前面加两个00，扩展成32个二进制位，即四个字节。<br>
-4.根据下表，得到扩展后的每个字节的对应符号，这就是Base64的编码值。</p>
-<p>Base64索引表:</p>
-<table>
-<thead>
-<tr>
-<th align="center">数值</th>
-<th align="center">字符</th>
-<th align="center">数值</th>
-<th align="center">字符</th>
-<th align="center">数值</th>
-<th align="center">字符</th>
-<th align="center">数值</th>
-<th align="center">字符</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">0</td>
-<td align="center">A</td>
-<td align="center">16</td>
-<td align="center">Q</td>
-<td align="center">32</td>
-<td align="center">g</td>
-<td align="center">48</td>
-<td align="center">w</td>
-</tr>
-<tr>
-<td align="center">1</td>
-<td align="center">B</td>
-<td align="center">17</td>
-<td align="center">R</td>
-<td align="center">33</td>
-<td align="center">h</td>
-<td align="center">49</td>
-<td align="center">x</td>
-</tr>
-<tr>
-<td align="center">2</td>
-<td align="center">C</td>
-<td align="center">18</td>
-<td align="center">S</td>
-<td align="center">34</td>
-<td align="center">i</td>
-<td align="center">50</td>
-<td align="center">y</td>
-</tr>
-<tr>
-<td align="center">3</td>
-<td align="center">D</td>
-<td align="center">19</td>
-<td align="center">T</td>
-<td align="center">35</td>
-<td align="center">j</td>
-<td align="center">51</td>
-<td align="center">z</td>
-</tr>
-<tr>
-<td align="center">4</td>
-<td align="center">E</td>
-<td align="center">20</td>
-<td align="center">U</td>
-<td align="center">36</td>
-<td align="center">k</td>
-<td align="center">52</td>
-<td align="center">0</td>
-</tr>
-<tr>
-<td align="center">5</td>
-<td align="center">F</td>
-<td align="center">21</td>
-<td align="center">V</td>
-<td align="center">37</td>
-<td align="center">l</td>
-<td align="center">53</td>
-<td align="center">1</td>
-</tr>
-<tr>
-<td align="center">6</td>
-<td align="center">G</td>
-<td align="center">22</td>
-<td align="center">W</td>
-<td align="center">38</td>
-<td align="center">m</td>
-<td align="center">54</td>
-<td align="center">2</td>
-</tr>
-<tr>
-<td align="center">7</td>
-<td align="center">H</td>
-<td align="center">23</td>
-<td align="center">X</td>
-<td align="center">39</td>
-<td align="center">n</td>
-<td align="center">55</td>
-<td align="center">3</td>
-</tr>
-<tr>
-<td align="center">8</td>
-<td align="center">I</td>
-<td align="center">24</td>
-<td align="center">Y</td>
-<td align="center">40</td>
-<td align="center">o</td>
-<td align="center">56</td>
-<td align="center">4</td>
-</tr>
-<tr>
-<td align="center">9</td>
-<td align="center">J</td>
-<td align="center">25</td>
-<td align="center">Z</td>
-<td align="center">41</td>
-<td align="center">p</td>
-<td align="center">57</td>
-<td align="center">5</td>
-</tr>
-<tr>
-<td align="center">10</td>
-<td align="center">K</td>
-<td align="center">26</td>
-<td align="center">a</td>
-<td align="center">42</td>
-<td align="center">q</td>
-<td align="center">58</td>
-<td align="center">6</td>
-</tr>
-<tr>
-<td align="center">11</td>
-<td align="center">L</td>
-<td align="center">27</td>
-<td align="center">b</td>
-<td align="center">43</td>
-<td align="center">r</td>
-<td align="center">59</td>
-<td align="center">7</td>
-</tr>
-<tr>
-<td align="center">12</td>
-<td align="center">M</td>
-<td align="center">28</td>
-<td align="center">c</td>
-<td align="center">44</td>
-<td align="center">s</td>
-<td align="center">60</td>
-<td align="center">8</td>
-</tr>
-<tr>
-<td align="center">13</td>
-<td align="center">N</td>
-<td align="center">29</td>
-<td align="center">d</td>
-<td align="center">45</td>
-<td align="center">t</td>
-<td align="center">61</td>
-<td align="center">9</td>
-</tr>
-<tr>
-<td align="center">14</td>
-<td align="center">O</td>
-<td align="center">30</td>
-<td align="center">e</td>
-<td align="center">46</td>
-<td align="center">u</td>
-<td align="center">62</td>
-<td align="center">+</td>
-</tr>
-<tr>
-<td align="center">15</td>
-<td align="center">P</td>
-<td align="center">31</td>
-<td align="center">f</td>
-<td align="center">47</td>
-<td align="center">v</td>
-<td align="center">63</td>
-<td align="center">/</td>
-</tr>
-</tbody>
-</table>
-<p>Base64将三个字节转化成四个字节，因此Base64编码后的文本，为原来4/3。</p>
-<blockquote>
-<p>举一个具体的实例，演示英语单词Man如何转成Base64编码。</p>
-</blockquote>
-<table>
-<tbody><tr>
-<th scope="row">文本
-</th>
-<td colspan="8" align="center"><b>M</b>
-</td>
-<td colspan="8" align="center"><b>a</b>
-</td>
-<td colspan="8" align="center"><b>n</b>
-</td></tr>
-<tr>
-<th scope="row">ASCII编码
-</th>
-<td colspan="8" align="center">77
-</td>
-<td colspan="8" align="center">97
-</td>
-<td colspan="8" align="center">110
-</td></tr>
-<tr>
-<th scope="row">二进制位
-</th>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>0
-</td></tr>
-<tr>
-<th scope="row">索引
-</th>
-<td colspan="6" align="center">19
-</td>
-<td colspan="6" align="center">22
-</td>
-<td colspan="6" align="center">5
-</td>
-<td colspan="6" align="center">46
-</td></tr>
-<tr>
-<th scope="row">Base64编码
-</th>
-<td colspan="6" align="center"><b>T</b>
-</td>
-<td colspan="6" align="center"><b>W</b>
-</td>
-<td colspan="6" align="center"><b>F</b>
-</td>
-<td colspan="6" align="center"><b>u</b>
-</td></tr></tbody>
-</table>
-<p>第一步，&ldquo;M&rdquo;、&ldquo;a&rdquo;、&ldquo;n&quot;的ASCII值分别是77、97、110，对应的二进制值是01001101、01100001、01101110，将它们连成一个24位的二进制字符串010011010110000101101110。</p>
-<p>第二步，将这个24位的二进制字符串分成4组，每组6个二进制位：010011、010110、000101、101110。</p>
-<p>第三步，在每组前面加两个00，扩展成32个二进制位，即四个字节：00010011、00010110、00000101、00101110。它们的十进制值分别是19、22、5、46。</p>
-<p>第四步，根据上表，得到每个值对应Base64编码，即T、W、F、u。</p>
-<p>因此，Man的Base64编码就是TWFu。</p>
-<blockquote>
-<p>如果字节数不足三</p>
-</blockquote>
-<p>1.<strong>二个字节的情况</strong>：将这二个字节的一共16个二进制位，按照上面的规则，转成三组，最后一组除了前面加两个0以外，后面也要加两个0。这样得到一个三位的Base64编码，再在末尾补上一个&quot;=&quot;号。<br>
-比如，&ldquo;Ma&quot;这个字符串是两个字节，可以转化成三组00010011、00010110、00010000以后，对应Base64值分别为T、W、E，再补上一个&quot;=&quot;号，因此&quot;Ma&quot;的Base64编码就是TWE=。</p>
-<p>2.<strong>一个字节的情况</strong>：将这一个字节的8个二进制位，按照上面的规则转成二组，最后一组除了前面加二个0以外，后面再加4个0。这样得到一个二位的Base64编码，再在末尾补上两个&quot;=&quot;号。<br>
-比如，&ldquo;M&quot;这个字母是一个字节，可以转化为二组00010011、00010000，对应的Base64值分别为T、Q，再补上二个&quot;=&quot;号，因此&quot;M&quot;的Base64编码就是TQ==。</p>
-<blockquote>
-<p>那汉字如何进行Base64编码，举一个中文的例子，汉字&quot;严&quot;如何转化成Base64编码？</p>
-</blockquote>
-<p>这里需要注意，汉字本身可以有多种编码，比如gb2312、utf-8、gbk等等，每一种编码的Base64对应值都不一样。下面的例子以utf-8为例。<br>
-首先，&ldquo;严&quot;的utf-8编码为E4B8A5，写成二进制就是三字节的&quot;11100100 10111000 10100101&rdquo;。将这个24位的二进制字符串，按照第3节中的规则，转换成四组一共32位的二进制值&quot;00111001 00001011 00100010 00100101&rdquo;，相应的十进制数为57、11、34、37，它们对应的Base64值就为5、L、i、l。<br>
-所以，汉字&quot;严&rdquo;（utf-8编码）的Base64值就是5Lil。</p>
+<h4 id="使用update更新数据">使用update更新数据</h4>
+<p>相比于使用<code>save()</code>方法，<code>update()</code>不需要先缓存整个queryset</p>
+<h4 id="使用explain方法分析耗时优化查询">使用explain方法分析耗时，优化查询</h4>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">Blog<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>filter(title<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;My Blog&#39;</span>)<span style="color:#000;font-weight:bold">.</span>explain(verbose<span style="color:#000;font-weight:bold">=</span><span style="color:#999">True</span>)
+
+<span style="color:#998;font-style:italic"># output</span>
+Seq Scan on public<span style="color:#000;font-weight:bold">.</span>blog  (cost<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0.00</span><span style="color:#000;font-weight:bold">..</span><span style="color:#099">35.50</span> rows<span style="color:#000;font-weight:bold">=</span><span style="color:#099">10</span> width<span style="color:#000;font-weight:bold">=</span><span style="color:#099">12</span>) (actual time<span style="color:#000;font-weight:bold">=</span><span style="color:#099">0.004</span><span style="color:#000;font-weight:bold">..</span><span style="color:#099">0.004</span> rows<span style="color:#000;font-weight:bold">=</span><span style="color:#099">10</span> loops<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>)
+  Output: <span style="color:#0086b3">id</span>, title
+  Filter: (blog<span style="color:#000;font-weight:bold">.</span>title <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;My Blog&#39;</span>::bpchar)
+Planning time: <span style="color:#099">0.064</span> ms
+Execution time: <span style="color:#099">0.058</span> ms
+</code></pre></div>
                         </div>
 
                         
@@ -379,7 +155,9 @@
                         <div class="post-meta meta-tags">
                             <ul class="clearfix">
                                 
-                                <li><a href="https://blog.shaobo.fun/tags/Base64">Base64</a></li>
+                                <li><a href="https://blog.shaobo.fun/tags/Django">Django</a></li>
+                                
+                                <li><a href="https://blog.shaobo.fun/tags/python">python</a></li>
                                 
                             </ul>
                         </div>
@@ -393,17 +171,11 @@
     <div class="clearfix">
     <ul class="prevnext">
     
-        <li class="next">
-        <a href="https://blog.shaobo.fun/posts/2019/20190623-beautifualVim/">
-        <i class="material-icons">arrow_back</i><span>工欲善其事,必先利其器--vim</span>
-        </a>
-        </li>
-    
 
     
         <li class="pre">
-        <a href="https://blog.shaobo.fun/posts/2019/20190527-sortAlgorithm/">
-        <span>九大排序算法</span><i class="material-icons">arrow_forward</i>
+        <a href="https://blog.shaobo.fun/posts/2021/20210112-python-hapmap-middleware/">
+        <span>中间件</span><i class="material-icons">arrow_forward</i>
         </a>
         </li>
     
@@ -442,6 +214,24 @@
 }
 </style>
                     
+
+<hr>
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/2020/20201103-coroutines/">Asyncio</a></li>
+        
+        <li><a href="/posts/2020/20200411-django-query-optimization/">Django查询优化</a></li>
+        
+        <li><a href="/posts/2020/20200222-tf-keras-model/">TensorFlow搭建神经网络</a></li>
+        
+        <li><a href="/posts/2020/20200113-django-complex-query-orm/">Django ORM 查询</a></li>
+        
+        <li><a href="/posts/2019/20191218-python-concurrent-programming/">Python 并发编程</a></li>
+        
+    </ul>
+</div>
 
                     
     

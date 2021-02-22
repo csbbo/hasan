@@ -6,15 +6,24 @@
     <description>Recent content in Tags on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 12 Jan 2021 16:09:12 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 22 Feb 2021 10:35:32 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Django</title>
+      <link>https://blog.shaobo.fun/tags/Django/</link>
+      <pubDate>Mon, 22 Feb 2021 10:35:32 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/tags/Django/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Python</title>
       <link>https://blog.shaobo.fun/tags/Python/</link>
-      <pubDate>Tue, 12 Jan 2021 16:09:12 +0800</pubDate>
+      <pubDate>Mon, 22 Feb 2021 10:35:32 +0800</pubDate>
       
       <guid>https://blog.shaobo.fun/tags/Python/</guid>
       <description></description>
@@ -71,15 +80,6 @@
       <pubDate>Mon, 06 Jul 2020 14:46:00 +0800</pubDate>
       
       <guid>https://blog.shaobo.fun/tags/socket.io/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Django</title>
-      <link>https://blog.shaobo.fun/tags/Django/</link>
-      <pubDate>Sat, 11 Apr 2020 23:23:53 +0800</pubDate>
-      
-      <guid>https://blog.shaobo.fun/tags/Django/</guid>
       <description></description>
     </item>
     

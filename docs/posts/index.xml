@@ -6,10 +6,19 @@
     <description>Recent content in Posts on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 12 Jan 2021 16:09:12 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 22 Feb 2021 10:35:32 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Django 数据库查询优化</title>
+      <link>https://blog.shaobo.fun/posts/2021/20210222-django-db-query/</link>
+      <pubDate>Mon, 22 Feb 2021 10:35:32 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/posts/2021/20210222-django-db-query/</guid>
+      <description>&lt;p&gt;对于网站和Web APP来说最影响网站性能的就是数据库查询了，因为反复从数据库读写数据很耗时间和计算资源，而查询返回的数据集非常大时还会占据很多内存。这里从django orm的角度来探索数据库查询的优化。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>中间件</title>
