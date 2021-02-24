@@ -108,6 +108,7 @@
     <li>
       <ul>
         <li><a href="#queryset与查询">QuerySet与查询</a></li>
+        <li><a href="#aggregate和annotate">aggregate和annotate</a></li>
       </ul>
     </li>
   </ul>
@@ -145,6 +146,20 @@ Seq Scan on public<span style="color:#000;font-weight:bold">.</span>blog  (cost<
   Filter: (blog<span style="color:#000;font-weight:bold">.</span>title <span style="color:#000;font-weight:bold">=</span> <span style="color:#d14">&#39;My Blog&#39;</span>::bpchar)
 Planning time: <span style="color:#099">0.064</span> ms
 Execution time: <span style="color:#099">0.058</span> ms
+</code></pre></div><h3 id="aggregate和annotate">aggregate和annotate</h3>
+<p>Django的<code>aggregate</code>和<code>annotate</code>方法主要用于组合查询，当我们需要对查询集(queryset)的某些字段进行计算，或先分组在计算或排序就需要用到<code>aggregate</code>和<code>annotate</code>方法了</p>
+<h4 id="准备工作">准备工作</h4>
+<p>一个模型<code>Student</code>和<code>Hobbit</code>是多对多关系:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Student</span>(models<span style="color:#000;font-weight:bold">.</span>Model):
+
+    name <span style="color:#000;font-weight:bold">=</span> models<span style="color:#000;font-weight:bold">.</span>CharField(max_length<span style="color:#000;font-weight:bold">=</span><span style="color:#099">20</span>)
+    age <span style="color:#000;font-weight:bold">=</span> models<span style="color:#000;font-weight:bold">.</span>IntegerField()
+    hobbies <span style="color:#000;font-weight:bold">=</span> models<span style="color:#000;font-weight:bold">.</span>ManyToManyField(Hobby)
+    
+<span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Hobby</span>(models<span style="color:#000;font-weight:bold">.</span>Model):
+    name <span style="color:#000;font-weight:bold">=</span> models<span style="color:#000;font-weight:bold">.</span>CharField(max_length<span style="color:#000;font-weight:bold">=</span><span style="color:#099">20</span>)
+</code></pre></div><p><code>aggregate</code>方法支持的聚合操作有<code>MIN</code>、<code>MAX</code>、<code>AVG</code>、<code>SUM</code>、<code>COUNT</code>，所以先提前import进来：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">from</span> <span style="color:#555">django.db.models</span> <span style="color:#000;font-weight:bold">import</span> Max, Min, Avg, Sum, Count
 </code></pre></div>
                         </div>
 

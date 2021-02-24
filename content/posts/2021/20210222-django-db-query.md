@@ -56,3 +56,26 @@ Planning time: 0.064 ms
 Execution time: 0.058 ms
 ```
 
+### aggregate和annotate
+
+Django的`aggregate`和`annotate`方法主要用于组合查询，当我们需要对查询集(queryset)的某些字段进行计算，或先分组在计算或排序就需要用到`aggregate`和`annotate`方法了
+
+
+#### 准备工作
+
+一个模型`Student`和`Hobbit`是多对多关系:
+```python
+class Student(models.Model):
+
+    name = models.CharField(max_length=20)
+    age = models.IntegerField()
+    hobbies = models.ManyToManyField(Hobby)
+    
+class Hobby(models.Model):
+    name = models.CharField(max_length=20)
+```
+
+`aggregate`方法支持的聚合操作有`MIN`、`MAX`、`AVG`、`SUM`、`COUNT`，所以先提前import进来：
+```python
+from django.db.models import Max, Min, Avg, Sum, Count
+```
