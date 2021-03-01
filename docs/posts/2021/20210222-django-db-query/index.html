@@ -109,6 +109,7 @@
       <ul>
         <li><a href="#queryset与查询">QuerySet与查询</a></li>
         <li><a href="#aggregate和annotate">aggregate和annotate</a></li>
+        <li><a href="#select_related和prefetch_related">select_related和prefetch_related</a></li>
       </ul>
     </li>
   </ul>
@@ -158,9 +159,136 @@ Execution time: <span style="color:#099">0.058</span> ms
     
 <span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Hobby</span>(models<span style="color:#000;font-weight:bold">.</span>Model):
     name <span style="color:#000;font-weight:bold">=</span> models<span style="color:#000;font-weight:bold">.</span>CharField(max_length<span style="color:#000;font-weight:bold">=</span><span style="color:#099">20</span>)
-</code></pre></div><p><code>aggregate</code>方法支持的聚合操作有<code>MIN</code>、<code>MAX</code>、<code>AVG</code>、<code>SUM</code>、<code>COUNT</code>，所以先提前import进来：</p>
+</code></pre></div><h4 id="aggregate">aggregate</h4>
+<p><code>aggregate</code>方法支持的聚合操作有<code>MIN</code>、<code>MAX</code>、<code>AVG</code>、<code>SUM</code>、<code>COUNT</code>，所以先提前import进来：</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">from</span> <span style="color:#555">django.db.models</span> <span style="color:#000;font-weight:bold">import</span> Max, Min, Avg, Sum, Count
-</code></pre></div>
+</code></pre></div><p>一些例子:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># 计算学生平均年龄, 返回字典。age和avg间是双下划线哦</span>
+Student<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>all()<span style="color:#000;font-weight:bold">.</span>aggregate(Avg(<span style="color:#d14">&#39;age&#39;</span>))
+{ <span style="color:#d14">&#39;age__avg&#39;</span>: <span style="color:#099">12</span> }
+
+<span style="color:#998;font-style:italic"># 学生平均年龄，返回字典。all()不是必须的。</span>
+Student<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>aggregate(Avg(<span style="color:#d14">&#39;age&#39;</span>))
+{ <span style="color:#d14">&#39;age__avg: 12&#39;</span> }
+
+<span style="color:#998;font-style:italic"># 计算学生总年龄, 返回字典。</span>
+Student<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>aggregate(Sum(<span style="color:#d14">&#39;age&#39;</span>))
+{ <span style="color:#d14">&#39;age__sum&#39;</span>: <span style="color:#099">144</span> }
+
+<span style="color:#998;font-style:italic"># 学生平均年龄, 设置字典的key</span>
+Student<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>aggregate(average_age <span style="color:#000;font-weight:bold">=</span> Avg(<span style="color:#d14">&#39;age&#39;</span>))
+{ <span style="color:#d14">&#39;average_age&#39;</span>: <span style="color:#099">12</span> }
+
+<span style="color:#998;font-style:italic"># 学生最大年龄，返回字典</span>
+Student<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>aggregate(Max(<span style="color:#d14">&#39;age&#39;</span>))
+{ <span style="color:#d14">&#39;age__max&#39;</span>: <span style="color:#099">12</span> }
+
+<span style="color:#998;font-style:italic"># 同时获取学生年龄均值, 最大值和最小值, 返回字典</span>
+Student<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>aggregate(Avg(<span style="color:#d14">&#39;age‘), Max(&#39;</span>age<span style="color:#a61717;background-color:#e3d2d2">‘</span>), Min(<span style="color:#d14">&#39;age‘))</span>
+{ <span style="color:#d14">&#39;age__avg&#39;</span>: <span style="color:#099">12</span>, <span style="color:#d14">&#39;age__max&#39;</span>: <span style="color:#099">18</span>, <span style="color:#d14">&#39;age__min&#39;</span>: <span style="color:#099">6</span>, }
+
+<span style="color:#998;font-style:italic"># 根据Hobby反查学生最大年龄。查询字段student和age间有双下划线哦。</span>
+Hobby<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>aggregate(Max(<span style="color:#d14">&#39;student__age&#39;</span>))
+{ <span style="color:#d14">&#39;student__age__max&#39;</span>: <span style="color:#099">12</span> }
+</code></pre></div><h4 id="annotate">annotate</h4>
+<p><code>annotate</code>的中文意思是注释，但似乎有点词不达意，更好的理解应该是分组(group by)。如果需要对数据集先进行分组然后再进行某些聚合操作或排序时，就需要用<code>annotate</code>来实现。与<code>aggregate</code>不同的是<code>annotate</code>返回的是一个查询集，该查询集相当于是在原来的基础上多加了一个统计字段</p>
+<p>一些例子:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># 按学生分组，统计每个学生的爱好数量</span>
+Student<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>annotate(Count(<span style="color:#d14">&#39;hobbies&#39;</span>))
+
+<span style="color:#998;font-style:italic"># 按学生分组，统计每个学生爱好数量，并自定义字段名</span>
+Student<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>annotate(hobby_count_by_student<span style="color:#000;font-weight:bold">=</span>Count(<span style="color:#d14">&#39;hobbies&#39;</span>))
+
+<span style="color:#998;font-style:italic"># 按爱好分组，再统计每组学生数量。</span>
+Hobby<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>annotate(Count(<span style="color:#d14">&#39;student&#39;</span>))
+
+<span style="color:#998;font-style:italic"># 按爱好分组，再统计每组学生最大年龄。</span>
+Hobby<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>annotate(Max(<span style="color:#d14">&#39;student__age&#39;</span>))
+</code></pre></div><h4 id="annotate与filter联用">annotate与filter联用</h4>
+<p>有时我们需要对数据集先筛选再分组或先分组再筛选，就可以通过annotate与filter联用来实现</p>
+<p>一些例子:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># 先按爱好分组，再统计每组学生数量, 然后筛选出学生数量大于1的爱好。</span>
+Hobby<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>annotate(student_num<span style="color:#000;font-weight:bold">=</span>Count(<span style="color:#d14">&#39;student&#39;</span>))<span style="color:#000;font-weight:bold">.</span>filter(student_num__gt<span style="color:#000;font-weight:bold">=</span><span style="color:#099">1</span>)
+
+<span style="color:#998;font-style:italic"># 先按爱好分组，筛选出以&#39;d&#39;开头的爱好，再统计每组学生数量。</span>
+Hobby<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>filter(name__startswith<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;d&#34;</span>)<span style="color:#000;font-weight:bold">.</span>annotate(student_num<span style="color:#000;font-weight:bold">=</span>Count(<span style="color:#d14">&#39;student‘))</span>
+</code></pre></div><h4 id="annotate与order_by联用">annotate与order_by联用</h4>
+<p>一些例子:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># 先按爱好分组，再统计每组学生数量, 然后按每组学生数量大小对爱好排序。</span>
+Hobby<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>annotate(student_num<span style="color:#000;font-weight:bold">=</span>Count(<span style="color:#d14">&#39;student‘)).order_by(&#39;</span>student_num<span style="color:#d14">&#39;)</span>
+
+<span style="color:#998;font-style:italic"># 统计最受学生欢迎的5个爱好。</span>
+Hobby<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>annotate(student_num<span style="color:#000;font-weight:bold">=</span>Count(<span style="color:#d14">&#39;student‘)).order_by(&#39;</span><span style="color:#000;font-weight:bold">-</span>student_num<span style="color:#d14">&#39;)[:5]</span>
+</code></pre></div><h4 id="annotate与values联用">annotate与values联用</h4>
+<p>在前面的例子中分组都是按照对象分组的，如按学生对象分组，同样的也可以通过<code>values</code>按如学生姓名name来分组，如果两个学生具有相同的名字他们的爱好将叠加</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># 按学生名字分组，统计每个学生的爱好数量。</span>
+Student<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>values(<span style="color:#d14">&#39;name&#39;</span>)<span style="color:#000;font-weight:bold">.</span>annotate(Count(<span style="color:#d14">&#39;hobbies&#39;</span>))
+
+<span style="color:#a61717;background-color:#e3d2d2">你还可以使用</span>values方法从annotate返回的数据集里提取你所需要的字段<span style="color:#a61717;background-color:#e3d2d2">，如下所示</span>:
+<span style="color:#998;font-style:italic"># 按学生名字分组，统计每个学生的爱好数量。</span>
+Student<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>annotate(hobby_count<span style="color:#000;font-weight:bold">=</span>Count(<span style="color:#d14">&#39;hobbies&#39;</span>))<span style="color:#000;font-weight:bold">.</span>values(<span style="color:#d14">&#39;name&#39;</span>, <span style="color:#d14">&#39;hobby_count&#39;</span>)
+</code></pre></div><h3 id="select_related和prefetch_related">select_related和prefetch_related</h3>
+<h4 id="准备工作-1">准备工作</h4>
+<p>文章(Article)与类别(Category)是一对多关系，文章(Article)与标签(Tag)是多对多关系</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#000;font-weight:bold">class</span> <span style="color:#458;font-weight:bold">Article</span>(models<span style="color:#000;font-weight:bold">.</span>Model):
+    <span style="color:#d14">&#34;&#34;&#34;文章模型&#34;&#34;&#34;</span>
+    title <span style="color:#000;font-weight:bold">=</span> models<span style="color:#000;font-weight:bold">.</span>CharField(<span style="color:#d14">&#39;标题&#39;</span>, max_length<span style="color:#000;font-weight:bold">=</span><span style="color:#099">200</span>, db_index<span style="color:#000;font-weight:bold">=</span><span style="color:#999">True</span>)
+    category <span style="color:#000;font-weight:bold">=</span> models<span style="color:#000;font-weight:bold">.</span>ForeignKey(<span style="color:#d14">&#39;Category&#39;</span>, verbose_name<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;分类&#39;</span>, on_delete<span style="color:#000;font-weight:bold">=</span>models<span style="color:#000;font-weight:bold">.</span>CASCADE, blank<span style="color:#000;font-weight:bold">=</span><span style="color:#999">False</span>, null<span style="color:#000;font-weight:bold">=</span><span style="color:#999">False</span>)
+    tags <span style="color:#000;font-weight:bold">=</span> models<span style="color:#000;font-weight:bold">.</span>ManyToManyField(<span style="color:#d14">&#39;Tag&#39;</span>, verbose_name<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;标签集合&#39;</span>, blank<span style="color:#000;font-weight:bold">=</span><span style="color:#999">True</span>)
+</code></pre></div><h4 id="糟糕的用法">糟糕的用法</h4>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">articles <span style="color:#000;font-weight:bold">=</span> Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>all()
+<span style="color:#000;font-weight:bold">for</span> article <span style="color:#000;font-weight:bold">in</span> articles:
+  <span style="color:#000;font-weight:bold">print</span>(article<span style="color:#000;font-weight:bold">.</span>title)
+  <span style="color:#000;font-weight:bold">print</span>(article<span style="color:#000;font-weight:bold">.</span>category<span style="color:#000;font-weight:bold">.</span>name)
+  <span style="color:#000;font-weight:bold">for</span> tag <span style="color:#000;font-weight:bold">in</span> article<span style="color:#000;font-weight:bold">.</span>tags<span style="color:#000;font-weight:bold">.</span>all():
+    <span style="color:#000;font-weight:bold">print</span>(tag<span style="color:#000;font-weight:bold">.</span>name)
+</code></pre></div><p>当使用<code>Article.objects.all()</code>查询得到的只是<code>Article</code>表的数据，并没有包含<code>Category</code>表和<code>Tag</code>表的数据。因此每一次打印<code>article.category.name</code>和<code>tag.name</code>都会重新去查询一遍<code>Category</code>表和<code>Tag</code>表，造成了很大不必要的浪费</p>
+<h4 id="select_related">select_related</h4>
+<p><code>select_related</code>会根据外键关系(仅限一对一、一对多)，使用<code>inner join</code>来一次性获取主体对象和相关对象的信息，这样在打印<code>article.category.name</code>时就不用去重新查询数据库了</p>
+<p>修改article查询语句:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">articles <span style="color:#000;font-weight:bold">=</span> Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>all()<span style="color:#000;font-weight:bold">.</span>select_related(<span style="color:#d14">&#39;category&#39;</span>)
+</code></pre></div><p>selected_related常用使用案例:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># 获取id=13的文章对象同时，获取其相关category信息</span>
+Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>select_related(<span style="color:#d14">&#39;category&#39;</span>)<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#0086b3">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">13</span>)
+
+<span style="color:#998;font-style:italic"># 获取id=13的文章对象同时，获取其相关作者名字信息</span>
+Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>select_related(<span style="color:#d14">&#39;author__name&#39;</span>)<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#0086b3">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">13</span>)
+
+<span style="color:#998;font-style:italic"># 获取id=13的文章对象同时，获取其相关category和相关作者名字信息。下面方法等同</span>
+Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>select_related(<span style="color:#d14">&#39;category&#39;</span>, <span style="color:#d14">&#39;author__name&#39;</span>)<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#0086b3">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">13</span>)
+Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>select_related(<span style="color:#d14">&#39;category&#39;</span>)<span style="color:#000;font-weight:bold">.</span>select_related(<span style="color:#d14">&#39;author__name&#39;</span>)<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#0086b3">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">13</span>)
+
+<span style="color:#998;font-style:italic"># 使用select_related()可返回所有相关主键信息,all()非必需</span>
+Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>all()<span style="color:#000;font-weight:bold">.</span>select_related()
+
+<span style="color:#998;font-style:italic"># 获取Article信息同时获取blog信息,filter方法和selected_related方法顺序不重要</span>
+Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>filter(pub_date__gt<span style="color:#000;font-weight:bold">=</span>timezone<span style="color:#000;font-weight:bold">.</span>now())<span style="color:#000;font-weight:bold">.</span>select_related(<span style="color:#d14">&#39;blog&#39;</span>)
+Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>select_related(<span style="color:#d14">&#39;blog&#39;</span>)<span style="color:#000;font-weight:bold">.</span>filter(pub_date__gt<span style="color:#000;font-weight:bold">=</span>timezone<span style="color:#000;font-weight:bold">.</span>now())
+</code></pre></div><h4 id="prefetch_related">prefetch_related</h4>
+<p>在多对多关系中不能再使用<code>selectd_related</code>，因为多对多<code>JOIN</code>操作后表会变得非常的大。而<code>prefetch_related</code>就是用来处理这个问题的,<code>prefect_related</code>可用于多对多关系字段，也可用于反向外键关系(related_name)</p>
+<p>再次修改article的查询语句:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">articles <span style="color:#000;font-weight:bold">=</span> Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>all()<span style="color:#000;font-weight:bold">.</span>select_related(<span style="color:#d14">&#39;category&#39;</span>)<span style="color:#000;font-weight:bold">.</span>prefecth_related(<span style="color:#d14">&#39;tags&#39;</span>)
+</code></pre></div><p>prefetch_related常用使用案例:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#998;font-style:italic"># 文章列表及每篇文章的tags对象名字信息</span>
+Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>all()<span style="color:#000;font-weight:bold">.</span>prefetch_related(<span style="color:#d14">&#39;tags__name&#39;</span>)
+
+<span style="color:#998;font-style:italic"># 获取id=13的文章对象同时，获取其相关tags信息</span>
+Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>prefetch_related(<span style="color:#d14">&#39;tags&#39;</span>)<span style="color:#000;font-weight:bold">.</span>get(<span style="color:#0086b3">id</span><span style="color:#000;font-weight:bold">=</span><span style="color:#099">13</span>)
+
+<span style="color:#a61717;background-color:#e3d2d2">用</span>Prefetch方法可以给prefetch_related方法额外添加额外条件和属性
+<span style="color:#998;font-style:italic"># 获取文章列表及每篇文章相关的名字以P开头的tags对象信息</span>
+Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>all()<span style="color:#000;font-weight:bold">.</span>prefetch_related(
+    Prefetch(<span style="color:#d14">&#39;tags&#39;</span>, queryset<span style="color:#000;font-weight:bold">=</span>Tag<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>filter(name__startswith<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;P&#34;</span>))
+)
+
+<span style="color:#998;font-style:italic"># 文章列表及每篇文章的名字以P开头的tags对象信息, 放在article_p_tag列表</span>
+Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>all()<span style="color:#000;font-weight:bold">.</span>prefetch_related(
+    Prefetch(<span style="color:#d14">&#39;tags&#39;</span>, queryset<span style="color:#000;font-weight:bold">=</span>Tag<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>filter(name__startswith<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;P&#34;</span>)), to_attr<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;article_p_tag&#39;</span>
+)
+</code></pre></div><p>[参考]</p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MjM5OTMyODA4Nw%3D%3D&amp;chksm=a73c6215904beb033f3277e3d1a98aaeece313792649cf96eea77cb1ee3d06bb493d06bc0c99&amp;idx=1&amp;mid=2247483949&amp;scene=21&amp;sn=bc4c8929d5f8e99a769c63f2208ed6eb#wechat_redirect">QuerySet特性及高级使用技巧</a><br>
+<a href="https://mp.weixin.qq.com/s?__biz=MjM5OTMyODA4Nw%3D%3D&amp;chksm=a73c6325904bea33513a0426971e70c43779b9519b5f9eace0ef2d96d9b082a834c34d88c899&amp;idx=1&amp;mid=2247484189&amp;scene=21&amp;sn=f5402c86aeaacab1eeaa2a021bb60e79#wechat_redirect">aggregate和annotate方法使用详解与示例</a><br>
+<a href="https://blog.csdn.net/weixin_42134789/article/details/100571539">select_related和prefetch_related的用法与区别</a></p>
                         </div>
 
                         
