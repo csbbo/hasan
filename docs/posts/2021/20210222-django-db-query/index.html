@@ -110,6 +110,7 @@
         <li><a href="#queryset与查询">QuerySet与查询</a></li>
         <li><a href="#aggregate和annotate">aggregate和annotate</a></li>
         <li><a href="#select_related和prefetch_related">select_related和prefetch_related</a></li>
+        <li><a href="#优化办法">优化办法</a></li>
       </ul>
     </li>
   </ul>
@@ -285,7 +286,19 @@ Article<span style="color:#000;font-weight:bold">.</span>objects<span style="col
 Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>all()<span style="color:#000;font-weight:bold">.</span>prefetch_related(
     Prefetch(<span style="color:#d14">&#39;tags&#39;</span>, queryset<span style="color:#000;font-weight:bold">=</span>Tag<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>filter(name__startswith<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;P&#34;</span>)), to_attr<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;article_p_tag&#39;</span>
 )
-</code></pre></div><p>[参考]</p>
+</code></pre></div><h3 id="优化办法">优化办法</h3>
+<ol>
+<li>利用 <a href="https://docs.djangoproject.com/en/1.8/topics/performance/#understanding-laziness">queryset lazy</a> 的特性 去优化代码，尽可能的减少连接数据库的次数</li>
+<li>如果查出的 queryset 只用一次，可以使用 iterator() 去来防止占用太多的内存</li>
+<li>尽可能把一些数据库层级的工作放到数据库，例如使用 filter/exclude, F, annotate, aggregate</li>
+<li>一次性拿出所有你要的数据，不去取那些你不需要的数据</li>
+<li>意思就是要巧用select_related()、prefetch_related()和values_list()、values ()例如如果只需要id字段的话，用values_list(&lsquo;id&rsquo;, flat=True)也能节约很多资源。或者使用defer()和only()方法：不加载某个字段(用到这个方法就要反思表设计的问题了)只加载某些字段.</li>
+<li>如果不用select_related的话，去取外键的属性就会连数据再去查找.</li>
+<li>bulk(批量)地去操作数据，比如bulk_create</li>
+<li>查找一条数据时，尽量用有索引的字段去查询，O(1)或O(log n)和O(n)差别还是很大的</li>
+<li>用count()代替len(queryset), 用exists()代替if queryset:</li>
+</ol>
+<p>[参考]</p>
 <p><a href="https://mp.weixin.qq.com/s?__biz=MjM5OTMyODA4Nw%3D%3D&amp;chksm=a73c6215904beb033f3277e3d1a98aaeece313792649cf96eea77cb1ee3d06bb493d06bc0c99&amp;idx=1&amp;mid=2247483949&amp;scene=21&amp;sn=bc4c8929d5f8e99a769c63f2208ed6eb#wechat_redirect">QuerySet特性及高级使用技巧</a><br>
 <a href="https://mp.weixin.qq.com/s?__biz=MjM5OTMyODA4Nw%3D%3D&amp;chksm=a73c6325904bea33513a0426971e70c43779b9519b5f9eace0ef2d96d9b082a834c34d88c899&amp;idx=1&amp;mid=2247484189&amp;scene=21&amp;sn=f5402c86aeaacab1eeaa2a021bb60e79#wechat_redirect">aggregate和annotate方法使用详解与示例</a><br>
 <a href="https://blog.csdn.net/weixin_42134789/article/details/100571539">select_related和prefetch_related的用法与区别</a></p>

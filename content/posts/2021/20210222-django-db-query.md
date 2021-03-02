@@ -250,6 +250,19 @@ Article.objects.all().prefetch_related(
 )
 ```
 
+
+### 优化办法
+
+1. 利用 [queryset lazy](https://docs.djangoproject.com/en/1.8/topics/performance/#understanding-laziness) 的特性 去优化代码，尽可能的减少连接数据库的次数
+2. 如果查出的 queryset 只用一次，可以使用 iterator() 去来防止占用太多的内存
+3. 尽可能把一些数据库层级的工作放到数据库，例如使用 filter/exclude, F, annotate, aggregate
+4. 一次性拿出所有你要的数据，不去取那些你不需要的数据
+5. 意思就是要巧用select_related()、prefetch_related()和values_list()、values ()例如如果只需要id字段的话，用values_list('id', flat=True)也能节约很多资源。或者使用defer()和only()方法：不加载某个字段(用到这个方法就要反思表设计的问题了)只加载某些字段.
+6. 如果不用select_related的话，去取外键的属性就会连数据再去查找.
+7. bulk(批量)地去操作数据，比如bulk_create
+8. 查找一条数据时，尽量用有索引的字段去查询，O(1)或O(log n)和O(n)差别还是很大的
+9. 用count()代替len(queryset), 用exists()代替if queryset:
+
 [参考]
 
 [QuerySet特性及高级使用技巧](https://mp.weixin.qq.com/s?__biz=MjM5OTMyODA4Nw%3D%3D&chksm=a73c6215904beb033f3277e3d1a98aaeece313792649cf96eea77cb1ee3d06bb493d06bc0c99&idx=1&mid=2247483949&scene=21&sn=bc4c8929d5f8e99a769c63f2208ed6eb#wechat_redirect)  
