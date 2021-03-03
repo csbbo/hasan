@@ -250,6 +250,41 @@ Article.objects.all().prefetch_related(
 )
 ```
 
+### F()函数
+
+`F()`会生成数据库级别的SQL表达式，直接使用它引用模型字段的值并执行数据库操作，而不用把它导出到Python的内存当中
+
+对比两个例子:
+```python
+例1
+article = Article.objects.get(title='文章2')
+article.thumb_count += 1
+article.save()
+
+例2 使用F()函数
+Article.objects.filter(title='文章1').update(thumb_count=F('thumb_count')+1)
+```
+
+> 很明显使用F()函数的执行效率会更高，只需要一条sql完全的数据库操作，而例1则需要先查询，缓存，然后再更新
+
+#### F()函数避免竞争
+
+在Python线程中例1的方法是存在竞态条件的，如第一个线程完成取值、更新值、保存新值，而第二个线程操作还是使用就的值来进行操作，使用F()函数的话，因为是数据库层面的原子操作，第二个线程再来取值那也是取到更新后的值了
+
+
+#### F()函数用于查询表达式
+
+例如:
+```python
+同一数据不同字段比较
+article = Article.objects.filter(thumb_count__gt=F('view_count'))
+
+两个操作数都是常数和F()函数的加、减、乘、除、取模、幂计算等算术操作
+article = Article.objects.filter(view_count__gt=F('thumb_count') * 2)
+
+配合annotate使用
+article = Article.objects.annotate(all_count=F('view_count') + F('thumb_count'))
+```
 
 ### 优化办法
 

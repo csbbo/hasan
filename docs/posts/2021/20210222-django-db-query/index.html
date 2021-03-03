@@ -110,6 +110,7 @@
         <li><a href="#queryset与查询">QuerySet与查询</a></li>
         <li><a href="#aggregate和annotate">aggregate和annotate</a></li>
         <li><a href="#select_related和prefetch_related">select_related和prefetch_related</a></li>
+        <li><a href="#f函数">F()函数</a></li>
         <li><a href="#优化办法">优化办法</a></li>
       </ul>
     </li>
@@ -286,6 +287,31 @@ Article<span style="color:#000;font-weight:bold">.</span>objects<span style="col
 Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>all()<span style="color:#000;font-weight:bold">.</span>prefetch_related(
     Prefetch(<span style="color:#d14">&#39;tags&#39;</span>, queryset<span style="color:#000;font-weight:bold">=</span>Tag<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>filter(name__startswith<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#34;P&#34;</span>)), to_attr<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;article_p_tag&#39;</span>
 )
+</code></pre></div><h3 id="f函数">F()函数</h3>
+<p><code>F()</code>会生成数据库级别的SQL表达式，直接使用它引用模型字段的值并执行数据库操作，而不用把它导出到Python的内存当中</p>
+<p>对比两个例子:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a61717;background-color:#e3d2d2">例</span><span style="color:#099">1</span>
+article <span style="color:#000;font-weight:bold">=</span> Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>get(title<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;文章2&#39;</span>)
+article<span style="color:#000;font-weight:bold">.</span>thumb_count <span style="color:#000;font-weight:bold">+=</span> <span style="color:#099">1</span>
+article<span style="color:#000;font-weight:bold">.</span>save()
+
+<span style="color:#a61717;background-color:#e3d2d2">例</span><span style="color:#099">2</span> <span style="color:#a61717;background-color:#e3d2d2">使用</span>F()<span style="color:#a61717;background-color:#e3d2d2">函数</span>
+Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>filter(title<span style="color:#000;font-weight:bold">=</span><span style="color:#d14">&#39;文章1&#39;</span>)<span style="color:#000;font-weight:bold">.</span>update(thumb_count<span style="color:#000;font-weight:bold">=</span>F(<span style="color:#d14">&#39;thumb_count&#39;</span>)<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span>)
+</code></pre></div><blockquote>
+<p>很明显使用F()函数的执行效率会更高，只需要一条sql完全的数据库操作，而例1则需要先查询，缓存，然后再更新</p>
+</blockquote>
+<h4 id="f函数避免竞争">F()函数避免竞争</h4>
+<p>在Python线程中例1的方法是存在竞态条件的，如第一个线程完成取值、更新值、保存新值，而第二个线程操作还是使用就的值来进行操作，使用F()函数的话，因为是数据库层面的原子操作，第二个线程再来取值那也是取到更新后的值了</p>
+<h4 id="f函数用于查询表达式">F()函数用于查询表达式</h4>
+<p>例如:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#a61717;background-color:#e3d2d2">同一数据不同字段比较</span>
+article <span style="color:#000;font-weight:bold">=</span> Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>filter(thumb_count__gt<span style="color:#000;font-weight:bold">=</span>F(<span style="color:#d14">&#39;view_count&#39;</span>))
+
+<span style="color:#a61717;background-color:#e3d2d2">两个操作数都是常数和</span>F()<span style="color:#a61717;background-color:#e3d2d2">函数的加、减、乘、除、取模、幂计算等算术操作</span>
+article <span style="color:#000;font-weight:bold">=</span> Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>filter(view_count__gt<span style="color:#000;font-weight:bold">=</span>F(<span style="color:#d14">&#39;thumb_count&#39;</span>) <span style="color:#000;font-weight:bold">*</span> <span style="color:#099">2</span>)
+
+<span style="color:#a61717;background-color:#e3d2d2">配合</span>annotate使用
+article <span style="color:#000;font-weight:bold">=</span> Article<span style="color:#000;font-weight:bold">.</span>objects<span style="color:#000;font-weight:bold">.</span>annotate(all_count<span style="color:#000;font-weight:bold">=</span>F(<span style="color:#d14">&#39;view_count&#39;</span>) <span style="color:#000;font-weight:bold">+</span> F(<span style="color:#d14">&#39;thumb_count&#39;</span>))
 </code></pre></div><h3 id="优化办法">优化办法</h3>
 <ol>
 <li>利用 <a href="https://docs.djangoproject.com/en/1.8/topics/performance/#understanding-laziness">queryset lazy</a> 的特性 去优化代码，尽可能的减少连接数据库的次数</li>
