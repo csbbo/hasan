@@ -38,3 +38,4 @@ type: other
 #### Books
 
 <a class="other-page-tag" href="/posts/2019/20191231-books/" target="_blank">图书角</a>
+<a class="other-page-tag" href="/posts/2020/20201109-linux-command/" target="_blank">Linux命令笔记本</a>
