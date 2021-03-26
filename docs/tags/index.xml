@@ -6,10 +6,19 @@
     <description>Recent content in Tags on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 22 Feb 2021 10:35:32 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 26 Mar 2021 10:13:05 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>reflect</title>
+      <link>https://blog.shaobo.fun/tags/reflect/</link>
+      <pubDate>Fri, 26 Mar 2021 10:13:05 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/tags/reflect/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Django</title>

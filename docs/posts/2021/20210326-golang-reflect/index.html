@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.74.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Golang 反射 | 庄周梦蝶</title>
+    <meta property="og:title" content="Golang 反射 - 庄周梦蝶">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2021-03-26T10:13:05&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2021-03-26T10:13:05&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="Golang 反射">
+        
+    <meta name="author" content="Hasan">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2021/20210326-golang-reflect/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.shaobo.fun/">
+                        庄周梦蝶
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">庄生晓梦迷蝴蝶,望帝春心托杜鹃.</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">Golang 反射</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2021-3-26
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/Golang">Golang</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#typeof和valueof">TypeOf和ValueOf</a></li>
+        <li><a href="#reflectvalue转原始类型">reflect.Value转原始类型</a></li>
+        <li><a href="#获取类型的底层类型">获取类型的底层类型</a></li>
+        <li><a href="#遍历字段和方法">遍历字段和方法</a></li>
+        <li><a href="#new方法">New方法</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>Go语言的反射可以为我们提供运行时操作任意类型对象的能力</p>
+<p>先准备一个结构体和它的几个方法</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">package</span> main
+
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#d14">&#34;fmt&#34;</span>
+<span style="color:#000;font-weight:bold">import</span> <span style="color:#d14">&#34;reflect&#34;</span>
+
+<span style="color:#000;font-weight:bold">type</span> User <span style="color:#000;font-weight:bold">struct</span> {
+	UserName <span style="color:#458;font-weight:bold">string</span>
+	Age	<span style="color:#458;font-weight:bold">int</span>
+}
+
+<span style="color:#000;font-weight:bold">func</span> (u User) <span style="color:#900;font-weight:bold">GetName</span>() <span style="color:#458;font-weight:bold">string</span> {
+	<span style="color:#000;font-weight:bold">return</span> u.UserName
+}
+
+<span style="color:#000;font-weight:bold">func</span> (u User) <span style="color:#900;font-weight:bold">GetAge</span>() <span style="color:#458;font-weight:bold">int</span> {
+	<span style="color:#000;font-weight:bold">return</span> u.Age
+}
+
+<span style="color:#000;font-weight:bold">func</span> (u User) <span style="color:#900;font-weight:bold">PrintIn</span>(in <span style="color:#458;font-weight:bold">string</span>) <span style="color:#458;font-weight:bold">string</span> {
+	<span style="color:#000;font-weight:bold">return</span> in
+}
+
+<span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	user <span style="color:#000;font-weight:bold">:=</span> User{<span style="color:#d14">&#34;张三&#34;</span>, <span style="color:#099">20</span>}
+}
+</code></pre></div><h3 id="typeof和valueof">TypeOf和ValueOf</h3>
+<p>在Go反射的定义中，任何接口都会由接口的具体类型和类型对应的值两部分组成。因为interface{}可以表示任意类型，所以把变量转成interface{}这个变量在Go反射中就表示为<code>&lt;Type,Value&gt;</code>，标准库提供两种类型<code>reflect.Type</code>和<code>reflect.Value</code>来分别表示它们，并提供两个函数<code>TypeOf()</code>和<code>ValueOf()</code>来获取它们</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#998;font-style:italic">// 获取对象的Value和Type, reflect.ValueOf、reflect.TypeOf函数返回的是一份值的拷贝
+</span><span style="color:#998;font-style:italic"></span>t <span style="color:#000;font-weight:bold">:=</span> reflect.<span style="color:#900;font-weight:bold">TypeOf</span>(user)
+v <span style="color:#000;font-weight:bold">:=</span> reflect.<span style="color:#900;font-weight:bold">ValueOf</span>(user)
+fmt.<span style="color:#900;font-weight:bold">Println</span>(t)
+fmt.<span style="color:#900;font-weight:bold">Println</span>(v)
+</code></pre></div><h3 id="reflectvalue转原始类型">reflect.Value转原始类型</h3>
+<p>在Go反射中<code>reflect.Value</code>又同时持有<code>reflect.Value</code>和<code>reflect.Type</code>两部分，所以我们可以通过<code>reflect.Value</code>的<code>Interface</code>方法还原</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">fmt.<span style="color:#900;font-weight:bold">Println</span>(v.<span style="color:#900;font-weight:bold">Type</span>())
+u1 <span style="color:#000;font-weight:bold">:=</span> v.<span style="color:#900;font-weight:bold">Interface</span>().(User)
+</code></pre></div><h3 id="获取类型的底层类型">获取类型的底层类型</h3>
+<p>其实对应的主要是基础类型，接口、结构体、指针这些，因为我们可以通过type关键字声明很多新的类型，比如上面的例子，对象u的实际类型是User，但是对应的底层类型是struct这个结构体类型，我们来验证下</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#998;font-style:italic">// 获取类型的底层类型，一下两种操作等价
+</span><span style="color:#998;font-style:italic"></span>fmt.<span style="color:#900;font-weight:bold">Println</span>(t.<span style="color:#900;font-weight:bold">Kind</span>())
+fmt.<span style="color:#900;font-weight:bold">Println</span>(v.<span style="color:#900;font-weight:bold">Kind</span>())
+</code></pre></div><h3 id="遍历字段和方法">遍历字段和方法</h3>
+<p>通过反射，我们可以获取一个结构体类型的字段,也可以获取一个类型的导出方法，这样我们就可以在运行时了解一个类型的结构。通过<code>reflect.ValueOf()</code>得到<code>reflect.Value</code>后调用<code>Elem()</code>方法得到指向的值，就可以修改对象了。<code>MethodByName</code>方法可以让我们根据一个方法名获取一个方法对象，然后我们构建好该方法需要的参数，最后调用<code>Call</code>就达到了动态调用方法的目的。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#998;font-style:italic">// 遍历结构体类型的字段和方法
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">for</span> i<span style="color:#000;font-weight:bold">:=</span><span style="color:#099">0</span>; i&lt;t.<span style="color:#900;font-weight:bold">NumField</span>(); i<span style="color:#000;font-weight:bold">++</span> {
+    fmt.<span style="color:#900;font-weight:bold">Println</span>(t.<span style="color:#900;font-weight:bold">Field</span>(i).Name)
+}
+<span style="color:#000;font-weight:bold">for</span> i<span style="color:#000;font-weight:bold">:=</span><span style="color:#099">0</span>; i&lt;t.<span style="color:#900;font-weight:bold">NumMethod</span>(); i<span style="color:#000;font-weight:bold">++</span> {
+    fmt.<span style="color:#900;font-weight:bold">Println</span>(t.<span style="color:#900;font-weight:bold">Method</span>(i).Name)
+}
+
+<span style="color:#998;font-style:italic">// 动态修改值
+</span><span style="color:#998;font-style:italic"></span>v = reflect.<span style="color:#900;font-weight:bold">ValueOf</span>(<span style="color:#000;font-weight:bold">&amp;</span>user)
+e <span style="color:#000;font-weight:bold">:=</span> v.<span style="color:#900;font-weight:bold">Elem</span>()
+e.<span style="color:#900;font-weight:bold">FieldByName</span>(<span style="color:#d14">&#34;UserName&#34;</span>).<span style="color:#900;font-weight:bold">Set</span>(reflect.<span style="color:#900;font-weight:bold">ValueOf</span>(<span style="color:#d14">&#34;bob&#34;</span>))
+e.<span style="color:#900;font-weight:bold">FieldByName</span>(<span style="color:#d14">&#34;Age&#34;</span>).<span style="color:#900;font-weight:bold">Set</span>(reflect.<span style="color:#900;font-weight:bold">ValueOf</span>(<span style="color:#099">100</span>))
+fmt.<span style="color:#900;font-weight:bold">Println</span>(user)
+
+<span style="color:#998;font-style:italic">// 动态调用方法
+</span><span style="color:#998;font-style:italic"></span>v = reflect.<span style="color:#900;font-weight:bold">ValueOf</span>(user)
+method <span style="color:#000;font-weight:bold">:=</span> v.<span style="color:#900;font-weight:bold">MethodByName</span>(<span style="color:#d14">&#34;PrintIn&#34;</span>)
+<span style="color:#000;font-weight:bold">if</span> method.<span style="color:#900;font-weight:bold">IsValid</span>() {
+    args <span style="color:#000;font-weight:bold">:=</span> []reflect.Value{reflect.<span style="color:#900;font-weight:bold">ValueOf</span>(<span style="color:#d14">&#34;你好&#34;</span>)}
+    fmt.<span style="color:#900;font-weight:bold">Println</span>(method.<span style="color:#900;font-weight:bold">Call</span>(args))
+} <span style="color:#000;font-weight:bold">else</span> {
+    fmt.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;method not Found&#34;</span>)
+}
+</code></pre></div><h3 id="new方法">New方法</h3>
+<p><code>New</code>方法可以通过<code>reflect.Type</code>创建一个空对象</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">	u <span style="color:#000;font-weight:bold">:=</span> User{<span style="color:#d14">&#34;Nick&#34;</span>, <span style="color:#099">18</span>}
+	vv <span style="color:#000;font-weight:bold">:=</span> reflect.<span style="color:#900;font-weight:bold">New</span>(reflect.<span style="color:#900;font-weight:bold">TypeOf</span>(u)).<span style="color:#900;font-weight:bold">Elem</span>().<span style="color:#900;font-weight:bold">Interface</span>()
+	fmt.<span style="color:#900;font-weight:bold">Println</span>(vv)
+
+    <span style="color:#998;font-style:italic">// 少了Elem()函数，得到的是一个指针值
+</span><span style="color:#998;font-style:italic"></span>	vp <span style="color:#000;font-weight:bold">:=</span> reflect.<span style="color:#900;font-weight:bold">New</span>(reflect.<span style="color:#900;font-weight:bold">TypeOf</span>(u)).<span style="color:#900;font-weight:bold">Interface</span>()
+	fmt.<span style="color:#900;font-weight:bold">Println</span>(vp)
+</code></pre></div>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://blog.shaobo.fun/tags/reflect">reflect</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+
+    
+        <li class="pre">
+        <a href="https://blog.shaobo.fun/posts/2021/20210222-django-db-query/">
+        <span>Django 数据库查询优化</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210326-golang-reflect/" title="Golang 反射">Golang 反射</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210222-django-db-query/" title="Django 数据库查询优化">Django 数据库查询优化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210112-python-hapmap-middleware/" title="中间件">中间件</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210112-python-hapmap-spider/" title="爬虫">爬虫</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-concurrent/" title="Python并发编程">Python并发编程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-decorator/" title="巧用装饰器">巧用装饰器</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201222-python-hapmap-object/" title="Python面向对象编程">Python面向对象编程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201120-city-coordinate/" title="中国主要城市经纬度">中国主要城市经纬度</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201109-linux-command/" title="Linux常用命令(持续更新)">Linux常用命令(持续更新)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201109-docker-resource-limit/" title="Docker资源限制">Docker资源限制</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Golang/">Golang(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(12)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Python%E6%8A%80%E8%83%BD%E5%9B%BE%E8%B0%B1/">Python技能图谱(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(8)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Locust/">Locust</a>
+    
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Raft/">Raft</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
+    
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
+    
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
+    
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/reflect/">reflect</a>
+    
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"></h3>
+        <a href="http://beian.miit.gov.cn/">桂ICP备17011922号</a>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2021 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

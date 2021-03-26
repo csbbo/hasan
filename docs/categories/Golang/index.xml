@@ -6,10 +6,19 @@
     <description>Recent content in Golang on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Sep 2020 10:38:09 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 26 Mar 2021 10:13:05 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/categories/Golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Golang 反射</title>
+      <link>https://blog.shaobo.fun/posts/2021/20210326-golang-reflect/</link>
+      <pubDate>Fri, 26 Mar 2021 10:13:05 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/posts/2021/20210326-golang-reflect/</guid>
+      <description>&lt;p&gt;Go语言的反射可以为我们提供运行时操作任意类型对象的能力&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Go生成二维码</title>
