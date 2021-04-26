@@ -6,6 +6,8 @@ tags: ["Go", "blockchain"]
 toc: true
 ---
 
+翻译文章
+
 用少于200行的Go代码编写一个自己的区块链
 
 <!--more-->

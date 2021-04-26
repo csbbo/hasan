@@ -6,6 +6,8 @@ tags: ["Go", "blockchain"]
 toc: true
 ---
 
+翻译文章
+
 Code your own blockchain in less than 200 lines of Go!
 <!--more-->
 
