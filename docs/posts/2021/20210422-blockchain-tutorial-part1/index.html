@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.74.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>用少于200行的代码编写一个自己的区块链(一) | 庄周梦蝶</title>
+    <meta property="og:title" content="用少于200行的代码编写一个自己的区块链(一) - 庄周梦蝶">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2021-04-22T14:20:47&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2021-04-22T14:20:47&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="用少于200行的代码编写一个自己的区块链(一)">
+        
+    <meta name="author" content="Hasan">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2021/20210422-blockchain-tutorial-part1/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.shaobo.fun/">
+                        庄周梦蝶
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">庄生晓梦迷蝴蝶,望帝春心托杜鹃.</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">用少于200行的代码编写一个自己的区块链(一)</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2021-4-22
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/%E7%94%A8%E5%B0%91%E4%BA%8E200%E8%A1%8C%E7%9A%84%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE">用少于200行的代码编写一个自己的区块链</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#让我们开始吧">让我们开始吧！</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>Code your own blockchain in less than 200 lines of Go!</p>
+<p><img src="https://miro.medium.com/max/1170/1*Elzguv8ycXYcphhD7M95hQ.jpeg" alt=""></p>
+<p>本教程是改编于一篇基于javascript搭建一个基础的区块链。我们将其改编成用Go语言实现并添加一些额外的功能，如在浏览器上查看区块链。</p>
+<p>教程的样例数据使用的是你平时的心率（毕竟我们是一家关注健康的公司）。记录你一分钟的脉搏数，并留存至本教程结束。</p>
+<p>尽管每个开发者都听说过区块链，但是大多数人都不知道他的原理。他们知道区块链大多因为比特币和智能合约。本文将带你揭开区块链的神秘面纱，并教你如何用不超过200行的Go代码编写一个简单的区块链。本文结束后，你将可以在本机运行起一个区块链并可以在浏览器中查看。</p>
+<p>还有什么比自己创建一个区块链更好的学习方法？</p>
+<p><strong>你将能够做什么</strong></p>
+<ul>
+<li>创建一个你自己的区块链</li>
+<li>哈希函数如何保持区块链的正确性</li>
+<li>区块链如何添加一个新的区块进来</li>
+<li>决策器如何选择多个节点生成的区块</li>
+<li>在浏览器中查看你的区块链</li>
+<li>创建一个新的区块</li>
+<li>对区块链有一个基础的了解，以便帮助你决定是否要开始你的区块链之旅</li>
+</ul>
+<p><strong>你将不能做什么</strong></p>
+<p>为了保证本篇文章的精简，我们不会使用共识算法，如工作量证明，权益证明。我们会模拟一个网络交互，因此你可以在浏览器中看到区块链和区块的添加，但是网络广播将会保留到后面的文章。</p>
+<h3 id="让我们开始吧">让我们开始吧！</h3>
+<p><strong>配置</strong>
+我们将会使用Go来编写代码，在此之前我们认为你已经对Go有一定的经验了。在安装和配置完Go之后，我们还需要拉取下面的包：</p>
+<pre><code>go get github.com/davecgh/go-spew/spew
+</code></pre><p><code>Spew</code>可以帮助我们在控制台查看完全格式化的结构体和切片。值得拥有！</p>
+<pre><code>go get github.com/gorilla/mux
+</code></pre><p><code>Gorilla/mux</code>是一个流行的Web控制器，我们将会需要它。</p>
+<pre><code>go get github.com/joho/godotenv
+</code></pre><p><code>Godotenv</code>帮助我们从项目的根目录读取.env文件，这样我们就不需要像HTTP端口那样硬编码。我们也需要它。</p>
+<p>在项目的根目录创建.env文件，并定义HTTP服务的端口。像下面一样：</p>
+<pre><code>PORT=8080
+</code></pre><p>创建一个<code>main.go</code>文件，现在开始所有的代码都会写在这里，并且确保代码总数少于200行，那么开始吧！</p>
+<p><strong>导入</strong></p>
+<p>导入需要的包，从包声明开始，让我们开始编写代码吧</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">package</span> main
+
+<span style="color:#000;font-weight:bold">import</span> (
+	<span style="color:#d14">&#34;crypto/sha256&#34;</span>
+	<span style="color:#d14">&#34;encoding/hex&#34;</span>
+	<span style="color:#d14">&#34;encoding/json&#34;</span>
+	<span style="color:#d14">&#34;io&#34;</span>
+	<span style="color:#d14">&#34;log&#34;</span>
+	<span style="color:#d14">&#34;net/http&#34;</span>
+	<span style="color:#d14">&#34;os&#34;</span>
+	<span style="color:#d14">&#34;time&#34;</span>
+
+	<span style="color:#d14">&#34;github.com/davecgh/go-spew/spew&#34;</span>
+	<span style="color:#d14">&#34;github.com/gorilla/mux&#34;</span>
+	<span style="color:#d14">&#34;github.com/joho/godotenv&#34;</span>
+)
+</code></pre></div><p><strong>数据模型</strong></p>
+<p>创建构成区块链的每个区块的结构体，不要担心，我们接下来将会解释每个字段的意思</p>
+<pre><code>type Block struct {
+	Index     int
+	Timestamp string
+	BPM       int
+	Hash      string
+	PrevHash  string
+}
+</code></pre><p>每个Block包含的数据将会被写入到区块链，这数据代表的是你每次脉搏跳动的次数。</p>
+<ul>
+<li>Index 是数据记录位于区块链的位置</li>
+<li>Timestamp 是自动创建的，表示数据被写入的时间</li>
+<li>BPM 你的心率，即每分钟脉搏跳动次数</li>
+<li>Hash 是一个SHA256的识别码，代表数据记录</li>
+<li>PreHash SHA256识别码，代表前一个记录</li>
+</ul>
+<p>对区块链本身建模，就是一个Block类型的slice：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">var</span> Blockchain []Block
+</code></pre></div><p>那么如何用哈希适合区块和区块链，我们使用散列确认区块和保证区块链顺序的正确。让每个区块的PreHash与前一个区块的Hash完全相同来保证区块链顺序的正确</p>
+<p><img src="https://miro.medium.com/max/1400/1*VwT5d8NPjUpI7HiwPa--cQ.png" alt=""></p>
+<p><strong>散列和生成新的区块</strong></p>
+<p>那么为什么我们需要散列？我们有两个重要的原因需要哈希编码数据：</p>
+<ul>
+<li>节省空间，哈希来源于该区块的所有数据。在我们的例子中，我们仅有很少的数据点，但是想象一下当我们有成百上千，甚至上万的数据块时。相对于我们一遍遍的复制前面的数据，对数据进行哈希是非常高效的。</li>
+<li>保持区块链的完整性,像上面图表那样我们存储前面的散列值能够确保区块链顺序的正确。如果有恶意分子进入并尝试操纵数据（例如修改心率去获得保险理赔）散列值会迅速改变，区块链也会断裂，这样大家都知道不该信任该恶意链条。</li>
+</ul>
+<p>让我们创建一个函数，使用我们的Block数据生成散列值。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">calculateHash</span>(block Block) <span style="color:#458;font-weight:bold">string</span> {
+	record <span style="color:#000;font-weight:bold">:=</span> <span style="color:#0086b3">string</span>(block.Index) <span style="color:#000;font-weight:bold">+</span> block.Timestamp <span style="color:#000;font-weight:bold">+</span> <span style="color:#0086b3">string</span>(block.BPM) <span style="color:#000;font-weight:bold">+</span> block.PrevHash
+	h <span style="color:#000;font-weight:bold">:=</span> sha256.<span style="color:#900;font-weight:bold">New</span>()
+	h.<span style="color:#900;font-weight:bold">Write</span>([]<span style="color:#0086b3">byte</span>(record))
+	hashed <span style="color:#000;font-weight:bold">:=</span> h.<span style="color:#900;font-weight:bold">Sum</span>(<span style="color:#000;font-weight:bold">nil</span>)
+	<span style="color:#000;font-weight:bold">return</span> hex.<span style="color:#900;font-weight:bold">EncodeToString</span>(hashed)
+}
+</code></pre></div><p>calculateHash函数使用我们传入的Block参数的Index,Timestamp,BPM,PrevHash生成Hash并以字符串形式返回。现在我们可以通过generateBlock函数利用我们所需元素生成新的区块了。我们需要提供前一个区块数据和心率。这里我们先不管BPM参数，这会在稍后解决。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">generateBlock</span>(oldBlock Block, BPM <span style="color:#458;font-weight:bold">int</span>) (Block, <span style="color:#458;font-weight:bold">error</span>) {
+
+	<span style="color:#000;font-weight:bold">var</span> newBlock Block
+
+	t <span style="color:#000;font-weight:bold">:=</span> time.<span style="color:#900;font-weight:bold">Now</span>()
+
+	newBlock.Index = oldBlock.Index <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">1</span>
+	newBlock.Timestamp = t.<span style="color:#900;font-weight:bold">String</span>()
+	newBlock.BPM = BPM
+	newBlock.PrevHash = oldBlock.Hash
+	newBlock.Hash = <span style="color:#900;font-weight:bold">calculateHash</span>(newBlock)
+
+	<span style="color:#000;font-weight:bold">return</span> newBlock, <span style="color:#000;font-weight:bold">nil</span>
+}
+</code></pre></div><p>可以看到当前时间被自动写入Block，calculateHash被调用，PreHash复制于前一个Block的Hash，Index基于前一个Block的Index递增。</p>
+<p><strong>块校验</strong></p>
+<p>我们需要写一个函数确保区块没有别篡改。我们校验Index确保是符合期望的递增。校验PreHash与前一个区块的Hash相同。最后我们希望再次使用calculateHash函数去校验当前区块。isBlockValid函数，它仅返回bool类型值。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">isBlockValid</span>(newBlock, oldBlock Block) <span style="color:#458;font-weight:bold">bool</span> {
+	<span style="color:#000;font-weight:bold">if</span> oldBlock.Index<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span> <span style="color:#000;font-weight:bold">!=</span> newBlock.Index {
+		<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">false</span>
+	}
+
+	<span style="color:#000;font-weight:bold">if</span> oldBlock.Hash <span style="color:#000;font-weight:bold">!=</span> newBlock.PrevHash {
+		<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">false</span>
+	}
+
+	<span style="color:#000;font-weight:bold">if</span> <span style="color:#900;font-weight:bold">calculateHash</span>(newBlock) <span style="color:#000;font-weight:bold">!=</span> newBlock.Hash {
+		<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">false</span>
+	}
+
+	<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">true</span>
+}
+</code></pre></div><p>假如我们碰到这样一个问题，区块链系统中同时有两个节点向它们的链添加了区块，那么我们应该选着哪个呢？我们应该选着最长的那条链。这是一个经典的区块链问题，对于恶意的操作者将不会执行任何的操作。</p>
+<p>对于两个只是长度不同的良好节点，自然而然最长的链是最新的，拥有最新的区块。所以，我们需要确定新链要比拥有的当前链长。这样之后，我们可以用拥有最新区块的链去覆盖当前链。</p>
+<p><img src="https://miro.medium.com/max/1400/1*H1fCp0NLun0Kn0wIy0dyEA.png" alt=""></p>
+<p>我们可以通过简单的对比两个链条切片的长度来实现上述功能：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">replaceChain</span>(newBlocks []Block) {
+	<span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">len</span>(newBlocks) &gt; <span style="color:#0086b3">len</span>(Blockchain) {
+		Blockchain = newBlocks
+	}
+}
+</code></pre></div><p>如果到目前为止你已经完成了，拍拍你的背，我们基本上已经完成了构建区块链所需的所有函数。</p>
+<p>Web服务器</p>
+<p>我们假设你已经熟悉Web服务如何工作了，并且有丰富的经验编写Go Web服务的经验。接下来，我们将引导你走完整个流程。</p>
+<p>我们在run函数里创建server，稍后将会用到。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">run</span>() <span style="color:#458;font-weight:bold">error</span> {
+	mux <span style="color:#000;font-weight:bold">:=</span> <span style="color:#900;font-weight:bold">makeMuxRouter</span>()
+	httpAddr <span style="color:#000;font-weight:bold">:=</span> os.<span style="color:#900;font-weight:bold">Getenv</span>(<span style="color:#d14">&#34;ADDR&#34;</span>)
+	log.<span style="color:#900;font-weight:bold">Println</span>(<span style="color:#d14">&#34;Listening on &#34;</span>, os.<span style="color:#900;font-weight:bold">Getenv</span>(<span style="color:#d14">&#34;ADDR&#34;</span>))
+	s <span style="color:#000;font-weight:bold">:=</span> <span style="color:#000;font-weight:bold">&amp;</span>http.Server{
+		Addr:           <span style="color:#d14">&#34;:&#34;</span> <span style="color:#000;font-weight:bold">+</span> httpAddr,
+		Handler:        mux,
+		ReadTimeout:    <span style="color:#099">10</span> <span style="color:#000;font-weight:bold">*</span> time.Second,
+		WriteTimeout:   <span style="color:#099">10</span> <span style="color:#000;font-weight:bold">*</span> time.Second,
+		MaxHeaderBytes: <span style="color:#099">1</span> <span style="color:#000;font-weight:bold">&lt;&lt;</span> <span style="color:#099">20</span>,
+	}
+
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">:=</span> s.<span style="color:#900;font-weight:bold">ListenAndServe</span>(); err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		<span style="color:#000;font-weight:bold">return</span> err
+	}
+
+	<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">nil</span>
+}
+</code></pre></div><p>端口是之前创建的<code>.env</code>文件中定义的。我们通过<code>log.Prinln</code>快速的打印控制台消息，帮助我们了解到服务已经启动。我们对服务进行配置后然后启动<code>ListenAndServe</code>。这是标准的Go操作。</p>
+<p>接下来我们需要编写<code>makeMuxRouter</code>函数，这将会定义我们的控制器。为了能够在浏览器上查看区块链，我们仅需要两个路由。如果我们发送<code>GET</code>请求到<code>localhost</code>我们将会查看到我们的区块链。如果我们发送<code>POST</code>请求，我们将会往区块链写入一个区块。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">makeMuxRouter</span>() http.Handler {
+	muxRouter <span style="color:#000;font-weight:bold">:=</span> mux.<span style="color:#900;font-weight:bold">NewRouter</span>()
+	muxRouter.<span style="color:#900;font-weight:bold">HandleFunc</span>(<span style="color:#d14">&#34;/&#34;</span>, handleGetBlockchain).<span style="color:#900;font-weight:bold">Methods</span>(<span style="color:#d14">&#34;GET&#34;</span>)
+	muxRouter.<span style="color:#900;font-weight:bold">HandleFunc</span>(<span style="color:#d14">&#34;/&#34;</span>, handleWriteBlock).<span style="color:#900;font-weight:bold">Methods</span>(<span style="color:#d14">&#34;POST&#34;</span>)
+	<span style="color:#000;font-weight:bold">return</span> muxRouter
+}
+</code></pre></div><p><code>GET</code>句柄：</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">handleGetBlockchain</span>(w http.ResponseWriter, r <span style="color:#000;font-weight:bold">*</span>http.Request) {
+	bytes, err <span style="color:#000;font-weight:bold">:=</span> json.<span style="color:#900;font-weight:bold">MarshalIndent</span>(Blockchain, <span style="color:#d14">&#34;&#34;</span>, <span style="color:#d14">&#34;  &#34;</span>)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		http.<span style="color:#900;font-weight:bold">Error</span>(w, err.<span style="color:#900;font-weight:bold">Error</span>(), http.StatusInternalServerError)
+		<span style="color:#000;font-weight:bold">return</span>
+	}
+	io.<span style="color:#900;font-weight:bold">WriteString</span>(w, <span style="color:#0086b3">string</span>(bytes))
+}
+</code></pre></div><p>我们简单的用JSON格式数据回写整个区块链，这样我们就可以在访问<code>localhost:8080</code>端口时候查看到区块链的数据了。PORT变量在<code>.env</code>文件中被设置为<code>8080</code>,如果你修改了它，请访问你正确的端口。</p>
+<p>我们的<code>POST</code>请求有一点点复杂，但是也还好。首先我们需要一个<code>Message</code> <code>struct</code>。我们很快就会讲解为什么我们需要它。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">type</span> Message <span style="color:#000;font-weight:bold">struct</span> {
+	BPM <span style="color:#458;font-weight:bold">int</span>
+}
+</code></pre></div><p>下面是创建一个新的区块的代码，我们将在你读完后引导你理解它。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">handleWriteBlock</span>(w http.ResponseWriter, r <span style="color:#000;font-weight:bold">*</span>http.Request) {
+	<span style="color:#000;font-weight:bold">var</span> m Message
+
+	decoder <span style="color:#000;font-weight:bold">:=</span> json.<span style="color:#900;font-weight:bold">NewDecoder</span>(r.Body)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">:=</span> decoder.<span style="color:#900;font-weight:bold">Decode</span>(<span style="color:#000;font-weight:bold">&amp;</span>m); err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		<span style="color:#900;font-weight:bold">respondWithJSON</span>(w, r, http.StatusBadRequest, r.Body)
+		<span style="color:#000;font-weight:bold">return</span>
+	}
+	<span style="color:#000;font-weight:bold">defer</span> r.Body.<span style="color:#900;font-weight:bold">Close</span>()
+
+	newBlock, err <span style="color:#000;font-weight:bold">:=</span> <span style="color:#900;font-weight:bold">generateBlock</span>(Blockchain[<span style="color:#0086b3">len</span>(Blockchain)<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>], m.BPM)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		<span style="color:#900;font-weight:bold">respondWithJSON</span>(w, r, http.StatusInternalServerError, m)
+		<span style="color:#000;font-weight:bold">return</span>
+	}
+	<span style="color:#000;font-weight:bold">if</span> <span style="color:#900;font-weight:bold">isBlockValid</span>(newBlock, Blockchain[<span style="color:#0086b3">len</span>(Blockchain)<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>]) {
+		newBlockchain <span style="color:#000;font-weight:bold">:=</span> <span style="color:#0086b3">append</span>(Blockchain, newBlock)
+		<span style="color:#900;font-weight:bold">replaceChain</span>(newBlockchain)
+		spew.<span style="color:#900;font-weight:bold">Dump</span>(Blockchain)
+	}
+
+	<span style="color:#900;font-weight:bold">respondWithJSON</span>(w, r, http.StatusCreated, newBlock)
+
+}
+</code></pre></div><p>我们之所以使用一个分离的Message结构体是因为我们需要接收将要用于创建新区块的JSON格式的POST数据。这允许简单的发送下面内容，我们的控制器将会为我们填充剩余的区块。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">{<span style="color:#d14">&#34;BPM&#34;</span>:<span style="color:#099">50</span>}
+</code></pre></div><p>50是一个心率的样例数据，修改这个整数为你自己的心率。</p>
+<p>在我们完成对请求体解码到<code>var m Message</code>后，我们可以将之前的区块和心率数据输入<code>generateBlock</code>函数去创建一个新的区块。这是创建一个新的区块所需的所有函数了。我们使用<code>isbBlockValid</code>
+函数做一个快速的校验我们的新区块是否合法。</p>
+<p>两个注意事项</p>
+<ul>
+<li><code>spew.Dump</code>是一个方便的函数，帮助我们在终端打印结构体数据，这对调试非常有利。</li>
+<li>对于测试POST请求，我们喜欢使用Postman。但是如果你离不开终端，curl也非常不错。</li>
+</ul>
+<p>当我们发送POST请求成功或者失败，我们希望得到相应的警告。我们使用一个小的包装函数来使我们知道发生了什么。记住在Go中不要忽略错误，优雅的处理他们。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">respondWithJSON</span>(w http.ResponseWriter, r <span style="color:#000;font-weight:bold">*</span>http.Request, code <span style="color:#458;font-weight:bold">int</span>, payload <span style="color:#000;font-weight:bold">interface</span>{}) {
+	response, err <span style="color:#000;font-weight:bold">:=</span> json.<span style="color:#900;font-weight:bold">MarshalIndent</span>(payload, <span style="color:#d14">&#34;&#34;</span>, <span style="color:#d14">&#34;  &#34;</span>)
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		w.<span style="color:#900;font-weight:bold">WriteHeader</span>(http.StatusInternalServerError)
+		w.<span style="color:#900;font-weight:bold">Write</span>([]<span style="color:#0086b3">byte</span>(<span style="color:#d14">&#34;HTTP 500: Internal Server Error&#34;</span>))
+		<span style="color:#000;font-weight:bold">return</span>
+	}
+	w.<span style="color:#900;font-weight:bold">WriteHeader</span>(code)
+	w.<span style="color:#900;font-weight:bold">Write</span>(response)
+}
+</code></pre></div><p>几乎要完成了</p>
+<p>让我们将所有这些不同的区块链函数，Web处理器和Web服务连接到一个简短简洁的main函数中。</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	err <span style="color:#000;font-weight:bold">:=</span> godotenv.<span style="color:#900;font-weight:bold">Load</span>()
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		log.<span style="color:#900;font-weight:bold">Fatal</span>(err)
+	}
+
+	<span style="color:#000;font-weight:bold">go</span> <span style="color:#000;font-weight:bold">func</span>() {
+		t <span style="color:#000;font-weight:bold">:=</span> time.<span style="color:#900;font-weight:bold">Now</span>()
+		genesisBlock <span style="color:#000;font-weight:bold">:=</span> Block{<span style="color:#099">0</span>, t.<span style="color:#900;font-weight:bold">String</span>(), <span style="color:#099">0</span>, <span style="color:#d14">&#34;&#34;</span>, <span style="color:#d14">&#34;&#34;</span>}
+		spew.<span style="color:#900;font-weight:bold">Dump</span>(genesisBlock)
+		Blockchain = <span style="color:#0086b3">append</span>(Blockchain, genesisBlock)
+	}()
+	log.<span style="color:#900;font-weight:bold">Fatal</span>(<span style="color:#900;font-weight:bold">run</span>())
+
+}
+</code></pre></div><p>那么这是怎么回事？</p>
+<ul>
+<li><code>godotenv.Load()</code>允许我们从.env文件读入变量例如我们的端口，因此我们无需硬编码在应用程序里。</li>
+<li><code>genesisBlock</code> 是main函数里面最重要的部分，我们需要为区块链提供一个初始区块，否者新区块将无法通过对比前一个区块的哈希去创建，因为前一个区块不存在。</li>
+<li>我们隔离创始区块在一个自己的协程中，这样我们就可以将区块链的关注点与Web服务逻辑分离。没有协程也可以工作但这样会更干净。</li>
+</ul>
+<p>终于完成了！</p>
+<p>现在来看看有趣的东西，让我们尝试一下</p>
+<p>在终端启动你的应用<code>go run main.go</code></p>
+<p>在终端，我们可以看到Web服务已经启动并打印出创世区块。</p>
+<p><img src="https://miro.medium.com/max/1400/1*sAkFOcjHxX9WnjGPud84rQ.png" alt=""></p>
+<p>现在访问localhsot后接你的端口，我们这里是8080。正如期望那样，我们可以看到相同的创世区块。</p>
+<p><img src="https://miro.medium.com/max/1244/1*4HRKAkMy1smgB9xpGLj6RA.png" alt=""></p>
+<p>现在让我们发送一些POST请求去创建区块。使用Postman，我们传入BPM参数创建一些区块。</p>
+<p><img src="https://miro.medium.com/max/1400/1*eYfFp1lqJUiAS1S6K8ZHbQ.png" alt=""></p>
+<p>让我们刷新浏览器，瞧瞧，所有的区块的PreHash字段跟前一个区块的Hash字段一样，这正如我们所期望的那样。</p>
+<p><img src="https://miro.medium.com/max/1400/1*Qo4eZ0hQ1gMdXrsvBGSnxg.png" alt=""></p>
+<p>下一步</p>
+<p>恭喜！！你已经使用正确的哈希和区块验证创建了你自己的区块链，你现在可以开始你的区块链之旅了并且探索更多复杂的主题，例如工作量证明，权益证明，智能合约，Dapps，从链等</p>
+<p>本篇教程没解决的是如何用工作量证明来挖矿。这将是一个独立的教程，但也有很多的区块链是没有工作量证明机制的。此外，目前网络广播是通过web服务的编写和查看区块链来模拟的。这里也没有P2P部分。</p>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://blog.shaobo.fun/tags/Go">Go</a></li>
+                                
+                                <li><a href="https://blog.shaobo.fun/tags/blockchain">blockchain</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+        <li class="next">
+        <a href="https://blog.shaobo.fun/posts/2021/20210422-blockchain-tutorial-part2/">
+        <i class="material-icons">arrow_back</i><span>用少于200行的代码编写一个自己的区块链(二)</span>
+        </a>
+        </li>
+    
+
+    
+        <li class="pre">
+        <a href="https://blog.shaobo.fun/posts/2021/20210326-golang-reflect/">
+        <span>Golang 反射</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210422-blockchain-tutorial-part2/" title="用少于200行的代码编写一个自己的区块链(二)">用少于200行的代码编写一个自己的区块链(二)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210422-blockchain-tutorial-part1/" title="用少于200行的代码编写一个自己的区块链(一)">用少于200行的代码编写一个自己的区块链(一)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210326-golang-reflect/" title="Golang 反射">Golang 反射</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210222-django-db-query/" title="Django 数据库查询优化">Django 数据库查询优化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210112-python-hapmap-middleware/" title="中间件">中间件</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210112-python-hapmap-spider/" title="爬虫">爬虫</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-concurrent/" title="Python并发编程">Python并发编程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-decorator/" title="巧用装饰器">巧用装饰器</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201222-python-hapmap-object/" title="Python面向对象编程">Python面向对象编程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201120-city-coordinate/" title="中国主要城市经纬度">中国主要城市经纬度</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Golang/">Golang(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(12)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Python%E6%8A%80%E8%83%BD%E5%9B%BE%E8%B0%B1/">Python技能图谱(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(8)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E7%94%A8%E5%B0%91%E4%BA%8E200%E8%A1%8C%E7%9A%84%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE/">用少于200行的代码编写一个自己的区块链(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Go/">Go</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Locust/">Locust</a>
+    
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Raft/">Raft</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="https://blog.shaobo.fun/tags/blockchain/">blockchain</a>
+    
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
+    
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
+    
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
+    
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/reflect/">reflect</a>
+    
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"></h3>
+        <a href="http://beian.miit.gov.cn/">桂ICP备17011922号</a>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2021 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

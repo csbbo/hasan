@@ -6,10 +6,19 @@
     <description>Recent content in Categories on 庄周梦蝶</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 26 Mar 2021 10:13:05 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 22 Apr 2021 14:20:51 +0800</lastBuildDate>
     
 	<atom:link href="https://blog.shaobo.fun/categories/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>用少于200行的代码编写一个自己的区块链</title>
+      <link>https://blog.shaobo.fun/categories/%E7%94%A8%E5%B0%91%E4%BA%8E200%E8%A1%8C%E7%9A%84%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE/</link>
+      <pubDate>Thu, 22 Apr 2021 14:20:51 +0800</pubDate>
+      
+      <guid>https://blog.shaobo.fun/categories/%E7%94%A8%E5%B0%91%E4%BA%8E200%E8%A1%8C%E7%9A%84%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Golang</title>

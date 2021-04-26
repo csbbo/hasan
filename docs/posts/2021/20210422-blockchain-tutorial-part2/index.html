@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="generator" content="Hugo 0.74.3" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>用少于200行的代码编写一个自己的区块链(二) | 庄周梦蝶</title>
+    <meta property="og:title" content="用少于200行的代码编写一个自己的区块链(二) - 庄周梦蝶">
+    <meta property="og:type" content="article">
+        
+    <meta property="article:published_time" content="2021-04-22T14:20:51&#43;08:00">
+        
+        
+    <meta property="article:modified_time" content="2021-04-22T14:20:51&#43;08:00">
+        
+    <meta name="Keywords" content="">
+    <meta name="description" content="用少于200行的代码编写一个自己的区块链(二)">
+        
+    <meta name="author" content="Hasan">
+    <meta property="og:url" content="https://blog.shaobo.fun/posts/2021/20210422-blockchain-tutorial-part2/">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="/css/normalize.css">
+    
+        <link rel="stylesheet" href="/css/prism.css">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    
+
+
+    
+    
+    <link href="/iconfont/material-icons.css" rel="stylesheet">
+</head>
+
+<body>
+<header id="header" class="clearfix">
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                
+                    <a id="logo" href="https://blog.shaobo.fun/">
+                        庄周梦蝶
+                    </a>
+                
+                <div class="subtitle-descrition">
+                    <p class="description">庄生晓梦迷蝴蝶,望帝春心托杜鹃.</p>
+                </div>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="" href="https://blog.shaobo.fun/">首页</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/archives/" title="归档">归档</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/friend/" title="友链">友链</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/other/" title="其他">其他</a>
+                    
+                    <a  href="https://blog.shaobo.fun/tab/about/" title="关于">关于</a>
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+<div id="body">
+    <div class="container">
+        <div class="col-group">
+
+            <div class="col-8" id="main">
+                <div class="res-cons">
+                    <article class="post">
+                        <header>
+                            <h1 class="post-title">用少于200行的代码编写一个自己的区块链(二)</h1>
+                        </header>
+                        <date class="post-meta meta-date">
+                            2021-4-22
+                        </date>
+                        
+                        <div class="post-meta">
+                            <span>|</span>
+                            
+                                <span class="meta-category"><a href="https://blog.shaobo.fun/categories/%E7%94%A8%E5%B0%91%E4%BA%8E200%E8%A1%8C%E7%9A%84%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE">用少于200行的代码编写一个自己的区块链</a></span>
+                            
+                        </div>
+                        
+                        
+                        <div class="post-meta">
+                            <span id="busuanzi_container_page_pv">| <span id="busuanzi_value_page_pv"></span><span>read</span></span>
+                        </div>
+                        
+                        
+                        <div class="catalogue">
+                                <div class="show"></div>
+                                <div class="clear">
+                                
+                                    <div class="toc-title">文章目录</div> 
+                                    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#让我们开始吧">让我们开始吧！</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                                
+                                </div>
+                        </div>
+                        
+                        <div class="post-content">
+                            <p>用少于200行的Go代码编写一个自己的区块链</p>
+<p><img src="https://miro.medium.com/max/1388/1*NfKseUObx0HJnuios5Rs5g.png" alt=""></p>
+<p>你已经看过了本系列的第一部分了吗？如果没有，请先回去看完再来。不用担心我们会在这等你的&hellip;</p>
+<p>欢迎回来！</p>
+<p>我们震惊于在《用少于200行的Go代码编写一个自己的区块链》中收到的回复，这本是一个区块链入门开发者的一个小教程，但他却活了下来。我们收到请求希望添加网络部分教程。</p>
+<p>上一篇文章向你展示了如何编写自己的区块链，并完成哈希和校验每一个新区块。但是它们都是运行在单个终端(节点)的。我们要怎样才能让其他节点连接到我们的主实例并且接收它们贡献的新区块，还有如何去广播更新后的区块链到所有节点？</p>
+<p>接下来我们将告诉你</p>
+<p><strong>工作流程</strong></p>
+<p><img src="https://miro.medium.com/max/700/1*POJgtLy6gcAznRYjKRer4Q.png" alt=""></p>
+<ul>
+<li>第一个终端创建创世区块和一个可以被新节点连接的TCP服务</li>
+</ul>
+<p>步骤一</p>
+<ul>
+<li>打开其它终端并创建与第一个终端的连接</li>
+<li>新终端向第一个终端写入一个区块</li>
+</ul>
+<p>步骤二</p>
+<ul>
+<li>第一个终端校验接收到的区块</li>
+<li>第一个终端广播新的区块链给其它节点</li>
+</ul>
+<p>步骤三</p>
+<ul>
+<li>所有终端完成同步新的区块链</li>
+</ul>
+<p>在学完本教程后，请自己尝试：让每个新终端也充当具有不同TCP端口“第一”终端，并让其他终端连接到改终端，以此建立一个真正的网络！</p>
+<p><strong>你将能够做什么</strong></p>
+<ul>
+<li>运行一个提供创世区块的终端</li>
+<li>触发任意你想的数量终端，并让它们向第一个终端写入区块</li>
+<li>让第一个终端向其他终端广播新的区块链</li>
+</ul>
+<p><strong>你将无法做到什么</strong></p>
+<p>正如上一篇教程那般，我们的目的是使节点的基本网络可以正常工作，以便您决定是否开启区块链之旅。您将无法让其它网络的计算机节点写入您的第一个终端，但你可以通过将二进制文件放到公有云来轻松实现。同样的，区块链广播也会被模拟发送到每个节点。不用担心，我们将会解释这些。</p>
+<h3 id="让我们开始吧">让我们开始吧！</h3>
+<p>这里有部分内容是跟上篇一样的，我们将使用许多相同的区块的生成，散列和验证功能。但是我们将不会使用HTTP，因为我们将在控制台中查看结果并使用TCP来进行网络连接</p>
+<p><em>TCP与HTTP有什么不同呢？</em></p>
+<p>这里不做详细介绍，您只需知道TCP是传输数据的基本协议即可，而HTTP是建立在TCP之上的，利用TCP的数据传输在Web和浏览器上使用。当你浏览一个网站，你用的是HTTP，而支持其数据传输的协议就是TCP</p>
+<p>在本教程，我们将使用TCP，因为我们不需要在浏览器中浏览任何东西。Go中有一个非常优秀的<code>net</code>包提供了所有我们需要的TCP连接函数。</p>
+<p><strong>配置，导入和回顾</strong></p>
+<p>其中一部分将会是对第一部分的回顾，在我们快速回顾时，请耐心等待。不要担心，我们很快就会推出新内容！</p>
+<p><strong>配置</strong></p>
+<p>在根目录创建<code>.env</code>文件，并添加下面内容</p>
+<pre><code>ADDR=9000
+</code></pre><p>存储我们将要使用的端口号（这里是9000）到名称为<code>ADDR</code>的环境变量</p>
+<p>如果你还没有做好准备工作，拉取下面的包：</p>
+<p><code>go get github.com/davecgh/go-spew/spew</code>将区块链打印到终端</p>
+<p><code>go get github.com/joho/godotenv</code>加载<code>.env</code>中的环境变量</p>
+<p>创建空的<code>main.go</code>文件，我们所有的代码将会写在这里</p>
+<p><strong>导入</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">package</span> main
+
+<span style="color:#000;font-weight:bold">import</span> (
+	<span style="color:#d14">&#34;bufio&#34;</span>
+	<span style="color:#d14">&#34;crypto/sha256&#34;</span>
+	<span style="color:#d14">&#34;encoding/hex&#34;</span>
+	<span style="color:#d14">&#34;encoding/json&#34;</span>
+	<span style="color:#d14">&#34;io&#34;</span>
+	<span style="color:#d14">&#34;log&#34;</span>
+	<span style="color:#d14">&#34;net&#34;</span>
+	<span style="color:#d14">&#34;os&#34;</span>
+	<span style="color:#d14">&#34;strconv&#34;</span>
+	<span style="color:#d14">&#34;time&#34;</span>
+
+	<span style="color:#d14">&#34;github.com/davecgh/go-spew/spew&#34;</span>
+	<span style="color:#d14">&#34;github.com/joho/godotenv&#34;</span>
+)
+</code></pre></div><p><strong>回顾</strong></p>
+<p>下面的代码片段在第一篇教程有更详细的说明，如果你需要复习可以参考它。我这里将快速通过。</p>
+<p>创建<code>Block</code>结构体，并声明一个<code>Block</code>切片类型的变量<code>Blockchain</code></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#998;font-style:italic">// Block represents each &#39;item&#39; in the blockchain
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">type</span> Block <span style="color:#000;font-weight:bold">struct</span> {
+	Index     <span style="color:#458;font-weight:bold">int</span>
+	Timestamp <span style="color:#458;font-weight:bold">string</span>
+	BPM       <span style="color:#458;font-weight:bold">int</span>
+	Hash      <span style="color:#458;font-weight:bold">string</span>
+	PrevHash  <span style="color:#458;font-weight:bold">string</span>
+}
+
+<span style="color:#998;font-style:italic">// Blockchain is a series of validated Blocks
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">var</span> Blockchain []Block
+</code></pre></div><p>现在创建哈希函数，在创建新的区块时将会用到</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#998;font-style:italic">// SHA256 hashing
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">calculateHash</span>(block Block) <span style="color:#458;font-weight:bold">string</span> {
+	record <span style="color:#000;font-weight:bold">:=</span> <span style="color:#0086b3">string</span>(block.Index) <span style="color:#000;font-weight:bold">+</span> block.Timestamp <span style="color:#000;font-weight:bold">+</span> <span style="color:#0086b3">string</span>(block.BPM) <span style="color:#000;font-weight:bold">+</span> block.PrevHash
+	h <span style="color:#000;font-weight:bold">:=</span> sha256.<span style="color:#900;font-weight:bold">New</span>()
+	h.<span style="color:#900;font-weight:bold">Write</span>([]<span style="color:#0086b3">byte</span>(record))
+	hashed <span style="color:#000;font-weight:bold">:=</span> h.<span style="color:#900;font-weight:bold">Sum</span>(<span style="color:#000;font-weight:bold">nil</span>)
+	<span style="color:#000;font-weight:bold">return</span> hex.<span style="color:#900;font-weight:bold">EncodeToString</span>(hashed)
+}
+</code></pre></div><p>区块生成函数</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">
+<span style="color:#998;font-style:italic">// create a new block using previous block&#39;s hash
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">generateBlock</span>(oldBlock Block, BPM <span style="color:#458;font-weight:bold">int</span>) (Block, <span style="color:#458;font-weight:bold">error</span>) {
+
+	<span style="color:#000;font-weight:bold">var</span> newBlock Block
+
+	t <span style="color:#000;font-weight:bold">:=</span> time.<span style="color:#900;font-weight:bold">Now</span>()
+
+	newBlock.Index = oldBlock.Index <span style="color:#000;font-weight:bold">+</span> <span style="color:#099">1</span>
+	newBlock.Timestamp = t.<span style="color:#900;font-weight:bold">String</span>()
+	newBlock.BPM = BPM
+	newBlock.PrevHash = oldBlock.Hash
+	newBlock.Hash = <span style="color:#900;font-weight:bold">calculateHash</span>(newBlock)
+
+	<span style="color:#000;font-weight:bold">return</span> newBlock, <span style="color:#000;font-weight:bold">nil</span>
+}
+</code></pre></div><p>通过对比新区块的<code>PreHash</code>与前一个区块的<code>Hash</code>是否相同来校验新区块的正确性</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#998;font-style:italic">// make sure block is valid by checking index, and comparing the hash of the previous block
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">isBlockValid</span>(newBlock, oldBlock Block) <span style="color:#458;font-weight:bold">bool</span> {
+	<span style="color:#000;font-weight:bold">if</span> oldBlock.Index<span style="color:#000;font-weight:bold">+</span><span style="color:#099">1</span> <span style="color:#000;font-weight:bold">!=</span> newBlock.Index {
+		<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">false</span>
+	}
+
+	<span style="color:#000;font-weight:bold">if</span> oldBlock.Hash <span style="color:#000;font-weight:bold">!=</span> newBlock.PrevHash {
+		<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">false</span>
+	}
+
+	<span style="color:#000;font-weight:bold">if</span> <span style="color:#900;font-weight:bold">calculateHash</span>(newBlock) <span style="color:#000;font-weight:bold">!=</span> newBlock.Hash {
+		<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">false</span>
+	}
+
+	<span style="color:#000;font-weight:bold">return</span> <span style="color:#000;font-weight:bold">true</span>
+}
+</code></pre></div><p>确保我们使用的是最长的链作为对的区块链</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#998;font-style:italic">// make sure the chain we&#39;re checking is longer than the current blockchain
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">replaceChain</span>(newBlocks []Block) {
+	<span style="color:#000;font-weight:bold">if</span> <span style="color:#0086b3">len</span>(newBlocks) &gt; <span style="color:#0086b3">len</span>(Blockchain) {
+		Blockchain = newBlocks
+	}
+}
+</code></pre></div><p>非常好！我们基本上获取我们需要的所有区块链相关函数并且去掉HTTP相关的部分。现在我们可以继续网络部分了</p>
+<p><strong>网络</strong></p>
+<p>最后！让我们建立一个可以绕过新区块的网络，并将其继承到我们的区块链中，然后将新的区块链广播会网络</p>
+<p>让我们从主函数开始，这是一个很好地抽象有助于我们理解整体流程</p>
+<p>在此之前，我们先在其它结构体声明之下声明一个通道变量<code>bcServer</code>(blockchain server简称)用来接收传入区块</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#998;font-style:italic">// bcServer handles incoming concurrent Blocks
+</span><span style="color:#998;font-style:italic"></span><span style="color:#000;font-weight:bold">var</span> bcServer <span style="color:#000;font-weight:bold">chan</span> []Block
+</code></pre></div><p>现在让我们声明<code>main</code>函数并从位于根目录的<code>.env</code>文件加载环境变量。记住，我们将要使用的环境变量<code>ADDR</code>是我们的TCP端口<code>9000</code>。还有让我们在<code>main</code>函数中编写<code>bcServer</code>例子</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	err <span style="color:#000;font-weight:bold">:=</span> godotenv.<span style="color:#900;font-weight:bold">Load</span>()
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		log.<span style="color:#900;font-weight:bold">Fatal</span>(err)
+	}
+
+	bcServer = <span style="color:#0086b3">make</span>(<span style="color:#000;font-weight:bold">chan</span> []Block)
+
+	<span style="color:#998;font-style:italic">// create genesis block
+</span><span style="color:#998;font-style:italic"></span>	t <span style="color:#000;font-weight:bold">:=</span> time.<span style="color:#900;font-weight:bold">Now</span>()
+	genesisBlock <span style="color:#000;font-weight:bold">:=</span> Block{<span style="color:#099">0</span>, t.<span style="color:#900;font-weight:bold">String</span>(), <span style="color:#099">0</span>, <span style="color:#d14">&#34;&#34;</span>, <span style="color:#d14">&#34;&#34;</span>}
+	spew.<span style="color:#900;font-weight:bold">Dump</span>(genesisBlock)
+	Blockchain = <span style="color:#0086b3">append</span>(Blockchain, genesisBlock)
+}
+</code></pre></div><p>现在我们需要编写我们的TCP服务。记住，你可以认为TCP跟HTTP差不多只是没有浏览器部分而已。所有的数据传输将会通过终端的控制台来完成。我们将会控制很多的连接到我们的TCP端口。下面的代码编写接着main函数里的最后一行</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">	<span style="color:#998;font-style:italic">// start TCP and serve TCP server
+</span><span style="color:#998;font-style:italic"></span>	server, err <span style="color:#000;font-weight:bold">:=</span> net.<span style="color:#900;font-weight:bold">Listen</span>(<span style="color:#d14">&#34;tcp&#34;</span>, <span style="color:#d14">&#34;:&#34;</span><span style="color:#000;font-weight:bold">+</span>os.<span style="color:#900;font-weight:bold">Getenv</span>(<span style="color:#d14">&#34;ADDR&#34;</span>))
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		log.<span style="color:#900;font-weight:bold">Fatal</span>(err)
+	}
+	<span style="color:#000;font-weight:bold">defer</span> server.<span style="color:#900;font-weight:bold">Close</span>()
+</code></pre></div><p>上面代码将在9000端口启动一个TCP服务。<code>efer server.Close()</code>是非常重要的，它能在我们不再使用服务时清理干净连接。</p>
+<p>当我们接收到一个新的请求，我们需要创建一个新的连接来服务它</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">for</span> {
+		conn, err <span style="color:#000;font-weight:bold">:=</span> server.<span style="color:#900;font-weight:bold">Accept</span>()
+		<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+			log.<span style="color:#900;font-weight:bold">Fatal</span>(err)
+		}
+		<span style="color:#000;font-weight:bold">go</span> <span style="color:#900;font-weight:bold">handleConn</span>(conn)
+	}
+</code></pre></div><p>我们创建了一个无限循环来接收新的连接请求。我们通过分离的go协程<code>go handleConn(conn)</code>来并发处理每个连接，因此我们无需阻塞<code>for</code>循环。这就是为什么我们可以同时服务大量的请求的原因。</p>
+<p>在这里有精明的读者就会跳出来说：”等等， 我们还没有编写handleConn函数“。没错，但是让我们喘口气先，非常好，我们先完整的编写main函数，如下</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">main</span>() {
+	err <span style="color:#000;font-weight:bold">:=</span> godotenv.<span style="color:#900;font-weight:bold">Load</span>()
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		log.<span style="color:#900;font-weight:bold">Fatal</span>(err)
+	}
+
+	bcServer = <span style="color:#0086b3">make</span>(<span style="color:#000;font-weight:bold">chan</span> []Block)
+
+	<span style="color:#998;font-style:italic">// create genesis block
+</span><span style="color:#998;font-style:italic"></span>	t <span style="color:#000;font-weight:bold">:=</span> time.<span style="color:#900;font-weight:bold">Now</span>()
+	genesisBlock <span style="color:#000;font-weight:bold">:=</span> Block{<span style="color:#099">0</span>, t.<span style="color:#900;font-weight:bold">String</span>(), <span style="color:#099">0</span>, <span style="color:#d14">&#34;&#34;</span>, <span style="color:#d14">&#34;&#34;</span>}
+	spew.<span style="color:#900;font-weight:bold">Dump</span>(genesisBlock)
+	Blockchain = <span style="color:#0086b3">append</span>(Blockchain, genesisBlock)
+
+	<span style="color:#998;font-style:italic">// start TCP and serve TCP server
+</span><span style="color:#998;font-style:italic"></span>	server, err <span style="color:#000;font-weight:bold">:=</span> net.<span style="color:#900;font-weight:bold">Listen</span>(<span style="color:#d14">&#34;tcp&#34;</span>, <span style="color:#d14">&#34;:&#34;</span><span style="color:#000;font-weight:bold">+</span>os.<span style="color:#900;font-weight:bold">Getenv</span>(<span style="color:#d14">&#34;ADDR&#34;</span>))
+	<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+		log.<span style="color:#900;font-weight:bold">Fatal</span>(err)
+	}
+	<span style="color:#000;font-weight:bold">defer</span> server.<span style="color:#900;font-weight:bold">Close</span>()
+
+	<span style="color:#000;font-weight:bold">for</span> {
+		conn, err <span style="color:#000;font-weight:bold">:=</span> server.<span style="color:#900;font-weight:bold">Accept</span>()
+		<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+			log.<span style="color:#900;font-weight:bold">Fatal</span>(err)
+		}
+		<span style="color:#000;font-weight:bold">go</span> <span style="color:#900;font-weight:bold">handleConn</span>(conn)
+	}
+
+}
+</code></pre></div><p>现在我们来编写handleConn函数，它只需要一个参数，即封装良好的<code>net.Conn</code>接口。Go的接口非常棒，我们认为这是与其它类C语言不同的地方。虽然并发和协程得到了更多的关注，但是接口和其隐式满足才是该语言最强大的地方。如果你还没有在Go中使用过接口，赶快去熟悉它。接口是你成为10x Go开发者路途的下一步。</p>
+<p>放入函数的骨架，用<code>defer</code>关键字在函数结束时关闭每一个连接作为handleConn函数的开始</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#000;font-weight:bold">func</span> <span style="color:#900;font-weight:bold">handleConn</span>(conn net.Conn) {
+	<span style="color:#000;font-weight:bold">defer</span> conn.<span style="color:#900;font-weight:bold">Close</span>()
+}
+</code></pre></div><p>接下来我们需要允许客户端添加新的区块继承到区块链中，我们将使用和第一篇教程一样的心率。花超过一分钟的时间将这个数字记住，这就是我们BMP的值</p>
+<p>为了完成上述内容，我们需要：</p>
+<ul>
+<li>提示客户端输入他们的BPM值</li>
+<li>从<code>stdin</code>扫描客户端的输入</li>
+<li>通过输入数据，使用我们之前创建的函数generateBlock, isBlockValid, replaceChain创建新区块</li>
+<li>将新的区块链放入我们创建的通道并广播到网络中</li>
+<li>允许客户端输入新的BPM值</li>
+</ul>
+<p>这里是按照上面描述的正确顺序完成上述功能的代码</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">    io.<span style="color:#900;font-weight:bold">WriteString</span>(conn, <span style="color:#d14">&#34;Enter a new BPM:&#34;</span>)
+
+	scanner <span style="color:#000;font-weight:bold">:=</span> bufio.<span style="color:#900;font-weight:bold">NewScanner</span>(conn)
+
+	<span style="color:#998;font-style:italic">// take in BPM from stdin and add it to blockchain after conducting necessary validation
+</span><span style="color:#998;font-style:italic"></span>	<span style="color:#000;font-weight:bold">go</span> <span style="color:#000;font-weight:bold">func</span>() {
+		<span style="color:#000;font-weight:bold">for</span> scanner.<span style="color:#900;font-weight:bold">Scan</span>() {
+			bpm, err <span style="color:#000;font-weight:bold">:=</span> strconv.<span style="color:#900;font-weight:bold">Atoi</span>(scanner.<span style="color:#900;font-weight:bold">Text</span>())
+			<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+				log.<span style="color:#900;font-weight:bold">Printf</span>(<span style="color:#d14">&#34;%v not a number: %v&#34;</span>, scanner.<span style="color:#900;font-weight:bold">Text</span>(), err)
+				<span style="color:#000;font-weight:bold">continue</span>
+			}
+			newBlock, err <span style="color:#000;font-weight:bold">:=</span> <span style="color:#900;font-weight:bold">generateBlock</span>(Blockchain[<span style="color:#0086b3">len</span>(Blockchain)<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>], bpm)
+			<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+				log.<span style="color:#900;font-weight:bold">Println</span>(err)
+				<span style="color:#000;font-weight:bold">continue</span>
+			}
+			<span style="color:#000;font-weight:bold">if</span> <span style="color:#900;font-weight:bold">isBlockValid</span>(newBlock, Blockchain[<span style="color:#0086b3">len</span>(Blockchain)<span style="color:#000;font-weight:bold">-</span><span style="color:#099">1</span>]) {
+				newBlockchain <span style="color:#000;font-weight:bold">:=</span> <span style="color:#0086b3">append</span>(Blockchain, newBlock)
+				<span style="color:#900;font-weight:bold">replaceChain</span>(newBlockchain)
+			}
+
+			bcServer <span style="color:#000;font-weight:bold">&lt;-</span> Blockchain
+			io.<span style="color:#900;font-weight:bold">WriteString</span>(conn, <span style="color:#d14">&#34;\nEnter a new BPM:&#34;</span>)
+		}
+	}()
+</code></pre></div><p>我们创建一个新的扫描器。<code>for scanner.Scan()</code>循环是在自己的协程中阻塞的，所以程序可以在其他的连接中的并发的执行。我们快速的将BPM进行字符串转换（需要检查BPM是一个整数）。我们进行标准块的生成和查验，并使用新块创建新的区块链。</p>
+<p><code>bcServer &lt;- Blockchain</code>语法的意思是抛出新的区块链到我们创建的通道中。然后提示客户端输入新的BPM值来创建下一个区块</p>
+<p><strong>广播</strong></p>
+<p>我们需要广播新区块链到所有我们服务中的连接。由于我们是在一台电脑上编写的代码，我们需要模拟如何将数据传输到所有的客户端。在代码的最后一行，在相同的handleConn函数中我们需要：</p>
+<ul>
+<li>将我们的新区块数据转为JSON数据以便我们可以容易的阅读</li>
+<li>将新区块打印到我们每一个连接的控制台</li>
+<li>设置一个定期执行此操作的计时器，这样我们就不会被区块链数据所淹没。这也是您在实时区块链网络中看到的情况，在该网络中，每隔X分钟广播一次新的区块链。我们将用30秒</li>
+<li>漂亮地将主区块链打印到第一个终端，以便我们可以看到正在发生的事情，并确保将由不同节点添加的区块确实集成到主区块链中</li>
+</ul>
+<p>这里是按照上面描述的正确顺序完成上述功能的代码</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#998;font-style:italic">// simulate receiving broadcast
+</span><span style="color:#998;font-style:italic"></span>	<span style="color:#000;font-weight:bold">go</span> <span style="color:#000;font-weight:bold">func</span>() {
+		<span style="color:#000;font-weight:bold">for</span> {
+			time.<span style="color:#900;font-weight:bold">Sleep</span>(<span style="color:#099">30</span> <span style="color:#000;font-weight:bold">*</span> time.Second)
+			output, err <span style="color:#000;font-weight:bold">:=</span> json.<span style="color:#900;font-weight:bold">Marshal</span>(Blockchain)
+			<span style="color:#000;font-weight:bold">if</span> err <span style="color:#000;font-weight:bold">!=</span> <span style="color:#000;font-weight:bold">nil</span> {
+				log.<span style="color:#900;font-weight:bold">Fatal</span>(err)
+			}
+			io.<span style="color:#900;font-weight:bold">WriteString</span>(conn, <span style="color:#0086b3">string</span>(output))
+		}
+	}()
+
+	<span style="color:#000;font-weight:bold">for</span> _ = <span style="color:#000;font-weight:bold">range</span> bcServer {
+		spew.<span style="color:#900;font-weight:bold">Dump</span>(Blockchain)
+	}
+</code></pre></div><p>非常棒！我们的handleConn函数写完了，事实上，整个程序也写完了，我们将代码控制在200行之下，还不错吧？</p>
+                        </div>
+
+                        
+
+
+                        
+                        <div class="post-meta meta-tags">
+                            <ul class="clearfix">
+                                
+                                <li><a href="https://blog.shaobo.fun/tags/Go">Go</a></li>
+                                
+                                <li><a href="https://blog.shaobo.fun/tags/blockchain">blockchain</a></li>
+                                
+                            </ul>
+                        </div>
+                        
+                    </article>
+                    <div class="nextpre">
+    
+    
+    
+    
+    <div class="clearfix">
+    <ul class="prevnext">
+    
+
+    
+        <li class="pre">
+        <a href="https://blog.shaobo.fun/posts/2021/20210422-blockchain-tutorial-part1/">
+        <span>用少于200行的代码编写一个自己的区块链(一)</span><i class="material-icons">arrow_forward</i>
+        </a>
+        </li>
+    
+    </ul>
+    </div>
+    
+</div>
+<style>
+.nextpre .prevnext{
+    margin: 0%;
+    padding: 0%;
+    list-style: none;
+    margin-bottom: 50px;
+} 
+.nextpre .prevnext li{
+    font-size: 16px;
+} 
+.nextpre .prevnext li a{
+    color: #616161;
+}
+.nextpre .prevnext li a i{
+    float: left;
+}
+.nextpre .prevnext li a span{
+    padding-top: 5px;
+    float: left;
+}
+.nextpre .prevnext li a:hover{
+    color: #00796b;
+}
+.nextpre .prevnext .next{
+    float: left;
+}
+.nextpre .prevnext .pre{
+    float: right;
+}
+</style>
+                    
+
+<hr>
+<div class="post-archive">
+    <h2>See Also</h2>
+    <ul class="listing">
+        
+        <li><a href="/posts/2021/20210422-blockchain-tutorial-part1/">用少于200行的代码编写一个自己的区块链(一)</a></li>
+        
+    </ul>
+</div>
+
+                    
+    
+
+    
+    
+    <div class="post bg-white utteranc-comment">
+      <script src="https://utteranc.es/client.js"
+            repo= "csbbo/hasan"
+            issue-term="pathname"
+            theme="github-light"
+            crossorigin="anonymous"
+            async>
+      </script>
+    </div>
+    
+                </div>
+            </div>
+            <div id="secondary">
+    <section class="widget">
+        <form id="search" action='https://blog.shaobo.fun/search/' method="get" accept-charset="utf-8" target="_blank" _lpchecked="1">
+      
+      <input type="text" name="q" maxlength="20" placeholder="Search">
+      <input type="hidden" name="sitesearch" value="https://blog.shaobo.fun/">
+      <button type="submit" class="submit icon-search"></button>
+</form>
+    </section>
+    
+    <section class="widget">
+        <h3 class="widget-title">最近文章</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210422-blockchain-tutorial-part2/" title="用少于200行的代码编写一个自己的区块链(二)">用少于200行的代码编写一个自己的区块链(二)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210422-blockchain-tutorial-part1/" title="用少于200行的代码编写一个自己的区块链(一)">用少于200行的代码编写一个自己的区块链(一)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210326-golang-reflect/" title="Golang 反射">Golang 反射</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210222-django-db-query/" title="Django 数据库查询优化">Django 数据库查询优化</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210112-python-hapmap-middleware/" title="中间件">中间件</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210112-python-hapmap-spider/" title="爬虫">爬虫</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-concurrent/" title="Python并发编程">Python并发编程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201229-python-hapmap-decorator/" title="巧用装饰器">巧用装饰器</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201222-python-hapmap-object/" title="Python面向对象编程">Python面向对象编程</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2020/20201120-city-coordinate/" title="中国主要城市经纬度">中国主要城市经纬度</a>
+    </li>
+    
+</ul>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">分类</h3>
+<ul class="widget-list">
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Docker/">Docker(3)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Golang/">Golang(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Linux/">Linux(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Python/">Python(12)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Python%E6%8A%80%E8%83%BD%E5%9B%BE%E8%B0%B1/">Python技能图谱(5)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/RPC/">RPC(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tensorflow%E7%AC%94%E8%AE%B0/">Tensorflow笔记(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/Tool/">Tool(8)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式(1)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0/">嵌入式Linux操作系统笔记(6)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库(4)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8/">新手入门(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E7%94%A8%E5%B0%91%E4%BA%8E200%E8%A1%8C%E7%9A%84%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE/">用少于200行的代码编写一个自己的区块链(2)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
+    </li>
+    
+</ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title">标签</h3>
+<div class="tagcloud">
+    
+    <a href="https://blog.shaobo.fun/tags/Base64/">Base64</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Cookie/">Cookie</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Django/">Django</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Go/">Go</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
+    
+    <a href="https://blog.shaobo.fun/tags/InnoDB/">InnoDB</a>
+    
+    <a href="https://blog.shaobo.fun/tags/JWT/">JWT</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Linux/">Linux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Locust/">Locust</a>
+    
+    <a href="https://blog.shaobo.fun/tags/MySQL/">MySQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Nginx/">Nginx</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Openssl/">Openssl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/PostgreSQL/">PostgreSQL</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Python/">Python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Raft/">Raft</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Redis/">Redis</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Session/">Session</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Sha256/">Sha256</a>
+    
+    <a href="https://blog.shaobo.fun/tags/TCP/IP/">TCP/IP</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Tensorflow/">Tensorflow</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Token/">Token</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vector/">Vector</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
+    
+    <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="https://blog.shaobo.fun/tags/blockchain/">blockchain</a>
+    
+    <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
+    
+    <a href="https://blog.shaobo.fun/tags/crypto/">crypto</a>
+    
+    <a href="https://blog.shaobo.fun/tags/evenlet/">evenlet</a>
+    
+    <a href="https://blog.shaobo.fun/tags/grpc/">grpc</a>
+    
+    <a href="https://blog.shaobo.fun/tags/iproute2/">iproute2</a>
+    
+    <a href="https://blog.shaobo.fun/tags/md5/">md5</a>
+    
+    <a href="https://blog.shaobo.fun/tags/process/">process</a>
+    
+    <a href="https://blog.shaobo.fun/tags/psuitl/">psuitl</a>
+    
+    <a href="https://blog.shaobo.fun/tags/python/">python</a>
+    
+    <a href="https://blog.shaobo.fun/tags/reflect/">reflect</a>
+    
+    <a href="https://blog.shaobo.fun/tags/serial/">serial</a>
+    
+    <a href="https://blog.shaobo.fun/tags/socket.io/">socket.io</a>
+    
+    <a href="https://blog.shaobo.fun/tags/sort/">sort</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tcpdump/">tcpdump</a>
+    
+    <a href="https://blog.shaobo.fun/tags/thread/">thread</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tmux/">tmux</a>
+    
+    <a href="https://blog.shaobo.fun/tags/tree/">tree</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>
+    
+    <a href="https://blog.shaobo.fun/tags/%E5%BF%83%E8%B7%B3%E6%A3%80%E6%9F%A5/">心跳检查</a>
+    
+</div>
+    </section>
+
+    
+
+    <section class="widget">
+        <h3 class="widget-title">其它</h3>
+        <ul class="widget-list">
+            <li><a target="_blank" href="https://blog.shaobo.fun/index.xml">文章 RSS</a></li>
+            <li><a target="_blank" href="https://github.com/csbbo">Github</a></li>
+            <li><a target="_blank" href="https://www.zhihu.com/people/csbo-bochex/activities">知乎</a></li>
+            <li><a target="_blank" href="https://twitter.com/GCVVXX">Twitter</a></li>
+        </ul>
+    </section>
+
+    <section class="widget">
+        <h3 class="widget-title"></h3>
+        <a href="http://beian.miit.gov.cn/">桂ICP备17011922号</a>
+    </section>
+</div>
+        </div>
+    </div>
+</div>
+<footer id="footer">
+    <div class="container">
+        &copy; 2021 <a href="https://blog.shaobo.fun/">庄周梦蝶 By Hasan</a>.
+        Powered by <a rel="nofollow noreferer noopener" href="https://gohugo.io" target="_blank">Hugo</a>.
+        <a href="https://www.flysnow.org/" target="_blank">Theme</a> based on <a href="https://github.com/rujews/maupassant-hugo" target="_blank">maupassant</a>.
+        
+    </div>
+</footer>
+
+
+    <script type="text/javascript">
+    
+    (function(){
+        $("pre code").parent().addClass("line-numbers")
+    }())
+
+    window.MathJax = {
+        tex2jax: {
+            inlineMath: [ ['$','$'] ],
+            processEscapes: true
+        }
+    };
+    </script>
+    <script type="text/javascript" src="/js/prism.js" async="true"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+<a id="rocket" href="#top"></a>
+<script type="text/javascript" src="/js/totop.js?v=0.0.0" async=""></script>
+
+
+
+<script type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+
+
+
+
+</body>
+</html>

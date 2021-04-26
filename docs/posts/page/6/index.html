@@ -80,6 +80,56 @@
     <article class="post">
         <header>
             <h1 class="post-title">
+                <a href="https://blog.shaobo.fun/posts/2019/20190702-multithreaded-programming/" title="多线程编程">多线程编程</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年7月2日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0'>嵌入式Linux操作系统笔记</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            <p>在Linux 系统下,启动一个新的进程必须分配给它独立的地址空间,建立众多的数据表来维护它的代码段、堆栈段和数据段,这是一种&quot;昂贵&quot;的多任务工作方式。而运行于一个进程中的多个线程,它们彼此之间使用相同的地址空间,共享大部分数据,启动一个线程所花费的空间远远小于启动一个进程所花费的空间,而且,线程间彼此切换所需的时间也远远小于进程间切换所需要的时间。</p>……
+        </div>
+        <p class="readmore"><a href="https://blog.shaobo.fun/posts/2019/20190702-multithreaded-programming/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
+                <a href="https://blog.shaobo.fun/posts/2019/20190701-process-communication/" title="进程通信">进程通信</a>
+            </h1>
+        </header>
+        <date class="post-meta meta-date">
+            2019年7月1日
+        </date>
+        
+        <div class="post-meta">
+            <span>|</span>
+            
+            <span class="meta-category"><a href='https://blog.shaobo.fun/categories/%E5%B5%8C%E5%85%A5%E5%BC%8FLinux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%AC%94%E8%AE%B0'>嵌入式Linux操作系统笔记</a></span>
+            
+        </div>
+        
+        <div class="post-content">
+            <p>每个进程各自有不同的用户地址空间,任何一个进程的全局变量在另一个进程中都看不到,所以进程之间要交换数据必须通过内核,在内核中开辟一块缓冲区,进程1把数据从用户空间拷到内核缓冲区,进程2再从内核缓冲区把数据读走,内核提供的这种机制称为进程间通信(IPC,InterProcess Communication)。如图所示。</p>……
+        </div>
+        <p class="readmore"><a href="https://blog.shaobo.fun/posts/2019/20190701-process-communication/">阅读全文</a></p>
+    </article>
+    
+    
+    
+    <article class="post">
+        <header>
+            <h1 class="post-title">
                 <a href="https://blog.shaobo.fun/posts/2019/20190630-process-control/" title="进程控制">进程控制</a>
             </h1>
         </header>
@@ -271,31 +321,6 @@
     
     
     
-    <article class="post">
-        <header>
-            <h1 class="post-title">
-                <a href="https://blog.shaobo.fun/posts/2019/20190523-algorithmNote/" title="算法笔记">算法笔记</a>
-            </h1>
-        </header>
-        <date class="post-meta meta-date">
-            2019年5月23日
-        </date>
-        
-        <div class="post-meta">
-            <span>|</span>
-            
-            <span class="meta-category"><a href='https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95'>算法</a></span>
-            
-        </div>
-        
-        <div class="post-content">
-            <p>记录一下几个比较经典的算法。</p>……
-        </div>
-        <p class="readmore"><a href="https://blog.shaobo.fun/posts/2019/20190523-algorithmNote/">阅读全文</a></p>
-    </article>
-    
-    
-    
 
 
 
@@ -331,7 +356,15 @@
         <a href="https://blog.shaobo.fun/posts/page/6/">6</a>
     </li>
     
+    <li >
+        <a href="https://blog.shaobo.fun/posts/page/7/">7</a>
+    </li>
+    
 
+    
+    <li class="next">
+        <a href="https://blog.shaobo.fun/posts/page/7/">下一页</a>
+    </li>
     
 </ol>
 
@@ -376,6 +409,14 @@
 <ul class="widget-list">
     
     <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210422-blockchain-tutorial-part2/" title="用少于200行的代码编写一个自己的区块链(二)">用少于200行的代码编写一个自己的区块链(二)</a>
+    </li>
+    
+    <li>
+        <a href="https://blog.shaobo.fun/posts/2021/20210422-blockchain-tutorial-part1/" title="用少于200行的代码编写一个自己的区块链(一)">用少于200行的代码编写一个自己的区块链(一)</a>
+    </li>
+    
+    <li>
         <a href="https://blog.shaobo.fun/posts/2021/20210326-golang-reflect/" title="Golang 反射">Golang 反射</a>
     </li>
     
@@ -405,14 +446,6 @@
     
     <li>
         <a href="https://blog.shaobo.fun/posts/2020/20201120-city-coordinate/" title="中国主要城市经纬度">中国主要城市经纬度</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.shaobo.fun/posts/2020/20201109-linux-command/" title="Linux常用命令(持续更新)">Linux常用命令(持续更新)</a>
-    </li>
-    
-    <li>
-        <a href="https://blog.shaobo.fun/posts/2020/20201109-docker-resource-limit/" title="Docker资源限制">Docker资源限制</a>
     </li>
     
 </ul>
@@ -473,6 +506,10 @@
     </li>
     
     <li>
+        <a href="https://blog.shaobo.fun/categories/%E7%94%A8%E5%B0%91%E4%BA%8E200%E8%A1%8C%E7%9A%84%E4%BB%A3%E7%A0%81%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE/">用少于200行的代码编写一个自己的区块链(2)</a>
+    </li>
+    
+    <li>
         <a href="https://blog.shaobo.fun/categories/%E7%AE%97%E6%B3%95/">算法(5)</a>
     </li>
     
@@ -492,6 +529,8 @@
     <a href="https://blog.shaobo.fun/tags/Docker/">Docker</a>
     
     <a href="https://blog.shaobo.fun/tags/Git/">Git</a>
+    
+    <a href="https://blog.shaobo.fun/tags/Go/">Go</a>
     
     <a href="https://blog.shaobo.fun/tags/Graph/">Graph</a>
     
@@ -532,6 +571,8 @@
     <a href="https://blog.shaobo.fun/tags/Vim/">Vim</a>
     
     <a href="https://blog.shaobo.fun/tags/algorithm/">algorithm</a>
+    
+    <a href="https://blog.shaobo.fun/tags/blockchain/">blockchain</a>
     
     <a href="https://blog.shaobo.fun/tags/c&#43;&#43;/">c&#43;&#43;</a>
     
